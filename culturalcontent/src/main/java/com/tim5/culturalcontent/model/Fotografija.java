@@ -3,25 +3,36 @@ package com.tim5.culturalcontent.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Fotografija")
 public class Fotografija {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(name = "naziv")
     private String naziv;
 
-    @Column
+    @Column(name = "lokacija fajla")
     private String lokacijaFajl;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "Kulturna ponuda", nullable = true)
+    private KulturnaPonuda kulturnaPonuda;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "Komentar", nullable = true)
+    private Komentar komentar;
 
     public Fotografija() {
     }
 
-    public Fotografija(Integer id, String naziv, String lokacijaFajl) {
+    public Fotografija(Integer id, String naziv, String lokacijaFajl, KulturnaPonuda kulturnaPonuda, Komentar komentar) {
         this.id = id;
         this.naziv = naziv;
         this.lokacijaFajl = lokacijaFajl;
+        this.kulturnaPonuda = kulturnaPonuda;
+        this.komentar = komentar;
     }
 
     public Integer getId() {
@@ -46,5 +57,21 @@ public class Fotografija {
 
     public void setLokacijaFajl(String lokacijaFajl) {
         this.lokacijaFajl = lokacijaFajl;
+    }
+
+    public void setKulturnaPonuda(KulturnaPonuda kulturnaPonuda) {
+        this.kulturnaPonuda = kulturnaPonuda;
+    }
+
+    public void setKomentar(Komentar komentar) {
+        this.komentar = komentar;
+    }
+
+    public KulturnaPonuda getKulturnaPonuda() {
+        return kulturnaPonuda;
+    }
+
+    public Komentar getKomentar() {
+        return komentar;
     }
 }
