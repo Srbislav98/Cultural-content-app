@@ -1,4 +1,4 @@
-package com.tim5.culturalcontent.service;
+/*package com.tim5.culturalcontent.service;
 
 import com.tim5.culturalcontent.model.Admin;
 import com.tim5.culturalcontent.repository.AdminRepository;
@@ -35,4 +35,4 @@ public class AdminService implements ServiceInterface<Admin>{
         Admin admin = adminRepository.findById(id).orElse(null);
         adminRepository.delete(admin);
     }
-}
+}*/
