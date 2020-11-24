@@ -5,7 +5,7 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-//@Table(name= "REGISTROVANI_KORISNICI")
+@Table(name= "REGISTROVANI_KORISNICI")
 public class RegistrovaniKorisnik extends Korisnik {
     public RegistrovaniKorisnik() {
     }
