@@ -1,7 +1,7 @@
-/*package com.tim5.culturalcontent.service;
+package com.kts.cultural_content.service;
 
-import com.tim5.culturalcontent.model.Admin;
-import com.tim5.culturalcontent.repository.AdminRepository;
+import com.kts.cultural_content.model.Admin;
+import com.kts.cultural_content.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -35,4 +35,4 @@ public class AdminService implements ServiceInterface<Admin>{
         Admin admin = adminRepository.findById(id).orElse(null);
         adminRepository.delete(admin);
     }
-}*/
+}
