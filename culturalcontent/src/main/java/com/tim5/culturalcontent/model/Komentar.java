@@ -1,6 +1,8 @@
 package com.tim5.culturalcontent.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Komentar")
@@ -19,6 +21,9 @@ public class Komentar {
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn(name = "Kulturna ponuda", nullable = false)
     private KulturnaPonuda kulturnaPonuda;
+
+    @OneToMany(mappedBy = "komentar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Fotografija> fotogrfija = new HashSet<>();
 
     public Komentar(Integer id, String vrednost, RegistrovaniKorisnik registrovaniKorisnik, KulturnaPonuda kulturnaPonuda) {
         this.id = id;
@@ -60,5 +65,13 @@ public class Komentar {
 
     public KulturnaPonuda getKulturnaPonuda() {
         return kulturnaPonuda;
+    }
+
+    public void setFotogrfija(Set<Fotografija> fotogrfija) {
+        this.fotogrfija = fotogrfija;
+    }
+
+    public Set<Fotografija> getFotogrfija() {
+        return fotogrfija;
     }
 }
