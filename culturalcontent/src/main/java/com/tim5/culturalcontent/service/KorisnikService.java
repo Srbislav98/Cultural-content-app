@@ -11,7 +11,7 @@ public class KorisnikService implements ServiceInterface<Korisnik> {
     }
 
     @Override
-    public Korisnik findOne(Long id) {
+    public Korisnik findOne(Integer id) {
         return null;
     }
 
@@ -21,12 +21,12 @@ public class KorisnikService implements ServiceInterface<Korisnik> {
     }
 
     @Override
-    public Korisnik update(Korisnik entity, Long id) throws Exception {
+    public Korisnik update(Korisnik entity, Integer id) throws Exception {
         return null;
     }
 
     @Override
-    public void delete(Long id) throws Exception {
+    public void delete(Integer id) throws Exception {
 
     }
 }

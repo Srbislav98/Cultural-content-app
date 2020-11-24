@@ -6,11 +6,11 @@ public interface ServiceInterface<T> {
 
     List<T> findAll();
 
-    T findOne(Long id);
+    T findOne(Integer id);
 
     T create(T entity) throws Exception;
 
-    T update(T entity, Long id) throws Exception;
+    T update(T entity, Integer id) throws Exception;
 
-    void delete(Long id) throws Exception;
+    void delete(Integer id) throws Exception;
 }

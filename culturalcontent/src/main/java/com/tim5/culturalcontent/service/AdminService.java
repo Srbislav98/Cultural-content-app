@@ -16,7 +16,7 @@ public class AdminService implements ServiceInterface<Admin>{
     }
 
     @Override
-    public Admin findOne(Long id) {
+    public Admin findOne(Integer id) {
         return adminRepository.findById(id).orElse(null);
     }
 
@@ -26,12 +26,12 @@ public class AdminService implements ServiceInterface<Admin>{
     }
 
     @Override
-    public Admin update(Admin entity, Long id) throws Exception {
+    public Admin update(Admin entity, Integer id) throws Exception {
         return null;
     }
 
     @Override
-    public void delete(Long id) throws Exception {
+    public void delete(Integer id) throws Exception {
         Admin admin = adminRepository.findById(id).orElse(null);
         adminRepository.delete(admin);
     }

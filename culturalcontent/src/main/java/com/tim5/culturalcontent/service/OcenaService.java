@@ -11,7 +11,7 @@ public class OcenaService implements ServiceInterface<Ocena> {
     }
 
     @Override
-    public Ocena findOne(Long id) {
+    public Ocena findOne(Integer id) {
         return null;
     }
 
@@ -21,12 +21,12 @@ public class OcenaService implements ServiceInterface<Ocena> {
     }
 
     @Override
-    public Ocena update(Ocena entity, Long id) throws Exception {
+    public Ocena update(Ocena entity, Integer id) throws Exception {
         return null;
     }
 
     @Override
-    public void delete(Long id) throws Exception {
+    public void delete(Integer id) throws Exception {
 
     }
 }

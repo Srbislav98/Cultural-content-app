@@ -11,7 +11,7 @@ public class KomentarService implements ServiceInterface<Komentar> {
     }
 
     @Override
-    public Komentar findOne(Long id) {
+    public Komentar findOne(Integer id) {
         return null;
     }
 
@@ -21,12 +21,12 @@ public class KomentarService implements ServiceInterface<Komentar> {
     }
 
     @Override
-    public Komentar update(Komentar entity, Long id) throws Exception {
+    public Komentar update(Komentar entity, Integer id) throws Exception {
         return null;
     }
 
     @Override
-    public void delete(Long id) throws Exception {
+    public void delete(Integer id) throws Exception {
 
     }
 }

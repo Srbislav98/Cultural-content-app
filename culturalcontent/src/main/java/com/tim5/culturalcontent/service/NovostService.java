@@ -11,7 +11,7 @@ public class NovostService  implements ServiceInterface<Novost> {
     }
 
     @Override
-    public Novost findOne(Long id) {
+    public Novost findOne(Integer id) {
         return null;
     }
 
@@ -21,12 +21,12 @@ public class NovostService  implements ServiceInterface<Novost> {
     }
 
     @Override
-    public Novost update(Novost entity, Long id) throws Exception {
+    public Novost update(Novost entity, Integer id) throws Exception {
         return null;
     }
 
     @Override
-    public void delete(Long id) throws Exception {
+    public void delete(Integer id) throws Exception {
 
     }
 }

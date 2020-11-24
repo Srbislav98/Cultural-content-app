@@ -11,7 +11,7 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
     }
 
     @Override
-    public Fotografija findOne(Long id) {
+    public Fotografija findOne(Integer id) {
         return null;
     }
 
@@ -21,12 +21,12 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
     }
 
     @Override
-    public Fotografija update(Fotografija entity, Long id) throws Exception {
+    public Fotografija update(Fotografija entity, Integer id) throws Exception {
         return null;
     }
 
     @Override
-    public void delete(Long id) throws Exception {
+    public void delete(Integer id) throws Exception {
 
     }
 }
