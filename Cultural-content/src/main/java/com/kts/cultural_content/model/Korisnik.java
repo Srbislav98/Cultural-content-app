@@ -26,23 +26,21 @@ public abstract class Korisnik {
     @Column(nullable=false)
     private String lozinka;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    //@JoinTable(name = "user_authority",
-    //        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-    //        inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
-    private List<Uloga> uloge;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn( nullable = false)
+    private Uloga uloga;
 
     public Korisnik() {
     }
 
-    public Korisnik(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, List<Uloga> uloge) {
+    public Korisnik(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, Uloga uloga) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
         this.email = email;
         this.lozinka = lozinka;
-        this.uloge = uloge;
+        this.uloga = uloga;
     }
 
     public Integer getId() {
@@ -93,11 +91,11 @@ public abstract class Korisnik {
         this.ime = ime;
     }
 
-    public List<Uloga> getUloge() {
-        return uloge;
+    public Uloga getUloga() {
+        return uloga;
     }
 
-    public void setUloge(List<Uloga> uloge) {
-        this.uloge = uloge;
+    public void setUloga(Uloga uloga) {
+        this.uloga = uloga;
     }
 }
