@@ -1,7 +1,9 @@
 package com.kts.cultural_content.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
@@ -13,12 +15,24 @@ public abstract class TipKulturnePonude {
     @Column(nullable=false, unique = true)
     private String naziv;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<KulturnaPonuda> kulturnaPonudas = new HashSet<>();
+
     public TipKulturnePonude() {
     }
 
     public TipKulturnePonude(Integer id, String naziv) {
         this.id = id;
         this.naziv = naziv;
+        kulturnaPonudas = new HashSet<>();
+    }
+
+    public Set<KulturnaPonuda> getKulturnaPonudas() {
+        return kulturnaPonudas;
+    }
+
+    public void setKulturnaPonudas(Set<KulturnaPonuda> kulturnaPonudas) {
+        this.kulturnaPonudas = kulturnaPonudas;
     }
 
     public Integer getId() {
