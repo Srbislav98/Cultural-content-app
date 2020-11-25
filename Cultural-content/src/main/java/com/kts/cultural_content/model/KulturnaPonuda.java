@@ -40,7 +40,14 @@ public abstract class KulturnaPonuda {
     @JoinColumn( nullable = false)
     private TipKulturnePonude tipKulturnePonude;
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToMany(  cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinTable(
+            joinColumns = {
+                    @JoinColumn(
+                            nullable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            nullable = false)})
     private List<RegistrovaniKorisnik> registrovaniKorisnik;
 
     public KulturnaPonuda() {
