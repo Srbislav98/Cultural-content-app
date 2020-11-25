@@ -15,7 +15,7 @@ public abstract class TipKulturnePonude {
     @Column(nullable=false, unique = true)
     private String naziv;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tipKulturnePonude", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<KulturnaPonuda> kulturnaPonudas = new HashSet<>();
 
     public TipKulturnePonude() {
