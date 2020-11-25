@@ -1,94 +1,46 @@
 package com.kts.cultural_content.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-
+//@Table(name= "KORISNICI")
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
-public abstract class KulturnaPonuda {
+public abstract class Korisnik {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//@Column(nullable=false, unique = true)//
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable=false, unique = true)
-    private String naziv;
+    @Column(nullable=false)
+    private String ime;
 
     @Column(nullable=false)
-    private String geoSirina;
+    private String prezime;
+
+    @Column(nullable=false,unique = true)
+    private String korisnickoIme;
+
+    @Column(nullable=false,unique = true)
+    private String email;
 
     @Column(nullable=false)
-    private String geoDuzina;
-
-    @Column(nullable=false)
-    private String adresa;
-
-    @Column(nullable=false)
-    private String opis;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Fotografija> fotogrfija = new HashSet<>();
+    private String lozinka;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn( nullable = false)
-    private Admin admin;
+    private Uloga uloga;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = false)
-    private TipKulturnePonude tipKulturnePonude;
-
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    private List<RegistrovaniKorisnik> registrovaniKorisnik;
-
-    public KulturnaPonuda() {
+    public Korisnik() {
     }
 
-    public Admin getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
-    }
-
-    public TipKulturnePonude getTipKulturnePonude() {
-        return tipKulturnePonude;
-    }
-
-    public void setTipKulturnePonude(TipKulturnePonude tipKulturnePonude) {
-        this.tipKulturnePonude = tipKulturnePonude;
-    }
-
-    public List<RegistrovaniKorisnik> getRegistrovaniKorisnik() {
-        return registrovaniKorisnik;
-    }
-
-    public void setRegistrovaniKorisnik(List<RegistrovaniKorisnik> registrovaniKorisnik) {
-        this.registrovaniKorisnik = registrovaniKorisnik;
-    }
-
-    public Set<Fotografija> getFotogrfija() {
-        return fotogrfija;
-    }
-
-    public void setFotogrfija(Set<Fotografija> fotogrfija) {
-        this.fotogrfija = fotogrfija;
-    }
-
-    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Admin admin, TipKulturnePonude tipKulturnePonude) {
+    public Korisnik(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, Uloga uloga) {
         this.id = id;
-        this.naziv = naziv;
-        this.geoSirina = geoSirina;
-        this.geoDuzina = geoDuzina;
-        this.adresa = adresa;
-        this.opis = opis;
-        this.admin = admin;
-        this.tipKulturnePonude = tipKulturnePonude;
-        this.fotogrfija = new HashSet<>();
-        this.registrovaniKorisnik = new ArrayList<RegistrovaniKorisnik>();
+        this.ime = ime;
+        this.prezime = prezime;
+        this.korisnickoIme = korisnickoIme;
+        this.email = email;
+        this.lozinka = lozinka;
+        this.uloga = uloga;
     }
 
     public Integer getId() {
@@ -99,43 +51,51 @@ public abstract class KulturnaPonuda {
         this.id = id;
     }
 
-    public String getNaziv() {
-        return naziv;
+    public String getLozinka() {
+        return lozinka;
     }
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
+    public void setLozinka(String lozinka) {
+        this.lozinka = lozinka;
     }
 
-    public String getGeoSirina() {
-        return geoSirina;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGeoSirina(String geoSirina) {
-        this.geoSirina = geoSirina;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getGeoDuzina() {
-        return geoDuzina;
+    public String getKorisnickoIme() {
+        return korisnickoIme;
     }
 
-    public void setGeoDuzina(String geoDuzina) {
-        this.geoDuzina = geoDuzina;
+    public void setKorisnickoIme(String korisnickoIme) {
+        this.korisnickoIme = korisnickoIme;
     }
 
-    public String getAdresa() {
-        return adresa;
+    public String getPrezime() {
+        return prezime;
     }
 
-    public void setAdresa(String adresa) {
-        this.adresa = adresa;
+    public void setPrezime(String prezime) {
+        this.prezime = prezime;
     }
 
-    public String getOpis() {
-        return opis;
+    public String getIme() {
+        return ime;
     }
 
-	public void setOpis(String opis) {
-        this.opis = opis;
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
+    public Uloga getUloga() {
+        return uloga;
+    }
+
+    public void setUloga(Uloga uloga) {
+        this.uloga = uloga;
     }
 }
