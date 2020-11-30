@@ -1,5 +1,7 @@
 package com.kts.cultural_content.model;
 
+import com.kts.cultural_content.dto.UlogaDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,15 @@ public class Uloga {
 
     @Column
     private String ime;
+
+    public Uloga(UlogaDTO uloga) {
+        this.id=uloga.getId();
+        this.ime=uloga.getIme();
+    }
+
+    public Uloga() {
+
+    }
 
     public Integer getId() {
         return id;

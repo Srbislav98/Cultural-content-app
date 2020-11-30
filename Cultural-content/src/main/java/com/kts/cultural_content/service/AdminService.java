@@ -3,9 +3,10 @@ package com.kts.cultural_content.service;
 import com.kts.cultural_content.model.Admin;
 import com.kts.cultural_content.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class AdminService implements ServiceInterface<Admin>{
     @Autowired
     private AdminRepository adminRepository;

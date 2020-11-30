@@ -1,5 +1,7 @@
 package com.kts.cultural_content.model;
 
+import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -41,6 +43,16 @@ public abstract class Korisnik {
         this.email = email;
         this.lozinka = lozinka;
         this.uloga = uloga;
+    }
+
+    public Korisnik(RegistrovaniKorisnikDTO rk) {
+        this.id = rk.getId();
+        this.ime = rk.getIme();
+        this.prezime = rk.getPrezime();
+        this.korisnickoIme = rk.getKorisnickoIme();
+        this.email = rk.getEmail();
+        this.lozinka = rk.getLozinka();
+        this.uloga = new Uloga(rk.getUloga());
     }
 
     public Integer getId() {
