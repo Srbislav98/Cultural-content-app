@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
-public abstract class KulturnaPonuda {
+public class KulturnaPonuda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//@Column(nullable=false, unique = true)//
     private Integer id;
