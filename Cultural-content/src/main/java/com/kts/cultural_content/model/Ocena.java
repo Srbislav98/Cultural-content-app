@@ -24,8 +24,8 @@ public class Ocena {
     public Ocena() {
     }
 
-    public Ocena(Integer id, Integer vrednost, RegistrovaniKorisnik registrovaniKorisnik, KulturnaPonuda kulturnaPonuda) {
-        this.id = id;
+    public Ocena(Integer vrednost, RegistrovaniKorisnik registrovaniKorisnik, KulturnaPonuda kulturnaPonuda) {
+
         this.vrednost = vrednost;
         this.registrovaniKorisnik = registrovaniKorisnik;
         this.kulturnaPonuda = kulturnaPonuda;
