@@ -52,7 +52,7 @@ public abstract class Korisnik {
         this.korisnickoIme = rk.getKorisnickoIme();
         this.email = rk.getEmail();
         this.lozinka = rk.getLozinka();
-        this.uloga = new Uloga(rk.getUloga());
+
     }
 
     public Integer getId() {
