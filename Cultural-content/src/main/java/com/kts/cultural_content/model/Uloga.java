@@ -15,13 +15,11 @@ public class Uloga {
     @Column
     private String ime;
 
-    public Uloga(UlogaDTO uloga) {
-        this.id=uloga.getId();
-        this.ime=uloga.getIme();
-    }
-
     public Uloga() {
 
+    }
+
+    public Uloga(Integer id, String ime) {
     }
 
     public Integer getId() {

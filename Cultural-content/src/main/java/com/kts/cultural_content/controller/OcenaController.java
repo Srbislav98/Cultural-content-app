@@ -1,7 +1,7 @@
 package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.OcenaDTO;
-import com.kts.cultural_content.helper.OcenaMapper;
+import com.kts.cultural_content.mapper.OcenaMapper;
 import com.kts.cultural_content.model.Ocena;
 import com.kts.cultural_content.service.OcenaService;
 import org.springframework.beans.factory.annotation.Autowired;

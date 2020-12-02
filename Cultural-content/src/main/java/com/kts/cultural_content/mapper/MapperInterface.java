@@ -1,4 +1,4 @@
-package com.kts.cultural_content.helper;
+package com.kts.cultural_content.mapper;
 
 public interface MapperInterface<T,U> {
 

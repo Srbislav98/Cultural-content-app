@@ -1,8 +1,7 @@
-package com.kts.cultural_content.helper;
+package com.kts.cultural_content.mapper;
 
 import com.kts.cultural_content.dto.OcenaDTO;
 import com.kts.cultural_content.model.Ocena;
-import com.kts.cultural_content.helper.MapperInterface;
 
 public class OcenaMapper implements MapperInterface<Ocena, OcenaDTO> {
 
