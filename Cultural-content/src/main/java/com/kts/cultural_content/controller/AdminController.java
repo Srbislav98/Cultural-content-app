@@ -21,18 +21,4 @@ import java.util.List;
 @RequestMapping(value = "/api/admins", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
-
-    @GetMapping
-    public ResponseEntity<AdminDTO> getAdmin() {
-        List<Admin> admins= adminService.findAll();
-        if (admins == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        AdminDTO k = new AdminDTO(admins.get(0));
-        return new ResponseEntity<AdminDTO>(k, HttpStatus.OK);
-
-    }
-
 }
