@@ -26,8 +26,8 @@ public class Fotografija {
     public Fotografija() {
     }
 
-    public Fotografija(Integer id, String naziv, String lokacijaFajl, KulturnaPonuda kulturnaPonuda, Komentar komentar) {
-        this.id = id;
+    public Fotografija( String naziv, String lokacijaFajl, KulturnaPonuda kulturnaPonuda, Komentar komentar) {
+
         this.naziv = naziv;
         this.lokacijaFajl = lokacijaFajl;
         this.kulturnaPonuda = kulturnaPonuda;

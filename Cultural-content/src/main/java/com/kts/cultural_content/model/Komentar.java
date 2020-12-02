@@ -25,11 +25,12 @@ public class Komentar {
     @OneToMany(mappedBy = "komentar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Fotografija> fotogrfija = new HashSet<>();
 
-    public Komentar(Integer id, String vrednost, RegistrovaniKorisnik registrovaniKorisnik, KulturnaPonuda kulturnaPonuda) {
-        this.id = id;
+    public Komentar( String vrednost, RegistrovaniKorisnik registrovaniKorisnik, KulturnaPonuda kulturnaPonuda, Set<Fotografija> fotografija) {
+
         this.vrednost = vrednost;
         this.registrovaniKorisnik = registrovaniKorisnik;
         this.kulturnaPonuda = kulturnaPonuda;
+        this.fotogrfija = fotografija;
     }
 
     public Komentar() {
