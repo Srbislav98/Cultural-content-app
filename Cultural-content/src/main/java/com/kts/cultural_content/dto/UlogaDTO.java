@@ -20,11 +20,6 @@ public class UlogaDTO {
         this.ime = ime;
     }
 
-    public UlogaDTO(Uloga uloga) {
-        this.id=uloga.getId();
-        this.ime=uloga.getIme();
-    }
-
     public Integer getId() {
         return id;
     }
