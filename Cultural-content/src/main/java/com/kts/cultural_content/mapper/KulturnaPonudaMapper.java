@@ -1,6 +1,6 @@
 package com.kts.cultural_content.mapper;
 import com.kts.cultural_content.dto.KulturnaPonudaDTO;
-import com.kts.cultural_content.helper.MapperInterface;
+import com.kts.cultural_content.mapper.MapperInterface;
 import com.kts.cultural_content.model.KulturnaPonuda;
 
 public class KulturnaPonudaMapper implements MapperInterface<KulturnaPonuda, KulturnaPonudaDTO> {
