@@ -1,8 +1,10 @@
 package com.kts.cultural_content.controller;
 
+import com.kts.cultural_content.dto.NovostDTO;
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.mapper.AdminMapper;
 import com.kts.cultural_content.mapper.RegistrovaniKorisnikMapper;
+import com.kts.cultural_content.model.Novost;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.service.RegistrovaniKorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,36 +45,43 @@ public class RegistrovaniKorisnikController {
         }
         RegistrovaniKorisnikDTO k = rkMapper.toDto(rk);
         return new ResponseEntity<RegistrovaniKorisnikDTO>(k, HttpStatus.OK);
+    }
 
-    }
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteRegistrovaniKorisnik(@PathVariable Integer id) throws Exception {
-        RegistrovaniKorisnik rk= rkService.findOne(id);
-        if (rk == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        rkService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-    @PutMapping(value="/izmeni",consumes = "application/json")
-    public ResponseEntity<RegistrovaniKorisnikDTO> updateRegistrovaniKorisnik(@RequestBody RegistrovaniKorisnikDTO rk) {
-        RegistrovaniKorisnik k=rkService.findOne(rk.getId());
-        if (k == null) {
+    @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RegistrovaniKorisnikDTO> createRegistrovaniKorisnik(@RequestBody RegistrovaniKorisnikDTO rkDTO){
+        RegistrovaniKorisnik registrovaniKorisnik;
+        try {
+            registrovaniKorisnik = rkService.create(rkMapper.toEntity(rkDTO));
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        k.setIme(rk.getIme());
-        k.setPrezime(rk.getPrezime());
-        k.setLozinka(rk.getLozinka());
-        k=rkService.save(k);
-        return new ResponseEntity<RegistrovaniKorisnikDTO>(rkMapper.toDto(k), HttpStatus.OK);
 
-    }
-    @PostMapping(value="/dodaj",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RegistrovaniKorisnikDTO> login(@RequestBody RegistrovaniKorisnikDTO rk){
-        rkService.addRegistrovanKorisnik(rk);
-        return new ResponseEntity<RegistrovaniKorisnikDTO>(rk, HttpStatus.OK);
+        return new ResponseEntity<>(rkMapper.toDto(registrovaniKorisnik), HttpStatus.CREATED);
     }
 
+    @RequestMapping(value="/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RegistrovaniKorisnikDTO> updateRegistrovaniKorisnik(
+            @RequestBody RegistrovaniKorisnikDTO rkDTO, @PathVariable Integer id){
+        RegistrovaniKorisnik registrovaniKorisnik;
+        try {
+            registrovaniKorisnik = rkService.update(rkMapper.toEntity(rkDTO), id);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(rkMapper.toDto(registrovaniKorisnik), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteRegistrovaniKorisnik(@PathVariable Integer id){
+        try {
+            rkService.delete(id);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 }

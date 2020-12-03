@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class AdminService implements ServiceInterface<Admin>{
     @Autowired
@@ -23,17 +24,34 @@ public class AdminService implements ServiceInterface<Admin>{
 
     @Override
     public Admin create(Admin admin) throws Exception {
+        if(adminRepository.findByKorisnickoIme(admin.getKorisnickoIme()) != null) {
+            throw new Exception("Admin with given username already exists");
+        }
         return adminRepository.save(admin);
     }
 
     @Override
     public Admin update(Admin entity, Integer id) throws Exception {
-        return null;
+        Admin existingAdmin = adminRepository.findById(id).orElse(null);
+        if(existingAdmin == null){
+            throw new Exception("Admin with given id doesn't exist");
+        }
+        existingAdmin.setKorisnickoIme(entity.getKorisnickoIme());
+        existingAdmin.setIme(entity.getIme());
+        existingAdmin.setPrezime(entity.getPrezime());
+        existingAdmin.setEmail(entity.getEmail());
+        if(adminRepository.findByKorisnickoImeAndIdNot(existingAdmin.getKorisnickoIme(), id) != null) {
+            throw new Exception("Admin with given username already exists");
+        }
+        return adminRepository.save(existingAdmin);
     }
 
     @Override
     public void delete(Integer id) throws Exception {
-        Admin admin = adminRepository.findById(id).orElse(null);
-        adminRepository.delete(admin);
+        Admin existingAdmin = adminRepository.findById(id).orElse(null);
+        if(existingAdmin == null){
+            throw new Exception("Admin with given id doesn't exist");
+        }
+        adminRepository.delete(existingAdmin);
     }
 }

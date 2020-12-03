@@ -27,7 +27,7 @@ public class AdminController {
     private AdminMapper adminMapper;
 
     @GetMapping
-    public ResponseEntity<AdminDTO> getAdmin() {
+    public ResponseEntity<AdminDTO> getAllAdmins() {
         List<Admin> admins= adminService.findAll();
         if (admins == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
