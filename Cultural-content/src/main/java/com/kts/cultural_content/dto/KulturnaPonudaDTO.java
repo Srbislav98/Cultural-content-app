@@ -35,7 +35,7 @@ public class KulturnaPonudaDTO {
         this.registrovaniKorisnik = k.registrovaniKorisnik;
     }
 
-    public KulturnaPonudaDTO(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Admin admin) {
+    public KulturnaPonudaDTO(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Admin admin, TipKulturnePonude tipKulturnePonude) {
         this.id = id;
         this.naziv = naziv;
         this.geoSirina = geoSirina;

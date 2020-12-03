@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
-public abstract class TipKulturnePonude {
+public class TipKulturnePonude {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//@Column(nullable=false, unique = true)//
     private Integer id;
