@@ -48,6 +48,14 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
 
     @Override
     public void delete(Integer id) throws Exception {
+        KulturnaPonuda existingKulturnaPonuda = oRepository.findById(id).orElse(null);
+        if (existingKulturnaPonuda == null){
+            throw new Exception("KulturnaPonuda with given id doesn't exist");
+        }
+        oRepository.delete(existingKulturnaPonuda);
+    }
 
+    public KulturnaPonuda save(KulturnaPonuda k){
+        return oRepository.save(k);
     }
 }
