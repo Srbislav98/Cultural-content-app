@@ -182,4 +182,12 @@ public class KulturnaPonuda {
     public void setOpis(String opis) {
         this.opis = opis;
     }
+
+    public Double prosecnaOcena(){
+        Double d = 0.0;
+        for (Ocena i : this.getOcene()){
+            d += i.getVrednost();
+        }
+        return d;
+    }
 }

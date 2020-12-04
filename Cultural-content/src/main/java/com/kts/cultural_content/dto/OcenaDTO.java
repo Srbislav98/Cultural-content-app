@@ -1,7 +1,6 @@
 package com.kts.cultural_content.dto;
 
-import com.kts.cultural_content.model.KulturnaPonuda;
-import com.kts.cultural_content.model.RegistrovaniKorisnik;
+
 
 public class OcenaDTO {
 

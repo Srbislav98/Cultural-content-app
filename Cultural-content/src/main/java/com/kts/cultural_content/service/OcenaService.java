@@ -1,9 +1,13 @@
 package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.dto.OcenaDTO;
+import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Ocena;
+import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.OcenaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +16,15 @@ public class OcenaService implements ServiceInterface<Ocena> {
 
     @Autowired
     private OcenaRepository oRepository;
+    private KulturnaPonudaRepository kulturnaPonudaRepository;
 
     @Override
     public List<Ocena> findAll() {
         return oRepository.findAll();
+    }
+
+    public Page<Ocena> findAll(Pageable pageable) {
+        return oRepository.findAll(pageable);
     }
 
     @Override
@@ -25,6 +34,15 @@ public class OcenaService implements ServiceInterface<Ocena> {
 
     @Override
     public Ocena create(Ocena entity) throws Exception {
+        if (entity.getVrednost()<1 || entity.getVrednost()>5)
+            return new Ocena(-1);
+        if (entity.getKulturnaPonuda()!=null) {
+            KulturnaPonuda k = kulturnaPonudaRepository.findById(entity.getKulturnaPonuda().getId()).orElse(null);
+            if (k != null) {
+                k.getOcene().add(entity);
+                kulturnaPonudaRepository.save(k);
+            }
+        }
         return oRepository.save(entity);
     }
 

@@ -4,6 +4,8 @@ import com.kts.cultural_content.model.Komentar;
 import com.kts.cultural_content.model.Ocena;
 import com.kts.cultural_content.repository.KomentarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,10 @@ public class KomentarService implements ServiceInterface<Komentar> {
     @Override
     public List<Komentar> findAll() {
         return komentarRepository.findAll();
+    }
+
+    public Page<Komentar> findAll(Pageable pageable) {
+        return komentarRepository.findAll(pageable);
     }
 
     @Override

@@ -8,6 +8,9 @@ import com.kts.cultural_content.model.Komentar;
 import com.kts.cultural_content.model.Ocena;
 import com.kts.cultural_content.service.KomentarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +32,15 @@ public class KomentarController {
         List<Komentar> ocene = komentarService.findAll();
 
         return new ResponseEntity<>(tokomentarDTOList(ocene), HttpStatus.OK);
+    }
+
+    @RequestMapping(value= "/by-page",method = RequestMethod.GET)
+    public ResponseEntity<Page<KomentarDTO>> getAllOcenas(Pageable pageable) {
+        Page<Komentar> page = komentarService.findAll(pageable);
+        List<KomentarDTO> komentarDTOS = tokomentarDTOList(page.toList());
+        Page<KomentarDTO> pageKomentarDTOS = new PageImpl<>(komentarDTOS,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<>(pageKomentarDTOS, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
