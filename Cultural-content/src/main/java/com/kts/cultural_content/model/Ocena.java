@@ -14,11 +14,11 @@ public class Ocena {
     private Integer vrednost;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = false)
+    //@JoinColumn( nullable = false)
     private RegistrovaniKorisnik registrovaniKorisnik;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = false)
+    //@JoinColumn( nullable = false)
     private KulturnaPonuda kulturnaPonuda;
 
     public Ocena() {

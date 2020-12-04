@@ -31,7 +31,7 @@ public class OcenaController {
         return new ResponseEntity<>(toOcenaDTOList(ocene), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<OcenaDTO> getOcena(@PathVariable Integer id){
         Ocena ocena = ocenaService.findOne(id);
         if (ocena == null){
@@ -40,7 +40,7 @@ public class OcenaController {
         return new ResponseEntity<>(ocenaMapper.toDto(ocena), HttpStatus.OK);
     }
 
-    @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OcenaDTO> createOcena(@RequestBody OcenaDTO ocenaDTO){
         Ocena ocena;
         try {
@@ -52,7 +52,7 @@ public class OcenaController {
         return new ResponseEntity<>(ocenaMapper.toDto(ocena), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OcenaDTO> updateOcena(@RequestBody OcenaDTO ocenaDTO, @PathVariable Integer id){
         Ocena ocena;
         try {
@@ -64,7 +64,7 @@ public class OcenaController {
         return new ResponseEntity<>(ocenaMapper.toDto(ocena), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteOcena(@PathVariable Integer id){
         try {
             ocenaService.delete(id);

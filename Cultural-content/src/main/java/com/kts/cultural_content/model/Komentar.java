@@ -15,11 +15,11 @@ public class Komentar {
     private String vrednost;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = false)
+    //@JoinColumn( nullable = false)
     private RegistrovaniKorisnik registrovaniKorisnik;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = false)
+    //@JoinColumn( nullable = false)
     private KulturnaPonuda kulturnaPonuda;
 
     @OneToMany(mappedBy = "komentar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

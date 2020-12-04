@@ -40,6 +40,15 @@ public class KulturnaPonuda {
     @JoinColumn( nullable = false)
     private TipKulturnePonude tipKulturnePonude;
 
+    @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Ocena> ocene = new HashSet<>();
+
+    @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Komentar> komentari = new HashSet<>();
+
+    @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Novost> novosti = new HashSet<>();
+
     @ManyToMany(  cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinTable(
             joinColumns = {
@@ -85,17 +94,44 @@ public class KulturnaPonuda {
         this.fotogrfija = fotogrfija;
     }
 
-    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Admin admin, TipKulturnePonude tipKulturnePonude) {
+    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Set<Fotografija> fotogrfija, Admin admin, TipKulturnePonude tipKulturnePonude, Set<Ocena> ocene, Set<Komentar> komentari, Set<Novost> novosti, List<RegistrovaniKorisnik> registrovaniKorisnik) {
         this.id = id;
         this.naziv = naziv;
         this.geoSirina = geoSirina;
         this.geoDuzina = geoDuzina;
         this.adresa = adresa;
         this.opis = opis;
+        this.fotogrfija = fotogrfija;
         this.admin = admin;
         this.tipKulturnePonude = tipKulturnePonude;
-        this.fotogrfija = new HashSet<>();
-        this.registrovaniKorisnik = new ArrayList<RegistrovaniKorisnik>();
+        this.ocene = ocene;
+        this.komentari = komentari;
+        this.novosti = novosti;
+        this.registrovaniKorisnik = registrovaniKorisnik;
+    }
+
+    public void setOcene(Set<Ocena> ocene) {
+        this.ocene = ocene;
+    }
+
+    public void setKomentari(Set<Komentar> komentari) {
+        this.komentari = komentari;
+    }
+
+    public void setNovosti(Set<Novost> novosti) {
+        this.novosti = novosti;
+    }
+
+    public Set<Ocena> getOcene() {
+        return ocene;
+    }
+
+    public Set<Komentar> getKomentari() {
+        return komentari;
+    }
+
+    public Set<Novost> getNovosti() {
+        return novosti;
     }
 
     public Integer getId() {
