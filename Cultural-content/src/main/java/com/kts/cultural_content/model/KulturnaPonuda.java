@@ -1,5 +1,8 @@
 package com.kts.cultural_content.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,7 +53,8 @@ public class KulturnaPonuda {
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Novost> novosti = new HashSet<>();
 
-    @ManyToMany(  cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    //@LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             joinColumns = {
                     @JoinColumn(
@@ -58,7 +62,7 @@ public class KulturnaPonuda {
             inverseJoinColumns = {
                     @JoinColumn(
                             nullable = false)})
-    private List<RegistrovaniKorisnik> registrovaniKorisnik;
+    private Set<RegistrovaniKorisnik> registrovaniKorisnik;
 
     public KulturnaPonuda() {
     }
@@ -79,11 +83,11 @@ public class KulturnaPonuda {
         this.tipKulturnePonude = tipKulturnePonude;
     }
 
-    public List<RegistrovaniKorisnik> getRegistrovaniKorisnik() {
+    public Set<RegistrovaniKorisnik> getRegistrovaniKorisnik() {
         return registrovaniKorisnik;
     }
 
-    public void setRegistrovaniKorisnik(List<RegistrovaniKorisnik> registrovaniKorisnik) {
+    public void setRegistrovaniKorisnik(Set<RegistrovaniKorisnik> registrovaniKorisnik) {
         this.registrovaniKorisnik = registrovaniKorisnik;
     }
 
@@ -95,7 +99,7 @@ public class KulturnaPonuda {
         this.fotogrfija = fotogrfija;
     }
 
-    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Set<Fotografija> fotogrfija, Admin admin, TipKulturnePonude tipKulturnePonude, Set<Ocena> ocene, Set<Komentar> komentari, Set<Novost> novosti, List<RegistrovaniKorisnik> registrovaniKorisnik) {
+    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Set<Fotografija> fotogrfija, Admin admin, TipKulturnePonude tipKulturnePonude, Set<Ocena> ocene, Set<Komentar> komentari, Set<Novost> novosti, Set<RegistrovaniKorisnik> registrovaniKorisnik) {
         this.id = id;
         this.naziv = naziv;
         this.geoSirina = geoSirina;

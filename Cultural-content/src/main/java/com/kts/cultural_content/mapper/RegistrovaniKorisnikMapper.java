@@ -24,7 +24,6 @@ public class RegistrovaniKorisnikMapper implements MapperInterface<RegistrovaniK
     @Override
     public RegistrovaniKorisnik toEntity(RegistrovaniKorisnikDTO dto) {
         Set<KulturnaPonuda> kulturnaPonuda = new HashSet<>();
-        System.out.println(dto.getUloga().getId()+" "+dto.getUloga().getIme());
         if(!dto.getKulturnaPonuda().isEmpty()){
             for (KulturnaPonudaDTO kp:dto.getKulturnaPonuda()){
                 kulturnaPonuda.add(kulturnaPonudaMapper.toEntity(kp));
@@ -43,7 +42,7 @@ public class RegistrovaniKorisnikMapper implements MapperInterface<RegistrovaniK
             }
         }
         return new RegistrovaniKorisnik(dto.getId(),dto.getIme(), dto.getPrezime(),dto.getKorisnickoIme(),
-                dto.getEmail(), dto.getLozinka(), ulogaMapper.toEntity(dto.getUloga()),kulturnaPonuda,komentari,ocene);
+                dto.getEmail(), dto.getLozinka(),kulturnaPonuda,komentari,ocene);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class RegistrovaniKorisnikMapper implements MapperInterface<RegistrovaniK
             ocene.add(ocenaMapper.toDto(kp));
         }
         return new RegistrovaniKorisnikDTO(entity.getId(),entity.getIme(), entity.getPrezime(),entity.getKorisnickoIme(),
-                entity.getEmail(), entity.getLozinka(), ulogaMapper.toDto(entity.getUloga()),kulturnaPonuda,komentari,ocene);
+                entity.getEmail(), entity.getLozinka(),kulturnaPonuda,komentari,ocene);
     }
 
 }

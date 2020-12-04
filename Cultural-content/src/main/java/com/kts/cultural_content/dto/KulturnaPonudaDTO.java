@@ -18,7 +18,7 @@ public class KulturnaPonudaDTO {
     private Set<Fotografija> fotogrfija = new HashSet<>();
     private Admin admin;
     private TipKulturnePonude tipKulturnePonude;
-    private ArrayList<RegistrovaniKorisnik> registrovaniKorisnik = new ArrayList<>();
+    private Set<RegistrovaniKorisnik> registrovaniKorisnik = new HashSet<>();
     private Set<Ocena> ocene = new HashSet<>();
     private Set<Komentar> komentari = new HashSet<>();
     private Set<Novost> novosti = new HashSet<>();
@@ -41,7 +41,7 @@ public class KulturnaPonudaDTO {
         this.novosti = k.novosti;
     }
 
-    public KulturnaPonudaDTO(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Set<Fotografija> fotogrfija, Admin admin, TipKulturnePonude tipKulturnePonude, ArrayList<RegistrovaniKorisnik> registrovaniKorisnik, Set<Ocena> ocene, Set<Komentar> komentari, Set<Novost> novosti) {
+    public KulturnaPonudaDTO(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Set<Fotografija> fotogrfija, Admin admin, TipKulturnePonude tipKulturnePonude, Set<RegistrovaniKorisnik> registrovaniKorisnik, Set<Ocena> ocene, Set<Komentar> komentari, Set<Novost> novosti) {
         this.id = id;
         this.naziv = naziv;
         this.geoSirina = geoSirina;
@@ -57,7 +57,7 @@ public class KulturnaPonudaDTO {
         this.novosti = novosti;
     }
 
-    public void setRegistrovaniKorisnik(ArrayList<RegistrovaniKorisnik> registrovaniKorisnik) {
+    public void setRegistrovaniKorisnik(Set<RegistrovaniKorisnik> registrovaniKorisnik) {
         this.registrovaniKorisnik = registrovaniKorisnik;
     }
 
@@ -73,7 +73,7 @@ public class KulturnaPonudaDTO {
         this.novosti = novosti;
     }
 
-    public ArrayList<RegistrovaniKorisnik> getRegistrovaniKorisnik() {
+    public Set<RegistrovaniKorisnik> getRegistrovaniKorisnik() {
         return registrovaniKorisnik;
     }
 

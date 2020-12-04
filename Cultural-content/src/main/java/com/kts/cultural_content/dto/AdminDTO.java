@@ -10,8 +10,8 @@ public class AdminDTO extends KorisnikDTO {
     private Set<KulturnaPonudaDTO> kulturnePonude = new HashSet<>();
 
 
-    public AdminDTO(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, UlogaDTO uloga, Set<KulturnaPonudaDTO> kulturnePonude) {
-        super(id, ime, prezime, korisnickoIme, email, lozinka, uloga);
+    public AdminDTO(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, Set<KulturnaPonudaDTO> kulturnePonude) {
+        super(id, ime, prezime, korisnickoIme, email, lozinka);
         this.kulturnePonude = kulturnePonude;
     }
 
