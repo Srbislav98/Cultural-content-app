@@ -9,8 +9,7 @@ public class Fotografija {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
-    private String naziv;
+
 
     @Column
     private String lokacijaFajl;
@@ -37,9 +36,6 @@ public class Fotografija {
         return id;
     }
 
-    public String getNaziv() {
-        return naziv;
-    }
 
     public String getLokacijaFajl() {
         return lokacijaFajl;
@@ -49,9 +45,6 @@ public class Fotografija {
         this.id = id;
     }
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
-    }
 
     public void setLokacijaFajl(String lokacijaFajl) {
         this.lokacijaFajl = lokacijaFajl;

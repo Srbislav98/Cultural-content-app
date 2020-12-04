@@ -31,7 +31,7 @@ public class FotografijaController {
         return new ResponseEntity<>(toFotografijaDTOList(fotografijas), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<FotografijaDTO> getFotografija(@PathVariable Integer id){
         Fotografija fotografija = fotografijaService.findOne(id);
         if (fotografija == null){
@@ -40,7 +40,7 @@ public class FotografijaController {
         return new ResponseEntity<>(fotografijaMapper.toDto(fotografija), HttpStatus.OK);
     }
 
-    @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FotografijaDTO> createFotografija(@RequestBody FotografijaDTO fotografijaDTO){
         Fotografija fotografija;
         try {
@@ -52,7 +52,7 @@ public class FotografijaController {
         return new ResponseEntity<>(fotografijaMapper.toDto(fotografija), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FotografijaDTO> updateFotografija(@RequestBody FotografijaDTO fotografijaDTO, @PathVariable Integer id){
         Fotografija fotografija;
         try {
@@ -64,7 +64,7 @@ public class FotografijaController {
         return new ResponseEntity<>(fotografijaMapper.toDto(fotografija), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteFotografija(@PathVariable Integer id){
         try {
             fotografijaService.delete(id);

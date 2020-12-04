@@ -15,19 +15,32 @@ public class RegistrovaniKorisnikMapper implements MapperInterface<RegistrovaniK
     private KulturnaPonudaMapper kulturnaPonudaMapper;
     private KomentarMapper komentarMapper;
     private OcenaMapper ocenaMapper;
+    public RegistrovaniKorisnikMapper() {
+        ulogaMapper = new UlogaMapper();
+        kulturnaPonudaMapper=new KulturnaPonudaMapper();
+        komentarMapper=new KomentarMapper();
+        ocenaMapper=new OcenaMapper();
+    }
     @Override
     public RegistrovaniKorisnik toEntity(RegistrovaniKorisnikDTO dto) {
         Set<KulturnaPonuda> kulturnaPonuda = new HashSet<>();
-        for (KulturnaPonudaDTO kp:dto.getKulturnaPonuda()){
-            kulturnaPonuda.add(kulturnaPonudaMapper.toEntity(kp));
+        System.out.println(dto.getUloga().getId()+" "+dto.getUloga().getIme());
+        if(!dto.getKulturnaPonuda().isEmpty()){
+            for (KulturnaPonudaDTO kp:dto.getKulturnaPonuda()){
+                kulturnaPonuda.add(kulturnaPonudaMapper.toEntity(kp));
+            }
         }
         Set<Komentar> komentari = new HashSet<>();
-        for (KomentarDTO kp:dto.getKomentari()){
-            komentari.add(komentarMapper.toEntity(kp));
+        if(!dto.getKulturnaPonuda().isEmpty()) {
+            for (KomentarDTO kp : dto.getKomentari()) {
+                komentari.add(komentarMapper.toEntity(kp));
+            }
         }
         Set<Ocena> ocene = new HashSet<>();
-        for (OcenaDTO kp:dto.getOcene()){
-            ocene.add(ocenaMapper.toEntity(kp));
+        if(!dto.getKulturnaPonuda().isEmpty()) {
+            for (OcenaDTO kp : dto.getOcene()) {
+                ocene.add(ocenaMapper.toEntity(kp));
+            }
         }
         return new RegistrovaniKorisnik(dto.getId(),dto.getIme(), dto.getPrezime(),dto.getKorisnickoIme(),
                 dto.getEmail(), dto.getLozinka(), ulogaMapper.toEntity(dto.getUloga()),kulturnaPonuda,komentari,ocene);

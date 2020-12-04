@@ -31,7 +31,7 @@ public class KomentarController {
         return new ResponseEntity<>(tokomentarDTOList(ocene), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<KomentarDTO> getKomentar(@PathVariable Integer id){
         Komentar komentar = komentarService.findOne(id);
         if (komentar == null){
@@ -40,7 +40,7 @@ public class KomentarController {
         return new ResponseEntity<>(komentarMapper.toDto(komentar), HttpStatus.OK);
     }
 
-    @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KomentarDTO> createKomentar(@RequestBody KomentarDTO komentarDTO){
         Komentar komentar;
         try {
@@ -52,7 +52,7 @@ public class KomentarController {
         return new ResponseEntity<>(komentarMapper.toDto(komentar), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KomentarDTO> updateKomentar(@RequestBody KomentarDTO komentarDTO, @PathVariable Integer id){
         Komentar komentar;
         try {
@@ -64,7 +64,7 @@ public class KomentarController {
         return new ResponseEntity<>(komentarMapper.toDto(komentar), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteKomentar(@PathVariable Integer id){
         try {
             komentarService.delete(id);

@@ -35,7 +35,6 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
         existingFotografija.setKomentar(entity.getKomentar());
         existingFotografija.setKulturnaPonuda(entity.getKulturnaPonuda());
         existingFotografija.setLokacijaFajl(entity.getLokacijaFajl());
-        existingFotografija.setNaziv(entity.getNaziv());
 
         return fotografijaRepository.save(existingFotografija);
     }

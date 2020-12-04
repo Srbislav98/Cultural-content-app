@@ -3,8 +3,11 @@ package com.kts.cultural_content.service;
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.model.Admin;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
+import com.kts.cultural_content.repository.AdminRepository;
 import com.kts.cultural_content.repository.RegistrovaniKorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +16,16 @@ import java.util.List;
 public class RegistrovaniKorisnikService  implements ServiceInterface<RegistrovaniKorisnik> {
     @Autowired
     private RegistrovaniKorisnikRepository rkRepository;
+    @Autowired
+    private AdminRepository adminRepository;
 
     @Override
     public List<RegistrovaniKorisnik> findAll() {
         return rkRepository.findAll();
+    }
+
+    public Page<RegistrovaniKorisnik> findAll(Pageable pageable) {
+        return rkRepository.findAll(pageable);
     }
 
     @Override
@@ -26,8 +35,15 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
 
     @Override
     public RegistrovaniKorisnik create(RegistrovaniKorisnik entity) throws Exception {
-        if(rkRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null) {
-            throw new Exception("Registrovani korisnik with given username already exists");
+        if(rkRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null ) {
+            if(adminRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null) {
+                throw new Exception("Korisnik with given username already exists");
+            }
+        }
+        if(rkRepository.findByEmail(entity.getEmail()) != null) {
+            if(adminRepository.findByEmail(entity.getEmail()) != null) {
+                throw new Exception("Korisnik with given username already exists");
+            }
         }
         return rkRepository.save(entity);
     }
@@ -38,13 +54,20 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
         if(existingRK == null){
             throw new Exception("Registrovani korisnik with given id doesn't exist");
         }
+        if(rkRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null ) {
+            if(adminRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null) {
+                throw new Exception("Korisnik with given username already exists");
+            }
+        }
         existingRK.setKorisnickoIme(entity.getKorisnickoIme());
         existingRK.setIme(entity.getIme());
         existingRK.setPrezime(entity.getPrezime());
-        existingRK.setEmail(entity.getEmail());
-        if(rkRepository.findByKorisnickoImeAndIdNot(existingRK.getKorisnickoIme(), id) != null) {
-            throw new Exception("Registrovani korisnik with given username already exists");
+        if(rkRepository.findByEmail(entity.getEmail()) != null) {
+            if(adminRepository.findByEmail(entity.getEmail()) != null) {
+                throw new Exception("Korisnik with given username already exists");
+            }
         }
+        existingRK.setEmail(entity.getEmail());
         return rkRepository.save(existingRK);
     }
 
@@ -61,8 +84,4 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
         return rkRepository.save(k);
     }
 
-    public void addRegistrovanKorisnik(RegistrovaniKorisnikDTO rk) {
-        RegistrovaniKorisnik k=new RegistrovaniKorisnik(rk);
-        rkRepository.save(k);
-    }
 }
