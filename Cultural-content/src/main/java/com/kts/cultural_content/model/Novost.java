@@ -21,7 +21,7 @@ public class Novost {
     private Date datum;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    //@JoinColumn( nullable = false)
+    @JoinColumn( nullable = false)
     private KulturnaPonuda kulturnaPonuda;
 
     public Novost() {

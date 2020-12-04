@@ -44,6 +44,7 @@ public class KulturnaPonuda {
     private Set<Ocena> ocene = new HashSet<>();
 
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
     private Set<Komentar> komentari = new HashSet<>();
 
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

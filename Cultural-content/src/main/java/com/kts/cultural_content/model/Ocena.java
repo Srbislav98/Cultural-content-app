@@ -14,21 +14,20 @@ public class Ocena {
     private Integer vrednost;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    //@JoinColumn( nullable = false)
+    @JoinColumn( nullable = false)
     private RegistrovaniKorisnik registrovaniKorisnik;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    //@JoinColumn( nullable = false)
+    @JoinColumn( nullable = false)
     private KulturnaPonuda kulturnaPonuda;
 
     public Ocena() {
     }
 
-    public Ocena(Integer vrednost, RegistrovaniKorisnik registrovaniKorisnik, KulturnaPonuda kulturnaPonuda) {
+    public Ocena(Integer vrednost) {
 
         this.vrednost = vrednost;
-        this.registrovaniKorisnik = registrovaniKorisnik;
-        this.kulturnaPonuda = kulturnaPonuda;
+
     }
 
     public void setId(Integer id) {

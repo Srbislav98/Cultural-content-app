@@ -26,12 +26,11 @@ public class Fotografija {
     public Fotografija() {
     }
 
-    public Fotografija( String naziv, String lokacijaFajl, KulturnaPonuda kulturnaPonuda, Komentar komentar) {
+    public Fotografija(  String lokacijaFajl) {
 
-        this.naziv = naziv;
+
         this.lokacijaFajl = lokacijaFajl;
-        this.kulturnaPonuda = kulturnaPonuda;
-        this.komentar = komentar;
+
     }
 
     public Integer getId() {
