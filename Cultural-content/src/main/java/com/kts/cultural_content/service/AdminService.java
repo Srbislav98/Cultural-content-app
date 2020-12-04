@@ -3,6 +3,8 @@ package com.kts.cultural_content.service;
 import com.kts.cultural_content.model.Admin;
 import com.kts.cultural_content.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,10 @@ public class AdminService implements ServiceInterface<Admin>{
     @Override
     public List<Admin> findAll() {
         return adminRepository.findAll();
+    }
+
+    public Page<Admin> findAll(Pageable pageable) {
+        return adminRepository.findAll(pageable);
     }
 
     @Override

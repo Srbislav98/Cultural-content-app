@@ -12,12 +12,18 @@ public class AdminMapper implements MapperInterface<Admin,AdminDTO>{
 
     private KulturnaPonudaMapper kulturnaPonudaMapper;
     private UlogaMapper ulogaMapper;
+    public AdminMapper() {
+        ulogaMapper = new UlogaMapper();
+        kulturnaPonudaMapper=new KulturnaPonudaMapper();
+    }
 
     @Override
     public Admin toEntity(AdminDTO dto) {
         Set<KulturnaPonuda> kulturnaPonuda = new HashSet<>();
-        for (KulturnaPonudaDTO kp:dto.getKulturnePonude()){
-            kulturnaPonuda.add(kulturnaPonudaMapper.toEntity(kp));
+        if(!dto.getKulturnePonude().isEmpty()){
+            for (KulturnaPonudaDTO kp:dto.getKulturnePonude()){
+                kulturnaPonuda.add(kulturnaPonudaMapper.toEntity(kp));
+            }
         }
         return new Admin(dto.getId(),dto.getIme(), dto.getPrezime(),dto.getKorisnickoIme(),
                 dto.getEmail(), dto.getLozinka(), ulogaMapper.toEntity(dto.getUloga()),kulturnaPonuda);
@@ -26,8 +32,10 @@ public class AdminMapper implements MapperInterface<Admin,AdminDTO>{
     @Override
     public AdminDTO toDto(Admin entity) {
         Set<KulturnaPonudaDTO> kulturnaPonuda = new HashSet<>();
-        for (KulturnaPonuda kp:entity.getKulturnePonude()){
-            kulturnaPonuda.add(kulturnaPonudaMapper.toDto(kp));
+        if(!entity.getKulturnePonude().isEmpty()) {
+            for (KulturnaPonuda kp : entity.getKulturnePonude()) {
+                kulturnaPonuda.add(kulturnaPonudaMapper.toDto(kp));
+            }
         }
         return new AdminDTO(entity.getId(),entity.getIme(), entity.getPrezime(),entity.getKorisnickoIme(),
                 entity.getEmail(), entity.getLozinka(), ulogaMapper.toDto(entity.getUloga()),kulturnaPonuda);

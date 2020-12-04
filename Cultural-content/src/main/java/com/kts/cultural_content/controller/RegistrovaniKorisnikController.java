@@ -8,6 +8,9 @@ import com.kts.cultural_content.model.Novost;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.service.RegistrovaniKorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,9 @@ public class RegistrovaniKorisnikController {
     @Autowired
     private RegistrovaniKorisnikService  rkService;
     private RegistrovaniKorisnikMapper rkMapper;
+    public RegistrovaniKorisnikController() {
+        rkMapper = new RegistrovaniKorisnikMapper();
+    }
 
     @GetMapping
     public ResponseEntity<List<RegistrovaniKorisnikDTO>> getRegistrovaniKorisnici() {
@@ -37,6 +43,17 @@ public class RegistrovaniKorisnikController {
         }
         return new ResponseEntity<List<RegistrovaniKorisnikDTO>>(korisniciDTO, HttpStatus.OK);
     }
+
+    @RequestMapping(value= "/by-page",method = RequestMethod.GET)
+    public ResponseEntity<Page<RegistrovaniKorisnikDTO>> getAllRegistrovaniKorisnici(Pageable pageable) {
+        Page<RegistrovaniKorisnik> page = rkService.findAll(pageable);
+        List<RegistrovaniKorisnikDTO> rkDTOS = toRegistrovaniKorisnikDTOList(page.toList());
+        Page<RegistrovaniKorisnikDTO> pageRKDTOS = new PageImpl<>(rkDTOS,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<>(pageRKDTOS, HttpStatus.OK);
+    }
+
+
     @GetMapping(value="/{id}")
     public ResponseEntity<RegistrovaniKorisnikDTO> getRegistrovanKorisnik(@PathVariable Integer id) {
         RegistrovaniKorisnik rk= rkService.findOne(id);
@@ -81,6 +98,14 @@ public class RegistrovaniKorisnikController {
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private List<RegistrovaniKorisnikDTO> toRegistrovaniKorisnikDTOList(List<RegistrovaniKorisnik> toList) {
+        List<RegistrovaniKorisnikDTO> rkDTOS = new ArrayList<>();
+        for (RegistrovaniKorisnik registrovaniKorisnik: toList) {
+            rkDTOS.add(rkMapper.toDto(registrovaniKorisnik));
+        }
+        return rkDTOS;
     }
 
 
