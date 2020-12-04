@@ -15,22 +15,20 @@ public class Komentar {
     private String vrednost;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = false)
+    //@JoinColumn( nullable = false)
     private RegistrovaniKorisnik registrovaniKorisnik;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = false)
+    //@JoinColumn( nullable = false)
     private KulturnaPonuda kulturnaPonuda;
 
     @OneToMany(mappedBy = "komentar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Fotografija> fotogrfija = new HashSet<>();
 
-    public Komentar( String vrednost, RegistrovaniKorisnik registrovaniKorisnik, KulturnaPonuda kulturnaPonuda, Set<Fotografija> fotografija) {
+    public Komentar( String vrednost) {
 
         this.vrednost = vrednost;
-        this.registrovaniKorisnik = registrovaniKorisnik;
-        this.kulturnaPonuda = kulturnaPonuda;
-        this.fotogrfija = fotografija;
+
     }
 
     public Komentar() {

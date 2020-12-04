@@ -7,17 +7,15 @@ public class OcenaDTO {
 
     private Integer id;
     private Integer vrednost;
-    private RegistrovaniKorisnik registrovaniKorisnik;
-    private KulturnaPonuda kulturnaPonuda;
+
 
     public OcenaDTO() {
     }
 
-    public OcenaDTO(Integer id,Integer vrednost, RegistrovaniKorisnik registrovaniKorisnik, KulturnaPonuda kulturnaPonuda) {
+    public OcenaDTO(Integer id,Integer vrednost) {
         this.id = id;
         this.vrednost = vrednost;
-        this.registrovaniKorisnik = registrovaniKorisnik;
-        this.kulturnaPonuda = kulturnaPonuda;
+
     }
 
     public void setVrednost(Integer vrednost) {
@@ -32,23 +30,13 @@ public class OcenaDTO {
         return id;
     }
 
-    public void setRegistrovaniKorisnik(RegistrovaniKorisnik registrovaniKorisnik) {
-        this.registrovaniKorisnik = registrovaniKorisnik;
-    }
 
-    public void setKulturnaPonuda(KulturnaPonuda kulturnaPonuda) {
-        this.kulturnaPonuda = kulturnaPonuda;
-    }
+
+
 
     public Integer getVrednost() {
         return vrednost;
     }
 
-    public RegistrovaniKorisnik getRegistrovaniKorisnik() {
-        return registrovaniKorisnik;
-    }
 
-    public KulturnaPonuda getKulturnaPonuda() {
-        return kulturnaPonuda;
-    }
 }

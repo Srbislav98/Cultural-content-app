@@ -24,11 +24,10 @@ public class Ocena {
     public Ocena() {
     }
 
-    public Ocena(Integer vrednost, RegistrovaniKorisnik registrovaniKorisnik, KulturnaPonuda kulturnaPonuda) {
+    public Ocena(Integer vrednost) {
 
         this.vrednost = vrednost;
-        this.registrovaniKorisnik = registrovaniKorisnik;
-        this.kulturnaPonuda = kulturnaPonuda;
+
     }
 
     public void setId(Integer id) {
