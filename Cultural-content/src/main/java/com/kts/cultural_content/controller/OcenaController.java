@@ -5,6 +5,9 @@ import com.kts.cultural_content.mapper.OcenaMapper;
 import com.kts.cultural_content.model.Ocena;
 import com.kts.cultural_content.service.OcenaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +34,15 @@ public class OcenaController {
         return new ResponseEntity<>(toOcenaDTOList(ocene), HttpStatus.OK);
     }
 
+    @RequestMapping(value= "/by-page",method = RequestMethod.GET)
+    public ResponseEntity<Page<OcenaDTO>> getAllOcenas(Pageable pageable) {
+        Page<Ocena> page = ocenaService.findAll(pageable);
+        List<OcenaDTO> ocenaDTOS = toOcenaDTOList(page.toList());
+        Page<OcenaDTO> pageOcenaDTOS = new PageImpl<>(ocenaDTOS,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<>(pageOcenaDTOS, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<OcenaDTO> getOcena(@PathVariable Integer id){
         Ocena ocena = ocenaService.findOne(id);
@@ -45,6 +57,8 @@ public class OcenaController {
         Ocena ocena;
         try {
             ocena = ocenaService.create(ocenaMapper.toEntity(ocenaDTO));
+            if (ocena.getVrednost()==-1)
+                throw new Exception("Nevalja");
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

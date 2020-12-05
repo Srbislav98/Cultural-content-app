@@ -13,17 +13,15 @@ public class KorisnikDTO implements Comparable<KorisnikDTO> {
     private String korisnickoIme;
     private String email;
     private String lozinka;
-    private UlogaDTO uloga;
 
 
-    public KorisnikDTO(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, UlogaDTO uloga) {
+    public KorisnikDTO(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
         this.email = email;
         this.lozinka = lozinka;
-        this.uloga = uloga;
     }
 
     public Integer getId() {
@@ -73,7 +71,7 @@ public class KorisnikDTO implements Comparable<KorisnikDTO> {
     public void setLozinka(String lozinka) {
         this.lozinka = lozinka;
     }
-
+/*
     public UlogaDTO getUloga() {
         return uloga;
     }
@@ -81,7 +79,7 @@ public class KorisnikDTO implements Comparable<KorisnikDTO> {
     public void setUloga(UlogaDTO uloga) {
         this.uloga = uloga;
     }
-
+*/
     @Override
     public int compareTo(KorisnikDTO o) {
         return this.email.compareTo(o.email);

@@ -1,7 +1,7 @@
 package com.kts.cultural_content.model;
 
-import com.kts.cultural_content.repository.AdminRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,18 +29,18 @@ public class KulturnaPonuda {
     @Column(nullable=false)
     private String adresa;
 
-    @Column(nullable=true)
+    @Column(nullable=false)
     private String opis;
 
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Fotografija> fotogrfija = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = true)
+    @JoinColumn( nullable = false)
     private Admin admin;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = true)
+    @JoinColumn( nullable = false)
     private TipKulturnePonude tipKulturnePonude;
 
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -53,7 +53,8 @@ public class KulturnaPonuda {
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Novost> novosti = new HashSet<>();
 
-    @ManyToMany(  cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    //@LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             joinColumns = {
                     @JoinColumn(
@@ -61,7 +62,7 @@ public class KulturnaPonuda {
             inverseJoinColumns = {
                     @JoinColumn(
                             nullable = false)})
-    private List<RegistrovaniKorisnik> registrovaniKorisnik;
+    private Set<RegistrovaniKorisnik> registrovaniKorisnik;
 
     public KulturnaPonuda() {
     }
@@ -82,11 +83,11 @@ public class KulturnaPonuda {
         this.tipKulturnePonude = tipKulturnePonude;
     }
 
-    public List<RegistrovaniKorisnik> getRegistrovaniKorisnik() {
+    public Set<RegistrovaniKorisnik> getRegistrovaniKorisnik() {
         return registrovaniKorisnik;
     }
 
-    public void setRegistrovaniKorisnik(List<RegistrovaniKorisnik> registrovaniKorisnik) {
+    public void setRegistrovaniKorisnik(Set<RegistrovaniKorisnik> registrovaniKorisnik) {
         this.registrovaniKorisnik = registrovaniKorisnik;
     }
 
@@ -98,23 +99,20 @@ public class KulturnaPonuda {
         this.fotogrfija = fotogrfija;
     }
 
-    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Integer idk) {
+    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Set<Fotografija> fotogrfija, Admin admin, TipKulturnePonude tipKulturnePonude, Set<Ocena> ocene, Set<Komentar> komentari, Set<Novost> novosti, Set<RegistrovaniKorisnik> registrovaniKorisnik) {
         this.id = id;
         this.naziv = naziv;
         this.geoSirina = geoSirina;
         this.geoDuzina = geoDuzina;
         this.adresa = adresa;
         this.opis = opis;
-        this.admin = new Admin(idk, "", "", "", "", "", null, null);
-    }
-
-    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis) {
-        this.id = id;
-        this.naziv = naziv;
-        this.geoSirina = geoSirina;
-        this.geoDuzina = geoDuzina;
-        this.adresa = adresa;
-        this.opis = opis;
+        this.fotogrfija = fotogrfija;
+        this.admin = admin;
+        this.tipKulturnePonude = tipKulturnePonude;
+        this.ocene = ocene;
+        this.komentari = komentari;
+        this.novosti = novosti;
+        this.registrovaniKorisnik = registrovaniKorisnik;
     }
 
     public void setOcene(Set<Ocena> ocene) {
@@ -187,5 +185,13 @@ public class KulturnaPonuda {
 
     public void setOpis(String opis) {
         this.opis = opis;
+    }
+
+    public Double prosecnaOcena(){
+        Double d = 0.0;
+        for (Ocena i : this.getOcene()){
+            d += i.getVrednost();
+        }
+        return d;
     }
 }

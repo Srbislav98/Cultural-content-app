@@ -1,6 +1,8 @@
 package com.kts.cultural_content.model;
 
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,9 +10,10 @@ import java.util.List;
 @Entity
 //@Table(name= "KORISNICI")
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
-public abstract class Korisnik {
+public class Korisnik {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "id")
     private Integer id;
 
     @Column(nullable=false)
@@ -28,21 +31,24 @@ public abstract class Korisnik {
     @Column(nullable=false)
     private String lozinka;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = false)
-    private Uloga uloga;
+    @ManyToMany()
+    //@LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "user_authority",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Uloga> uloga;
 
     public Korisnik() {
     }
 
-    public Korisnik(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, Uloga uloga) {
+    public Korisnik(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
         this.email = email;
         this.lozinka = lozinka;
-        this.uloga = uloga;
+        //this.uloga = uloga;
     }
 
     public Korisnik(RegistrovaniKorisnikDTO rk) {
@@ -103,11 +109,11 @@ public abstract class Korisnik {
         this.ime = ime;
     }
 
-    public Uloga getUloga() {
+    public List<Uloga> getUloga() {
         return uloga;
     }
 
-    public void setUloga(Uloga uloga) {
+    public void setUloga(List<Uloga> uloga) {
         this.uloga = uloga;
     }
 }
