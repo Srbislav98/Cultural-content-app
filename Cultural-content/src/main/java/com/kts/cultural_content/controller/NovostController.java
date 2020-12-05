@@ -3,9 +3,11 @@ package com.kts.cultural_content.controller;
 import com.kts.cultural_content.dto.NovostDTO;
 import com.kts.cultural_content.mapper.NovostMapper;
 import com.kts.cultural_content.model.Novost;
-import com.kts.cultural_content.repository.NovostRepository;
 import com.kts.cultural_content.service.NovostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,10 @@ public class NovostController {
         return new ResponseEntity<>(toNovostDTOList(novosti), HttpStatus.OK);
     }
 
+    public NovostController() {
+        novostMapper = new NovostMapper();
+    }
+
     private List<NovostDTO> toNovostDTOList(List<Novost> novosti) {
         List<NovostDTO> novostDTOS = new ArrayList<>();
         for (Novost novost: novosti) {
@@ -37,7 +43,16 @@ public class NovostController {
         return novostDTOS;
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.GET)
+    @RequestMapping(value= "/by-page",method = RequestMethod.GET)
+    public ResponseEntity<Page<NovostDTO>> getAllNovosti(Pageable pageable) {
+        Page<Novost> page = novostService.findAll(pageable);
+        List<NovostDTO> novostDTOS = toNovostDTOList(page.toList());
+        Page<NovostDTO> pageNovostDTOS = new PageImpl<>(novostDTOS,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<>(pageNovostDTOS, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/get/{id}", method=RequestMethod.GET)
     public ResponseEntity<NovostDTO> getNovost(@PathVariable Integer id){
         Novost novost = novostService.findOne(id);
         if(novost == null){
@@ -47,7 +62,7 @@ public class NovostController {
         return new ResponseEntity<>(novostMapper.toDto(novost), HttpStatus.OK);
     }
 
-    @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NovostDTO> createNovost(@RequestBody NovostDTO novostDTO){
         Novost novost;
         try {
@@ -59,7 +74,7 @@ public class NovostController {
         return new ResponseEntity<>(novostMapper.toDto(novost), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NovostDTO> updateNovost(
             @RequestBody NovostDTO novostDTO, @PathVariable Integer id){
         Novost novost;
@@ -72,7 +87,7 @@ public class NovostController {
         return new ResponseEntity<>(novostMapper.toDto(novost), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteNovost(@PathVariable Integer id){
         try {
             novostService.delete(id);

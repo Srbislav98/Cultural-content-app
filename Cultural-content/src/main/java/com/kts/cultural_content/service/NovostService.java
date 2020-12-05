@@ -1,8 +1,11 @@
 package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.model.Novost;
+import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.NovostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +16,16 @@ public class NovostService  implements ServiceInterface<Novost> {
     @Autowired
     private NovostRepository novostRepository;
 
+    @Autowired
+    private KulturnaPonudaRepository kulturnaPonudaRepository;
+
     @Override
     public List<Novost> findAll() {
         return novostRepository.findAll();
+    }
+
+    public Page<Novost> findAll(Pageable pageable) {
+        return novostRepository.findAll(pageable);
     }
 
     @Override
@@ -28,6 +38,7 @@ public class NovostService  implements ServiceInterface<Novost> {
         if(novostRepository.findByNaziv(entity.getNaziv()) != null) {
             throw new Exception("Novost with given naziv already exists");
         }
+        entity.setKulturnaPonuda(kulturnaPonudaRepository.getOne(100));
         return novostRepository.save(entity);
     }
 
