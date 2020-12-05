@@ -188,7 +188,7 @@ public class KulturnaPonuda {
     public void setOpis(String opis) {
         this.opis = opis;
     }
-<<<<<<< HEAD
+
 
     public Double prosecnaOcena(){
         Double d = 0.0;
@@ -198,6 +198,5 @@ public class KulturnaPonuda {
         }
         return d;
     }
-=======
->>>>>>> 1a38a114870e5bb5cd554d327fd57044989ab701
+
 }
