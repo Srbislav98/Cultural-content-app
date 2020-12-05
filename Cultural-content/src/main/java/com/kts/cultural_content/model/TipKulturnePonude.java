@@ -24,7 +24,6 @@ public class TipKulturnePonude {
     public TipKulturnePonude(Integer id, String naziv) {
         this.id = id;
         this.naziv = naziv;
-        kulturnaPonudas = new HashSet<>();
     }
 
     public Set<KulturnaPonuda> getKulturnaPonudas() {

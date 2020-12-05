@@ -14,7 +14,7 @@ public class TipKPService  implements ServiceInterface<TipKulturnePonude> {
 
     @Override
     public List<TipKulturnePonude> findAll() {
-        return null;
+        return oRepository.findAll();
     }
 
     @Override

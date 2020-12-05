@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Cultural-content/Cultural-content.iml" filepath="$PROJECT_DIR$/Cultural-content/Cultural-content.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/KTSNWT2020_T5.iml" filepath="$PROJECT_DIR$/.idea/KTSNWT2020_T5.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,5 +1,8 @@
 package com.kts.cultural_content.model;
 
+import com.kts.cultural_content.repository.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,18 +29,18 @@ public class KulturnaPonuda {
     @Column(nullable=false)
     private String adresa;
 
-    @Column(nullable=false)
+    @Column(nullable=true)
     private String opis;
 
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Fotografija> fotogrfija = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = false)
+    @JoinColumn( nullable = true)
     private Admin admin;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn( nullable = false)
+    @JoinColumn( nullable = true)
     private TipKulturnePonude tipKulturnePonude;
 
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -95,20 +98,23 @@ public class KulturnaPonuda {
         this.fotogrfija = fotogrfija;
     }
 
-    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Set<Fotografija> fotogrfija, Admin admin, TipKulturnePonude tipKulturnePonude, Set<Ocena> ocene, Set<Komentar> komentari, Set<Novost> novosti, List<RegistrovaniKorisnik> registrovaniKorisnik) {
+    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Integer idk) {
         this.id = id;
         this.naziv = naziv;
         this.geoSirina = geoSirina;
         this.geoDuzina = geoDuzina;
         this.adresa = adresa;
         this.opis = opis;
-        this.fotogrfija = fotogrfija;
-        this.admin = admin;
-        this.tipKulturnePonude = tipKulturnePonude;
-        this.ocene = ocene;
-        this.komentari = komentari;
-        this.novosti = novosti;
-        this.registrovaniKorisnik = registrovaniKorisnik;
+        this.admin = new Admin(idk, "", "", "", "", "", null, null);
+    }
+
+    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis) {
+        this.id = id;
+        this.naziv = naziv;
+        this.geoSirina = geoSirina;
+        this.geoDuzina = geoDuzina;
+        this.adresa = adresa;
+        this.opis = opis;
     }
 
     public void setOcene(Set<Ocena> ocene) {

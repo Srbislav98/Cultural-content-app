@@ -30,7 +30,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(toKulturnaPonudaDTOList(kulturnePonude), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<KulturnaPonudaDTO> getKulturnaPonuda(@PathVariable Integer id){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
         if (kulturnaPonuda == null){
@@ -39,7 +39,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(kulturnaPonudaMapper.toDto(kulturnaPonuda), HttpStatus.OK);
     }
 
-    @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/create", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KulturnaPonudaDTO> createKulturnaPonuda(@RequestBody KulturnaPonudaDTO kulturnaPonudaDTO){
         KulturnaPonuda kulturnaPonuda;
         try {
@@ -51,7 +51,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(kulturnaPonudaMapper.toDto(kulturnaPonuda), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KulturnaPonudaDTO> updateKulturnaPonuda(@RequestBody KulturnaPonudaDTO kulturnaPonudaDTO, @PathVariable Integer id){
         KulturnaPonuda kulturnaPonuda;
         try {
@@ -63,7 +63,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(kulturnaPonudaMapper.toDto(kulturnaPonuda), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteKulturnaPonuda(@PathVariable Integer id){
         try {
             kulturnaPonudaService.delete(id);
