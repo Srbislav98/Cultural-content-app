@@ -8,6 +8,9 @@ import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.TipKPRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -66,6 +69,10 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
             throw new Exception("KulturnaPonuda with given id doesn't exist");
         }
         oRepository.delete(existingKulturnaPonuda);
+    }
+
+    public Page<KulturnaPonuda> findAll(Pageable pageable) {
+        return oRepository.findAll(pageable);
     }
 
     public KulturnaPonuda save(KulturnaPonuda k){
