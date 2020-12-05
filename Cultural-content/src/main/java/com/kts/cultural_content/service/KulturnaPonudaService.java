@@ -39,7 +39,6 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
     public KulturnaPonuda create(KulturnaPonuda entity) throws Exception {
         Admin ad = oAdmin.getOne(100);
         entity.setAdmin(ad);//obrisati kasnije
-        TipKulturnePonude kp = oTip.getOne(100);
         return oRepository.save(entity);
     }
 

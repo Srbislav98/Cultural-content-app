@@ -13,11 +13,11 @@ public class KulturnaPonudaMapper implements MapperInterface<KulturnaPonuda, Kul
 
     @Override
     public KulturnaPonuda toEntity(KulturnaPonudaDTO dto) {
-        return new KulturnaPonuda(dto.getId(), dto.getNaziv(), dto.getGeoSirina(), dto.getGeoDuzina(), dto.getAdresa(), dto.getOpis());
+        return new KulturnaPonuda(dto.getId(), dto.getNaziv(), dto.getGeoSirina(), dto.getGeoDuzina(), dto.getAdresa(), dto.getOpis(), dto.getIdt());
     }
 
     @Override
     public KulturnaPonudaDTO toDto(KulturnaPonuda entity) {
-        return new KulturnaPonudaDTO(entity.getId(), entity.getNaziv(), entity.getGeoSirina(), entity.getGeoDuzina(), entity.getAdresa(), entity.getOpis());
+        return new KulturnaPonudaDTO(entity.getId(), entity.getNaziv(), entity.getGeoSirina(), entity.getGeoDuzina(), entity.getAdresa(), entity.getOpis(), entity.getIdt());
     }
 }

@@ -15,6 +15,7 @@ public class KulturnaPonudaDTO {
     private String geoDuzina;
     private String adresa;
     private String opis;
+    private Integer idt;
 
     public KulturnaPonudaDTO() {
     }
@@ -25,15 +26,25 @@ public class KulturnaPonudaDTO {
         this.geoDuzina = k.geoDuzina;
         this.adresa = k.adresa;
         this.opis = k.opis;
+        this.idt = k.idt;
     }
 
-    public KulturnaPonudaDTO(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis) {
+    public KulturnaPonudaDTO(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Integer idt) {
         this.id = id;
         this.naziv = naziv;
         this.geoSirina = geoSirina;
         this.geoDuzina = geoDuzina;
         this.adresa = adresa;
         this.opis = opis;
+        this.idt = idt;
+    }
+
+    public Integer getIdt() {
+        return idt;
+    }
+
+    public void setIdt(Integer idt) {
+        this.idt = idt;
     }
 
     public Integer getId() {

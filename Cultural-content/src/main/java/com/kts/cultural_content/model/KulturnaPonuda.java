@@ -4,10 +4,8 @@ import com.kts.cultural_content.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.Instant;
+import java.util.*;
 
 @Entity
 
@@ -108,15 +106,23 @@ public class KulturnaPonuda {
         this.admin = new Admin(100, "", "", "", "", "", null);
     }
 
-    /*public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis) {
+    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Integer idx) {
         this.id = id;
         this.naziv = naziv;
         this.geoSirina = geoSirina;
         this.geoDuzina = geoDuzina;
         this.adresa = adresa;
         this.opis = opis;
+        this.admin = new Admin(100, "", "", "", "", "", null);
+        TipKulturnePonude a = new TipKulturnePonude(idx, "idx.toString()" + Instant.now().getEpochSecond());
+        a.setId(idx);
+        this.tipKulturnePonude = a;
     }
-*/
+
+    public Integer getIdt(){
+        return this.tipKulturnePonude.getId();
+    }
+
     public void setOcene(Set<Ocena> ocene) {
         this.ocene = ocene;
     }
