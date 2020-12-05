@@ -26,7 +26,7 @@ public class AdminMapper implements MapperInterface<Admin,AdminDTO>{
             }
         }
         return new Admin(dto.getId(),dto.getIme(), dto.getPrezime(),dto.getKorisnickoIme(),
-                dto.getEmail(), dto.getLozinka(), ulogaMapper.toEntity(dto.getUloga()),kulturnaPonuda);
+                dto.getEmail(), dto.getLozinka(),kulturnaPonuda);
     }
 
     @Override
@@ -38,6 +38,6 @@ public class AdminMapper implements MapperInterface<Admin,AdminDTO>{
             }
         }
         return new AdminDTO(entity.getId(),entity.getIme(), entity.getPrezime(),entity.getKorisnickoIme(),
-                entity.getEmail(), entity.getLozinka(), ulogaMapper.toDto(entity.getUloga()),kulturnaPonuda);
+                entity.getEmail(), entity.getLozinka(),kulturnaPonuda);
     }
 }

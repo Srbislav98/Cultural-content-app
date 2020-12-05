@@ -36,7 +36,7 @@ public class TipKPController {
         return new ResponseEntity<>(toTipKulturnePonudeDTOList(tipKulturnePonudes), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<TipKulturnePonudeDTO> getTipKulturnePonude(@PathVariable Integer id){
         TipKulturnePonude tipKulturnePonude = tipKulturnePonudeService.findOne(id);
         if (tipKulturnePonude == null){
@@ -45,7 +45,7 @@ public class TipKPController {
         return new ResponseEntity<>(tipKulturnePonudeMapper.toDto(tipKulturnePonude), HttpStatus.OK);
     }
 
-    @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/create", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TipKulturnePonudeDTO> createTipKulturnePonude(@RequestBody TipKulturnePonudeDTO tipKulturnePonudeDTO){
         TipKulturnePonude tipKulturnePonude;
         try {
@@ -57,7 +57,7 @@ public class TipKPController {
         return new ResponseEntity<>(tipKulturnePonudeMapper.toDto(tipKulturnePonude), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TipKulturnePonudeDTO> updateTipKulturnePonude(@RequestBody TipKulturnePonudeDTO tipKulturnePonudeDTO, @PathVariable Integer id){
         TipKulturnePonude tipKulturnePonude;
         try {
@@ -69,7 +69,7 @@ public class TipKPController {
         return new ResponseEntity<>(tipKulturnePonudeMapper.toDto(tipKulturnePonude), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteTipKulturnePonude(@PathVariable Integer id){
         try {
             tipKulturnePonudeService.delete(id);

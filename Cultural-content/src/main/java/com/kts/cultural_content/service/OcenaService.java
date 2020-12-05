@@ -5,6 +5,7 @@ import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Ocena;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.OcenaRepository;
+import com.kts.cultural_content.repository.RegistrovaniKorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,10 @@ public class OcenaService implements ServiceInterface<Ocena> {
 
     @Autowired
     private OcenaRepository oRepository;
+    @Autowired
     private KulturnaPonudaRepository kulturnaPonudaRepository;
+    @Autowired
+    private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
 
     @Override
     public List<Ocena> findAll() {
@@ -35,14 +39,18 @@ public class OcenaService implements ServiceInterface<Ocena> {
     @Override
     public Ocena create(Ocena entity) throws Exception {
         if (entity.getVrednost()<1 || entity.getVrednost()>5)
-            return new Ocena(-1);
-        if (entity.getKulturnaPonuda()!=null) {
+            return new Ocena(-1,0,0);
+        //entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(100).orElse(null));
+        entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
+        entity.setRegistrovaniKorisnik(registrovaniKorisnikRepository.findById(entity.getRegId()).orElse(null));
+        /*if (entity.getKulturnaPonuda()!=null) {
             KulturnaPonuda k = kulturnaPonudaRepository.findById(entity.getKulturnaPonuda().getId()).orElse(null);
             if (k != null) {
                 k.getOcene().add(entity);
                 kulturnaPonudaRepository.save(k);
             }
-        }
+        }*/
+
         return oRepository.save(entity);
     }
 
@@ -53,8 +61,10 @@ public class OcenaService implements ServiceInterface<Ocena> {
             throw new Exception("Ocena with given id doesn't exist");
         }
         existingOcena.setVrednost(entity.getVrednost());
-        existingOcena.setKulturnaPonuda(entity.getKulturnaPonuda());
-        existingOcena.setRegistrovaniKorisnik(entity.getRegistrovaniKorisnik());
+        existingOcena.setKulId(entity.getKulId());
+        existingOcena.setRegId(entity.getRegId());
+        existingOcena.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
+        existingOcena.setRegistrovaniKorisnik(registrovaniKorisnikRepository.findById(entity.getRegId()).orElse(null));
 
         return oRepository.save(existingOcena);
     }

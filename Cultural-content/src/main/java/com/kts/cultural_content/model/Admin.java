@@ -16,8 +16,8 @@ public class Admin extends Korisnik {
 
     public Admin() {
     }
-    public Admin(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, Uloga uloga, Set<KulturnaPonuda> kulturnaPonude) {
-        super(id, ime, prezime, korisnickoIme, email, lozinka, uloga);
+    public Admin(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, Set<KulturnaPonuda> kulturnaPonude) {
+        super(id, ime, prezime, korisnickoIme, email, lozinka);
         this.kulturnePonude=kulturnaPonude;
     }
 

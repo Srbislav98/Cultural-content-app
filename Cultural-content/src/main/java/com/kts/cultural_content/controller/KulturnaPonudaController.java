@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,16 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(toKulturnaPonudaDTOList(kulturnePonude), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value= "/by-page",method = RequestMethod.GET)
+    public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnaPonuda(Pageable pageable) {
+        Page<KulturnaPonuda> page = kulturnaPonudaService.findAll(pageable);
+        List<KulturnaPonudaDTO> komentarDTOS = toKulturnaPonudaDTOList(page.toList());
+        Page<KulturnaPonudaDTO> pageKomentarDTOS = new PageImpl<>(komentarDTOS,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<>(pageKomentarDTOS, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<KulturnaPonudaDTO> getKulturnaPonuda(@PathVariable Integer id){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
         if (kulturnaPonuda == null){
@@ -39,7 +51,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(kulturnaPonudaMapper.toDto(kulturnaPonuda), HttpStatus.OK);
     }
 
-    @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/create", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KulturnaPonudaDTO> createKulturnaPonuda(@RequestBody KulturnaPonudaDTO kulturnaPonudaDTO){
         KulturnaPonuda kulturnaPonuda;
         try {
@@ -51,7 +63,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(kulturnaPonudaMapper.toDto(kulturnaPonuda), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KulturnaPonudaDTO> updateKulturnaPonuda(@RequestBody KulturnaPonudaDTO kulturnaPonudaDTO, @PathVariable Integer id){
         KulturnaPonuda kulturnaPonuda;
         try {
@@ -63,7 +75,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(kulturnaPonudaMapper.toDto(kulturnaPonuda), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteKulturnaPonuda(@PathVariable Integer id){
         try {
             kulturnaPonudaService.delete(id);

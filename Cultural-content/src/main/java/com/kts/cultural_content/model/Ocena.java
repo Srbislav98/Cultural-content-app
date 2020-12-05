@@ -13,6 +13,12 @@ public class Ocena {
     @Column( nullable = true)
     private Integer vrednost;
 
+    @Column
+    private Integer regId;
+
+    @Column
+    private Integer kulId;
+
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn( nullable = true)
     private RegistrovaniKorisnik registrovaniKorisnik;
@@ -24,10 +30,26 @@ public class Ocena {
     public Ocena() {
     }
 
-    public Ocena(Integer vrednost) {
-
+    public Ocena(Integer vrednost, Integer regId, Integer kulId) {
         this.vrednost = vrednost;
+        this.regId = regId;
+        this.kulId = kulId;
+    }
 
+    public void setRegId(Integer regId) {
+        this.regId = regId;
+    }
+
+    public void setKulId(Integer kulId) {
+        this.kulId = kulId;
+    }
+
+    public Integer getRegId() {
+        return regId;
+    }
+
+    public Integer getKulId() {
+        return kulId;
     }
 
     public void setId(Integer id) {

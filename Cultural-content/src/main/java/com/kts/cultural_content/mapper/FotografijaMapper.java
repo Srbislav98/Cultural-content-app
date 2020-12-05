@@ -8,9 +8,9 @@ import com.kts.cultural_content.model.Fotografija;
 public class FotografijaMapper implements MapperInterface<Fotografija, FotografijaDTO> {
 
     @Override
-    public Fotografija toEntity(FotografijaDTO dto){return new Fotografija( dto.getLokacijaFajl());}
+    public Fotografija toEntity(FotografijaDTO dto){return new Fotografija( dto.getLokacijaFajl(),dto.getKulId(),dto.getKomId());}
 
     @Override
-    public FotografijaDTO toDto(Fotografija entity) {return new FotografijaDTO(entity.getId(), entity.getLokacijaFajl());}
+    public FotografijaDTO toDto(Fotografija entity) {return new FotografijaDTO(entity.getId(), entity.getLokacijaFajl(),entity.getKulId(),entity.getKomId());}
 
 }

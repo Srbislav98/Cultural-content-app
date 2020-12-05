@@ -1,9 +1,16 @@
 package com.kts.cultural_content.service;
 
+import com.kts.cultural_content.model.Admin;
 import com.kts.cultural_content.model.KulturnaPonuda;
+import com.kts.cultural_content.model.TipKulturnePonude;
+import com.kts.cultural_content.repository.AdminRepository;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
+import com.kts.cultural_content.repository.TipKPRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -12,9 +19,15 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
     @Autowired
     private KulturnaPonudaRepository oRepository;
 
+    @Autowired
+    private AdminRepository oAdmin;
+
+    @Autowired
+    private TipKPRepository oTip;
+
     @Override
     public List<KulturnaPonuda> findAll() {
-        return null;
+        return oRepository.findAll();
     }
 
     @Override
@@ -24,6 +37,9 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
 
     @Override
     public KulturnaPonuda create(KulturnaPonuda entity) throws Exception {
+        Admin ad = oAdmin.getOne(100);
+        entity.setAdmin(ad);//obrisati kasnije
+        TipKulturnePonude kp = oTip.getOne(100);
         return oRepository.save(entity);
     }
 
@@ -33,8 +49,8 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
         if(existingKulturnaPonuda == null){
             throw new Exception("KulturnaPonuda with given id doesn't exist");
         }
+
         existingKulturnaPonuda.setNaziv(entity.getNaziv());
-        existingKulturnaPonuda.setAdmin(entity.getAdmin());
         existingKulturnaPonuda.setTipKulturnePonude(entity.getTipKulturnePonude());
         existingKulturnaPonuda.setAdresa(entity.getAdresa());
         existingKulturnaPonuda.setFotogrfija(entity.getFotogrfija());
@@ -53,6 +69,10 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
             throw new Exception("KulturnaPonuda with given id doesn't exist");
         }
         oRepository.delete(existingKulturnaPonuda);
+    }
+
+    public Page<KulturnaPonuda> findAll(Pageable pageable) {
+        return oRepository.findAll(pageable);
     }
 
     public KulturnaPonuda save(KulturnaPonuda k){

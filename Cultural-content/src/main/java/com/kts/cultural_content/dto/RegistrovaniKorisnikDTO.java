@@ -18,8 +18,8 @@ public class RegistrovaniKorisnikDTO extends KorisnikDTO{
     private Set<KomentarDTO> komentari = new HashSet<>();
     private Set<OcenaDTO> ocene = new HashSet<>();
 
-    public RegistrovaniKorisnikDTO(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, UlogaDTO uloga, Set<KulturnaPonudaDTO> kulturnaPonuda, Set<KomentarDTO> komentari, Set<OcenaDTO> ocene) {
-        super(id, ime, prezime, korisnickoIme, email, lozinka, uloga);
+    public RegistrovaniKorisnikDTO(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka,  Set<KulturnaPonudaDTO> kulturnaPonuda, Set<KomentarDTO> komentari, Set<OcenaDTO> ocene) {
+        super(id, ime, prezime, korisnickoIme, email, lozinka);
         this.kulturnaPonuda = kulturnaPonuda;
         this.komentari = komentari;
         this.ocene = ocene;

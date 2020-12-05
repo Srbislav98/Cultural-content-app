@@ -6,9 +6,9 @@ import com.kts.cultural_content.model.Komentar;
 public class KomentarMapper implements MapperInterface<Komentar, KomentarDTO>{
 
     @Override
-    public Komentar toEntity(KomentarDTO dto){return new Komentar(dto.getVrednost());}
+    public Komentar toEntity(KomentarDTO dto){return new Komentar(dto.getVrednost(),dto.getRegId(),dto.getKulId());}
 
     @Override
-    public KomentarDTO toDto(Komentar entity) {return new KomentarDTO(entity.getId(), entity.getVrednost());}
+    public KomentarDTO toDto(Komentar entity) {return new KomentarDTO(entity.getId(), entity.getVrednost(),entity.getRegId(),entity.getKulId());}
 
 }

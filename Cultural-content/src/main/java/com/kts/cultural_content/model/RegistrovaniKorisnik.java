@@ -21,9 +21,9 @@ public class RegistrovaniKorisnik extends Korisnik {
     public RegistrovaniKorisnik() {
     }
 
-    public RegistrovaniKorisnik(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka, Uloga uloga,
+    public RegistrovaniKorisnik(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka,
                                 Set<KulturnaPonuda> kulturnaPonude, Set<Komentar> komentari, Set<Ocena> ocene) {
-        super(id, ime, prezime, korisnickoIme, email, lozinka, uloga);
+        super(id, ime, prezime, korisnickoIme, email, lozinka);
         this.kulturnaPonuda=kulturnaPonude;
         this.komentari=komentari;
         this.ocene=ocene;

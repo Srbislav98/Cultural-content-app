@@ -2,6 +2,8 @@ package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.model.Fotografija;
 import com.kts.cultural_content.repository.FotografijaRepository;
+import com.kts.cultural_content.repository.KomentarRepository;
+import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,10 @@ import java.util.List;
 public class FotografijaService implements  ServiceInterface<Fotografija> {
     @Autowired
     private FotografijaRepository fotografijaRepository;
+    @Autowired
+    private KulturnaPonudaRepository kulturnaPonudaRepository;
+    @Autowired
+    private KomentarRepository komentarRepository;
 
     @Override
     public List<Fotografija> findAll() {
@@ -23,6 +29,9 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
 
     @Override
     public Fotografija create(Fotografija entity) throws Exception {
+        entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
+        entity.setKomentar(komentarRepository.findById(entity.getKomId()).orElse(null));
+
         return  fotografijaRepository.save(entity);
     }
 
@@ -32,8 +41,10 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
         if(existingFotografija == null){
             throw new Exception("Fotografija with given id doesn't exist");
         }
-        existingFotografija.setKomentar(entity.getKomentar());
-        existingFotografija.setKulturnaPonuda(entity.getKulturnaPonuda());
+        existingFotografija.setKomId(entity.getKomId());
+        existingFotografija.setKulId(entity.getKulId());
+        existingFotografija.setKomentar(komentarRepository.findById(entity.getKomId()).orElse(null));
+        existingFotografija.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
         existingFotografija.setLokacijaFajl(entity.getLokacijaFajl());
 
         return fotografijaRepository.save(existingFotografija);

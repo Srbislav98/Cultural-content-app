@@ -14,6 +14,12 @@ public class Komentar {
     @Column
     private String vrednost;
 
+    @Column
+    private Integer regId;
+
+    @Column
+    private Integer kulId;
+
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     //@JoinColumn( nullable = false)
     private RegistrovaniKorisnik registrovaniKorisnik;
@@ -22,13 +28,33 @@ public class Komentar {
     //@JoinColumn( nullable = false)
     private KulturnaPonuda kulturnaPonuda;
 
-    @OneToMany(mappedBy = "komentar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Fotografija> fotogrfija = new HashSet<>();
+    @OneToOne(mappedBy = "komentar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn
+    private Fotografija fotogrfija ;
 
-    public Komentar( String vrednost) {
-
+    public Komentar(String vrednost, Integer regId, Integer kulId) {
         this.vrednost = vrednost;
+        this.regId = regId;
+        this.kulId = kulId;
 
+    }
+
+
+
+    public void setRegId(Integer regId) {
+        this.regId = regId;
+    }
+
+    public void setKulId(Integer kulId) {
+        this.kulId = kulId;
+    }
+
+    public Integer getRegId() {
+        return regId;
+    }
+
+    public Integer getKulId() {
+        return kulId;
     }
 
     public Komentar() {
@@ -66,11 +92,11 @@ public class Komentar {
         return kulturnaPonuda;
     }
 
-    public void setFotogrfija(Set<Fotografija> fotogrfija) {
+    public void setFotogrfija(Fotografija fotogrfija) {
         this.fotogrfija = fotogrfija;
     }
 
-    public Set<Fotografija> getFotogrfija() {
+    public Fotografija getFotogrfija() {
         return fotogrfija;
     }
 }

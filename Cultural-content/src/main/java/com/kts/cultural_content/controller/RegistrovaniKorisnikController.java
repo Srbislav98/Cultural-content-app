@@ -67,6 +67,7 @@ public class RegistrovaniKorisnikController {
     @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RegistrovaniKorisnikDTO> createRegistrovaniKorisnik(@RequestBody RegistrovaniKorisnikDTO rkDTO){
         RegistrovaniKorisnik registrovaniKorisnik;
+        rkMapper.toEntity(rkDTO);
         try {
             registrovaniKorisnik = rkService.create(rkMapper.toEntity(rkDTO));
         } catch (Exception e) {

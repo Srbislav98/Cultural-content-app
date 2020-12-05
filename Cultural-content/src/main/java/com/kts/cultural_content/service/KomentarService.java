@@ -2,7 +2,10 @@ package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.model.Komentar;
 import com.kts.cultural_content.model.Ocena;
+import com.kts.cultural_content.repository.FotografijaRepository;
 import com.kts.cultural_content.repository.KomentarRepository;
+import com.kts.cultural_content.repository.KulturnaPonudaRepository;
+import com.kts.cultural_content.repository.RegistrovaniKorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +16,12 @@ import java.util.List;
 public class KomentarService implements ServiceInterface<Komentar> {
     @Autowired
     private KomentarRepository komentarRepository;
+    @Autowired
+    private KulturnaPonudaRepository kulturnaPonudaRepository;
+    @Autowired
+    private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
+    @Autowired
+    private FotografijaRepository fotografijaRepository;
 
     @Override
     public List<Komentar> findAll() {
@@ -30,6 +39,8 @@ public class KomentarService implements ServiceInterface<Komentar> {
 
     @Override
     public Komentar create(Komentar entity) throws Exception {
+        entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
+        entity.setRegistrovaniKorisnik(registrovaniKorisnikRepository.findById(entity.getRegId()).orElse(null));
         return komentarRepository.save(entity);
     }
 
@@ -40,8 +51,10 @@ public class KomentarService implements ServiceInterface<Komentar> {
             throw new Exception("komentar with given id doesn't exist");
         }
         existingkomentar.setVrednost(entity.getVrednost());
-        existingkomentar.setKulturnaPonuda(entity.getKulturnaPonuda());
-        existingkomentar.setRegistrovaniKorisnik(entity.getRegistrovaniKorisnik());
+        existingkomentar.setKulId(entity.getKulId());
+        existingkomentar.setRegId(entity.getRegId());
+        existingkomentar.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
+        existingkomentar.setRegistrovaniKorisnik(registrovaniKorisnikRepository.findById(entity.getRegId()).orElse(null));
 
         return komentarRepository.save(existingkomentar);
     }
