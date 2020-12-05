@@ -27,12 +27,12 @@ public class Novost {
     public Novost() {
     }
 
-    public Novost(Integer id, String naziv, String opis, Date datum, KulturnaPonuda kulturnaPonuda) {
+    public Novost(Integer id, String naziv, String opis, Date datum) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
         this.datum = datum;
-        this.kulturnaPonuda = kulturnaPonuda;
+        //this.kulturnaPonuda = new KulturnaPonuda(100,null, null, null, null, null);
     }
 
     public Integer getId() {

@@ -1,7 +1,5 @@
 package com.kts.cultural_content.dto;
 
-import com.kts.cultural_content.model.KulturnaPonuda;
-
 import java.util.Date;
 
 public class NovostDTO {
@@ -10,7 +8,6 @@ public class NovostDTO {
     private String naziv;
     private String opis;
     private Date datum;
-    private KulturnaPonuda kulturnaPonuda;
 
     public NovostDTO() {
     }
@@ -20,14 +17,6 @@ public class NovostDTO {
         this.naziv = naziv;
         this.opis = opis;
         this.datum = datum;
-    }
-
-    public NovostDTO(Integer id, String naziv, String opis, Date datum, KulturnaPonuda kulturnaPonuda) {
-        this.id = id;
-        this.naziv = naziv;
-        this.opis = opis;
-        this.datum = datum;
-        this.kulturnaPonuda = kulturnaPonuda;
     }
 
     public Integer getId() {
@@ -62,11 +51,4 @@ public class NovostDTO {
         this.datum = datum;
     }
 
-    public KulturnaPonuda getKulturnaPonuda() {
-        return kulturnaPonuda;
-    }
-
-    public void setKulturnaPonuda(KulturnaPonuda kulturnaPonuda) {
-        this.kulturnaPonuda = kulturnaPonuda;
-    }
 }

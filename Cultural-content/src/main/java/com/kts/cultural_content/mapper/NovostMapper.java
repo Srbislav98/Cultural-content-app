@@ -7,11 +7,11 @@ public class NovostMapper implements MapperInterface<Novost, NovostDTO> {
 
     @Override
     public Novost toEntity(NovostDTO dto) {
-        return new Novost(dto.getId(), dto.getNaziv(), dto.getOpis(), dto.getDatum(), dto.getKulturnaPonuda());
+        return new Novost(dto.getId(), dto.getNaziv(), dto.getOpis(), dto.getDatum());
     }
 
     @Override
     public NovostDTO toDto(Novost entity) {
-        return new NovostDTO(entity.getId(), entity.getNaziv(), entity.getOpis(), entity.getDatum(), entity.getKulturnaPonuda());
+        return new NovostDTO(entity.getId(), entity.getNaziv(), entity.getOpis(), entity.getDatum());
     }
 }
