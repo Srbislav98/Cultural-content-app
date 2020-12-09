@@ -10,6 +10,7 @@ import com.kts.cultural_content.repository.RegistrovaniKorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
     private AdminRepository adminRepository;
     @Autowired
     private UlogaService ulogaService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -64,6 +68,7 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
         System.out.println("SAFADF");
         List<Uloga> auth = ulogaService.findByname("ROLE_USER");
         System.out.println("SAFADF");
+        entity.setLozinka(passwordEncoder.encode(entity.getLozinka()));
         entity.setUloga(auth);
         return rkRepository.save(entity);
     }
@@ -117,4 +122,39 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
         return rkRepository.findByKorisnickoIme(korisnickoIme);
     }
 
+    public RegistrovaniKorisnik create(Korisnik user) throws Exception {
+        RegistrovaniKorisnik entity=new RegistrovaniKorisnik();
+        entity.setEmail(user.getEmail());
+        entity.setLozinka(passwordEncoder.encode(user.getLozinka()));
+        entity.setId(user.getId());
+        entity.setKorisnickoIme(user.getKorisnickoIme());
+        entity.setIme(user.getIme());
+        entity.setPrezime(user.getPrezime());
+        entity.setEnabled(user.getEnabled());
+        if(rkRepository.findById(entity.getId()).orElse(null) != null ) {
+            throw new Exception("Korisnik with given id already exists");
+        }
+        if(adminRepository.findById(entity.getId()).orElse(null) != null) {
+            throw new Exception("Korisnik with given id already exists");
+        }
+        System.out.println("SAFADF");
+        if(rkRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null ) {
+            throw new Exception("Korisnik with given username already exists");
+        }
+        if(adminRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null) {
+            throw new Exception("Korisnik with given username already exists");
+        }
+        System.out.println("SAFADF");
+        if(rkRepository.findByEmail(entity.getEmail()) != null) {
+            throw new Exception("Korisnik with given username already exists");
+        }
+        if(adminRepository.findByEmail(entity.getEmail()) != null) {
+            throw new Exception("Korisnik with given username already exists");
+        }
+        System.out.println("SAFADF");
+        List<Uloga> auth = ulogaService.findByname("ROLE_USER");
+        System.out.println("SAFADF");
+        entity.setUloga(auth);
+        return rkRepository.save(entity);
+    }
 }

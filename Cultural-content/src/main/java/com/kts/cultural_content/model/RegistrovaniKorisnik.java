@@ -18,6 +18,7 @@ public class RegistrovaniKorisnik extends Korisnik {
     @OneToMany( mappedBy = "registrovaniKorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Ocena> ocene = new HashSet<>();
 
+
     public RegistrovaniKorisnik() {
     }
 

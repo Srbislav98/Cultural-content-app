@@ -2,6 +2,7 @@ package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.dto.OnRegistrationCompleteEvent;
 import com.kts.cultural_content.model.Korisnik;
+import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
@@ -24,7 +25,7 @@ public class EmailService {
     private JavaMailSender mailSender;
 
     @Async
-    public void confirmRegistration(Korisnik user) {
+    public void confirmRegistration(RegistrovaniKorisnik user) {
         String token = UUID.randomUUID().toString();
         service.createVerificationToken(user, token);
 

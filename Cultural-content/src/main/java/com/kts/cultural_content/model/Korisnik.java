@@ -18,7 +18,7 @@ import java.util.List;
 public class Korisnik implements UserDetails {
     @Id
     //@GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "id")
+    @Column(name = "user_id")
     private Integer id;
 
     @Column(nullable=false)
@@ -44,9 +44,9 @@ public class Korisnik implements UserDetails {
 
 
     @ManyToMany()
-    //@LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "user_authority",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Uloga> uloga;
 
@@ -177,7 +177,7 @@ public class Korisnik implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.getEnabled();
     }
 
     public void setEnabled(boolean enabled) {

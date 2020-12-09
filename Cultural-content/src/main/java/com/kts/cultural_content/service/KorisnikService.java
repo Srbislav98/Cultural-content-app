@@ -1,6 +1,7 @@
 package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.model.Korisnik;
+import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.model.Uloga;
 import com.kts.cultural_content.model.VerificationToken;
 import com.kts.cultural_content.repository.KorisnikRepository;
@@ -59,7 +60,7 @@ public class KorisnikService implements ServiceInterface<Korisnik> {
         return kRepository.findByKorisnickoIme(korisnickoIme);
     }
 
-    public void createVerificationToken(Korisnik user, String token) {
+    public void createVerificationToken(RegistrovaniKorisnik user, String token) {
         VerificationToken token1=new VerificationToken(token,user);
         vtRepository.save(token1);
     }

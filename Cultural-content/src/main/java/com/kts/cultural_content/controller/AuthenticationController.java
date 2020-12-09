@@ -60,12 +60,25 @@ public class AuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody UserLoginDTO authenticationRequest,
                                                        HttpServletResponse response) {
 
+        /*RegistrovaniKorisnik k=rkService.findByEmail(authenticationRequest.getUsername());
+        if(k!=null) {
+            System.out.println(k.getEnabled());
+            if (!k.isEnabled()) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }*/
+
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
                         authenticationRequest.getPassword()));
 
         // Ubaci korisnika u trenutni security kontekst
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        /*
+        Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+        Korisnik u=(Korisnik)auth.getPrincipal();
+        */
 
         // Kreiraj token za tog korisnika
         Korisnik user = (Korisnik) authentication.getPrincipal();
@@ -80,7 +93,7 @@ public class AuthenticationController {
     @PostMapping("/sign-up")
     public ResponseEntity<?> addUser(@RequestBody KorisnikDTO userRequest) throws Exception {
 
-        Korisnik existUser = this.rkService.findByEmail(userRequest.getEmail());
+        RegistrovaniKorisnik existUser = this.rkService.findByEmail(userRequest.getEmail());
         if (existUser != null) {
             throw new Exception("Username already exists");
         }
@@ -91,7 +104,7 @@ public class AuthenticationController {
 
         try {
             //RegistrovaniKorisnikDTO a=new RegistrovaniKorisnikDTO(userRequest);
-            existUser = userService.create(userMapper.toEntity(userRequest));
+            existUser = rkService.create(userMapper.toEntity(userRequest));
             emailService.confirmRegistration(existUser);
         } catch (Exception e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
@@ -127,12 +140,13 @@ public class AuthenticationController {
         return ResponseEntity.accepted().body(result);
     }
     @GetMapping("/regitrationConfirm/{token}")
-    public ResponseEntity<?> confirmRegistration(@PathVariable("token") String url) {
+    public ResponseEntity<?> confirmRegistration(@PathVariable("token") String url) throws Exception {
         VerificationToken verificationToken = vtService.findByToken(url);
-        if (verificationToken == null) {
-            Korisnik user = verificationToken.getUser();
+        if (verificationToken != null) {
+            RegistrovaniKorisnik user = verificationToken.getUser();
             user.setEnabled(true);
-            userService.save(user);
+            //userService.delete(user.getId());
+            rkService.save(user);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

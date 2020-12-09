@@ -31,7 +31,7 @@ public class RegistrovaniKorisnikController {
         rkMapper = new RegistrovaniKorisnikMapper();
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping
     public ResponseEntity<List<RegistrovaniKorisnikDTO>> getRegistrovaniKorisnici() {
 
@@ -45,7 +45,7 @@ public class RegistrovaniKorisnikController {
         }
         return new ResponseEntity<List<RegistrovaniKorisnikDTO>>(korisniciDTO, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<RegistrovaniKorisnikDTO>> getAllRegistrovaniKorisnici(Pageable pageable) {
         Page<RegistrovaniKorisnik> page = rkService.findAll(pageable);
@@ -55,7 +55,7 @@ public class RegistrovaniKorisnikController {
         return new ResponseEntity<>(pageRKDTOS, HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping(value="/{id}")
     public ResponseEntity<RegistrovaniKorisnikDTO> getRegistrovanKorisnik(@PathVariable Integer id) {
         RegistrovaniKorisnik rk= rkService.findOne(id);
@@ -65,7 +65,7 @@ public class RegistrovaniKorisnikController {
         RegistrovaniKorisnikDTO k = rkMapper.toDto(rk);
         return new ResponseEntity<RegistrovaniKorisnikDTO>(k, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RegistrovaniKorisnikDTO> createRegistrovaniKorisnik(@RequestBody RegistrovaniKorisnikDTO rkDTO){
         RegistrovaniKorisnik registrovaniKorisnik;
@@ -78,7 +78,7 @@ public class RegistrovaniKorisnikController {
 
         return new ResponseEntity<>(rkMapper.toDto(registrovaniKorisnik), HttpStatus.CREATED);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value="/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RegistrovaniKorisnikDTO> updateRegistrovaniKorisnik(
             @RequestBody RegistrovaniKorisnikDTO rkDTO, @PathVariable Integer id){
@@ -91,7 +91,7 @@ public class RegistrovaniKorisnikController {
 
         return new ResponseEntity<>(rkMapper.toDto(registrovaniKorisnik), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteRegistrovaniKorisnik(@PathVariable Integer id){
         try {

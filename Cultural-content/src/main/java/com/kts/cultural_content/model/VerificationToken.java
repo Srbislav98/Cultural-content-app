@@ -12,18 +12,18 @@ public class VerificationToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
     private String token;
 
-    @OneToOne(targetEntity = Korisnik.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "id")
-    private Korisnik user;
+    @OneToOne(targetEntity = RegistrovaniKorisnik.class, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "user_id")
+    private RegistrovaniKorisnik user;
 
     public VerificationToken(){
 
     }
-    public VerificationToken(String token, Korisnik user) {
+    public VerificationToken(String token, RegistrovaniKorisnik user) {
         this.token = token;
         this.user = user;
     }
@@ -41,11 +41,11 @@ public class VerificationToken {
         return EXPIRATION;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,11 +57,11 @@ public class VerificationToken {
         this.token = token;
     }
 
-    public Korisnik getUser() {
+    public RegistrovaniKorisnik getUser() {
         return user;
     }
 
-    public void setUser(Korisnik user) {
+    public void setUser(RegistrovaniKorisnik user) {
         this.user = user;
     }
 

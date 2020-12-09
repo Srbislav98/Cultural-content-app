@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class KomentarController {
         }
         return new ResponseEntity<>(komentarMapper.toDto(komentar), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/create",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KomentarDTO> createKomentar(@RequestBody KomentarDTO komentarDTO){
         Komentar komentar;
@@ -63,7 +64,7 @@ public class KomentarController {
 
         return new ResponseEntity<>(komentarMapper.toDto(komentar), HttpStatus.CREATED);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KomentarDTO> updateKomentar(@RequestBody KomentarDTO komentarDTO, @PathVariable Integer id){
         Komentar komentar;
@@ -75,7 +76,7 @@ public class KomentarController {
 
         return new ResponseEntity<>(komentarMapper.toDto(komentar), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteKomentar(@PathVariable Integer id){
         try {

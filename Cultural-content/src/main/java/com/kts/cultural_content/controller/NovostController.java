@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class NovostController {
         return new ResponseEntity<>(novostMapper.toDto(novost), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/create", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NovostDTO> createNovost(@RequestBody NovostDTO novostDTO){
         Novost novost;
@@ -73,7 +75,7 @@ public class NovostController {
 
         return new ResponseEntity<>(novostMapper.toDto(novost), HttpStatus.CREATED);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NovostDTO> updateNovost(
             @RequestBody NovostDTO novostDTO, @PathVariable Integer id){
@@ -86,7 +88,7 @@ public class NovostController {
 
         return new ResponseEntity<>(novostMapper.toDto(novost), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteNovost(@PathVariable Integer id){
         try {
