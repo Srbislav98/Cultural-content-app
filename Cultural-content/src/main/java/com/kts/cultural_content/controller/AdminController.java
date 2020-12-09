@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class AdminController {
     public AdminController() {
         adminMapper = new AdminMapper();
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<AdminDTO>> getAllAdmins() {
         List<Admin> admins= adminService.findAll();
@@ -46,6 +49,7 @@ public class AdminController {
         return new ResponseEntity<List<AdminDTO>>(adminsDTO, HttpStatus.OK);
 
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<AdminDTO>> getAllAdmins(Pageable pageable) {
         Page<Admin> page = adminService.findAll(pageable);

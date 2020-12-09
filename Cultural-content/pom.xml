@@ -57,6 +57,21 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- Spring Security i JWT -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.4</version>
+		</dependency>
+
+		<!-- Spring Security i JWT -->
+
 	</dependencies>
 
 	<build>

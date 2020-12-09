@@ -1,12 +1,13 @@
 package com.kts.cultural_content.model;
 
 import com.kts.cultural_content.dto.UlogaDTO;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
 @Entity
 //@Table(name="ULOGE")
-public class Uloga {
+public class Uloga implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,5 +38,10 @@ public class Uloga {
 
     public void setIme(String ime) {
         this.ime = ime;
+    }
+
+    @Override
+    public String getAuthority() {
+        return ime;
     }
 }

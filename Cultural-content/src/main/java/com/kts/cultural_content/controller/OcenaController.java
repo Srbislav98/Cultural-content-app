@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class OcenaController {
 
         return new ResponseEntity<>(pageOcenaDTOS, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<OcenaDTO> getOcena(@PathVariable Integer id){
         Ocena ocena = ocenaService.findOne(id);
@@ -51,7 +52,7 @@ public class OcenaController {
         }
         return new ResponseEntity<>(ocenaMapper.toDto(ocena), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/create",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OcenaDTO> createOcena(@RequestBody OcenaDTO ocenaDTO){
         Ocena ocena;
@@ -65,7 +66,7 @@ public class OcenaController {
 
         return new ResponseEntity<>(ocenaMapper.toDto(ocena), HttpStatus.CREATED);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OcenaDTO> updateOcena(@RequestBody OcenaDTO ocenaDTO, @PathVariable Integer id){
         Ocena ocena;
@@ -77,7 +78,7 @@ public class OcenaController {
 
         return new ResponseEntity<>(ocenaMapper.toDto(ocena), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteOcena(@PathVariable Integer id){
         try {

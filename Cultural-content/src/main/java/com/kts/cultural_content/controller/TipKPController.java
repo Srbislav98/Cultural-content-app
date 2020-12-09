@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,14 +29,14 @@ public class TipKPController {
     private TipKulturnePonudeMapper tipKulturnePonudeMapper;
 
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<TipKulturnePonudeDTO>> getAllTipKulturnePonude(){
         List<TipKulturnePonude> tipKulturnePonudes = tipKulturnePonudeService.findAll();
 
         return new ResponseEntity<>(toTipKulturnePonudeDTOList(tipKulturnePonudes), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<TipKulturnePonudeDTO> getTipKulturnePonude(@PathVariable Integer id){
         TipKulturnePonude tipKulturnePonude = tipKulturnePonudeService.findOne(id);
@@ -44,7 +45,7 @@ public class TipKPController {
         }
         return new ResponseEntity<>(tipKulturnePonudeMapper.toDto(tipKulturnePonude), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/create", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TipKulturnePonudeDTO> createTipKulturnePonude(@RequestBody TipKulturnePonudeDTO tipKulturnePonudeDTO){
         TipKulturnePonude tipKulturnePonude;
@@ -56,7 +57,7 @@ public class TipKPController {
 
         return new ResponseEntity<>(tipKulturnePonudeMapper.toDto(tipKulturnePonude), HttpStatus.CREATED);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TipKulturnePonudeDTO> updateTipKulturnePonude(@RequestBody TipKulturnePonudeDTO tipKulturnePonudeDTO, @PathVariable Integer id){
         TipKulturnePonude tipKulturnePonude;
@@ -68,7 +69,7 @@ public class TipKPController {
 
         return new ResponseEntity<>(tipKulturnePonudeMapper.toDto(tipKulturnePonude), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteTipKulturnePonude(@PathVariable Integer id){
         try {
