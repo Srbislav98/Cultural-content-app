@@ -15,6 +15,9 @@ public class KorisnikDTO implements Comparable<KorisnikDTO> {
     private String lozinka;
 
 
+    public KorisnikDTO(){
+
+    }
     public KorisnikDTO(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka) {
         this.id = id;
         this.ime = ime;

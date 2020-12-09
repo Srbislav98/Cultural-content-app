@@ -3,16 +3,21 @@ package com.kts.cultural_content.model;
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 //@Table(name= "KORISNICI")
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
-public class Korisnik {
+public class Korisnik implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    //@GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private Integer id;
 
@@ -31,6 +36,13 @@ public class Korisnik {
     @Column(nullable=false)
     private String lozinka;
 
+    @Column(name = "last_password_reset_date")
+    private Timestamp lastPasswordResetDate;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
+
     @ManyToMany()
     //@LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "user_authority",
@@ -39,6 +51,8 @@ public class Korisnik {
     private List<Uloga> uloga;
 
     public Korisnik() {
+        super();
+        this.enabled=false;
     }
 
     public Korisnik(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka) {
@@ -74,6 +88,8 @@ public class Korisnik {
     }
 
     public void setLozinka(String lozinka) {
+        Timestamp now = new Timestamp(new Date().getTime());
+        this.setLastPasswordResetDate(now);
         this.lozinka = lozinka;
     }
 
@@ -91,6 +107,14 @@ public class Korisnik {
 
     public void setKorisnickoIme(String korisnickoIme) {
         this.korisnickoIme = korisnickoIme;
+    }
+
+    public Timestamp getLastPasswordResetDate() {
+        return lastPasswordResetDate;
+    }
+
+    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+        this.lastPasswordResetDate = lastPasswordResetDate;
     }
 
     public String getPrezime() {
@@ -116,4 +140,51 @@ public class Korisnik {
     public void setUloga(List<Uloga> uloga) {
         this.uloga = uloga;
     }
+
+    public Korisnik(String email, String password) {
+        this.email = email;
+        this.lozinka = password;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.uloga;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.lozinka;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.korisnickoIme;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+    public boolean getEnabled() {
+        return this.enabled;
+    }
+
 }

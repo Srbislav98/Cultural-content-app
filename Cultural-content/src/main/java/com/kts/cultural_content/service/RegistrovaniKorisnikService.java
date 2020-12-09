@@ -2,6 +2,7 @@ package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.model.Admin;
+import com.kts.cultural_content.model.Korisnik;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.model.Uloga;
 import com.kts.cultural_content.repository.AdminRepository;
@@ -70,9 +71,11 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
     @Override
     public RegistrovaniKorisnik update(RegistrovaniKorisnik entity, Integer id) throws Exception {
         RegistrovaniKorisnik existingRK = rkRepository.findById(id).orElse(null);
+        System.out.println("SAFF");
         if(existingRK == null){
             throw new Exception("Registrovani korisnik with given id doesn't exist");
         }
+        System.out.println("SAFF");
         /*
         if(rkRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null ) {
             throw new Exception("Korisnik with given username already exists");
@@ -104,6 +107,14 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
 
     public RegistrovaniKorisnik save(RegistrovaniKorisnik k) {
         return rkRepository.save(k);
+    }
+
+    public RegistrovaniKorisnik findByEmail(String email) {
+        return rkRepository.findByEmail(email);
+    }
+
+    public RegistrovaniKorisnik findByKorisnickoIme(String korisnickoIme) {
+        return rkRepository.findByKorisnickoIme(korisnickoIme);
     }
 
 }

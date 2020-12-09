@@ -1,7 +1,6 @@
 package com.kts.cultural_content.dto;
 
 import com.kts.cultural_content.model.Komentar;
-import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Ocena;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 
@@ -23,6 +22,15 @@ public class RegistrovaniKorisnikDTO extends KorisnikDTO{
         this.kulturnaPonuda = kulturnaPonuda;
         this.komentari = komentari;
         this.ocene = ocene;
+    }
+
+    public RegistrovaniKorisnikDTO(KorisnikDTO a) {
+        this.setId(a.getId());
+        this.setIme(a.getIme());
+        this.setPrezime(a.getPrezime());
+        this.setKorisnickoIme(a.getKorisnickoIme());
+        this.setEmail(a.getEmail());
+        this.setLozinka(a.getLozinka());
     }
 
     public Set<KulturnaPonudaDTO> getKulturnaPonuda() {

@@ -1,9 +1,10 @@
 INSERT into uloga(id, ime) values (1, 'ROLE_ADMIN')
 INSERT into uloga(id, ime) values (2, 'ROLE_USER')
 INSERT into tip_kulturne_ponude(id, naziv) values (100,'obicna')
-
-INSERT into registrovani_korisnik(id,email,ime,korisnicko_ime,lozinka,prezime) values (101,'123@','Aca','arak','123','Acic')
-INSERT into admin(id,email,ime,korisnicko_ime,lozinka, prezime)values (100,'124@','Reka','alak','124','Rekic')
+-- password is 'user' (bcrypt encoded)
+INSERT into registrovani_korisnik(id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (101,'123@','Aca','arak','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Acic',true)
+-- password is 'admin' (bcrypt encoded)
+INSERT into admin(id,email,ime,korisnicko_ime,lozinka, prezime)values (100,'124@','Reka','alak','$2a$04$SwzgBrIJZhfnzOw7KFcdzOTiY6EFVwIpG7fkF/D1w26G1.fWsi.aK','Rekic')
 
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (100, 1)
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (101, 2)
