@@ -36,7 +36,7 @@ public class EmailService {
 
         SimpleMailMessage email = new SimpleMailMessage();
         //recipientAddress, ali za provjeru za sada moj mail
-        email.setTo("srbislav30111998@gmail.com");
+        email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(message + "\r\n" + "http://localhost:8080" + confirmationUrl);
         mailSender.send(email);
