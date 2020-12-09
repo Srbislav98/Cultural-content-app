@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class FotografijaController {
     private FotografijaService fotografijaService;
     private FotografijaMapper fotografijaMapper;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<FotografijaDTO>> getAllFotografija(){
         List<Fotografija> fotografijas = fotografijaService.findAll();
@@ -45,6 +49,8 @@ public class FotografijaController {
     public ResponseEntity<FotografijaDTO> createFotografija(@RequestBody FotografijaDTO fotografijaDTO){
         Fotografija fotografija;
         try {
+            if( ImageIO.read(new File(fotografijaDTO.getLokacijaFajl())) == null)
+                throw new IOException("Ovo nije slika");
             fotografija = fotografijaService.create(fotografijaMapper.toEntity(fotografijaDTO));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -57,6 +63,8 @@ public class FotografijaController {
     public ResponseEntity<FotografijaDTO> updateFotografija(@RequestBody FotografijaDTO fotografijaDTO, @PathVariable Integer id){
         Fotografija fotografija;
         try {
+            if( ImageIO.read(new File(fotografijaDTO.getLokacijaFajl())) == null)
+                throw new IOException("Ovo nije slika");
             fotografija = fotografijaService.update(fotografijaMapper.toEntity(fotografijaDTO), id);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
