@@ -43,7 +43,7 @@ public class KomentarController {
 
         return new ResponseEntity<>(pageKomentarDTOS, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<KomentarDTO> getKomentar(@PathVariable Integer id){
         Komentar komentar = komentarService.findOne(id);
@@ -57,6 +57,8 @@ public class KomentarController {
     public ResponseEntity<KomentarDTO> createKomentar(@RequestBody KomentarDTO komentarDTO){
         Komentar komentar;
         try {
+            if (komentarDTO.getVrednost().equals(""))
+                throw new Exception("Prazan vam je komentar!");
             komentar = komentarService.create(komentarMapper.toEntity(komentarDTO));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -69,6 +71,8 @@ public class KomentarController {
     public ResponseEntity<KomentarDTO> updateKomentar(@RequestBody KomentarDTO komentarDTO, @PathVariable Integer id){
         Komentar komentar;
         try {
+            if (komentarDTO.getVrednost().equals(""))
+                throw new Exception("Prazan vam je komentar!");
             komentar = komentarService.update(komentarMapper.toEntity(komentarDTO), id);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -1,6 +1,10 @@
 package com.kts.cultural_content.model;
 
+import javax.imageio.ImageIO;
 import javax.persistence.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 @Entity
 public class Fotografija {
@@ -13,6 +17,9 @@ public class Fotografija {
 
     @Column
     private String lokacijaFajl;
+
+    @Column
+    private File foto;
 
     @Column
     Integer kulId;
@@ -34,6 +41,14 @@ public class Fotografija {
         this.lokacijaFajl = lokacijaFajl;
         this.kulId = kulId;
         this.komId = komId;
+    }
+
+    public void setFoto(File foto) {
+        this.foto = foto;
+    }
+
+    public File getFoto() {
+        return foto;
     }
 
     public void setKulId(Integer kulId) {
@@ -84,5 +99,18 @@ public class Fotografija {
 
     public Komentar getKomentar() {
         return komentar;
+    }
+
+    public BufferedImage konverzijaUSliku(File slika){
+        BufferedImage image;
+        try {
+            image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+            image = ImageIO.read(slika);
+            return image;
+        }
+        catch (IOException e){
+            System.out.println("Nije dobra slika");
+            return null;
+        }
     }
 }

@@ -39,6 +39,7 @@ public class KomentarService implements ServiceInterface<Komentar> {
 
     @Override
     public Komentar create(Komentar entity) throws Exception {
+
         entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
         entity.setRegistrovaniKorisnik(registrovaniKorisnikRepository.findById(entity.getRegId()).orElse(null));
         return komentarRepository.save(entity);

@@ -7,6 +7,7 @@ import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 @Service
 public class FotografijaService implements  ServiceInterface<Fotografija> {
@@ -31,7 +32,7 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
     public Fotografija create(Fotografija entity) throws Exception {
         entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
         entity.setKomentar(komentarRepository.findById(entity.getKomId()).orElse(null));
-
+        entity.setFoto(new File(entity.getLokacijaFajl()));
         return  fotografijaRepository.save(entity);
     }
 
@@ -46,6 +47,7 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
         existingFotografija.setKomentar(komentarRepository.findById(entity.getKomId()).orElse(null));
         existingFotografija.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
         existingFotografija.setLokacijaFajl(entity.getLokacijaFajl());
+        existingFotografija.setFoto(new File(entity.getLokacijaFajl()));
 
         return fotografijaRepository.save(existingFotografija);
     }
