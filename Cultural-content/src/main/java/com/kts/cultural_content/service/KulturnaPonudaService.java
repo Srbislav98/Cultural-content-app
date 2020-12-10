@@ -7,6 +7,8 @@ import com.kts.cultural_content.repository.AdminRepository;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.TipKPRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -76,5 +78,18 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
 
     public KulturnaPonuda save(KulturnaPonuda k){
         return oRepository.save(k);
+    }
+
+    public List<KulturnaPonuda> filterByContent(String content) {
+        List<KulturnaPonuda> poNazivu = oRepository.findByNazivContainingOrderByNaziv(content);
+        List<KulturnaPonuda> poOpisu = oRepository.findByOpisContainingOrderById(content);
+        List<KulturnaPonuda> poSadrzaju = new ArrayList<>();
+        poSadrzaju.addAll(poNazivu);
+        poSadrzaju.addAll(poOpisu);
+        return poSadrzaju;
+    }
+
+    public List<KulturnaPonuda> filterByLocation(String x, String y) {
+        return oRepository.findByGeoSirinaAndGeoDuzinaOrderByNaziv(x, y);
     }
 }

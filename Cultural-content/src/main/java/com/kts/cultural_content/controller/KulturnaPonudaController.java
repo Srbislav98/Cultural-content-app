@@ -1,8 +1,10 @@
 package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.KulturnaPonudaDTO;
+import com.kts.cultural_content.dto.NovostDTO;
 import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
 import com.kts.cultural_content.model.KulturnaPonuda;
+import com.kts.cultural_content.model.Novost;
 import com.kts.cultural_content.service.KulturnaPonudaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,20 @@ public class KulturnaPonudaController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<KulturnaPonudaDTO>> getAllKulturnaPonuda(){
         List<KulturnaPonuda> kulturnePonude = kulturnaPonudaService.findAll();
+
+        return new ResponseEntity<>(toKulturnaPonudaDTOList(kulturnePonude), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/filter-by-content/{content}", method = RequestMethod.GET)
+    public ResponseEntity<List<KulturnaPonudaDTO>> getAllKulturnePonudebyContent(@PathVariable String content) {
+        List<KulturnaPonuda> kulturnePonude = kulturnaPonudaService.filterByContent(content);
+
+        return new ResponseEntity<>(toKulturnaPonudaDTOList(kulturnePonude), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/filter-by-location/{x}/{y}", method = RequestMethod.GET)
+    public ResponseEntity<List<KulturnaPonudaDTO>> getAllKulturnePonudebyLocation(@PathVariable String x, @PathVariable String y) {
+        List<KulturnaPonuda> kulturnePonude = kulturnaPonudaService.filterByLocation(x, y);
 
         return new ResponseEntity<>(toKulturnaPonudaDTOList(kulturnePonude), HttpStatus.OK);
     }
