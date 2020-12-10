@@ -7,5 +7,6 @@ public interface RegistrovaniKorisnikRepository extends JpaRepository<Registrova
     RegistrovaniKorisnik findByKorisnickoIme(String korisnickoIme);
     RegistrovaniKorisnik findByKorisnickoImeAndIdNot(String korisnickoIme, Integer id);
     RegistrovaniKorisnik findByEmail(String email);
+    RegistrovaniKorisnik findByResetPasswordToken(String token);
 
 }

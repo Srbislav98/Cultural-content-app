@@ -137,4 +137,27 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
         entity.setUloga(auth);
         return rkRepository.save(entity);
     }
+
+    public void UpdateResetPassword(String token, String email) throws KorisnikNotFoundException {
+        RegistrovaniKorisnik r = findByEmail(email);
+
+        if(r!=null){
+            r.setResetPasswordToken(token);
+            rkRepository.save(r);
+        }else {
+            throw new KorisnikNotFoundException("Could not find the customer with the email " + email);
+        }
+
+    }
+
+    public RegistrovaniKorisnik get(String resetPasswordToken){
+        return rkRepository.findByResetPasswordToken(resetPasswordToken);
+    }
+
+    public void updatePassword(RegistrovaniKorisnik r, String pass){
+        r.setLozinka(passwordEncoder.encode(pass));
+        r.setResetPasswordToken(null);
+
+        rkRepository.save(r);
+    }
 }
