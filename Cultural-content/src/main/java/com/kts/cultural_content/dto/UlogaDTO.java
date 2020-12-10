@@ -6,16 +6,18 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 public class UlogaDTO {
 
     private Integer id;
+    @NotBlank(message = "Ime cannot be empty.")
     private String ime;
 
     public UlogaDTO() {
     }
 
-    public UlogaDTO(Integer id, String ime) {
+    public UlogaDTO(Integer id,@NotBlank(message = "Ime cannot be empty.") String ime) {
         this.id = id;
         this.ime = ime;
     }

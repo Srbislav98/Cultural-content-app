@@ -44,60 +44,41 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
 
     @Override
     public RegistrovaniKorisnik create(RegistrovaniKorisnik entity) throws Exception {
-        System.out.println("SAFADF");
-        if(rkRepository.findById(entity.getId()).orElse(null) != null ) {
-            throw new Exception("Korisnik with given id already exists");
+        int broj=rkRepository.findAll().size()+adminRepository.findAll().size();
+        if(rkRepository.findById(entity.getId()).orElse(null) != null ||
+                adminRepository.findById(entity.getId()).orElse(null) != null) {
+            for (int i=(broj+1);i>=1;--i){
+                if(rkRepository.findById(i).orElse(null) == null &&
+                        adminRepository.findById(i).orElse(null) == null) {
+                    entity.setId(i);
+                    break;
+                }
+            }
         }
-        if(adminRepository.findById(entity.getId()).orElse(null) != null) {
-            throw new Exception("Korisnik with given id already exists");
-        }
-        System.out.println("SAFADF");
-        if(rkRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null ) {
+        if(rkRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null ||
+                adminRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null) {
             throw new Exception("Korisnik with given username already exists");
         }
-        if(adminRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null) {
+        if(rkRepository.findByEmail(entity.getEmail()) != null ||
+                adminRepository.findByEmail(entity.getEmail()) != null) {
             throw new Exception("Korisnik with given username already exists");
         }
-        System.out.println("SAFADF");
-        if(rkRepository.findByEmail(entity.getEmail()) != null) {
-            throw new Exception("Korisnik with given username already exists");
-        }
-        if(adminRepository.findByEmail(entity.getEmail()) != null) {
-            throw new Exception("Korisnik with given username already exists");
-        }
-        System.out.println("SAFADF");
         List<Uloga> auth = ulogaService.findByname("ROLE_USER");
-        System.out.println("SAFADF");
         entity.setLozinka(passwordEncoder.encode(entity.getLozinka()));
         entity.setUloga(auth);
+        entity.setEnabled(false);
         return rkRepository.save(entity);
     }
 
     @Override
     public RegistrovaniKorisnik update(RegistrovaniKorisnik entity, Integer id) throws Exception {
         RegistrovaniKorisnik existingRK = rkRepository.findById(id).orElse(null);
-        System.out.println("SAFF");
         if(existingRK == null){
             throw new Exception("Registrovani korisnik with given id doesn't exist");
         }
-        System.out.println("SAFF");
-        /*
-        if(rkRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null ) {
-            throw new Exception("Korisnik with given username already exists");
-        }
-        if(adminRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null) {
-            throw new Exception("Korisnik with given username already exists");
-        }*/
-        //existingRK.setKorisnickoIme(entity.getKorisnickoIme());
         existingRK.setIme(entity.getIme());
-        existingRK.setPrezime(entity.getPrezime());/*
-        if(rkRepository.findByEmail(entity.getEmail()) != null) {
-            throw new Exception("Korisnik with given username already exists");
-        }
-        if(adminRepository.findByEmail(entity.getEmail()) != null) {
-            throw new Exception("Korisnik with given username already exists");
-        }*/
-        //existingRK.setEmail(entity.getEmail());
+        existingRK.setPrezime(entity.getPrezime());
+        existingRK.setLozinka(entity.getLozinka());
         return rkRepository.save(existingRK);
     }
 
@@ -131,29 +112,28 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
         entity.setIme(user.getIme());
         entity.setPrezime(user.getPrezime());
         entity.setEnabled(user.getEnabled());
-        if(rkRepository.findById(entity.getId()).orElse(null) != null ) {
-            throw new Exception("Korisnik with given id already exists");
+
+        int broj=rkRepository.findAll().size()+adminRepository.findAll().size();
+        if(rkRepository.findById(entity.getId()).orElse(null) != null ||
+                adminRepository.findById(entity.getId()).orElse(null) != null) {
+            for (int i=(broj+1);i>=1;--i){
+                if(rkRepository.findById(i).orElse(null) == null &&
+                        adminRepository.findById(i).orElse(null) == null) {
+                    entity.setId(i);
+                    break;
+                }
+            }
         }
-        if(adminRepository.findById(entity.getId()).orElse(null) != null) {
-            throw new Exception("Korisnik with given id already exists");
-        }
-        System.out.println("SAFADF");
-        if(rkRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null ) {
+        if(rkRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null ||
+                adminRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null) {
             throw new Exception("Korisnik with given username already exists");
         }
-        if(adminRepository.findByKorisnickoIme(entity.getKorisnickoIme()) != null) {
+        if(rkRepository.findByEmail(entity.getEmail()) != null ||
+                adminRepository.findByEmail(entity.getEmail()) != null) {
             throw new Exception("Korisnik with given username already exists");
         }
-        System.out.println("SAFADF");
-        if(rkRepository.findByEmail(entity.getEmail()) != null) {
-            throw new Exception("Korisnik with given username already exists");
-        }
-        if(adminRepository.findByEmail(entity.getEmail()) != null) {
-            throw new Exception("Korisnik with given username already exists");
-        }
-        System.out.println("SAFADF");
+
         List<Uloga> auth = ulogaService.findByname("ROLE_USER");
-        System.out.println("SAFADF");
         entity.setUloga(auth);
         return rkRepository.save(entity);
     }

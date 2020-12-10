@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 public class VerificationToken {
+
     private static final int EXPIRATION = 60 * 24;
 
     @Id

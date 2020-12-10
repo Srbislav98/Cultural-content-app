@@ -1,6 +1,5 @@
 package com.kts.cultural_content.service;
 
-import com.kts.cultural_content.dto.OnRegistrationCompleteEvent;
 import com.kts.cultural_content.model.Korisnik;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import org.springframework.beans.factory.annotation.Autowired;

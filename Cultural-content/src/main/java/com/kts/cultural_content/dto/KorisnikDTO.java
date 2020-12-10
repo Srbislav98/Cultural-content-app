@@ -4,21 +4,35 @@ import com.kts.cultural_content.model.Korisnik;
 import com.kts.cultural_content.model.Uloga;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 public class KorisnikDTO implements Comparable<KorisnikDTO> {
 
     private Integer id;
-    private String ime;
-    private String prezime;
-    private String korisnickoIme;
-    private String email;
-    private String lozinka;
 
+    @NotBlank(message = "Ime cannot be empty.")
+    private String ime;
+
+    @NotBlank(message = "Prezime cannot be empty.")
+    private String prezime;
+
+    @NotBlank(message = "Korisnicko ime cannot be empty.")
+    private String korisnickoIme;
+
+    @NotBlank(message = "Email cannot be empty.")
+    @Email(message = "Email format is not valid.")
+    private String email;
+
+    @NotBlank(message = "Lozinka cannot be empty.")
+    private String lozinka;
 
     public KorisnikDTO(){
 
     }
-    public KorisnikDTO(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka) {
+    public KorisnikDTO(Integer id, @NotBlank(message = "Ime cannot be empty.") String ime, @NotBlank(message = "Prezime cannot be empty.")String prezime,
+                       @NotBlank(message = "Korisnicko ime cannot be empty.") String korisnickoIme,@NotBlank(message = "Email cannot be empty.")
+                       @Email(message = "Email format is not valid.") String email,@NotBlank(message = "Lozinka cannot be empty.") String lozinka) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;

@@ -16,6 +16,7 @@ public class RegistrovaniKorisnikMapper implements MapperInterface<RegistrovaniK
     private KulturnaPonudaMapper kulturnaPonudaMapper;
     private KomentarMapper komentarMapper;
     private OcenaMapper ocenaMapper;
+
     public RegistrovaniKorisnikMapper() {
         ulogaMapper = new UlogaMapper();
         kulturnaPonudaMapper=new KulturnaPonudaMapper();

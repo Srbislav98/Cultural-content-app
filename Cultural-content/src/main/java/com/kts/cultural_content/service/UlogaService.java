@@ -7,38 +7,22 @@ import com.kts.cultural_content.repository.UlogaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UlogaService implements ServiceInterface<Uloga> {
+public class UlogaService {
     @Autowired
     private UlogaRepository ulogaRepository;
-    @Override
-    public List<Uloga> findAll() {
-        return null;
-    }
-
-    @Override
-    public Uloga findOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public Uloga create(Uloga entity) throws Exception {
-        return null;
-    }
-
-    @Override
-    public Uloga update(Uloga entity, Integer id) throws Exception {
-        return null;
-    }
-
-    @Override
-    public void delete(Integer id) throws Exception {
-
-    }
 
     public List<Uloga> findByname(String role_user) {
         return ulogaRepository.findByIme(role_user);
+    }
+
+    public List<Uloga> findById(Integer id) {
+        Uloga auth = this.ulogaRepository.getOne(id);
+        List<Uloga> auths = new ArrayList<>();
+        auths.add(auth);
+        return auths;
     }
 }

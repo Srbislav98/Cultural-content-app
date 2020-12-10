@@ -4,6 +4,9 @@ import com.kts.cultural_content.dto.UlogaDTO;
 import com.kts.cultural_content.model.Uloga;
 
 public class UlogaMapper implements MapperInterface<Uloga, UlogaDTO> {
+
+    public UlogaMapper() {
+    }
     @Override
     public Uloga toEntity(UlogaDTO dto) {
         return new Uloga(dto.getId(),dto.getIme());

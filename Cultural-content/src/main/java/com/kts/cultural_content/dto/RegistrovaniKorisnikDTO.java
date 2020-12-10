@@ -27,6 +27,7 @@ public class RegistrovaniKorisnikDTO extends KorisnikDTO{
     public RegistrovaniKorisnikDTO() {
 
     }
+
     public RegistrovaniKorisnikDTO(KorisnikDTO a) {
         this.setId(a.getId());
         this.setIme(a.getIme());

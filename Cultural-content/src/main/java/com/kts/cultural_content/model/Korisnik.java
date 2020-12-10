@@ -16,6 +16,7 @@ import java.util.List;
 //@Table(name= "KORISNICI")
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public class Korisnik implements UserDetails {
+
     @Id
     //@GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "user_id")
@@ -183,6 +184,7 @@ public class Korisnik implements UserDetails {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
     public boolean getEnabled() {
         return this.enabled;
     }
