@@ -18,6 +18,16 @@ public class RegistrovaniKorisnik extends Korisnik {
     @OneToMany( mappedBy = "registrovaniKorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Ocena> ocene = new HashSet<>();
 
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
+    @Column(nullable = true)
+    private String resetPasswordToken;
 
     public RegistrovaniKorisnik() {
     }
