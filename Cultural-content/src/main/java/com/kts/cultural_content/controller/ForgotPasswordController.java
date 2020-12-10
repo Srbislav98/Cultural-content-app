@@ -4,6 +4,7 @@ import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.model.Utility;
+import com.kts.cultural_content.service.KorisnikNotFoundException;
 import com.kts.cultural_content.service.KulturnaPonudaService;
 import com.kts.cultural_content.service.RegistrovaniKorisnikService;
 import net.bytebuddy.utility.RandomString;
@@ -27,17 +28,20 @@ public class ForgotPasswordController {
     private RegistrovaniKorisnikService oKorisnik;
 
     @RequestMapping(value="/password", method= RequestMethod.POST)
-    public String ProcesForgotPassword(@RequestBody String email){
+    public String ProcesForgotPassword(@RequestBody String email) throws KorisnikNotFoundException {
         String token = RandomString.make(45);
 
         System.out.println("Email " + email);
         System.out.println("Token " + token);
 
-        oKorisnik.updatePassword(oKorisnik.findByEmail(email), token);
+        if (oKorisnik.findByEmail(email) == null)
+            return "Email not found";
+
+        oKorisnik.UpdateResetPassword(token, email);
         RegistrovaniKorisnik kor = oKorisnik.findByEmail(email);
 
         //generisanje linka
-        String resetPasswordLink = "http://localhost:8080/api/recover" + "/reset_password?token=" + token; //Utility.getSiteURL();
+        String resetPasswordLink = "http://localhost:8080/recover" + "/reset_password/" + token; //Utility.getSiteURL();
         //slanje mejla
         String recipientAddress = email;
         String subject = "Recover Password";
@@ -53,8 +57,12 @@ public class ForgotPasswordController {
         return token;
     }
 
-    @RequestMapping(value="/reset_password", method= RequestMethod.POST)
-    public String ProcesResetPassword(@RequestBody String token, String newPassword){
+    @RequestMapping(value="/reset_password/{token}", method= RequestMethod.POST)
+    public String ProcesResetPassword(@RequestBody String newPassword, @PathVariable String token){
+
+        System.out.println("Token : " + token);
+        System.out.println("New Password : " + newPassword);
+
         RegistrovaniKorisnik kor = oKorisnik.get(token);
 
         if(kor == null)
