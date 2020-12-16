@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 
@@ -39,8 +40,25 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
 
     @Override
     public KulturnaPonuda create(KulturnaPonuda entity) throws Exception {
-        Admin ad = oAdmin.getOne(100);
-        entity.setAdmin(ad);//obrisati kasnije
+        Object admin = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(admin instanceof Admin)){
+            throw new Exception();
+        }
+        int id = ((Admin) admin).getId();
+        Admin ad = oAdmin.getOne(id);
+        entity.setAdmin(ad);
+
+        TipKulturnePonude tip = oTip.getOne(Integer.parseInt(entity.getTipKulturnePonude().getNaziv()));
+        entity.setTipKulturnePonude(tip);
+
+        System.out.println("####################################################");
+        System.out.println("Upisuje u bazu : ");
+        System.out.println("\tID - " + entity.getId());
+        System.out.println("\tNaziv - " + entity.getNaziv());
+        System.out.println("\tTip KP - " + entity.getTipKulturnePonude().getNaziv() + "; ID - " + entity.getTipKulturnePonude().getId());
+        System.out.println("\tAdmin - " + entity.getAdmin().getEmail() + "; ID - " + entity.getAdmin().getId());
+        System.out.println("####################################################");
+
         return oRepository.save(entity);
     }
 
