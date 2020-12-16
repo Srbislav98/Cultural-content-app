@@ -1,0 +1,53 @@
+<div id = "register">
+    <form [formGroup]="regForm" (ngSubmit)="regIn()">
+		<h2 class="text-center">Registration</h2>       
+		<div class="form-group">
+			<label for="email">Email: </label>
+            <input type="text" class="form-control" id="email"  placeholder="email" formControlName="email">
+			<small class="text-danger" 
+				*ngIf="regForm.controls.email.touched && regForm.controls.email.errors?.required">
+				Email is required</small>
+			<small class="text-danger" 
+				*ngIf="regForm.controls.email.touched && regForm.controls.email.errors?.email">
+				Email is not valid</small>
+        </div>
+        <div class="form-group">
+			<label for="username">Username: </label>
+            <input type="text" class="form-control" id="username"  placeholder="username" formControlName="username">
+			<small class="text-danger" 
+				*ngIf="regForm.controls.username.touched && regForm.controls.username.errors?.required">
+				Username is required</small>
+		</div>
+		<div class="form-group" id = "vrsta">
+			<div class = "celija">
+				<label for="ime">Name: </label>
+                <input type="text" class="form-control" id="Name"  placeholder="Name" formControlName="ime">
+                <small class="text-danger" 
+                    *ngIf="regForm.controls.ime.touched && regForm.controls.ime.errors?.required">
+                    Name is required</small>
+   			</div>
+   			<div class = "celija">
+   				<label for="prezime">Surname: </label>
+                   <input type="text" class="form-control" id="Surname"  placeholder="Surname" formControlName="prezime">
+                   <small class="text-danger" 
+                       *ngIf="regForm.controls.prezime.touched && regForm.controls.prezime.errors?.required">
+                       Name is required</small>
+    		</div>
+        </div>
+        <div class="form-group">
+			<label for="password">Password: </label>
+            <input type="password" class="form-control"  placeholder="password" formControlName="password">
+			<small class="text-danger" 
+				*ngIf="regForm.controls.password.touched && regForm.controls.password.errors?.required">
+				Password is required</small>
+			<small class="text-danger" 
+				*ngIf="regForm.controls.password.touched && regForm.controls.password.errors?.minlength">
+				Password should be at least 6 characters long</small>
+		</div>
+        <div class="form-group">
+    		<button type="submit" class="btn btn-primary btn-block" [disabled]="regForm.invalid">Sign up</button>
+        </div>
+        <a routerLink="/login" id="registration-link" class="btn btn-link">Sign in instead</a>
+		
+    </form>
+</div>	

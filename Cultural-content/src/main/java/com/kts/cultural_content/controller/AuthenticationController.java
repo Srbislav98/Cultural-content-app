@@ -91,7 +91,6 @@ public class AuthenticationController {
     // Endpoint za registraciju novog korisnika
     @PostMapping("/sign-up")
     public ResponseEntity<?> addUser(@RequestBody KorisnikDTO userRequest) throws Exception {
-
         RegistrovaniKorisnik existUser = this.rkService.findByEmail(userRequest.getEmail());
         if (existUser != null) {
             throw new Exception("Username already exists");

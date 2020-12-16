@@ -1,0 +1,28 @@
+<div id = "login">
+    <form [formGroup]="logForm" (ngSubmit)="logIn()">    
+		<div class="form-group">
+			<input type="text" class="form-control" id="email"  placeholder="email" formControlName="email">
+			<small class="text-danger" 
+				*ngIf="logForm.controls.email.touched && logForm.controls.email.errors?.required">
+				Email is required</small>
+			<small class="text-danger" 
+				*ngIf="logForm.controls.email.touched && logForm.controls.email.errors?.email">
+				Email is not valid</small>
+		</div>
+		<div class="form-group">
+			<input type="password" class="form-control"  placeholder="password" formControlName="password">
+			<small class="text-danger" 
+				*ngIf="logForm.controls.password.touched && logForm.controls.password.errors?.required">
+				Password is required</small>
+			<small class="text-danger" 
+				*ngIf="logForm.controls.password.touched && logForm.controls.password.errors?.minlength">
+				Password should be at least 6 characters long</small>
+		</div>
+		<div class="form-group">
+    		<button type="submit" class="btn btn-primary btn-block" [disabled]="logForm.invalid">Log in</button>
+		</div>
+		<div class="form-group">
+    		<a routerLink="/registration" id="registration-link" class="btn btn-link">No account? Create one!</a>
+		</div>
+    </form>
+</div>
