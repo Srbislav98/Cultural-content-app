@@ -90,4 +90,12 @@ public class NovostService  implements ServiceInterface<Novost> {
             mailSender.send(email);
         }
     }
+
+    public Novost createSaKulturnomPonudom(Novost entity, Integer id) throws Exception {
+        if(novostRepository.findByNaziv(entity.getNaziv()) != null) {
+            throw new Exception("Novost with given naziv already exists");
+        }
+        entity.setKulturnaPonuda(kulturnaPonudaRepository.getOne(id));
+        return novostRepository.save(entity);
+    }
 }

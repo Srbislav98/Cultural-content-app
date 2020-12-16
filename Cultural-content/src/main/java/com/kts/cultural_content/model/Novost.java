@@ -35,6 +35,12 @@ public class Novost {
         //this.kulturnaPonuda = new KulturnaPonuda(100,null, null, null, null, null);
     }
 
+    public Novost(String naziv, String opis, Date datum) {
+        this.naziv = naziv;
+        this.opis = opis;
+        this.datum = datum;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -76,6 +76,21 @@ public class NovostController {
 
         return new ResponseEntity<>(novostMapper.toDto(novost), HttpStatus.CREATED);
     }
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/create/kulturna-ponuda/{id}", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<NovostDTO> createNovostKulturnaPonuda(@PathVariable Integer id,@RequestBody NovostDTO novostDTO){
+        Novost novost;
+        try {
+            novost = novostService.createSaKulturnomPonudom(novostMapper.toEntity(novostDTO),id);
+            novostService.obavestenjeNaEmail(novost);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(novostMapper.toDto(novost), HttpStatus.CREATED);
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NovostDTO> updateNovost(

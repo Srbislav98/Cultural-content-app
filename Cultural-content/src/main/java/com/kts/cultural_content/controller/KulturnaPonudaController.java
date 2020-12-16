@@ -132,12 +132,15 @@ public class KulturnaPonudaController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/getNovosti/{id}", method = RequestMethod.GET)
-    public ResponseEntity< Set<Novost>> getKulturnaPonudaNovosti(@PathVariable Integer id){
+    public ResponseEntity< List<Novost>> getKulturnaPonudaNovosti(@PathVariable Integer id){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
         if (kulturnaPonuda == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Set<Novost>>(kulturnaPonuda.getNovosti(), HttpStatus.OK);
+        ArrayList<Novost> lista = new ArrayList<Novost>();
+        for (Novost novost : kulturnaPonuda.getNovosti())
+            lista.add(new Novost(novost.getNaziv(),novost.getOpis(),novost.getDatum()));
+        return new ResponseEntity<List<Novost>>(lista, HttpStatus.OK);
     }
 
     public KulturnaPonudaController() {
