@@ -1,11 +1,16 @@
 package com.kts.cultural_content.service;
 
+import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Novost;
+import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.NovostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +20,9 @@ public class NovostService  implements ServiceInterface<Novost> {
 
     @Autowired
     private NovostRepository novostRepository;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Autowired
     private KulturnaPonudaRepository kulturnaPonudaRepository;
@@ -64,5 +72,22 @@ public class NovostService  implements ServiceInterface<Novost> {
             throw new Exception("Novost with given id doesn't exist");
         }
         novostRepository.delete(existingNovost);
+    }
+
+    @Async
+    public void obavestenjeNaEmail(Novost entity){
+
+        KulturnaPonuda kulturnaPonuda = entity.getKulturnaPonuda();
+
+        for(RegistrovaniKorisnik registrovaniKorisnik : kulturnaPonuda.getRegistrovaniKorisnik()) {
+            String recipientAddress = registrovaniKorisnik.getEmail();
+            String subject = "Kulturna ponuda :"+kulturnaPonuda.getNaziv();
+            String message = entity.getOpis()+"\n"+entity.getDatum();
+            SimpleMailMessage email = new SimpleMailMessage();
+            email.setTo(recipientAddress);
+            email.setSubject(subject);
+            email.setText(message);
+            mailSender.send(email);
+        }
     }
 }

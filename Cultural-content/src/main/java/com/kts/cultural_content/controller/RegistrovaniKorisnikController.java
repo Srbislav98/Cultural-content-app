@@ -1,9 +1,11 @@
 package com.kts.cultural_content.controller;
 
+import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.dto.NovostDTO;
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.mapper.AdminMapper;
 import com.kts.cultural_content.mapper.RegistrovaniKorisnikMapper;
+import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Novost;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.service.RegistrovaniKorisnikService;
@@ -18,7 +20,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/api/registrovaniKorisnici", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -101,6 +105,41 @@ public class RegistrovaniKorisnikController {
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @RequestMapping(value = "/subscribe/{id}/kulturnaPonuda/{id2}", method = RequestMethod.PUT )
+    public ResponseEntity<Void> subscribe(@PathVariable Integer id, @PathVariable Integer id2){
+        try {
+            rkService.subscribe(id,id2);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @RequestMapping(value = "/unsubscribe/{id}/kulturnaPonuda/{id2}", method = RequestMethod.PUT )
+    public ResponseEntity<Void> unsubscribe(@PathVariable Integer id, @PathVariable Integer id2){
+        try {
+            rkService.unsubscribe(id,id2);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @GetMapping(value="/allsubscriptions/{id}")
+    public ResponseEntity< Set<KulturnaPonudaDTO>> getRegistrovanKorisnikSubscriptions(@PathVariable Integer id) {
+        RegistrovaniKorisnik rk= rkService.findOne(id);
+        if (rk == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        RegistrovaniKorisnikDTO k = rkMapper.toDto(rk);
+        return new ResponseEntity<Set<KulturnaPonudaDTO>>( k.getKulturnaPonuda(), HttpStatus.OK);
     }
 
     private List<RegistrovaniKorisnikDTO> toRegistrovaniKorisnikDTOList(List<RegistrovaniKorisnik> toList) {

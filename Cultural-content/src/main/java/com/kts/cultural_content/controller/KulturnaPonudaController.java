@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/api/kulturnePonude", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -101,6 +102,16 @@ public class KulturnaPonudaController {
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/getNovosti/{id}", method = RequestMethod.GET)
+    public ResponseEntity< Set<Novost>> getKulturnaPonudaNovosti(@PathVariable Integer id){
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
+        if (kulturnaPonuda == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Set<Novost>>(kulturnaPonuda.getNovosti(), HttpStatus.OK);
     }
 
     public KulturnaPonudaController() {

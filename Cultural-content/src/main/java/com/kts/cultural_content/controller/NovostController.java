@@ -69,6 +69,7 @@ public class NovostController {
         Novost novost;
         try {
             novost = novostService.create(novostMapper.toEntity(novostDTO));
+            novostService.obavestenjeNaEmail(novost);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -82,6 +83,7 @@ public class NovostController {
         Novost novost;
         try {
             novost = novostService.update(novostMapper.toEntity(novostDTO), id);
+            novostService.obavestenjeNaEmail(novost);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
