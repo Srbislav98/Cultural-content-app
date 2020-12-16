@@ -72,8 +72,34 @@ public class KulturnaPonudaController {
     public ResponseEntity<KulturnaPonudaDTO> createKulturnaPonuda(@RequestBody KulturnaPonudaDTO kulturnaPonudaDTO){
         KulturnaPonuda kulturnaPonuda;
         try {
-            kulturnaPonuda = kulturnaPonudaService.create(kulturnaPonudaMapper.toEntity(kulturnaPonudaDTO));
+            System.out.println("####################################################");
+            System.out.println("DTO : ");
+            System.out.println("\tID - " + kulturnaPonudaDTO.getId());
+            System.out.println("\tNaziv - " + kulturnaPonudaDTO.getNaziv());
+            System.out.println("\tID Tipa KP - " + kulturnaPonudaDTO.getIdt());
+            System.out.println("####################################################");
+
+            KulturnaPonuda map = kulturnaPonudaMapper.toEntity(kulturnaPonudaDTO);
+
+            System.out.println("####################################################");
+            System.out.println("KP pre kulturnaPonudaService : ");
+            System.out.println("\tID - " + map.getId());
+            System.out.println("\tNaziv - " + map.getNaziv());
+            System.out.println("\tTip KP - " + map.getTipKulturnePonude().getNaziv() + "; ID - " + map.getTipKulturnePonude().getId());
+            System.out.println("\tAdmin - " + map.getAdmin().getEmail() + "; ID - " + map.getAdmin().getId());
+            System.out.println("####################################################");
+
+            kulturnaPonuda = kulturnaPonudaService.create(map);
+
+            System.out.println("####################################################");
+            System.out.println("KP posle kulturnaPonudaService : ");
+            System.out.println("\tID - " + kulturnaPonuda.getId());
+            System.out.println("\tNaziv - " + kulturnaPonuda.getNaziv());
+            System.out.println("\tTip KP - " + kulturnaPonuda.getTipKulturnePonude().getNaziv() + "; ID - " + kulturnaPonuda.getTipKulturnePonude().getId());
+            System.out.println("\tAdmin - " + kulturnaPonuda.getAdmin().getEmail() + "; ID - " + kulturnaPonuda.getAdmin().getId());
+            System.out.println("####################################################");
         } catch (Exception e) {
+            System.out.println("ResponseEntity<KulturnaPonudaDTO> createKulturnaPonuda");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 

@@ -96,7 +96,7 @@ public class KulturnaPonuda {
         this.fotogrfija = fotogrfija;
     }
 
-    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis) {
+    /*public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis) {
         this.id = id;
         this.naziv = naziv;
         this.geoSirina = geoSirina;
@@ -104,19 +104,17 @@ public class KulturnaPonuda {
         this.adresa = adresa;
         this.opis = opis;
         this.admin = new Admin(100, "", "", "", "", "", null);
-    }
+    }*/
 
-    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Integer idx) {
+    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, TipKulturnePonude tip, Admin ad) {
         this.id = id;
         this.naziv = naziv;
         this.geoSirina = geoSirina;
         this.geoDuzina = geoDuzina;
         this.adresa = adresa;
         this.opis = opis;
-        this.admin = new Admin(100, "", "", "", "", "", null);
-        TipKulturnePonude a = new TipKulturnePonude(idx, "idx.toString()" + Instant.now().getEpochSecond());
-        a.setId(idx);
-        this.tipKulturnePonude = a;
+        this.admin = ad;
+        this.tipKulturnePonude = tip;
     }
 
     public Integer getIdt(){
