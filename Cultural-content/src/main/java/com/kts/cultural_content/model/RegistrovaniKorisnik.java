@@ -4,13 +4,23 @@ import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class RegistrovaniKorisnik extends Korisnik {
 
-    @ManyToMany(mappedBy = "registrovaniKorisnik", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    private Set<KulturnaPonuda> kulturnaPonuda = new HashSet<>();
+
+
+    @ManyToMany(  cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinTable(
+            joinColumns = {
+                    @JoinColumn(
+                            nullable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            nullable = false)})
+    private Set<KulturnaPonuda> kulturnaPonuda;
 
     @OneToMany( mappedBy = "registrovaniKorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Komentar> komentari = new HashSet<>();

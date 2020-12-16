@@ -51,15 +51,8 @@ public class KulturnaPonuda {
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Novost> novosti = new HashSet<>();
 
-    @ManyToMany(  cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinTable(
-            joinColumns = {
-                    @JoinColumn(
-                            nullable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(
-                            nullable = false)})
-    private List<RegistrovaniKorisnik> registrovaniKorisnik;
+    @ManyToMany(mappedBy = "kulturnaPonuda", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private Set<RegistrovaniKorisnik> registrovaniKorisnik = new HashSet<>();
 
     public KulturnaPonuda() {
     }
@@ -80,12 +73,12 @@ public class KulturnaPonuda {
         this.tipKulturnePonude = tipKulturnePonude;
     }
 
-    public List<RegistrovaniKorisnik> getRegistrovaniKorisnik() {
-        return registrovaniKorisnik;
+    public void setRegistrovaniKorisnik(Set<RegistrovaniKorisnik> registrovaniKorisnik) {
+        this.registrovaniKorisnik = registrovaniKorisnik;
     }
 
-    public void setRegistrovaniKorisnik(List<RegistrovaniKorisnik> registrovaniKorisnik) {
-        this.registrovaniKorisnik = registrovaniKorisnik;
+    public Set<RegistrovaniKorisnik> getRegistrovaniKorisnik() {
+        return registrovaniKorisnik;
     }
 
     public Set<Fotografija> getFotogrfija() {

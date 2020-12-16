@@ -1,11 +1,9 @@
 package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
-import com.kts.cultural_content.model.Admin;
-import com.kts.cultural_content.model.Korisnik;
-import com.kts.cultural_content.model.RegistrovaniKorisnik;
-import com.kts.cultural_content.model.Uloga;
+import com.kts.cultural_content.model.*;
 import com.kts.cultural_content.repository.AdminRepository;
+import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.RegistrovaniKorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +17,10 @@ import java.util.List;
 public class RegistrovaniKorisnikService  implements ServiceInterface<RegistrovaniKorisnik> {
     @Autowired
     private RegistrovaniKorisnikRepository rkRepository;
+
+    @Autowired
+    private KulturnaPonudaRepository kulturnaPonudaRepository;
+
     @Autowired
     private AdminRepository adminRepository;
     @Autowired
@@ -160,4 +162,22 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
 
         rkRepository.save(r);
     }
+
+    public void subscribe(Integer id, Integer id2){
+        RegistrovaniKorisnik registrovaniKorisnik  = rkRepository.findById(id).orElse(null);
+        if (registrovaniKorisnik!=null) {
+            registrovaniKorisnik.getKulturnaPonuda().add(kulturnaPonudaRepository.findById(id2).orElse(null));
+            rkRepository.save(registrovaniKorisnik);
+
+        }
+    }
+
+    public void unsubscribe(Integer id, Integer id2){
+        RegistrovaniKorisnik registrovaniKorisnik  = rkRepository.findById(id).orElse(null);
+        if (registrovaniKorisnik!=null) {
+            registrovaniKorisnik.getKulturnaPonuda().remove(kulturnaPonudaRepository.findById(id2).orElse(null));
+            rkRepository.save(registrovaniKorisnik);
+        }
+    }
+
 }
