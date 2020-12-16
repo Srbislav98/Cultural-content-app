@@ -1,10 +1,7 @@
 package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
-import com.kts.cultural_content.model.Admin;
-import com.kts.cultural_content.model.Korisnik;
-import com.kts.cultural_content.model.RegistrovaniKorisnik;
-import com.kts.cultural_content.model.Uloga;
+import com.kts.cultural_content.model.*;
 import com.kts.cultural_content.repository.AdminRepository;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.RegistrovaniKorisnikRepository;
@@ -168,14 +165,19 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
 
     public void subscribe(Integer id, Integer id2){
         RegistrovaniKorisnik registrovaniKorisnik  = rkRepository.findById(id).orElse(null);
-        if (registrovaniKorisnik!=null)
+        if (registrovaniKorisnik!=null) {
             registrovaniKorisnik.getKulturnaPonuda().add(kulturnaPonudaRepository.findById(id2).orElse(null));
+            rkRepository.save(registrovaniKorisnik);
+
+        }
     }
 
     public void unsubscribe(Integer id, Integer id2){
         RegistrovaniKorisnik registrovaniKorisnik  = rkRepository.findById(id).orElse(null);
-        if (registrovaniKorisnik!=null)
+        if (registrovaniKorisnik!=null) {
             registrovaniKorisnik.getKulturnaPonuda().remove(kulturnaPonudaRepository.findById(id2).orElse(null));
+            rkRepository.save(registrovaniKorisnik);
+        }
     }
 
 }

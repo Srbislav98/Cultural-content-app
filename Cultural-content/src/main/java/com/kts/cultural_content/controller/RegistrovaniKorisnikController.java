@@ -120,7 +120,7 @@ public class RegistrovaniKorisnikController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER')")
-    @RequestMapping(value = "/unsubscribe/{id}/kulturnaPonuda/{id2}", method = RequestMethod.PUT )
+    @RequestMapping(value = "/unsubscribe/{id}/kulturnaPonuda/{id2}", method = RequestMethod.DELETE )
     public ResponseEntity<Void> unsubscribe(@PathVariable Integer id, @PathVariable Integer id2){
         try {
             rkService.unsubscribe(id,id2);
