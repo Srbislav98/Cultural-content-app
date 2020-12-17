@@ -70,13 +70,18 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
         }
 
         existingKulturnaPonuda.setNaziv(entity.getNaziv());
-        existingKulturnaPonuda.setTipKulturnePonude(entity.getTipKulturnePonude());
         existingKulturnaPonuda.setAdresa(entity.getAdresa());
-        existingKulturnaPonuda.setFotogrfija(entity.getFotogrfija());
         existingKulturnaPonuda.setGeoDuzina(entity.getGeoDuzina());
         existingKulturnaPonuda.setGeoSirina(entity.getGeoSirina());
         existingKulturnaPonuda.setOpis(entity.getOpis());
-        existingKulturnaPonuda.setRegistrovaniKorisnik(entity.getRegistrovaniKorisnik());
+
+        //existingKulturnaPonuda.setRegistrovaniKorisnik(entity.getRegistrovaniKorisnik());
+        //existingKulturnaPonuda.setFotogrfija(entity.getFotogrfija());
+
+        TipKulturnePonude tip = oTip.getOne(Integer.parseInt(entity.getTipKulturnePonude().getNaziv()));
+        entity.setTipKulturnePonude(tip);
+        if( entity.getTipKulturnePonude() != null)
+            existingKulturnaPonuda.setTipKulturnePonude(entity.getTipKulturnePonude());
 
         return oRepository.save(existingKulturnaPonuda);
     }
