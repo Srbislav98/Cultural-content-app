@@ -20,6 +20,11 @@ public class Lokacija {
     public Lokacija() {
     }
 
+    public Lokacija(Integer id, String nazivLokacije) {
+        this.id = id;
+        this.nazivLokacije = nazivLokacije;
+    }
+
     public Lokacija(Integer id, String nazivLokacije, double geoDuzina, double geoSirina) {
         this.id = id;
         this.nazivLokacije = nazivLokacije;

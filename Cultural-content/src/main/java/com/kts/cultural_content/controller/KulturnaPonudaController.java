@@ -44,9 +44,9 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(toKulturnaPonudaDTOList(kulturnePonude), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/filter-by-location/{x}/{y}", method = RequestMethod.GET)
-    public ResponseEntity<List<KulturnaPonudaDTO>> getAllKulturnePonudebyLocation(@PathVariable String x, @PathVariable String y) {
-        List<KulturnaPonuda> kulturnePonude = kulturnaPonudaService.filterByLocation(x, y);
+    @RequestMapping(value = "/filter-by-location/{name}", method = RequestMethod.GET)
+    public ResponseEntity<List<KulturnaPonudaDTO>> getAllKulturnePonudebyLocation(@PathVariable String name) {
+        List<KulturnaPonuda> kulturnePonude = kulturnaPonudaService.filterByLocation(name);
 
         return new ResponseEntity<>(toKulturnaPonudaDTOList(kulturnePonude), HttpStatus.OK);
     }

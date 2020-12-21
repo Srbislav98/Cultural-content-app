@@ -19,12 +19,6 @@ public class KulturnaPonuda {
     private String naziv;
 
     @Column(nullable=false)
-    private String geoSirina;
-
-    @Column(nullable=false)
-    private String geoDuzina;
-
-    @Column(nullable=false)
     private String adresa;
 
     @Column(nullable=true)
@@ -40,6 +34,10 @@ public class KulturnaPonuda {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn( nullable = true)
     private TipKulturnePonude tipKulturnePonude;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn( nullable = true)
+    private Lokacija lokacija;
 
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Ocena> ocene = new HashSet<>();
@@ -99,15 +97,14 @@ public class KulturnaPonuda {
         this.admin = new Admin(100, "", "", "", "", "", null);
     }*/
 
-    public KulturnaPonuda(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, TipKulturnePonude tip, Admin ad) {
+    public KulturnaPonuda(Integer id, String naziv, String adresa, String opis, TipKulturnePonude tip, Admin ad, Lokacija lokacija) {
         this.id = id;
         this.naziv = naziv;
-        this.geoSirina = geoSirina;
-        this.geoDuzina = geoDuzina;
         this.adresa = adresa;
         this.opis = opis;
         this.admin = ad;
         this.tipKulturnePonude = tip;
+        this.lokacija = lokacija;
     }
 
     public Integer getIdt(){
@@ -154,22 +151,6 @@ public class KulturnaPonuda {
         this.naziv = naziv;
     }
 
-    public String getGeoSirina() {
-        return geoSirina;
-    }
-
-    public void setGeoSirina(String geoSirina) {
-        this.geoSirina = geoSirina;
-    }
-
-    public String getGeoDuzina() {
-        return geoDuzina;
-    }
-
-    public void setGeoDuzina(String geoDuzina) {
-        this.geoDuzina = geoDuzina;
-    }
-
     public String getAdresa() {
         return adresa;
     }
@@ -186,6 +167,13 @@ public class KulturnaPonuda {
         this.opis = opis;
     }
 
+    public Lokacija getLokacija() {
+        return lokacija;
+    }
+
+    public void setLokacija(Lokacija lokacija) {
+        this.lokacija = lokacija;
+    }
 
     public Double prosecnaOcena(){
         Double d = 0.0;

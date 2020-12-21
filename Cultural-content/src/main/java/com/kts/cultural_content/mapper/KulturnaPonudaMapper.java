@@ -3,6 +3,7 @@ import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.mapper.MapperInterface;
 import com.kts.cultural_content.model.*;
 import com.kts.cultural_content.repository.TipKPRepository;
+import com.kts.cultural_content.service.LokacijaService;
 import com.kts.cultural_content.service.TipKPService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class KulturnaPonudaMapper implements MapperInterface<KulturnaPonuda, KulturnaPonudaDTO> {
-    @Autowired
-    private TipKPService oTip;
 
     @Override
     public KulturnaPonuda toEntity(KulturnaPonudaDTO dto) {
@@ -34,12 +33,13 @@ public class KulturnaPonudaMapper implements MapperInterface<KulturnaPonuda, Kul
         System.out.println("\tNaziv - " + tip.getNaziv());
         System.out.println("-----------------------------------------------------");
 
+        Lokacija lokacija = new Lokacija(dto.getIdLokacije(), dto.getIdLokacije().toString());
 
-        return new KulturnaPonuda(dto.getId(), dto.getNaziv(), dto.getGeoSirina(), dto.getGeoDuzina(), dto.getAdresa(), dto.getOpis(), tip, ad);
+        return new KulturnaPonuda(dto.getId(), dto.getNaziv(), dto.getAdresa(), dto.getOpis(), tip, ad, lokacija);
     }
 
     @Override
     public KulturnaPonudaDTO toDto(KulturnaPonuda entity) {
-        return new KulturnaPonudaDTO(entity.getId(), entity.getNaziv(), entity.getGeoSirina(), entity.getGeoDuzina(), entity.getAdresa(), entity.getOpis(), entity.getIdt());
+        return new KulturnaPonudaDTO(entity.getId(), entity.getNaziv(), entity.getAdresa(), entity.getOpis(), entity.getIdt(), entity.getLokacija().getId());
     }
 }

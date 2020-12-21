@@ -2,9 +2,11 @@ package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.model.Admin;
 import com.kts.cultural_content.model.KulturnaPonuda;
+import com.kts.cultural_content.model.Lokacija;
 import com.kts.cultural_content.model.TipKulturnePonude;
 import com.kts.cultural_content.repository.AdminRepository;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
+import com.kts.cultural_content.repository.LokacijaRepository;
 import com.kts.cultural_content.repository.TipKPRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,6 +29,9 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
 
     @Autowired
     private TipKPRepository oTip;
+
+    @Autowired
+    private LokacijaRepository lokacijaRepository;
 
     @Override
     public List<KulturnaPonuda> findAll() {
@@ -51,6 +56,9 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
         TipKulturnePonude tip = oTip.getOne(Integer.parseInt(entity.getTipKulturnePonude().getNaziv()));
         entity.setTipKulturnePonude(tip);
 
+        Lokacija lokacija = lokacijaRepository.getOne(Integer.parseInt(entity.getLokacija().getNazivLokacije()));
+        entity.setLokacija(lokacija);
+
         System.out.println("####################################################");
         System.out.println("Upisuje u bazu : ");
         System.out.println("\tID - " + entity.getId());
@@ -71,8 +79,6 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
 
         existingKulturnaPonuda.setNaziv(entity.getNaziv());
         existingKulturnaPonuda.setAdresa(entity.getAdresa());
-        existingKulturnaPonuda.setGeoDuzina(entity.getGeoDuzina());
-        existingKulturnaPonuda.setGeoSirina(entity.getGeoSirina());
         existingKulturnaPonuda.setOpis(entity.getOpis());
 
         //existingKulturnaPonuda.setRegistrovaniKorisnik(entity.getRegistrovaniKorisnik());
@@ -82,6 +88,11 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
         entity.setTipKulturnePonude(tip);
         if( entity.getTipKulturnePonude() != null)
             existingKulturnaPonuda.setTipKulturnePonude(entity.getTipKulturnePonude());
+
+        Lokacija lokacija = lokacijaRepository.getOne(Integer.parseInt(entity.getLokacija().getNazivLokacije()));
+        entity.setLokacija(lokacija);
+        if( entity.getLokacija() != null)
+            existingKulturnaPonuda.setLokacija(entity.getLokacija());
 
         return oRepository.save(existingKulturnaPonuda);
     }
@@ -112,7 +123,8 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
         return poSadrzaju;
     }
 
-    public List<KulturnaPonuda> filterByLocation(String x, String y) {
-        return oRepository.findByGeoSirinaAndGeoDuzinaOrderByNaziv(x, y);
+    public List<KulturnaPonuda> filterByLocation(String name) {
+        Lokacija lokacija = lokacijaRepository.findByNazivLokacije(name);
+        return oRepository.findByLokacija(lokacija);
     }
 }
