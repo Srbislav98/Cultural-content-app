@@ -1,6 +1,7 @@
 INSERT into uloga(id, ime) values (1, 'ROLE_ADMIN')
 INSERT into uloga(id, ime) values (2, 'ROLE_USER')
 INSERT into tip_kulturne_ponude(id, naziv) values (100,'obicna')
+INSERT into lokacija(id, naziv_lokacije, geo_duzina, geo_sirina) values (100, 'Novi Sad', 123, 321)
 -- password is 'user' (bcrypt encoded)
 INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (1,'123@gmail.com','Aca','arak','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Acic',true)
 -- password is 'admin' (bcrypt encoded)
@@ -9,9 +10,9 @@ INSERT into admin(user_id,email,ime,korisnicko_ime,lozinka, prezime,enabled)valu
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 1)
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 2)
 
-INSERT into kulturna_ponuda(id,adresa,geo_duzina,geo_sirina,naziv,opis,admin_user_id,tip_kulturne_ponude_id)values (100,'test','23','32','kulturnaponuda','ggez',2,100)
-INSERT into kulturna_ponuda(id,adresa,geo_duzina,geo_sirina,naziv,opis,admin_user_id,tip_kulturne_ponude_id)values (101,'test','34','43','nekulturnaponuda','og',2,100)
-INSERT into kulturna_ponuda(id,adresa,geo_duzina,geo_sirina,naziv,opis,admin_user_id,tip_kulturne_ponude_id)values (102,'test','56','65','ponuda','lol',2,100)
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (100,'test','kulturnaponuda','ggez',2,100,100)
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (101,'test','nekulturnaponuda','og',2,100,100)
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (102,'test','ponuda','lol',2,100,100)
 INSERT into ocena(id, vrednost, kulturna_ponuda_id, registrovani_korisnik_user_id) values (100, 5, 100,1)
 
 INSERT into komentar(id,vrednost,kulturna_ponuda_id,registrovani_korisnik_user_id)values (100,'Veoma lepa lultura!',100,1)

@@ -13,6 +13,10 @@ public class LokacijaService {
     @Autowired
     private LokacijaRepository lokacijaRepository;
 
+    public Lokacija findOne(Integer id) {
+        return lokacijaRepository.findById(id).orElse(null);
+    }
+
     public List<Lokacija> findAll() {
         return lokacijaRepository.findAll();
     }

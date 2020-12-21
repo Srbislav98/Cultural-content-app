@@ -11,32 +11,30 @@ public class KulturnaPonudaDTO {
 
     private Integer id;
     private String naziv;
-    private String geoSirina;
-    private String geoDuzina;
     private String adresa;
     private String opis;
     private Integer idt;
+    private Integer idLokacije;
 
     public KulturnaPonudaDTO() {
     }
+
     public KulturnaPonudaDTO(KulturnaPonudaDTO k){
         this.id = k.id;
         this.naziv = k.naziv;
-        this.geoSirina = k.geoSirina;
-        this.geoDuzina = k.geoDuzina;
         this.adresa = k.adresa;
         this.opis = k.opis;
         this.idt = k.idt;
+        this.idLokacije = k.idLokacije;
     }
 
-    public KulturnaPonudaDTO(Integer id, String naziv, String geoSirina, String geoDuzina, String adresa, String opis, Integer idt) {
+    public KulturnaPonudaDTO(Integer id, String naziv, String adresa, String opis, Integer idt, Integer idLokacije) {
         this.id = id;
         this.naziv = naziv;
-        this.geoSirina = geoSirina;
-        this.geoDuzina = geoDuzina;
         this.adresa = adresa;
         this.opis = opis;
         this.idt = idt;
+        this.idLokacije = idLokacije;
     }
 
     public Integer getIdt() {
@@ -63,22 +61,6 @@ public class KulturnaPonudaDTO {
         this.naziv = naziv;
     }
 
-    public String getGeoSirina() {
-        return geoSirina;
-    }
-
-    public void setGeoSirina(String geoSirina) {
-        this.geoSirina = geoSirina;
-    }
-
-    public String getGeoDuzina() {
-        return geoDuzina;
-    }
-
-    public void setGeoDuzina(String geoDuzina) {
-        this.geoDuzina = geoDuzina;
-    }
-
     public String getAdresa() {
         return adresa;
     }
@@ -93,6 +75,14 @@ public class KulturnaPonudaDTO {
 
     public void setOpis(String opis) {
         this.opis = opis;
+    }
+
+    public Integer getIdLokacije() {
+        return idLokacije;
+    }
+
+    public void setIdLokacije(Integer idLokacije) {
+        this.idLokacije = idLokacije;
     }
 
     public int compareTo(KulturnaPonudaDTO o) {
