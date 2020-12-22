@@ -21,6 +21,10 @@ public class Admin extends Korisnik {
         this.kulturnePonude=kulturnaPonude;
     }
 
+    public Admin(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka) {
+        super(id, ime, prezime, korisnickoIme, email, lozinka);
+    }
+
     public Set<KulturnaPonuda> getKulturnePonude() {
         return kulturnePonude;
     }

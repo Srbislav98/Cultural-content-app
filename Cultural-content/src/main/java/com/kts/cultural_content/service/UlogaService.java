@@ -22,6 +22,9 @@ public class UlogaService {
     public List<Uloga> findById(Integer id) {
         Uloga auth = this.ulogaRepository.getOne(id);
         List<Uloga> auths = new ArrayList<>();
+        if (auth == null) {
+            return auths;
+        }
         auths.add(auth);
         return auths;
     }

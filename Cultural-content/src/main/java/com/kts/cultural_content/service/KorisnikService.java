@@ -47,9 +47,10 @@ public class KorisnikService implements ServiceInterface<Korisnik> {
         return null;
     }
 
+
     @Override
     public void delete(Integer id) throws Exception {
-
+        kRepository.delete(kRepository.getOne(id));
     }
 
     public Korisnik findByEmail(String email) {

@@ -46,7 +46,8 @@ public class AdminController {
             adminsDTO.add(k);
         }
         //AdminDTO k = adminMapper.toDto(admins.get(0));
-        return new ResponseEntity<List<AdminDTO>>(adminsDTO, HttpStatus.OK);
+        List<AdminDTO>admini=adminsDTO;
+        return new ResponseEntity<List<AdminDTO>>(admini, HttpStatus.OK);
 
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
