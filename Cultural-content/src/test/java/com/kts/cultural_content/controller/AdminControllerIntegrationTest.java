@@ -83,6 +83,6 @@ public class AdminControllerIntegrationTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(1, admini.size());
-        assertEquals("124@gmail.com", admini.get(06).getEmail());
+        assertEquals("124@gmail.com", admini.get(00).getEmail());
     }
 }

@@ -1,5 +1,6 @@
 package com.kts.cultural_content.service;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.kts.cultural_content.model.Korisnik;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.management.BadAttributeValueExpException;
 import java.util.UUID;
 
 @Service
@@ -24,7 +26,10 @@ public class EmailService {
     private JavaMailSender mailSender;
 
     @Async
-    public void confirmRegistration(RegistrovaniKorisnik user) {
+    public void confirmRegistration(RegistrovaniKorisnik user) throws Exception {
+        if(user.getEnabled()==true){
+            throw new BadAttributeValueExpException("User has already confirmed registration");
+        }
         String token = UUID.randomUUID().toString();
         service.createVerificationToken(user, token);
 

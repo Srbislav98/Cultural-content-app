@@ -37,13 +37,13 @@ public class RegistrovaniKorisnikRepositoryIntegrationTest {
     }
     @Test
     public void testFindByKorisnickoImeAndIdNotNull(){
-        RegistrovaniKorisnik found= rkRepository.findByKorisnickoImeAndIdNot("mark",1);
+        RegistrovaniKorisnik found= rkRepository.findByKorisnickoImeAndIdNot("marki",1);
         assertNull(found);
     }
     @Test
     public void testfindByEmail(){
-        RegistrovaniKorisnik found=rkRepository.findByEmail("4@gmail.com");
-        assertEquals("4@gmail.com", found.getEmail());
+        RegistrovaniKorisnik found=rkRepository.findByEmail("5@gmail.com");
+        assertEquals("5@gmail.com", found.getEmail());
     }
     @Test
     public void testfindByEmailNull(){
