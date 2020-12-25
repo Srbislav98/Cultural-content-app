@@ -39,7 +39,14 @@ public class Komentar {
 
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        Komentar o = (Komentar)obj;
+        if(this.getId()==null || o.getId()==null){
+            return this.getRegId().equals(o.getRegId()) && this.getKulId().equals(o.getKulId());
+        }else
+            return this.getId().equals(o.getId());
+    }
 
     public void setRegId(Integer regId) {
         this.regId = regId;

@@ -92,12 +92,31 @@ public class OcenaControllerIntegrationTest {
         HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
 
         ResponseEntity<OcenaDTO> responseEntity =
-                restTemplate.exchange("/api/ocene/get/1", HttpMethod.GET,httpEntity,OcenaDTO.class);
+                restTemplate.exchange("/api/ocene/get/100", HttpMethod.GET,httpEntity,OcenaDTO.class);
 
         OcenaDTO ocene = responseEntity.getBody();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(ocene);
+
+    }
+
+    @Test
+    public void testGetOcenaNePostoji(){
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+
+        ResponseEntity<OcenaDTO> responseEntity =
+                restTemplate.exchange("/api/ocene/get/99999", HttpMethod.GET,httpEntity,OcenaDTO.class);
+
+        OcenaDTO ocene = responseEntity.getBody();
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        assertNull(ocene);
 
     }
 
@@ -171,21 +190,45 @@ public class OcenaControllerIntegrationTest {
         HttpEntity<OcenaDTO> httpEntity = new HttpEntity<OcenaDTO>(o,headers);
 
         ResponseEntity<OcenaDTO> responseEntity =
-                restTemplate.exchange("/api/ocene/update/1", HttpMethod.PUT,
+                restTemplate.exchange("/api/ocene/update/100", HttpMethod.PUT,
                         httpEntity, OcenaDTO.class);
 
         OcenaDTO ocena = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(ocena);
-        assertEquals(DB_OCENA_ID, ocena.getId());
+        assertEquals(VEC_KREIRANA_OCENA, ocena.getId());
         assertEquals(NEW_OCENA_DOBRO,ocena.getVrednost());
 
-        Ocena dbOcena = ocenaService.findOne(DB_OCENA_ID);
-        assertEquals(DB_OCENA_ID, ocena.getId());
+        Ocena dbOcena = ocenaService.findOne(VEC_KREIRANA_OCENA);
+        assertEquals(VEC_KREIRANA_OCENA, ocena.getId());
         assertEquals(NEW_OCENA_DOBRO, ocena.getVrednost());
 
         dbOcena.setVrednost(2);
         ocenaService.update(dbOcena,dbOcena.getId());
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = true)
+    public void testUpdateOcenaNePostoji() throws Exception{
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        OcenaDTO o = new OcenaDTO(null,NEW_OCENA_DOBRO,1,100);
+
+        HttpEntity<OcenaDTO> httpEntity = new HttpEntity<OcenaDTO>(o,headers);
+
+        ResponseEntity<OcenaDTO> responseEntity =
+                restTemplate.exchange("/api/ocene/update/9999999", HttpMethod.PUT,
+                        httpEntity, OcenaDTO.class);
+
+        OcenaDTO ocena = responseEntity.getBody();
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertNull(ocena);
+
 
     }
 
@@ -235,6 +278,31 @@ public class OcenaControllerIntegrationTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(size -1, ocenaService.findAll().size());
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = true)
+    public void testDeleteOcenaNePostoji() throws Exception{
+
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        //OcenaDTO o = new OcenaDTO(DB_OCENA_ID,NEW_OCENA_DOBRO,1,100);
+
+        HttpEntity<OcenaDTO> httpEntity = new HttpEntity<OcenaDTO>(headers);
+        List<Ocena> ocenas = ocenaService.findAll();
+
+        int size = ocenaService.findAll().size();
+
+        ResponseEntity<Void> responseEntity = restTemplate.exchange("/api/ocene/delete/99999999999999",
+                HttpMethod.DELETE, httpEntity, Void.class);
+
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertEquals(size, ocenaService.findAll().size());
 
     }
 
