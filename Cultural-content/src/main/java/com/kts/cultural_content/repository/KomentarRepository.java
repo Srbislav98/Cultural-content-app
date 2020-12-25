@@ -7,10 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface KomentarRepository extends JpaRepository<Komentar, Integer> {
 
-    Komentar findByRegistrovaniKorisnik(RegistrovaniKorisnik registrovaniKorisnik);
 
-    Komentar findByKulturnaPonuda(KulturnaPonuda kulturnaPonuda);
 
-    Komentar findByVrednost(String vrednost);
+
 
 }

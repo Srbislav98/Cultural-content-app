@@ -9,10 +9,6 @@ import java.util.List;
 
 public interface OcenaRepository extends JpaRepository<Ocena, Integer> {
 
-    Ocena findByRegistrovaniKorisnik(RegistrovaniKorisnik registrovaniKorisnik);
 
-    Ocena findByKulturnaPonuda(KulturnaPonuda kulturnaPonuda);
-
-    Ocena findByVrednost(Integer vrednost);
 
 }

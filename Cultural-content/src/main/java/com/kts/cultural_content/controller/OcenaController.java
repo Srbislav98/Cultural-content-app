@@ -58,7 +58,7 @@ public class OcenaController {
         Ocena ocena;
         try {
             ocena = ocenaService.create(ocenaMapper.toEntity(ocenaDTO));
-            if (ocena.getVrednost()==-1)
+            if (ocena==null)
                 throw new Exception("Nevalja");
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -72,6 +72,8 @@ public class OcenaController {
         Ocena ocena;
         try {
             ocena = ocenaService.update(ocenaMapper.toEntity(ocenaDTO), id);
+            if (ocena==null)
+                throw new Exception("Nevalja");
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
