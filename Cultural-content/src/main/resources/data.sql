@@ -13,12 +13,9 @@ INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 2)
 INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (100,'test','kulturnaponuda','ggez',2,100,100)
 INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (101,'test','nekulturnaponuda','og',2,100,100)
 INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (102,'test','ponuda','lol',2,100,100)
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (103,'test','glhf','opis',2,100,100)
 INSERT into ocena(id, vrednost, kulturna_ponuda_id, registrovani_korisnik_user_id) values (100, 5, 100,1)
 
 INSERT into komentar(id,vrednost,kulturna_ponuda_id,registrovani_korisnik_user_id)values (100,'Veoma lepa lultura!',100,1)
 INSERT into fotografija(id,lokacija_fajl,komentar_id,kulturna_ponuda_id)values (100,'files//neki_folder',null,100)
 INSERT into novost(id, datum, naziv, opis, kulturna_ponuda_id) values (100, '2020-12-12', 'novost', 'opis', 100)
-
-INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (100,1)
-
-
