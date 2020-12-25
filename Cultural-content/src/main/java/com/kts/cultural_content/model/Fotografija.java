@@ -43,6 +43,18 @@ public class Fotografija {
         this.komId = komId;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Fotografija o = (Fotografija)obj;
+        if(this.getId()==null || o.getId()==null){
+            if (this.getKomId()==null || o.getKomId()==null)
+                return this.getKulId().equals(o.getKulId());
+            else
+                return this.getKomId().equals(o.getKomId());
+        }else
+            return this.getId().equals(o.getId());
+    }
+
     public void setFoto(File foto) {
         this.foto = foto;
     }

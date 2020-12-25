@@ -142,6 +142,16 @@ public class OcenaServiceUnitTest {
     }
 
     @Test
+    public void testUpdateNedozvoljenBroj() throws Exception {
+        Ocena ocena = new Ocena(NEW_OCENA_LOSE,1,100);
+        Ocena created = ocenaService.update(ocena,VEC_KREIRANA_OCENA );
+
+
+
+        assertEquals(null, created);
+    }
+
+    @Test
     public void testDelete() throws Exception {
         ocenaService.delete(VEC_KREIRANA_OCENA);
 

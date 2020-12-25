@@ -16,6 +16,7 @@ import java.util.List;
 
 import static com.kts.cultural_content.constants.OcenaConstants.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -78,11 +79,11 @@ public class OcenaServiceIntegrationTest {
     @Test
     public void testDelete() throws Exception {
         ocenaService.delete(VEC_KREIRANA_OCENA);
+        assertNull(ocenaService.findOne(VEC_KREIRANA_OCENA));
 
         Ocena savedOcena = new Ocena(NEW_OCENA_DOBRO,1,100);
         savedOcena.setId(VEC_KREIRANA_OCENA);
         ocenaService.create(savedOcena);
     }
-
 
 }
