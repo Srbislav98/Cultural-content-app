@@ -22,8 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static com.kts.cultural_content.constants.NovostConstants.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -101,17 +101,41 @@ public class NovostControllerIntegrationTest {
     }
 
     @Test
+    public void testGetNovostFail() {
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+
+        ResponseEntity<NovostDTO> responseEntity =
+                restTemplate.exchange("/api/novosti/get/9999", HttpMethod.GET,httpEntity,  NovostDTO.class);
+
+        NovostDTO novost = responseEntity.getBody();
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        assertNull(novost);
+    }
+
+    @Test
     @Transactional
     @Rollback(true)
     public void testCreateNovost() throws Exception {
-        int size = novostService.findAll().size(); // broj slogova pre ubacivanja novog
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
 
         SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
 
+        NovostDTO n = new NovostDTO(1, "nov", "haha", objSDF.parse("2020-12-28"));
+
+        HttpEntity<NovostDTO> httpEntity = new HttpEntity<NovostDTO>(n, headers);
+        int size = novostService.findAll().size(); // broj slogova pre ubacivanja novog
+
         ResponseEntity<NovostDTO> responseEntity =
-                restTemplate.postForEntity("/api/novosti",
-                        new NovostDTO(1, "nov", "haha", objSDF.parse("2020-12-28")),
-                        NovostDTO.class);
+                restTemplate.exchange("/api/novosti/create/kulturna-ponuda/100", HttpMethod.POST, httpEntity, NovostDTO.class);
 
         // provera odgovora servera
         NovostDTO novost = responseEntity.getBody();
@@ -126,6 +150,53 @@ public class NovostControllerIntegrationTest {
 
         // uklanjamo dodatu kategoriju
         novostService.delete(novost.getId());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testUpdateNovostFail() throws Exception {
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
+
+        NovostDTO n = new NovostDTO(9999, "nov", "haha", objSDF.parse("2020-12-28"));
+
+        HttpEntity<NovostDTO> httpEntity = new HttpEntity<NovostDTO>(n, headers);
+
+        ResponseEntity<NovostDTO> responseEntity =
+                restTemplate.exchange("/api/novosti/update/9999", HttpMethod.PUT, httpEntity, NovostDTO.class);
+
+        // provera odgovora servera
+        NovostDTO novost = responseEntity.getBody();
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertNull(novost);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = true)
+    public void testDeleteNovostFail() throws Exception{
+
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        HttpEntity<NovostDTO> httpEntity = new HttpEntity<NovostDTO>(headers);
+        List<Novost> novosti = novostService.findAll();
+
+        int size = novostService.findAll().size();
+
+        ResponseEntity<Void> responseEntity = restTemplate.exchange("/api/novosti/delete/9999",
+                HttpMethod.DELETE, httpEntity, Void.class);
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        assertEquals(size, novostService.findAll().size());
+
     }
 
 }

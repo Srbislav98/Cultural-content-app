@@ -16,6 +16,7 @@ INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponu
 INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (103,'test','glhf','opis',2,100,100)
 
 INSERT into novost(id, datum, naziv, opis, kulturna_ponuda_id) values (100, '2020-12-12', 'novost', 'opis', 100)
+INSERT into novost(id, datum, naziv, opis, kulturna_ponuda_id) values (105, '2020-12-21', 'novost5', 'opis5', 100)
 INSERT INTO ocena(id, vrednost) VALUES (100,'5')
 INSERT INTO ocena(id, vrednost) VALUES (101,'4')
 INSERT into komentar(id,vrednost,kulturna_ponuda_id,registrovani_korisnik_user_id)values (100,'Veoma lepa lultura!',100,1)
