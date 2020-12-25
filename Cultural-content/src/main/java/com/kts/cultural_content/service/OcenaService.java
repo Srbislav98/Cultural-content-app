@@ -39,7 +39,7 @@ public class OcenaService implements ServiceInterface<Ocena> {
     @Override
     public Ocena create(Ocena entity) throws Exception {
         if (entity.getVrednost()<1 || entity.getVrednost()>5)
-            return new Ocena(-1,0,0);
+            return null;
         //entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(100).orElse(null));
         entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
         entity.setRegistrovaniKorisnik(registrovaniKorisnikRepository.findById(entity.getRegId()).orElse(null));
@@ -50,7 +50,7 @@ public class OcenaService implements ServiceInterface<Ocena> {
                 kulturnaPonudaRepository.save(k);
             }
         }*/
-
+        //Ocena ocena = oRepository.save(entity);
         return oRepository.save(entity);
     }
 
@@ -60,6 +60,8 @@ public class OcenaService implements ServiceInterface<Ocena> {
         if(existingOcena == null){
             throw new Exception("Ocena with given id doesn't exist");
         }
+        if (entity.getVrednost()<1 || entity.getVrednost()>5)
+            return null;
         existingOcena.setVrednost(entity.getVrednost());
         existingOcena.setKulId(entity.getKulId());
         existingOcena.setRegId(entity.getRegId());

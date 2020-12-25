@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface FotografijaRepository extends JpaRepository<Fotografija, Integer> {
 
 
-    Fotografija findByKulturnaPonuda(KulturnaPonuda kulturnaPonuda);
 
-    Fotografija findByKomentar(Komentar komentar);
 
 }
