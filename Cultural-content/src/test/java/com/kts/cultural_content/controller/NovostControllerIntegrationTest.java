@@ -104,14 +104,20 @@ public class NovostControllerIntegrationTest {
     @Transactional
     @Rollback(true)
     public void testCreateNovost() throws Exception {
-        int size = novostService.findAll().size(); // broj slogova pre ubacivanja novog
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
 
         SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
 
+        NovostDTO n = new NovostDTO(1, "nov", "haha", objSDF.parse("2020-12-28"));
+
+        HttpEntity<NovostDTO> httpEntity = new HttpEntity<NovostDTO>(n, headers);
+        int size = novostService.findAll().size(); // broj slogova pre ubacivanja novog
+
         ResponseEntity<NovostDTO> responseEntity =
-                restTemplate.postForEntity("/api/novosti",
-                        new NovostDTO(1, "nov", "haha", objSDF.parse("2020-12-28")),
-                        NovostDTO.class);
+                restTemplate.exchange("/api/novosti/create/kulturna-ponuda/100", HttpMethod.POST, httpEntity, NovostDTO.class);
 
         // provera odgovora servera
         NovostDTO novost = responseEntity.getBody();
