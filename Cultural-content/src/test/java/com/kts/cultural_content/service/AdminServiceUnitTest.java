@@ -34,12 +34,12 @@ public class AdminServiceUnitTest {
     @MockBean
     private AdminRepository adminRepository;
 
-    private Admin adminCreate;//=new Admin(NEW_USER_ID,NEW_USER_NAME,NEW_USER_SURNAME,NEW_USER_USERNAME,NEW_USER_EMAIL,NEW_USER_PASSWORD);
-    private Admin adminExists;
+    //private Admin adminCreate;//=new Admin(NEW_USER_ID,NEW_USER_NAME,NEW_USER_SURNAME,NEW_USER_USERNAME,NEW_USER_EMAIL,NEW_USER_PASSWORD);
+    //private Admin adminExists;
     @Before
     public void setup() {
-        adminCreate=new Admin(NEW_ADMIN_ID,NEW_ADMIN_NAME,NEW_ADMIN_SURNAME,NEW_ADMIN_USERNAME,NEW_ADMIN_EMAIL,NEW_ADMIN_PASSWORD);
-        adminExists=new Admin(ADMIN_ID,ADMIN_NAME,ADMIN_SURNAME,ADMIN_USERNAME,ADMIN_EMAIL,ADMIN_PASSWORD);
+        Admin adminCreate=new Admin(NEW_ADMIN_ID,NEW_ADMIN_NAME,NEW_ADMIN_SURNAME,NEW_ADMIN_USERNAME,NEW_ADMIN_EMAIL,NEW_ADMIN_PASSWORD);
+        Admin adminExists=new Admin(ADMIN_ID,ADMIN_NAME,ADMIN_SURNAME,ADMIN_USERNAME,ADMIN_EMAIL,ADMIN_PASSWORD);
         //admin.setKulturnaPonude(new HashSet<KulturnaPonuda>());
         //admin.setUloga(new ArrayList<Uloga>());
         //admin.setLastPasswordResetDate(new Timestamp(0));
@@ -55,6 +55,7 @@ public class AdminServiceUnitTest {
     @Test
     public void testCreate() throws Exception {
         //Admin admin=new Admin(NEW_USER_ID,NEW_USER_NAME,NEW_USER_SURNAME,NEW_USER_USERNAME,NEW_USER_EMAIL,NEW_USER_PASSWORD);
+        Admin adminCreate=new Admin(NEW_ADMIN_ID,NEW_ADMIN_NAME,NEW_ADMIN_SURNAME,NEW_ADMIN_USERNAME,NEW_ADMIN_EMAIL,NEW_ADMIN_PASSWORD);
         Admin created=adminService.create(adminCreate);
         verify(adminRepository, times(1)).findByKorisnickoIme(NEW_ADMIN_USERNAME);
         verify(adminRepository, times(1)).save(adminCreate);
@@ -64,6 +65,8 @@ public class AdminServiceUnitTest {
     @Test//(expected = Exception.class)
     public void testCreateUserNameExists() throws Exception {
         //Admin admin=new Admin(NEW_USER_ID,NEW_USER_NAME,NEW_USER_SURNAME,NEW_USER_USERNAME,NEW_USER_EMAIL,NEW_USER_PASSWORD);
+       Admin adminExists=new Admin(ADMIN_ID,ADMIN_NAME,ADMIN_SURNAME,ADMIN_USERNAME,ADMIN_EMAIL,ADMIN_PASSWORD);
+
         try {
             Admin created = adminService.create(adminExists);
         }catch (Exception ex){
@@ -75,6 +78,7 @@ public class AdminServiceUnitTest {
     }
     @Test
     public void testUpdate() throws Exception {
+        Admin adminExists=new Admin(ADMIN_ID,ADMIN_NAME,ADMIN_SURNAME,ADMIN_USERNAME,ADMIN_EMAIL,ADMIN_PASSWORD);
         Admin created=adminService.update(adminExists,2);
         verify(adminRepository, times(1)).findById(ADMIN_ID);
         verify(adminRepository, times(1)).findByKorisnickoImeAndIdNot(ADMIN_USERNAME,ADMIN_ID);

@@ -34,16 +34,16 @@ public class EmailServiceUnitTest {
     @MockBean
     private KorisnikService service;
 
-    public RegistrovaniKorisnik kConfirm;
-    public RegistrovaniKorisnik kNConfirm;
-
     @Before
     public void setup() {
-        kConfirm=new RegistrovaniKorisnik();
+        RegistrovaniKorisnik kConfirm=new RegistrovaniKorisnik();
         kConfirm.setEmail("210@gmail.com");
+        kConfirm.setId(264);
+        kConfirm.setKorisnickoIme("armasaak");
         kConfirm.setEnabled(false);
-        kNConfirm=new RegistrovaniKorisnik();
-        kNConfirm.setEmail("123@gmail.com");
+        RegistrovaniKorisnik kNConfirm=new RegistrovaniKorisnik();
+        kNConfirm.setKorisnickoIme("arak");
+        kNConfirm.setId(1);
         kNConfirm.setEnabled(true);
         doNothing().when(mailSender).send(any(SimpleMailMessage.class));
         doNothing().when(service).createVerificationToken(any(RegistrovaniKorisnik.class),any(String.class));
@@ -51,11 +51,20 @@ public class EmailServiceUnitTest {
 
     @Test
     public void testConfirmRegistration() throws Exception {
+        RegistrovaniKorisnik kConfirm=new RegistrovaniKorisnik();
+        kConfirm.setEmail("210@gmail.com");
+        kConfirm.setId(264);
+        kConfirm.setKorisnickoIme("armasaak");
+        kConfirm.setEnabled(false);
         emailService.confirmRegistration(kConfirm);
         verify(mailSender, times(1)).send(any(SimpleMailMessage.class));
     }
     @Test(expected = BadAttributeValueExpException.class)
     public void testConfirmRegistrationAlreadyConfirmed() throws Exception {
+        RegistrovaniKorisnik kNConfirm=new RegistrovaniKorisnik();
+        kNConfirm.setKorisnickoIme("arak");
+        kNConfirm.setId(1);
+        kNConfirm.setEnabled(true);
         emailService.confirmRegistration(kNConfirm);
         verify(mailSender, times(0)).send(any(SimpleMailMessage.class));
     }

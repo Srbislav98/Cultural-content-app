@@ -189,4 +189,10 @@ public class Korisnik implements UserDetails {
         return this.enabled;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Korisnik o = (Korisnik) obj;
+            return this.getId().equals(o.getId()) && this.getEmail().equals((o.getEmail()))
+                    && this.getUsername().equals((o.getUsername()));
+    }
 }

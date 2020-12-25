@@ -81,4 +81,11 @@ public class RegistrovaniKorisnik extends Korisnik {
     public Set<KulturnaPonuda> getKulturnaPonuda() {
         return kulturnaPonuda;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        RegistrovaniKorisnik o = (RegistrovaniKorisnik) obj;
+        return this.getId().equals(o.getId()) && this.getEmail().equals((o.getEmail()))
+                && this.getUsername().equals((o.getUsername()));
+    }
 }

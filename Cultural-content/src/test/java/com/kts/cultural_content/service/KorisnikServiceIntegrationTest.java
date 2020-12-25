@@ -1,5 +1,6 @@
 package com.kts.cultural_content.service;
 
+import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.model.Admin;
 import com.kts.cultural_content.model.Korisnik;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
@@ -36,7 +37,11 @@ public class KorisnikServiceIntegrationTest {
     @Test
     public void testFindAll() {
         List<Korisnik> found = korisnikService.findAll();
-        assertEquals(4, found.size());
+        for (Korisnik a:found
+        ) {
+            System.out.println(a.getId() + "/////////////////////////////////////////////");
+        }
+        assertEquals(5, found.size());
     }
 
     @Test

@@ -61,7 +61,11 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
 
 
         RegistrovaniKorisnikDTO[] admini = responseEntity.getBody();
+        for (RegistrovaniKorisnikDTO a:admini
+             ) {
+            System.out.println(a.getId()+"/////////////////////////////////////////////");
 
+        }
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(3, admini.length);
         assertEquals("123@gmail.com", admini[0].getEmail());
@@ -308,10 +312,10 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
         //assertEquals("Slavko", admini.getIme());
     }
     @Test
-    @Transactional
-    @Rollback(true)
+    //@Transactional
+    //@Rollback(true)
     public void testSubscribe(){
-        login("123@gmail.com", "user");
+        login("124@gmail.com", "admin");
 
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
         HttpHeaders headers = new HttpHeaders();
@@ -413,7 +417,7 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
     @Rollback(true)
     public void testUnsubscribe() {
 
-        login("123@gmail.com", "user");
+        login("124@gmail.com", "admin");
 
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
         HttpHeaders headers = new HttpHeaders();

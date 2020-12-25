@@ -75,6 +75,7 @@ public class RegistrovaniKorisnikServiceIntegrationTest {
 
     }
     @Test
+
     public void testCreate() throws Exception {
         Korisnik k = new Korisnik(27, "Marko", "Markovic", "Markec2", "marko2@gmail.com", "mark12");
         RegistrovaniKorisnik created = rkService.create(k);

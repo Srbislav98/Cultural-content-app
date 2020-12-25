@@ -3,7 +3,9 @@ package com.kts.cultural_content.controller;
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.dto.UserLoginDTO;
 import com.kts.cultural_content.dto.UserTokenStateDTO;
+import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.service.RegistrovaniKorisnikService;
+import com.kts.cultural_content.service.VerificationTokenService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class AuthenticationControllerIntegrationTest {
 
     @Autowired
     RegistrovaniKorisnikService rkService;
+    @Autowired
+    VerificationTokenService vtService;
 
     @Test
     @Transactional
@@ -47,14 +51,16 @@ public class AuthenticationControllerIntegrationTest {
 
     }
     @Test
-    @Transactional
-    @Rollback(true)
-    public void testSignUp() {
+    public void testSignUp() throws Exception {
         RegistrovaniKorisnikDTO k=new RegistrovaniKorisnikDTO(53,"David","Slavic","slavsk","slavsk@gmail.com","mark12");
         ResponseEntity<RegistrovaniKorisnikDTO> responseEntity = restTemplate.postForEntity("/auth/sign-up",
                 k, RegistrovaniKorisnikDTO.class);
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         assertEquals("slavsk" ,responseEntity.getBody().getKorisnickoIme());
+        vtService.findByUserId(53);
+        vtService.deleteWithUserId(53);
+        rkService.delete(53);
+        //System.out.println(rkService.findAll()+"///sadss//////");
 
     }
     @Test
@@ -69,7 +75,7 @@ public class AuthenticationControllerIntegrationTest {
     @Test
     @Transactional
     @Rollback(true)
-    public void testSignUpUsernameExists() {
+    public void testSignUpUsernameExists() throws Exception {
         RegistrovaniKorisnikDTO k=new RegistrovaniKorisnikDTO(53,"David","Slavic","arak","123eee@gmail.com","mark12");
         ResponseEntity<RegistrovaniKorisnikDTO> responseEntity = restTemplate.postForEntity("/auth/sign-up",
                 k, RegistrovaniKorisnikDTO.class);
@@ -98,7 +104,6 @@ public class AuthenticationControllerIntegrationTest {
                 restTemplate.exchange("/auth/change-password", HttpMethod.POST,httpEntity,Void.class);
 
         //RegistrovaniKorisnikDTO admini = responseEntity.getBody();
-
         assertEquals(HttpStatus.ACCEPTED, responseEntity2.getStatusCode());
         //assertEquals("Slavko", admini.getIme());
     }
@@ -107,7 +112,7 @@ public class AuthenticationControllerIntegrationTest {
     //@Rollback(true)
     public void testChangePasswordWrongOldPassw(){
         ResponseEntity<UserTokenStateDTO> responseEntity = restTemplate.postForEntity("/auth/log-in",
-                new UserLoginDTO("123@gmail.com", "user"), UserTokenStateDTO.class);
+                new UserLoginDTO("124@gmail.com", "admin"), UserTokenStateDTO.class);
         String accessToken = "Bearer " + responseEntity.getBody().getAccessToken();
 
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
