@@ -10,7 +10,6 @@ import java.util.List;
 public interface KulturnaPonudaRepository extends JpaRepository<KulturnaPonuda, Integer> {
     List<KulturnaPonuda> findByNaziv(String naziv);
     List<KulturnaPonuda> findByAdmin(Admin admin);
-    List<KulturnaPonuda> findByNazivContainingOrderByNaziv(String slova);
-    List<KulturnaPonuda> findByOpisContainingOrderById(String rec);
     List<KulturnaPonuda> findByLokacija(Lokacija lokacija);
+    List<KulturnaPonuda> findDistinctByNazivContainingOrOpisContainingOrderByNaziv(String naziv, String opis);
 }

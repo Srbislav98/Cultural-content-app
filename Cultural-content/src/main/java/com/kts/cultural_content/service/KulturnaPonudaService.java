@@ -115,12 +115,7 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
     }
 
     public List<KulturnaPonuda> filterByContent(String content) {
-        List<KulturnaPonuda> poNazivu = oRepository.findByNazivContainingOrderByNaziv(content);
-        List<KulturnaPonuda> poOpisu = oRepository.findByOpisContainingOrderById(content);
-        List<KulturnaPonuda> poSadrzaju = new ArrayList<>();
-        poSadrzaju.addAll(poNazivu);
-        poSadrzaju.addAll(poOpisu);
-        return poSadrzaju;
+        return oRepository.findDistinctByNazivContainingOrOpisContainingOrderByNaziv(content, content);
     }
 
     public List<KulturnaPonuda> filterByLocation(String name) {
