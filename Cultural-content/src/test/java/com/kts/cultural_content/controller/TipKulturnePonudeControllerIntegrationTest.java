@@ -70,9 +70,10 @@ public class TipKulturnePonudeControllerIntegrationTest {
             assertEquals(1, tip.length);
             assertEquals("obicna", tip[0].getNaziv());
         }else {
-            assertEquals(2, tip.length);
-            assertEquals("obicna", tip[0].getNaziv());
-            assertEquals("TestNaziv", tip[1].getNaziv());
+            assertEquals(3, tip.length);
+            assertEquals("brisanje", tip[0].getNaziv());
+            assertEquals("obicna", tip[1].getNaziv());
+            assertEquals("TestNaziv", tip[2].getNaziv());
         }
     }
 
@@ -227,14 +228,14 @@ public class TipKulturnePonudeControllerIntegrationTest {
     @Transactional
     @Rollback(true)
     public void testDeleteTipKulturnePonude() throws Exception {
-        TipKulturnePonude backup= oTip.findByNaziv("obicna").get(0);
+        TipKulturnePonude backup= oTip.findByNaziv("brisanje").get(0);
         login("124@gmail.com", "admin");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
         HttpEntity<TipKulturnePonudeDTO> httpEntity = new HttpEntity<TipKulturnePonudeDTO>(headers);
         ResponseEntity<TipKulturnePonudeDTO> responseEntity =
-                restTemplate.exchange("/api/tipoviKP/delete/100", HttpMethod.DELETE,httpEntity, TipKulturnePonudeDTO.class);
+                restTemplate.exchange("/api/tipoviKP/delete/5", HttpMethod.DELETE,httpEntity, TipKulturnePonudeDTO.class);
 
 
         TipKulturnePonudeDTO tip = responseEntity.getBody();

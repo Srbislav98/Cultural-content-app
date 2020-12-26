@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,7 +26,9 @@ public class TipKulturnePonudeServiceIntegrationTest {
     @Test
     public void testFindAll() {
         List<TipKulturnePonude> found = tipService.findAll();
-        assertEquals(1, found.size());
+        assertEquals(2, found.size());
+        assertEquals("brisanje", found.get(0).getNaziv());
+        assertEquals("obicna", found.get(1).getNaziv());
     }
 
     @Test
@@ -45,13 +48,13 @@ public class TipKulturnePonudeServiceIntegrationTest {
 
     @Test
     public void testDelete() throws Exception {
-        TipKulturnePonude tip = tipService.findOne(trenID);
-        tipService.delete(trenID);
-        assertNull(tipService.findOne(trenID));
+        TipKulturnePonude tip = tipService.findOne(5);
+        tipService.delete(5);
+        assertNull(tipService.findOne(5));
         tip = tipService.create(tip);
-        System.out.println(trenID + " -> " + tip.getId());
+        System.out.println(5 + " -> " + tip.getId());
         trenID = tip.getId();
-        System.out.println("Pretvorio u " + trenID);
+        System.out.println("Pretvorio u " + 5);
         assertNull(null);
     }
 
