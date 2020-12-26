@@ -177,6 +177,32 @@ public class NovostControllerIntegrationTest {
         assertNull(novost);
 
     }
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testUpdateNovost() throws Exception {
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
+
+        NovostDTO n = new NovostDTO(105, "novitotalno", "opis5", objSDF.parse("2020-12-21"));
+
+        HttpEntity<NovostDTO> httpEntity = new HttpEntity<NovostDTO>(n, headers);
+
+        ResponseEntity<NovostDTO> responseEntity =
+                restTemplate.exchange("/api/novosti/update/105", HttpMethod.PUT, httpEntity, NovostDTO.class);
+
+        // provera odgovora servera
+        NovostDTO novost = responseEntity.getBody();
+        assertNotNull(novost);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+
+        assertEquals(VEC_KREIRANA_NOVOST2, novost.getId());
+        assertEquals("novitotalno", novost.getNaziv());
+    }
 
     @Test
     @Transactional
