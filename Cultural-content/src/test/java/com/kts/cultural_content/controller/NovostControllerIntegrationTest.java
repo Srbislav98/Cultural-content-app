@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -231,6 +232,7 @@ public class NovostControllerIntegrationTest {
     @Test
     @Transactional
     @Rollback(value = true)
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void testDeleteNovost() throws Exception{
 
         login("124@gmail.com", "admin");
