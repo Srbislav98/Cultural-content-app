@@ -285,4 +285,38 @@ public class KulturnaPonudaControllerIntegrationTest {
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testGetNovosti() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<KulturnaPonudaDTO[]> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getNovosti/100", HttpMethod.GET, httpEntity, KulturnaPonudaDTO[].class);
+
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testGetNovostiNePostoji() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<KulturnaPonudaDTO[]> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getNovosti/99999999", HttpMethod.GET, httpEntity, KulturnaPonudaDTO[].class);
+
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+    }
 }
