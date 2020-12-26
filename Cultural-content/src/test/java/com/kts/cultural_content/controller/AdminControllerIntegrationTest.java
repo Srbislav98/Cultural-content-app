@@ -65,7 +65,7 @@ public class AdminControllerIntegrationTest {
         assertEquals("124@gmail.com", admini[0].getEmail());
     }
     @Test
-    public void testGetAllCulturalContentCategoriesPageable() {
+    public void testGetAllAdminsPageable() {
         login("124@gmail.com", "admin");
 
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
@@ -83,6 +83,6 @@ public class AdminControllerIntegrationTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(1, admini.size());
-        assertEquals("124@gmail.com", admini.get(06).getEmail());
+        assertEquals("124@gmail.com", admini.get(00).getEmail());
     }
 }

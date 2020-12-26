@@ -183,5 +183,10 @@ public class KulturnaPonuda {
         }
         return d;
     }
+    @Override
+    public boolean equals(Object obj) {
+        KulturnaPonuda o = (KulturnaPonuda) obj;
+        return this.getId().equals(o.getId());
+    }
 
 }

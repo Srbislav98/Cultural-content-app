@@ -44,4 +44,10 @@ public class Uloga implements GrantedAuthority {
     public String getAuthority() {
         return ime;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Uloga o = (Uloga) obj;
+        return this.getId().equals(o.getId()) && this.getIme().equals((o.getIme()));
+    }
 }

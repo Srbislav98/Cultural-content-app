@@ -74,4 +74,9 @@ public class VerificationToken {
         this.expiryDate = expiryDate;
     }
 // standard constructors, getters and setters
+    @Override
+    public boolean equals(Object obj) {
+        VerificationToken o = (VerificationToken) obj;
+        return this.getId().equals(o.getId());
+    }
 }

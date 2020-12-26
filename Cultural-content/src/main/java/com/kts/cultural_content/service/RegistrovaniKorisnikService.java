@@ -116,6 +116,8 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
         entity.setEnabled(user.getEnabled());
 
         int broj=rkRepository.findAll().size()+adminRepository.findAll().size();
+        //System.out.println(entity.getId());
+        //System.out.println(rkRepository.findById(entity.getId()).);
         if(rkRepository.findById(entity.getId()).orElse(null) != null ||
                 adminRepository.findById(entity.getId()).orElse(null) != null) {
             for (int i=(broj+1);i>=1;--i){

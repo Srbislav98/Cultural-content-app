@@ -32,4 +32,14 @@ public class VerificationTokenRepositoryIntegrationTest {
         VerificationToken found=vTokenRepository.findByToken("abcc");
         assertNull(found);
     }
+    @Test
+    public void testFindByUserId(){
+        VerificationToken found=vTokenRepository.findByUserId(4);
+        assertEquals("abb",found.getToken());
+    }
+    @Test
+    public void testFindByUserIdNull(){
+        VerificationToken found=vTokenRepository.findByUserId(22);
+        assertNull(found);
+    }
 }

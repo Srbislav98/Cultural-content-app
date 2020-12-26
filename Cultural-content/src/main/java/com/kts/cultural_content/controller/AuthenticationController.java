@@ -57,7 +57,7 @@ public class AuthenticationController {
     // Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
     @PostMapping("/log-in")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody UserLoginDTO authenticationRequest,
-                                                       HttpServletResponse response) {
+                                                       HttpServletResponse response) throws InterruptedException {
 
         /*RegistrovaniKorisnik k=rkService.findByEmail(authenticationRequest.getUsername());
         if(k!=null) {
@@ -73,7 +73,7 @@ public class AuthenticationController {
 
         // Ubaci korisnika u trenutni security kontekst
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        //Thread.sleep(3000);
         /*
         Authentication auth=SecurityContextHolder.getContext().getAuthentication();
         Korisnik u=(Korisnik)auth.getPrincipal();
@@ -92,13 +92,14 @@ public class AuthenticationController {
     @PostMapping("/sign-up")
     public ResponseEntity<?> addUser(@RequestBody KorisnikDTO userRequest) throws Exception {
         RegistrovaniKorisnik existUser = this.rkService.findByEmail(userRequest.getEmail());
+        /*
         if (existUser != null) {
             throw new Exception("Username already exists");
         }
         existUser = this.rkService.findByKorisnickoIme(userRequest.getKorisnickoIme());
         if (existUser != null) {
             throw new Exception("Username already exists");
-        }
+        }*/
 
         try {
             //RegistrovaniKorisnikDTO a=new RegistrovaniKorisnikDTO(userRequest);
@@ -129,10 +130,10 @@ public class AuthenticationController {
         }
     }
     @RequestMapping(value = "/change-password", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
         userDetailsService.changePassword(passwordChanger.oldPassword, passwordChanger.newPassword);
-
+        System.out.println("ASA");
         Map<String, String> result = new HashMap<>();
         result.put("result", "success");
         return ResponseEntity.accepted().body(result);

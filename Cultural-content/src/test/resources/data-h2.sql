@@ -23,6 +23,3 @@ INSERT into komentar(id,vrednost,kulturna_ponuda_id,registrovani_korisnik_user_i
 INSERT into komentar(id, vrednost) values (101,'wdwdwdwd')
 INSERT into fotografija(id,lokacija_fajl,komentar_id,kulturna_ponuda_id)values (100,'files//neki_folder',null,100)
 INSERT into fotografija(id, lokacija_fajl)values (101,'wdwdwdwdw')
-
-
-

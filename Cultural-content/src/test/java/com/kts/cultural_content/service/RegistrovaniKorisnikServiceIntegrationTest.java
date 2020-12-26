@@ -75,6 +75,7 @@ public class RegistrovaniKorisnikServiceIntegrationTest {
 
     }
     @Test
+
     public void testCreate() throws Exception {
         Korisnik k = new Korisnik(27, "Marko", "Markovic", "Markec2", "marko2@gmail.com", "mark12");
         RegistrovaniKorisnik created = rkService.create(k);
@@ -193,5 +194,27 @@ public class RegistrovaniKorisnikServiceIntegrationTest {
         rkService.updatePassword(rk,"abc");
         RegistrovaniKorisnik updated=rkService.findOne(1);
         assertTrue(updated.getLastPasswordResetDate().after(t));
+    }
+    @Test
+    @Transactional
+    @Rollback
+    public void testSubscribe() throws InterruptedException {
+        RegistrovaniKorisnik rk=rkService.findOne(1);
+        int subskrajbovanoPrije=rk.getKulturnaPonuda().size();
+        rkService.subscribe(1,101);
+        rk=rkService.findOne(1);
+        int subskrajbovanoPoslije=rk.getKulturnaPonuda().size();
+        assertEquals(subskrajbovanoPrije+1,subskrajbovanoPoslije);
+    }
+    @Test
+    @Transactional
+    @Rollback
+    public void testUnsubscribe() throws InterruptedException {
+        RegistrovaniKorisnik rk=rkService.findOne(1);
+        int subskrajbovanoPrije=rk.getKulturnaPonuda().size();
+        rkService.unsubscribe(1,100);
+        rk=rkService.findOne(1);
+        int subskrajbovanoPoslije=rk.getKulturnaPonuda().size();
+        assertEquals(subskrajbovanoPrije-1,subskrajbovanoPoslije);
     }
 }

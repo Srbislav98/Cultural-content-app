@@ -107,7 +107,7 @@ public class RegistrovaniKorisnikController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/subscribe/{id}/kulturnaPonuda/{id2}", method = RequestMethod.PUT )
     public ResponseEntity<Void> subscribe(@PathVariable Integer id, @PathVariable Integer id2){
         try {
@@ -119,7 +119,7 @@ public class RegistrovaniKorisnikController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/unsubscribe/{id}/kulturnaPonuda/{id2}", method = RequestMethod.DELETE )
     public ResponseEntity<Void> unsubscribe(@PathVariable Integer id, @PathVariable Integer id2){
         try {

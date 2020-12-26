@@ -32,4 +32,11 @@ public class Admin extends Korisnik {
     public void setKulturnaPonude(Set<KulturnaPonuda> kulturnePonude) {
         this.kulturnePonude = kulturnePonude;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Admin o = (Admin) obj;
+        return this.getId().equals(o.getId()) && this.getEmail().equals((o.getEmail()))
+                && this.getUsername().equals((o.getUsername()));
+    }
 }
