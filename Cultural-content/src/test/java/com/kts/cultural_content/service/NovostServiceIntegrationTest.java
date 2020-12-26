@@ -49,6 +49,12 @@ public class NovostServiceIntegrationTest {
     }
 
     @Test
+    public void testFindByIdFail() {
+        Novost found = novostService.findOne(9999);
+        assertNull(found);
+    }
+
+    @Test
     public void testCreate() throws Exception {
         Novost novost = new Novost(3, "n3", "", objSDF.parse("2020-12-30"));
         Novost created = novostService.createSaKulturnomPonudom(novost, 100);

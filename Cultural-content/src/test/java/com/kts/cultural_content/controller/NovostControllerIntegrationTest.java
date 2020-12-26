@@ -155,6 +155,32 @@ public class NovostControllerIntegrationTest {
     @Test
     @Transactional
     @Rollback(true)
+    public void testCreateNovostFail() throws Exception {
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
+
+        NovostDTO n = new NovostDTO(100, "novost", "opis", objSDF.parse("2020-12-12"));
+
+        HttpEntity<NovostDTO> httpEntity = new HttpEntity<NovostDTO>(n, headers);
+        int size = novostService.findAll().size(); // broj slogova pre ubacivanja novog
+
+        ResponseEntity<NovostDTO> responseEntity =
+                restTemplate.exchange("/api/novosti/create/kulturna-ponuda/100", HttpMethod.POST, httpEntity, NovostDTO.class);
+
+        // provera odgovora servera
+        NovostDTO novost = responseEntity.getBody();
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertNull(novost);
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
     public void testUpdateNovostFail() throws Exception {
         login("124@gmail.com", "admin");
 
@@ -174,6 +200,29 @@ public class NovostControllerIntegrationTest {
         NovostDTO novost = responseEntity.getBody();
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         assertNull(novost);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = true)
+    public void testDeleteNovost() throws Exception{
+
+        login("124@gmail.com", "admin");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        HttpEntity<NovostDTO> httpEntity = new HttpEntity<NovostDTO>(headers);
+        List<Novost> novosti = novostService.findAll();
+
+        int size = novostService.findAll().size();
+
+        ResponseEntity<Void> responseEntity = restTemplate.exchange("/api/novosti/delete/105",
+                HttpMethod.DELETE, httpEntity, Void.class);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(size-1, novostService.findAll().size());
+
     }
 
     @Test
