@@ -165,20 +165,30 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
         rkRepository.save(r);
     }
 
-    public void subscribe(Integer id, Integer id2){
+    public void subscribe(Integer id, Integer id2) throws Exception {
         RegistrovaniKorisnik registrovaniKorisnik  = rkRepository.findById(id).orElse(null);
-        if (registrovaniKorisnik!=null) {
+        if (registrovaniKorisnik!=null && kulturnaPonudaRepository.findById(id2).orElse(null)!=null) {
+            if(registrovaniKorisnik.getKulturnaPonuda().contains(kulturnaPonudaRepository.findById(id2).orElse(null))){
+                throw new Exception("Already subscribed");
+            }
             registrovaniKorisnik.getKulturnaPonuda().add(kulturnaPonudaRepository.findById(id2).orElse(null));
             rkRepository.save(registrovaniKorisnik);
 
+        }else{
+            throw new Exception("Could not find this user or cultural content");
         }
     }
 
-    public void unsubscribe(Integer id, Integer id2){
+    public void unsubscribe(Integer id, Integer id2) throws Exception {
         RegistrovaniKorisnik registrovaniKorisnik  = rkRepository.findById(id).orElse(null);
-        if (registrovaniKorisnik!=null) {
+        if (registrovaniKorisnik!=null && kulturnaPonudaRepository.findById(id2).orElse(null)!=null) {
+            if(!registrovaniKorisnik.getKulturnaPonuda().contains(kulturnaPonudaRepository.findById(id2).orElse(null))){
+                throw new Exception("Cannot  unsubscribe");
+            }
             registrovaniKorisnik.getKulturnaPonuda().remove(kulturnaPonudaRepository.findById(id2).orElse(null));
             rkRepository.save(registrovaniKorisnik);
+        }else{
+            throw new Exception("Could not find this user or cultural content");
         }
     }
 

@@ -333,13 +333,13 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         //assertEquals("Slavko", admini.getIme());
-    }/*
+    }
     @Test
     @Transactional
     @Rollback(true)
     public void testSubscribeAlreadySubscribed() {
 
-        login("123@gmail.com", "user");
+        login("124@gmail.com", "admin");
 
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
         HttpHeaders headers = new HttpHeaders();
@@ -357,15 +357,14 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
         //assertEquals("Slavko", admini.getIme());
-    }*/
-    // 200 OK ,A ne bi trebalo posto user ne postoji
-    /*
+    }
+
     @Test
     @Transactional
     @Rollback(true)
     public void testSubscribeUserNotFound() {
 
-        login("123@gmail.com", "user");
+        login("124@gmail.com", "admin");
 
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
         HttpHeaders headers = new HttpHeaders();
@@ -383,15 +382,13 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
         //assertEquals("Slavko", admini.getIme());
-    }*/
-    //isti problem ,content ne postoji
-    /*
+    }
     @Test
     @Transactional
     @Rollback(true)
     public void testSubscribeCulturalContentNotFound() {
 
-        login("123@gmail.com", "user");
+        login("124@gmail.com", "admin");
 
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
         HttpHeaders headers = new HttpHeaders();
@@ -410,11 +407,8 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
         //assertEquals("Slavko", admini.getIme());
     }
-    */
 
     @Test
-    @Transactional
-    @Rollback(true)
     public void testUnsubscribe() {
 
         login("124@gmail.com", "admin");
@@ -435,15 +429,16 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         //assertEquals("Slavko", admini.getIme());
+        ResponseEntity<Void> responseEntity2 =
+                restTemplate.exchange("/api/registrovaniKorisnici/subscribe/1/kulturnaPonuda/100", HttpMethod.PUT,httpEntity,Void.class);
+        assertEquals(HttpStatus.OK, responseEntity2.getStatusCode());
     }
-    //KORISNIK AKO NIJE SUBSKRAJBOVAN SE NE MOZE UNSABSKRAJBOVATI, A VRACA 200 OK
-    /*
     @Test
     @Transactional
     @Rollback(true)
     public void testSubscribeAlreadyUnsubscribed() {
 
-        login("123@gmail.com", "user");
+        login("124@gmail.com", "admin");
 
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
         HttpHeaders headers = new HttpHeaders();
@@ -463,15 +458,12 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
         //assertEquals("Slavko", admini.getIme());
     }
 
-     */
-    //NE POSTOJI USER, A VRACA OK 200
-    /*
     @Test
     @Transactional
     @Rollback(true)
     public void testUnsubscribeUserNotFound() {
 
-        login("123@gmail.com", "user");
+        login("124@gmail.com", "admin");
 
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
         HttpHeaders headers = new HttpHeaders();
@@ -491,15 +483,12 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
         //assertEquals("Slavko", admini.getIme());
     }
 
-     */
-    //VRACA OK 200 A KULTURNA PONUDA NE POSTOJI
-    /*
     @Test
     @Transactional
     @Rollback(true)
     public void testUnsubscribeCulturalContentNotFound() {
 
-        login("123@gmail.com", "user");
+        login("124@gmail.com", "admin");
 
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
         HttpHeaders headers = new HttpHeaders();
@@ -518,7 +507,6 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
         //assertEquals("Slavko", admini.getIme());
     }
-     */
     @Test
     @Transactional
     @Rollback(true)

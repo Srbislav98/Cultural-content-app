@@ -48,9 +48,11 @@ public class RegistrovaniKorisnikServiceUnitTest {
         RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
         Korisnik usrCreate=new Korisnik(92,"David","Vucenovic","David123","david@gmail.com","user");
         Korisnik usrExists=new Korisnik(1,"Aca","Acic","arak","123@gmail.com","user");
-        userExists.setKulturnaPonuda(new HashSet<KulturnaPonuda>());
         KulturnaPonuda prvaKp=new KulturnaPonuda();
         prvaKp.setId(100);
+        HashSet<KulturnaPonuda> set=new HashSet<KulturnaPonuda>();
+        set.add(prvaKp);
+        userExists.setKulturnaPonuda(set);
         KulturnaPonuda drugaKp=new KulturnaPonuda();
         drugaKp.setId(101);
         ArrayList<RegistrovaniKorisnik> korisnici=new ArrayList<RegistrovaniKorisnik>();
@@ -116,7 +118,11 @@ public class RegistrovaniKorisnikServiceUnitTest {
     @Test
     public void testCreatewithRKEmailExists() throws Exception {
         RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
-      userExists.setKulturnaPonuda(new HashSet<KulturnaPonuda>());
+        KulturnaPonuda prvaKp=new KulturnaPonuda();
+        prvaKp.setId(100);
+        HashSet<KulturnaPonuda> set=new HashSet<KulturnaPonuda>();
+        set.add(prvaKp);
+        userExists.setKulturnaPonuda(set);
         try {
             RegistrovaniKorisnik created = rkService.create(userExists);
         }catch (Exception ex){
@@ -139,7 +145,11 @@ public class RegistrovaniKorisnikServiceUnitTest {
     public void testCreateUsernameExists() throws Exception {
         Korisnik usrExists=new Korisnik(1,"Aca","Acic","arak","123@gmail.com","user");
         RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
-        userExists.setKulturnaPonuda(new HashSet<KulturnaPonuda>());
+        KulturnaPonuda prvaKp=new KulturnaPonuda();
+        prvaKp.setId(100);
+        HashSet<KulturnaPonuda> set=new HashSet<KulturnaPonuda>();
+        set.add(prvaKp);
+        userExists.setKulturnaPonuda(set);
 
         try {
             RegistrovaniKorisnik created = rkService.create(usrExists);
@@ -151,8 +161,12 @@ public class RegistrovaniKorisnikServiceUnitTest {
     }
     @Test
     public void testUpdate() throws Exception {
-      RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
-        userExists.setKulturnaPonuda(new HashSet<KulturnaPonuda>());
+        RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
+        KulturnaPonuda prvaKp=new KulturnaPonuda();
+        prvaKp.setId(100);
+        HashSet<KulturnaPonuda> set=new HashSet<KulturnaPonuda>();
+        set.add(prvaKp);
+        userExists.setKulturnaPonuda(set);
         RegistrovaniKorisnik created=rkService.update(userExists,1);
         verify(rkRepository, times(1)).findById(1);
         //verify(rkRepository, times(1)).findByKorisnickoImeAndIdNot("arak",1);
@@ -162,7 +176,11 @@ public class RegistrovaniKorisnikServiceUnitTest {
     @Test(expected = Exception.class)
     public void testUpdateIdDoesntExists() throws Exception {
         RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
-        userExists.setKulturnaPonuda(new HashSet<KulturnaPonuda>());
+        KulturnaPonuda prvaKp=new KulturnaPonuda();
+        prvaKp.setId(100);
+        HashSet<KulturnaPonuda> set=new HashSet<KulturnaPonuda>();
+        set.add(prvaKp);
+        userExists.setKulturnaPonuda(set);
         RegistrovaniKorisnik created=rkService.update(userExists,92);
         verify(rkRepository, times(1)).findById(92);
         //verify(rkRepository, times(1)).findByKorisnickoImeAndIdNot("arak",1);
@@ -178,7 +196,11 @@ public class RegistrovaniKorisnikServiceUnitTest {
 
     public void testUpdateResetPassword() throws KorisnikNotFoundException {
         RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
-        userExists.setKulturnaPonuda(new HashSet<KulturnaPonuda>());
+        KulturnaPonuda prvaKp=new KulturnaPonuda();
+        prvaKp.setId(100);
+        HashSet<KulturnaPonuda> set=new HashSet<KulturnaPonuda>();
+        set.add(prvaKp);
+        userExists.setKulturnaPonuda(set);
 
         rkService.UpdateResetPassword("axyz","123@gmail.com");
         verify(rkRepository,times(1)).save(userExists);
@@ -186,7 +208,11 @@ public class RegistrovaniKorisnikServiceUnitTest {
     @Test(expected = KorisnikNotFoundException.class)
     public void testUpdateResetPasswordKorisnikNotFound() throws KorisnikNotFoundException {
         RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
-        userExists.setKulturnaPonuda(new HashSet<KulturnaPonuda>());
+        KulturnaPonuda prvaKp=new KulturnaPonuda();
+        prvaKp.setId(100);
+        HashSet<KulturnaPonuda> set=new HashSet<KulturnaPonuda>();
+        set.add(prvaKp);
+        userExists.setKulturnaPonuda(set);
 
         rkService.UpdateResetPassword("axyz","2143@gmail.com");
         verify(rkRepository,times(0)).save(userExists);
@@ -195,27 +221,39 @@ public class RegistrovaniKorisnikServiceUnitTest {
     @Test
     public void testUpdatePasword() throws InterruptedException {
         RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
-        userExists.setKulturnaPonuda(new HashSet<KulturnaPonuda>());
+        KulturnaPonuda prvaKp=new KulturnaPonuda();
+        prvaKp.setId(100);
+        HashSet<KulturnaPonuda> set=new HashSet<KulturnaPonuda>();
+        set.add(prvaKp);
+        userExists.setKulturnaPonuda(set);
 
         rkService.updatePassword(userExists,"admin");
         verify(rkRepository,times(1)).save(userExists);
     }
     @Test
-    public void testSubscribe() throws InterruptedException {
+    public void testSubscribe() throws Exception {
         RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
-        userExists.setKulturnaPonuda(new HashSet<KulturnaPonuda>());
+        KulturnaPonuda prvaKp=new KulturnaPonuda();
+        prvaKp.setId(100);
+        HashSet<KulturnaPonuda> set=new HashSet<KulturnaPonuda>();
+        set.add(prvaKp);
+        userExists.setKulturnaPonuda(set);
 
         rkService.subscribe(1,101);
-        verify(kpRepository,times(1)).findById(101);
+        verify(kpRepository,times(3)).findById(101);
         verify(rkRepository,times(1)).save(userExists);
     }
     @Test
-    public void testUnsubscribe() throws InterruptedException {
+    public void testUnsubscribe() throws Exception {
         RegistrovaniKorisnik userExists=new RegistrovaniKorisnik(1,"Aca","Acic","arak","123@gmail.com","user");
-        userExists.setKulturnaPonuda(new HashSet<KulturnaPonuda>());
+        KulturnaPonuda prvaKp=new KulturnaPonuda();
+        prvaKp.setId(100);
+        HashSet<KulturnaPonuda> set=new HashSet<KulturnaPonuda>();
+        set.add(prvaKp);
+        userExists.setKulturnaPonuda(set);
 
         rkService.unsubscribe(1,100);
-        verify(kpRepository,times(1)).findById(100);
+        verify(kpRepository,times(3)).findById(100);
         verify(rkRepository,times(1)).save(userExists);
     }
 }

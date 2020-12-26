@@ -196,25 +196,23 @@ public class RegistrovaniKorisnikServiceIntegrationTest {
         assertTrue(updated.getLastPasswordResetDate().after(t));
     }
     @Test
-    @Transactional
-    @Rollback
-    public void testSubscribe() throws InterruptedException {
+    public void testSubscribe() throws Exception {
         RegistrovaniKorisnik rk=rkService.findOne(1);
         int subskrajbovanoPrije=rk.getKulturnaPonuda().size();
         rkService.subscribe(1,101);
         rk=rkService.findOne(1);
         int subskrajbovanoPoslije=rk.getKulturnaPonuda().size();
         assertEquals(subskrajbovanoPrije+1,subskrajbovanoPoslije);
+        rkService.unsubscribe(1,101);
     }
     @Test
-    @Transactional
-    @Rollback
-    public void testUnsubscribe() throws InterruptedException {
+    public void testUnsubscribe() throws Exception {
         RegistrovaniKorisnik rk=rkService.findOne(1);
         int subskrajbovanoPrije=rk.getKulturnaPonuda().size();
         rkService.unsubscribe(1,100);
         rk=rkService.findOne(1);
         int subskrajbovanoPoslije=rk.getKulturnaPonuda().size();
         assertEquals(subskrajbovanoPrije-1,subskrajbovanoPoslije);
+        rkService.subscribe(1,100);
     }
 }
