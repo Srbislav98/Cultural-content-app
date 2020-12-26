@@ -61,10 +61,11 @@ public class KulturnaPonudaControllerIntegrationTest {
         KulturnaPonudaDTO[] kp = responseEntity.getBody();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(3, kp.length);
+        assertEquals(4, kp.length);
         assertEquals("kulturnaponuda", kp[0].getNaziv());
         assertEquals("nekulturnaponuda", kp[1].getNaziv());
         assertEquals("ponuda", kp[2].getNaziv());
+        assertEquals("glhf", kp[3].getNaziv());
     }
 
     @Test
@@ -259,7 +260,7 @@ public class KulturnaPonudaControllerIntegrationTest {
 
         HttpEntity<KulturnaPonudaDTO> httpEntity = new HttpEntity<KulturnaPonudaDTO>(headers);
         ResponseEntity<KulturnaPonudaDTO> responseEntity =
-                restTemplate.exchange("/api/kulturnePonude/delete/100", HttpMethod.DELETE,httpEntity, KulturnaPonudaDTO.class);
+                restTemplate.exchange("/api/kulturnePonude/delete/103", HttpMethod.DELETE,httpEntity, KulturnaPonudaDTO.class);
 
 
         KulturnaPonudaDTO kp = responseEntity.getBody();
