@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  role: any;
 
   constructor() { }
 
   ngOnInit(): void {
+    const item = localStorage.getItem('user');
+
+		if (!item) {
+			this.role = undefined;
+			return;
+		}
+    const jwt: JwtHelperService = new JwtHelperService();
+    const decodedItem = JSON.parse(item!);
+    const info = jwt.decodeToken(decodedItem.accessToken);
+    this.role=info['uloga'];
   }
 
 }
