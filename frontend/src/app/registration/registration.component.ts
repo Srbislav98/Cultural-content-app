@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../MODELS/user';
 import { RegistrationService } from '../SERVICES/registration.service';
 
@@ -16,7 +17,8 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private fBuilder: FormBuilder,
     private router: Router,
-    private regService:RegistrationService
+    private regService:RegistrationService,
+    private toastr: ToastrService
     ) {
       this.regForm = this.fBuilder.group({
         email: ["", [Validators.required, Validators.email]],
@@ -37,12 +39,12 @@ export class RegistrationComponent implements OnInit {
       this.user.lozinka=this.regForm.value["password"];
       this.regService.registerUser(this.user).subscribe(
         data=>{
-          alert("Successful registration. Check your email for activation link.")
+          this.toastr.success('Successful registration. Check your email for activation link.');
           this.regForm.reset();
           this.router.navigate(['/login']);
         },
         error=>{
-          alert("Unsuccessful registration. Email/Username is already in use.")
+          this.toastr.error("Unsuccessful registration. Email/Username is already in use.");
         }
       )
     }

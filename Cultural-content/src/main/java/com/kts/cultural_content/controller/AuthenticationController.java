@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -81,7 +82,7 @@ public class AuthenticationController {
 
         // Kreiraj token za tog korisnika
         Korisnik user = (Korisnik) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getEmail()); // prijavljujemo se na sistem sa email adresom
+        String jwt = tokenUtils.generateToken(user.getEmail(),user.getUloga().get(0).getIme()); // prijavljujemo se na sistem sa email adresom
         int expiresIn = tokenUtils.getExpiredIn();
 
         // Vrati token kao odgovor na uspesnu autentifikaciju
@@ -148,6 +149,20 @@ public class AuthenticationController {
             rkService.save(user);
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping(value = "/log-out", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<?> logoutUser() throws Exception {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        SecurityContextHolder.clearContext();
+        return new ResponseEntity<>("You successfully logged out!", HttpStatus.OK);
+        /*
+        if (!(auth instanceof AnonymousAuthenticationToken)){
+            SecurityContextHolder.clearContext();
+            return new ResponseEntity<>("You successfully logged out!", HttpStatus.OK);
+        } else {
+            throw new Exception("User is not authenticated!");
+        }*/
+
     }
     static class PasswordChanger {
         public String oldPassword;
