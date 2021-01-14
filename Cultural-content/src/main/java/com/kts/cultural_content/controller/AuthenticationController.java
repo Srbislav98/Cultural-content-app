@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import sun.security.ec.ECDHKeyAgreement;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,7 +58,7 @@ public class AuthenticationController {
     // Prvi endpoint koji pogadja korisnik kada se loguje.
     // Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
     @PostMapping("/log-in")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody UserLoginDTO authenticationRequest,
+    public ResponseEntity<?> createAuthenticationToken(@Valid @RequestBody UserLoginDTO authenticationRequest,
                                                        HttpServletResponse response) throws InterruptedException {
 
         /*RegistrovaniKorisnik k=rkService.findByEmail(authenticationRequest.getUsername());
@@ -91,7 +92,7 @@ public class AuthenticationController {
 
     // Endpoint za registraciju novog korisnika
     @PostMapping("/sign-up")
-    public ResponseEntity<?> addUser(@RequestBody KorisnikDTO userRequest) throws Exception {
+    public ResponseEntity<?> addUser(@Valid @RequestBody KorisnikDTO userRequest) throws Exception {
         RegistrovaniKorisnik existUser = this.rkService.findByEmail(userRequest.getEmail());
         /*
         if (existUser != null) {
@@ -147,13 +148,20 @@ public class AuthenticationController {
             user.setEnabled(true);
             //userService.delete(user.getId());
             rkService.save(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
     @GetMapping(value = "/log-out", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<?> logoutUser() throws Exception {
+        //try{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         SecurityContextHolder.clearContext();
+        /*}catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }*/
+
         return new ResponseEntity<>("You successfully logged out!", HttpStatus.OK);
         /*
         if (!(auth instanceof AnonymousAuthenticationToken)){

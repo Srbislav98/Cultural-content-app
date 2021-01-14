@@ -35,14 +35,14 @@ public class EmailService {
 
         String recipientAddress = user.getEmail();
         String subject = "Registration Confirmation";
-        String confirmationUrl="/auth/regitrationConfirm/"+token;
+        String confirmationUrl="/registrationConfirm/"+token;
         String message = "Thanks for using Cultural Content app,here is your activation link.";
 
         SimpleMailMessage email = new SimpleMailMessage();
         //recipientAddress, ali za provjeru za sada moj mail
         email.setTo(recipientAddress);
         email.setSubject(subject);
-        email.setText(message + "\r\n" + "http://localhost:8080" + confirmationUrl);
+        email.setText(message + "\r\n" + "http://localhost:4200" + confirmationUrl);
         mailSender.send(email);
     }
 }
