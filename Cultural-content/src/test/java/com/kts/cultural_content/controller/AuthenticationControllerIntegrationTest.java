@@ -162,4 +162,20 @@ public class AuthenticationControllerIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity2.getStatusCode());
         //assertEquals("Slavko", admini.getIme());
     }
+    @Test
+    public void testLogOut() {
+        ResponseEntity<?> responseEntity = restTemplate.postForEntity("/auth/log-in",
+                new UserLoginDTO("124@gmail.com", "admin"),null);
+        ResponseEntity<?> responseEntity2 = restTemplate.getForEntity("/auth/log-out"
+                ,null);
+        assertEquals(HttpStatus.OK, responseEntity2.getStatusCode());
+    }
+    /*
+    @Test
+    public void testLogOutNotLogedIn() {
+        ResponseEntity<?> responseEntity = restTemplate.getForEntity("/auth/log-out"
+                ,null);
+        assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
+
+    }*/
 }

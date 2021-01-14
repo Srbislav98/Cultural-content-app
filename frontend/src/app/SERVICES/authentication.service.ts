@@ -20,7 +20,6 @@ export class AuthenticationService {
 	logout(): Observable<any> {
 		return this.http.get('http://localhost:8080/auth/log-out', {headers: this.headers, responseType: 'text'});
 	}
-
 	isLoggedIn(): boolean {
 		if (!localStorage.getItem('user')) {
 				return false;

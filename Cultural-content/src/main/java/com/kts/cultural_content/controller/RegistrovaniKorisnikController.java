@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -71,7 +72,7 @@ public class RegistrovaniKorisnikController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RegistrovaniKorisnikDTO> createRegistrovaniKorisnik(@RequestBody RegistrovaniKorisnikDTO rkDTO){
+    public ResponseEntity<RegistrovaniKorisnikDTO> createRegistrovaniKorisnik(@Valid @RequestBody RegistrovaniKorisnikDTO rkDTO){
         RegistrovaniKorisnik registrovaniKorisnik;
         rkMapper.toEntity(rkDTO);
         try {
@@ -85,7 +86,7 @@ public class RegistrovaniKorisnikController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value="/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RegistrovaniKorisnikDTO> updateRegistrovaniKorisnik(
-            @RequestBody RegistrovaniKorisnikDTO rkDTO, @PathVariable Integer id){
+            @Valid @RequestBody RegistrovaniKorisnikDTO rkDTO, @PathVariable Integer id){
         RegistrovaniKorisnik registrovaniKorisnik;
         try {
             registrovaniKorisnik = rkService.update(rkMapper.toEntity(rkDTO), id);
