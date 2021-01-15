@@ -5,6 +5,7 @@ import {RegistrationComponent} from './registration/registration.component';
 import {HomeComponent} from './home/home.component';
 import { LoginGuard } from './guards/login.service';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
+import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,12 @@ const routes: Routes = [
   {
     path : 'registrationConfirm/:token',
     component : ConfirmRegistrationComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path : 'forgotten-password',
+    component : ForgottenPasswordComponent,
+    canActivate: [LoginGuard]
   }
 ];
 
