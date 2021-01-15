@@ -12,6 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Interceptor } from './interceptors/intercept.service';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
+import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ConfirmRegistrationComponent } from './confirm-registration/confirm-reg
     LoginComponent,
     RegistrationComponent,
     HomeComponent,
-    ConfirmRegistrationComponent
+    ConfirmRegistrationComponent,
+    ForgottenPasswordComponent
   ],
   imports: [
     BrowserModule,
