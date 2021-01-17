@@ -4,6 +4,7 @@ import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.dto.UserLoginDTO;
 import com.kts.cultural_content.dto.UserTokenStateDTO;
 import com.kts.cultural_content.mapper.RestPageImpl;
+import com.kts.cultural_content.model.Novost;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.TipKPRepository;
 import org.junit.Test;
@@ -296,8 +297,8 @@ public class KulturnaPonudaControllerIntegrationTest {
 
 
         HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
-        ResponseEntity<KulturnaPonudaDTO[]> responseEntity =
-                restTemplate.exchange("/api/kulturnePonude/getNovosti/100", HttpMethod.GET, httpEntity, KulturnaPonudaDTO[].class);
+        ResponseEntity<List> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getNovosti/100", HttpMethod.GET, httpEntity, List.class);
 
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
@@ -313,8 +314,42 @@ public class KulturnaPonudaControllerIntegrationTest {
 
 
         HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
-        ResponseEntity<KulturnaPonudaDTO[]> responseEntity =
-                restTemplate.exchange("/api/kulturnePonude/getNovosti/99999999", HttpMethod.GET, httpEntity, KulturnaPonudaDTO[].class);
+        ResponseEntity<List> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getNovosti/99999999", HttpMethod.GET, httpEntity, List.class);
+
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testGetProsecnaOcena() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<Float> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getProsecnaOcena/100", HttpMethod.GET, httpEntity, Float.class);
+
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testGetProsecnaOcenaNePostoji() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<Float> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getProsecnaOcena/99999999", HttpMethod.GET, httpEntity, Float.class);
 
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
