@@ -2,7 +2,7 @@ import { KulturnaPonuda } from './../MODELS/kulturnaPonuda';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from "rxjs";
-import 'rxjs/add/observable/of'
+
 
 
 @Injectable({ providedIn: 'root' })
