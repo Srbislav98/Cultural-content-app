@@ -175,12 +175,15 @@ public class KulturnaPonuda {
         this.lokacija = lokacija;
     }
 
-    public Double prosecnaOcena(){
-        Double d = 0.0;
+    public Float prosecnaOcena(){
+        Float d = 0.0f;
+
         for (Ocena i : this.getOcene()){
             d += i.getVrednost();
-            d = d/this.getOcene().size();
+
         }
+        if(this.getOcene().size()!=0.0)
+            d = d/this.getOcene().size();
         return d;
     }
     @Override

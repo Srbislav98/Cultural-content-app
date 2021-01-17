@@ -143,6 +143,17 @@ public class KulturnaPonudaController {
         return new ResponseEntity<List<Novost>>(lista, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/getProsecnaOcena/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Float> getProsecnaOcena(@PathVariable Integer id){
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
+        if (kulturnaPonuda == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Float d = kulturnaPonuda.prosecnaOcena();
+        return new ResponseEntity<Float>(d, HttpStatus.OK);
+    }
+
     public KulturnaPonudaController() {
         kulturnaPonudaMapper = new KulturnaPonudaMapper();
     }
