@@ -1,11 +1,11 @@
 package com.kts.cultural_content.service;
 
-import com.kts.cultural_content.model.Komentar;
 import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Fotografija;
+import com.kts.cultural_content.model.Recenzija;
 import com.kts.cultural_content.repository.FotografijaRepository;
-import com.kts.cultural_content.repository.KomentarRepository;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
+import com.kts.cultural_content.repository.RecenzijaRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +40,7 @@ public class FotografijaServiceUnitTest {
     @MockBean
     private KulturnaPonudaRepository kulturnaPonudaRepository;
     @MockBean
-    private KomentarRepository komentarRepository;
+    private RecenzijaRepository recenzijaRepository;
 
     @Before
     public void setup(){
@@ -67,12 +67,12 @@ public class FotografijaServiceUnitTest {
 
         KulturnaPonuda kulturnaPonuda = new KulturnaPonuda();
         kulturnaPonuda.setId(100);
-        Komentar registrovaniKorisnik = new Komentar();
+        Recenzija registrovaniKorisnik = new Recenzija();
         registrovaniKorisnik.setId(1);
 
         given(kulturnaPonudaRepository.findById(100)).willReturn(java.util.Optional.of(kulturnaPonuda));
-        given(komentarRepository.findById(1)).willReturn(java.util.Optional.of(registrovaniKorisnik));
-        Fotografija.setKomentar(registrovaniKorisnik);
+        given(recenzijaRepository.findById(1)).willReturn(java.util.Optional.of(registrovaniKorisnik));
+        Fotografija.setRecenzija(registrovaniKorisnik);
         Fotografija.setKulturnaPonuda(kulturnaPonuda);
         given(fotografijaRepository.save(Fotografija)).willReturn(savedFotografija);
 
@@ -114,7 +114,7 @@ public class FotografijaServiceUnitTest {
 
         //verify(oRepository, times(1)).findById(VEC_KREIRANA_Fotografija);
         verify(kulturnaPonudaRepository, times(1)).findById(100);
-        verify(komentarRepository, times(1)).findById(100);
+        verify(recenzijaRepository, times(1)).findById(100);
         verify(fotografijaRepository, times(1)).save(Fotografija);
 
         assertEquals(NEW_Fotografija_DOBRO, created.getLokacijaFajl());
@@ -136,7 +136,7 @@ public class FotografijaServiceUnitTest {
 
 
         verify(kulturnaPonudaRepository, times(1)).findById(100);
-        verify(komentarRepository, times(1)).findById(100);
+        verify(recenzijaRepository, times(1)).findById(100);
         verify(fotografijaRepository, times(1)).save(Fotografija);
 
         assertEquals(NEW_Fotografija_DOBRO, created.getLokacijaFajl());

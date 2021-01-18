@@ -1,9 +1,8 @@
 package com.kts.cultural_content.mapper;
 
-import com.kts.cultural_content.dto.KomentarDTO;
 import com.kts.cultural_content.dto.KulturnaPonudaDTO;
+import com.kts.cultural_content.dto.RecenzijaDTO;
 import com.kts.cultural_content.model.KulturnaPonuda;
-import com.kts.cultural_content.dto.OcenaDTO;
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.model.*;
 
@@ -14,14 +13,12 @@ public class RegistrovaniKorisnikMapper implements MapperInterface<RegistrovaniK
 
     private UlogaMapper ulogaMapper;
     private KulturnaPonudaMapper kulturnaPonudaMapper;
-    private KomentarMapper komentarMapper;
-    private OcenaMapper ocenaMapper;
+    private RecenzijaMapper recenzijaMapper;
 
     public RegistrovaniKorisnikMapper() {
         ulogaMapper = new UlogaMapper();
         kulturnaPonudaMapper=new KulturnaPonudaMapper();
-        komentarMapper=new KomentarMapper();
-        ocenaMapper=new OcenaMapper();
+        recenzijaMapper=new RecenzijaMapper();
     }
     @Override
     public RegistrovaniKorisnik toEntity(RegistrovaniKorisnikDTO dto) {
@@ -31,20 +28,15 @@ public class RegistrovaniKorisnikMapper implements MapperInterface<RegistrovaniK
                 kulturnaPonuda.add(kulturnaPonudaMapper.toEntity(kp));
             }
         }
-        Set<Komentar> komentari = new HashSet<>();
+        Set<Recenzija> recenzije = new HashSet<>();
         if(!dto.getKulturnaPonuda().isEmpty()) {
-            for (KomentarDTO kp : dto.getKomentari()) {
-                komentari.add(komentarMapper.toEntity(kp));
+            for (RecenzijaDTO kp : dto.getRecenzije()) {
+                recenzije.add(recenzijaMapper.toEntity(kp));
             }
         }
-        Set<Ocena> ocene = new HashSet<>();
-        if(!dto.getKulturnaPonuda().isEmpty()) {
-            for (OcenaDTO kp : dto.getOcene()) {
-                ocene.add(ocenaMapper.toEntity(kp));
-            }
-        }
+
         return new RegistrovaniKorisnik(dto.getId(),dto.getIme(), dto.getPrezime(),dto.getKorisnickoIme(),
-                dto.getEmail(), dto.getLozinka(),kulturnaPonuda,komentari,ocene);
+                dto.getEmail(), dto.getLozinka(),kulturnaPonuda,recenzije);
     }
 
     @Override
@@ -53,16 +45,13 @@ public class RegistrovaniKorisnikMapper implements MapperInterface<RegistrovaniK
         for (KulturnaPonuda kp:entity.getKulturnaPonuda()){
             kulturnaPonuda.add(kulturnaPonudaMapper.toDto(kp));
         }
-        Set<KomentarDTO> komentari = new HashSet<>();
-        for (Komentar kp:entity.getKomentari()){
-            komentari.add(komentarMapper.toDto(kp));
+        Set<RecenzijaDTO> recenzije = new HashSet<>();
+        for (Recenzija kp:entity.getRecenzije()){
+            recenzije.add(recenzijaMapper.toDto(kp));
         }
-        Set<OcenaDTO> ocene = new HashSet<>();
-        for (Ocena kp:entity.getOcene()){
-            ocene.add(ocenaMapper.toDto(kp));
-        }
+
         return new RegistrovaniKorisnikDTO(entity.getId(),entity.getIme(), entity.getPrezime(),entity.getKorisnickoIme(),
-                entity.getEmail(), entity.getLozinka(),kulturnaPonuda,komentari,ocene);
+                entity.getEmail(), entity.getLozinka(),kulturnaPonuda,recenzije);
     }
 
 }

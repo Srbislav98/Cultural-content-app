@@ -39,12 +39,10 @@ public class KulturnaPonuda {
     @JoinColumn( nullable = true)
     private Lokacija lokacija;
 
-    @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Ocena> ocene = new HashSet<>();
+
 
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-
-    private Set<Komentar> komentari = new HashSet<>();
+    private Set<Recenzija> recenzije = new HashSet<>();
 
     @OneToMany( mappedBy = "kulturnaPonuda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Novost> novosti = new HashSet<>();
@@ -111,25 +109,13 @@ public class KulturnaPonuda {
         return this.tipKulturnePonude.getId();
     }
 
-    public void setOcene(Set<Ocena> ocene) {
-        this.ocene = ocene;
-    }
 
-    public void setKomentari(Set<Komentar> komentari) {
-        this.komentari = komentari;
-    }
 
     public void setNovosti(Set<Novost> novosti) {
         this.novosti = novosti;
     }
 
-    public Set<Ocena> getOcene() {
-        return ocene;
-    }
 
-    public Set<Komentar> getKomentari() {
-        return komentari;
-    }
 
     public Set<Novost> getNovosti() {
         return novosti;
@@ -175,15 +161,23 @@ public class KulturnaPonuda {
         this.lokacija = lokacija;
     }
 
+    public void setRecenzije(Set<Recenzija> recenzije) {
+        this.recenzije = recenzije;
+    }
+
+    public Set<Recenzija> getRecenzije() {
+        return recenzije;
+    }
+
     public Float prosecnaOcena(){
         Float d = 0.0f;
 
-        for (Ocena i : this.getOcene()){
-            d += i.getVrednost();
+        for (Recenzija i : this.getRecenzije()){
+            d += i.getOcena();
 
         }
-        if(this.getOcene().size()!=0.0)
-            d = d/this.getOcene().size();
+        if(this.getRecenzije().size()!=0)
+            d = d/this.getRecenzije().size();
         return d;
     }
     @Override

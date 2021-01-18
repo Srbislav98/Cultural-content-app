@@ -1,8 +1,6 @@
 package com.kts.cultural_content.mapper;
 
-import com.kts.cultural_content.dto.KomentarDTO;
 import com.kts.cultural_content.dto.KorisnikDTO;
-import com.kts.cultural_content.dto.OcenaDTO;
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.model.*;
 

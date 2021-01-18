@@ -78,8 +78,8 @@ public class FotografijaServiceIntegrationTest {
 
     @Test
     public void testDelete() throws Exception {
-        fotografijaService.delete(VEC_KREIRANA_Fotografija);
-        assertNull(fotografijaService.findOne(VEC_KREIRANA_Fotografija));
+        fotografijaService.delete(VEC_KREIRANA_Fotografija2);
+        assertNull(fotografijaService.findOne(VEC_KREIRANA_Fotografija2));
 
         Fotografija savedFotografija = new Fotografija(NEW_Fotografija_DOBRO,1,100);
         savedFotografija.setId(VEC_KREIRANA_Fotografija);
