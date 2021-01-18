@@ -14,6 +14,7 @@ import { Interceptor } from './interceptors/intercept.service';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
 import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
+import { ProfilComponent } from './profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kult
     HomeComponent,
     ConfirmRegistrationComponent,
     ForgottenPasswordComponent,
-    KulturnaPonudaDetaljnoComponent
+    KulturnaPonudaDetaljnoComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,
