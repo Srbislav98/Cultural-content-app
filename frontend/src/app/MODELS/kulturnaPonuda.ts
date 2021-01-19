@@ -1,42 +1,42 @@
 export class KulturnaPonuda{
-    constructor(private _id?:number,private _naziv?:string,private _adresa?:string,private _opis?:string,private _idt?:number,private _idLokacije?:number){
+    constructor(private id?:number,private naziv?:string,private adresa?:string,private opis?:string,private idt?:number,private idLokacije?:number){
 
     }
 
-    get id(){
-        return this._id;
+    get Id(){
+        return this.id;
     }
-    set id(value){
-        this._id = value;
+    set Id(value){
+        this.id = value;
     }
-    get naziv(){
-        return this._naziv;
+    get Naziv(){
+        return this.naziv;
     }
-    set naziv(value){
-        this._naziv = value;
+    set Naziv(value){
+        this.naziv = value;
     }
-    get adresa(){
-        return this._adresa;
+    get Adresa(){
+        return this.adresa;
     }
-    set adresa(value){
-        this._adresa = value;
+    set Adresa(value){
+        this.adresa = value;
     }
-    get opis(){
-        return this._opis;
+    get Opis(){
+        return this.opis;
     }
-    set opis(value){
-        this._opis = value;
+    set Opis(value){
+        this.opis = value;
     }
-    get idt(){
-        return this._idt;
+    get Idt(){
+        return this.idt;
     }
-    set idt(value){
-        this._idt = value;
+    set Idt(value){
+        this.idt = value;
     }
-    get idLokacije(){
-        return this._idLokacije;
+    get IdLokacije(){
+        return this.idLokacije;
     }
-    set idLokacije(value){
-        this._idLokacije = value;
+    set IdLokacije(value){
+        this.idLokacije = value;
     }
 }

@@ -1,32 +1,32 @@
 
 export class Novost{
-    constructor(private _id?:number,private _naziv?:string,private _opis?:string,private _datum?:Date){
+    constructor(private id?:number,private naziv?:string,private opis?:string,private datum?:Date){
 
     }
 
-    get id(){
-        return this._id;
+    get Id(){
+        return this.id;
     }
-    set id(value){
-        this._id = value;
+    set Id(value){
+        this.id = value;
     }
-    get naziv(){
-        return this._naziv;
+    get Naziv(){
+        return this.naziv;
     }
-    set naziv(value){
-        this._naziv = value;
+    set Naziv(value){
+        this.naziv = value;
     }
-    get opis(){
-        return this._opis;
+    get Opis(){
+        return this.opis;
     }
-    set opis(value){
-        this._opis = value;
+    set Opis(value){
+        this.opis = value;
     }
-    get datum(){
-        return this._datum;
+    get Datum(){
+        return this.datum;
     }
-    set datum(value){
-        this._datum = value;
+    set Datum(value){
+        this.datum = value;
     }
 
 }

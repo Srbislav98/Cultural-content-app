@@ -26,7 +26,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
      }
 
   
-  opis = this.kulturnaPonuda.opis;
+  opis = this.kulturnaPonuda.Opis;
 
   
   ucitajKulturnuPonudu(){
