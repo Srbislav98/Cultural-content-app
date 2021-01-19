@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit {
         this.toastr.success('Successful login!');
         //OVAKO DOBIJEM TOKEN
         localStorage.setItem('user', JSON.stringify(result));
-        //const item = localStorage.getItem('user');
-		    //const decodedItem = JSON.parse(item!);
-        //this.toastr.success(decodedItem.accessToken);
+        const item = localStorage.getItem('user');
+		    const decodedItem = JSON.parse(item!);
+        localStorage.setItem('accessToken', decodedItem.accessToken);
 				this.router.navigate(['']);
 			},
 			error => {

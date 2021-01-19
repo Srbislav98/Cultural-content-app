@@ -4,6 +4,7 @@ import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.dto.NovostDTO;
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.mapper.AdminMapper;
+import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
 import com.kts.cultural_content.mapper.RegistrovaniKorisnikMapper;
 import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Novost;
@@ -20,10 +21,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/api/registrovaniKorisnici", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,6 +30,7 @@ public class RegistrovaniKorisnikController {
     @Autowired
     private RegistrovaniKorisnikService  rkService;
     private RegistrovaniKorisnikMapper rkMapper;
+    private KulturnaPonudaMapper kpMapper;
     public RegistrovaniKorisnikController() {
         rkMapper = new RegistrovaniKorisnikMapper();
     }
@@ -133,7 +132,7 @@ public class RegistrovaniKorisnikController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @GetMapping(value="/allsubscriptions/{id}")
+    @GetMapping(value="/allsubscription/{id}")
     public ResponseEntity< Set<KulturnaPonudaDTO>> getRegistrovanKorisnikSubscriptions(@PathVariable Integer id) {
         RegistrovaniKorisnik rk= rkService.findOne(id);
         if (rk == null) {
@@ -141,6 +140,30 @@ public class RegistrovaniKorisnikController {
         }
         RegistrovaniKorisnikDTO k = rkMapper.toDto(rk);
         return new ResponseEntity<Set<KulturnaPonudaDTO>>( k.getKulturnaPonuda(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @GetMapping(value="/allsubscriptions/{id}")
+    public ResponseEntity<Page<KulturnaPonudaDTO>> getRegistrovanKorisnikSubscriptionsPage( @PathVariable Integer id, Pageable pageable) {
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        /*headers.forEach((key, value) -> {
+            System.out.println(key+":"+value);
+        });*/
+        RegistrovaniKorisnik rk= rkService.findOne(id);
+        if (rk == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        RegistrovaniKorisnikDTO k = rkMapper.toDto(rk);
+        //return new ResponseEntity<Set<KulturnaPonudaDTO>>( k.getKulturnaPonuda(), HttpStatus.OK);
+
+        List<KulturnaPonudaDTO> kpDTOS=new ArrayList<KulturnaPonudaDTO>();
+        for (KulturnaPonudaDTO kpa: k.getKulturnaPonuda()) {
+            kpDTOS.add(kpa);
+        }
+        Page<KulturnaPonudaDTO> pageRKDTOS = new PageImpl<>(kpDTOS,pageable,10);
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBB");
+
+        return new ResponseEntity<>(pageRKDTOS, HttpStatus.OK);
     }
 
     private List<RegistrovaniKorisnikDTO> toRegistrovaniKorisnikDTOList(List<RegistrovaniKorisnik> toList) {
