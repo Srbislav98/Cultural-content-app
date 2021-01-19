@@ -1,3 +1,4 @@
+import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './login/login.component';
@@ -37,6 +38,12 @@ const routes: Routes = [
   {
     path : 'profil',
     component : ProfilComponent,
+    canActivate: [RoleGuard],
+		data: {expectedRoles: 'ROLE_ADMIN|ROLE_USER'}
+  },
+  {
+    path : 'kulturna-ponuda-detaljno',
+    component : KulturnaPonudaDetaljnoComponent,
     canActivate: [RoleGuard],
 		data: {expectedRoles: 'ROLE_ADMIN|ROLE_USER'}
   }

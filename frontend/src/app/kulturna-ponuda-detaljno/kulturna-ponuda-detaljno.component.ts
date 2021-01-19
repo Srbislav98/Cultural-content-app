@@ -11,26 +11,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KulturnaPonudaDetaljnoComponent implements OnInit {
 
-  ngOnInit(): void {
-  }
+  
   kulForm:FormGroup;
+  kulturnaPonuda:KulturnaPonuda | undefined;
 
   constructor(private fBuilder:FormBuilder,
     private router:Router,
-    private kulService:KulturnaPonudaService,
-    private kulturnaPonuda:KulturnaPonuda) {
+    private kulService:KulturnaPonudaService
+    ) {
+      this.kulturnaPonuda = undefined;
       this.kulForm = this.fBuilder.group({
         id:[""]
       });
-      //this.kulturnaPonuda = kulService.getKulturnaPonuda();
-     }
+  }
 
-  
-  opis = this.kulturnaPonuda.Opis;
-
+  ngOnInit(): void {
+    this.ucitajKulturnuPonudu();
+  }
   
   ucitajKulturnuPonudu(){
-    //this.kulturnaPonuda = this.kulService.getKulturnaPonuda();
+    this.kulService.get(100).subscribe(data => {this.kulturnaPonuda = data;});
    
   }
+  //test = this.kulturnaPonuda?.Naziv;
 }
