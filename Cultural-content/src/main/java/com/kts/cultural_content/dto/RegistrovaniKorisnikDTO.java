@@ -1,7 +1,6 @@
 package com.kts.cultural_content.dto;
 
-import com.kts.cultural_content.model.Komentar;
-import com.kts.cultural_content.model.Ocena;
+
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 
 import javax.persistence.CascadeType;
@@ -12,14 +11,13 @@ import java.util.*;
 public class RegistrovaniKorisnikDTO extends KorisnikDTO{
 
     private Set<KulturnaPonudaDTO> kulturnaPonuda = new HashSet<>();
-    private Set<KomentarDTO> komentari = new HashSet<>();
-    private Set<OcenaDTO> ocene = new HashSet<>();
+    private Set<RecenzijaDTO> recenzije = new HashSet<>();
 
-    public RegistrovaniKorisnikDTO(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka,  Set<KulturnaPonudaDTO> kulturnaPonuda, Set<KomentarDTO> komentari, Set<OcenaDTO> ocene) {
+    public RegistrovaniKorisnikDTO(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka,  Set<KulturnaPonudaDTO> kulturnaPonuda, Set<RecenzijaDTO> recenzije) {
         super(id, ime, prezime, korisnickoIme, email, lozinka);
         this.kulturnaPonuda = kulturnaPonuda;
-        this.komentari = komentari;
-        this.ocene = ocene;
+        this.recenzije = recenzije;
+
     }
 
     public RegistrovaniKorisnikDTO() {
@@ -47,19 +45,11 @@ public class RegistrovaniKorisnikDTO extends KorisnikDTO{
         this.kulturnaPonuda = kulturnaPonuda;
     }
 
-    public Set<KomentarDTO> getKomentari() {
-        return komentari;
+    public Set<RecenzijaDTO> getRecenzije() {
+        return recenzije;
     }
 
-    public void setKomentari(Set<KomentarDTO> komentari) {
-        this.komentari = komentari;
-    }
-
-    public Set<OcenaDTO> getOcene() {
-        return ocene;
-    }
-
-    public void setOcene(Set<OcenaDTO> ocene) {
-        this.ocene = ocene;
+    public void setRecenzije(Set<RecenzijaDTO> recenzije) {
+        this.recenzije = recenzije;
     }
 }

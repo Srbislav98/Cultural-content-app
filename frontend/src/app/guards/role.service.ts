@@ -14,7 +14,7 @@ export class RoleGuard implements CanActivate {
 	) { }
 
 	canActivate(route: ActivatedRouteSnapshot): boolean {
-		//const expectedRoles: string = route.data.expectedRoles;
+		const expectedRoles: string = route.data.expectedRoles;
 		const item = localStorage.getItem('user');
 		const jwt: JwtHelperService = new JwtHelperService();
 
@@ -22,9 +22,9 @@ export class RoleGuard implements CanActivate {
 		const decodedItem = JSON.parse(item!);
     	const info = jwt.decodeToken(decodedItem.accessToken);
     	//this.role=info['uloga'];
-		//const roles: string[] = expectedRoles.split('|', 2);
+	    const roles: string[] = expectedRoles.split('|', 2);
 
-		if (info['uloga']!== 'ROLE_ADMIN' && info['uloga']!== 'ROLE_USER') {
+		if (roles.indexOf(info['uloga']) === -1) {
 			this.router.navigate(['']);
 			return false;
 		}

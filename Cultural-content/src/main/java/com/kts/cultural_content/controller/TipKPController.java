@@ -1,12 +1,10 @@
 package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.KulturnaPonudaDTO;
-import com.kts.cultural_content.dto.OcenaDTO;
 import com.kts.cultural_content.dto.TipKulturnePonudeDTO;
 import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
 import com.kts.cultural_content.mapper.TipKulturnePonudeMapper;
 import com.kts.cultural_content.model.KulturnaPonuda;
-import com.kts.cultural_content.model.Ocena;
 import com.kts.cultural_content.model.TipKulturnePonude;
 import com.kts.cultural_content.service.KulturnaPonudaService;
 import com.kts.cultural_content.service.TipKPService;

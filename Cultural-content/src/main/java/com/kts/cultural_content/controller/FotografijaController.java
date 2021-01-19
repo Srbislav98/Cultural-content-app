@@ -1,11 +1,8 @@
 package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.FotografijaDTO;
-import com.kts.cultural_content.dto.OcenaDTO;
 import com.kts.cultural_content.mapper.FotografijaMapper;
-import com.kts.cultural_content.mapper.OcenaMapper;
 import com.kts.cultural_content.model.Fotografija;
-import com.kts.cultural_content.model.Ocena;
 import com.kts.cultural_content.service.FotografijaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

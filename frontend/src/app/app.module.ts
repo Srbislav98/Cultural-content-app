@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Interceptor } from './interceptors/intercept.service';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
+import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
+import { ProfilComponent } from './profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { ForgottenPasswordComponent } from './forgotten-password/forgotten-passw
     RegistrationComponent,
     HomeComponent,
     ConfirmRegistrationComponent,
-    ForgottenPasswordComponent
+    ForgottenPasswordComponent,
+    KulturnaPonudaDetaljnoComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,

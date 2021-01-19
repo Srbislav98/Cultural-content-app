@@ -23,10 +23,7 @@ public class RegistrovaniKorisnik extends Korisnik {
     private Set<KulturnaPonuda> kulturnaPonuda;
 
     @OneToMany( mappedBy = "registrovaniKorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Komentar> komentari = new HashSet<>();
-
-    @OneToMany( mappedBy = "registrovaniKorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Ocena> ocene = new HashSet<>();
+    private Set<Recenzija> recenzije = new HashSet<>();
 
     public RegistrovaniKorisnik(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka) {
         super(id, ime, prezime, korisnickoIme, email, lozinka);
@@ -47,31 +44,23 @@ public class RegistrovaniKorisnik extends Korisnik {
     }
 
     public RegistrovaniKorisnik(Integer id, String ime, String prezime, String korisnickoIme, String email, String lozinka,
-                                Set<KulturnaPonuda> kulturnaPonude, Set<Komentar> komentari, Set<Ocena> ocene) {
+                                Set<KulturnaPonuda> kulturnaPonude, Set<Recenzija> recenzije) {
         super(id, ime, prezime, korisnickoIme, email, lozinka);
         this.kulturnaPonuda=kulturnaPonude;
-        this.komentari=komentari;
-        this.ocene=ocene;
+        this.recenzije=recenzije;
+
     }
 
     public RegistrovaniKorisnik(RegistrovaniKorisnikDTO rk) {
         super(rk);
     }
 
-    public Set<Komentar> getKomentari() {
-        return komentari;
+    public Set<Recenzija> getRecenzije() {
+        return recenzije;
     }
 
-    public void setKomentari(Set<Komentar> komentari) {
-        this.komentari = komentari;
-    }
-
-    public Set<Ocena> getOcene() {
-        return ocene;
-    }
-
-    public void setOcene(Set<Ocena> ocene) {
-        this.ocene = ocene;
+    public void setRecenzije(Set<Recenzija> recenzije) {
+        this.recenzije = recenzije;
     }
 
     public void setKulturnaPonuda(Set<KulturnaPonuda> kulturnaPonuda) {

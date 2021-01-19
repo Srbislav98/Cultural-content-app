@@ -24,7 +24,7 @@ public class Fotografija {
     @Column
     Integer kulId;
     @Column
-    Integer komId;
+    Integer recId;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn( nullable = true)
@@ -32,25 +32,25 @@ public class Fotografija {
 
     @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn( nullable = true)
-    private Komentar komentar;
+    private Recenzija recenzija;
 
     public Fotografija() {
     }
 
-    public Fotografija(String lokacijaFajl, Integer kulId, Integer komId) {
+    public Fotografija(String lokacijaFajl, Integer kulId, Integer recId) {
         this.lokacijaFajl = lokacijaFajl;
         this.kulId = kulId;
-        this.komId = komId;
+        this.recId = recId;
     }
 
     @Override
     public boolean equals(Object obj) {
         Fotografija o = (Fotografija)obj;
         if(this.getId()==null || o.getId()==null){
-            if (this.getKomId()==null || o.getKomId()==null)
+            if (this.getRecId()==null || o.getRecId()==null)
                 return this.getKulId().equals(o.getKulId());
             else
-                return this.getKomId().equals(o.getKomId());
+                return this.getRecId().equals(o.getRecId());
         }else
             return this.getId().equals(o.getId());
     }
@@ -67,16 +67,16 @@ public class Fotografija {
         this.kulId = kulId;
     }
 
-    public void setKomId(Integer komId) {
-        this.komId = komId;
+    public void setRecId(Integer recId) {
+        this.recId = recId;
     }
 
     public Integer getKulId() {
         return kulId;
     }
 
-    public Integer getKomId() {
-        return komId;
+    public Integer getRecId() {
+        return recId;
     }
 
     public Integer getId() {
@@ -101,16 +101,17 @@ public class Fotografija {
         this.kulturnaPonuda = kulturnaPonuda;
     }
 
-    public void setKomentar(Komentar komentar) {
-        this.komentar = komentar;
-    }
 
     public KulturnaPonuda getKulturnaPonuda() {
         return kulturnaPonuda;
     }
 
-    public Komentar getKomentar() {
-        return komentar;
+    public void setRecenzija(Recenzija recenzija) {
+        this.recenzija = recenzija;
+    }
+
+    public Recenzija getRecenzija() {
+        return recenzija;
     }
 
     public BufferedImage konverzijaUSliku(File slika){

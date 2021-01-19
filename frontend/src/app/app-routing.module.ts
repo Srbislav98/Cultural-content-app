@@ -6,6 +6,8 @@ import {HomeComponent} from './home/home.component';
 import { LoginGuard } from './guards/login.service';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
+import { RoleGuard } from './guards/role.service';
+import { ProfilComponent } from './profil/profil.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,12 @@ const routes: Routes = [
     path : 'forgotten-password',
     component : ForgottenPasswordComponent,
     canActivate: [LoginGuard]
+  },
+  {
+    path : 'profil',
+    component : ProfilComponent,
+    canActivate: [RoleGuard],
+		data: {expectedRoles: 'ROLE_ADMIN|ROLE_USER'}
   }
 ];
 
