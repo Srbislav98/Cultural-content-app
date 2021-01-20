@@ -1,13 +1,15 @@
-<h1>Subscriptions</h1>
-<div class="row">
-	<div class="col">
-		<app-table [subscriptions]="subList"></app-table>
+<!--<div class="w-50 h-100 p-3" style="float:right;">-->
+	<h4>Subscriptions</h4>
+	<div class="row">
+		<div class="col">
+			<app-table [subscriptions]="subList"></app-table>
+		</div>
 	</div>
-</div>
-<div class="row">
-	<div class="col">
-		<app-pagination [totalItems]="totalSize" [pageSize]="pageSize"
-			(pageSelected)="changePage($event)">
-		</app-pagination>
+	<div class="row">
+		<div class="col">
+			<app-pagination [totalItems]="totalSize" [pageSize]="pageSize"
+				(pageSelected)="changePage($event)">
+			</app-pagination>
+		</div>
 	</div>
-</div>
+<!--</div>-->

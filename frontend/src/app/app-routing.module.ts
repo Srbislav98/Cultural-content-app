@@ -37,7 +37,7 @@ const routes: Routes = [
   },
   {
     path : 'profil',
-    component : SubscriptionListComponent,
+    component : ProfilComponent,
     canActivate: [RoleGuard],
 		data: {expectedRoles: 'ROLE_USER'}
   }

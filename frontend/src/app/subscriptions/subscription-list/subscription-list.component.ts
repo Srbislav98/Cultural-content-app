@@ -26,16 +26,17 @@ export class SubscriptionListComponent implements OnInit {
 			res => {
 				
 				this.subList = res.body.content as Subscription[];
-				this.totalSize = Number(res.headers.get('Total-pages'));
+				this.totalSize = Number(res.body.totalElements);
 			}
 		);
 	}
 	ngOnInit() {
 		this.profileService.getAll(this.currentPage - 1, this.pageSize).subscribe(
 			res => {
-				console.log(res);
+				//console.log(res);
+				//console.log(res.body.totalPages);
 				this.subList = res.body.content as Subscription[];
-				this.totalSize = Number(res.headers.get('Total-pages'));
+				this.totalSize = Number(res.body.totalElements);
 			}
 		);
 	}

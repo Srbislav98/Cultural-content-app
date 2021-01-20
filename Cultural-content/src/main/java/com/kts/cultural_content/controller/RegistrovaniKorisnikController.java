@@ -1,8 +1,10 @@
 package com.kts.cultural_content.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.dto.NovostDTO;
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
+import com.kts.cultural_content.dto.UserLoginDTO;
 import com.kts.cultural_content.mapper.AdminMapper;
 import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
 import com.kts.cultural_content.mapper.RegistrovaniKorisnikMapper;
@@ -53,7 +55,9 @@ public class RegistrovaniKorisnikController {
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<RegistrovaniKorisnikDTO>> getAllRegistrovaniKorisnici(Pageable pageable) {
         Page<RegistrovaniKorisnik> page = rkService.findAll(pageable);
+        System.out.println("XMUSKY:"+page.getTotalElements()+":"+page.stream().count());
         List<RegistrovaniKorisnikDTO> rkDTOS = toRegistrovaniKorisnikDTOList(page.toList());
+        System.out.println(rkDTOS.size());
         Page<RegistrovaniKorisnikDTO> pageRKDTOS = new PageImpl<>(rkDTOS,page.getPageable(),page.getTotalElements());
 
         return new ResponseEntity<>(pageRKDTOS, HttpStatus.OK);
@@ -63,6 +67,16 @@ public class RegistrovaniKorisnikController {
     @GetMapping(value="/{id}")
     public ResponseEntity<RegistrovaniKorisnikDTO> getRegistrovanKorisnik(@PathVariable Integer id) {
         RegistrovaniKorisnik rk= rkService.findOne(id);
+        if (rk == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        RegistrovaniKorisnikDTO k = rkMapper.toDto(rk);
+        return new ResponseEntity<RegistrovaniKorisnikDTO>(k, HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value="/user", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RegistrovaniKorisnikDTO> getRegistrovanKorisnikFull(@RequestBody UserLoginDTO u) {
+        RegistrovaniKorisnik rk= rkService.findByEmail(u.getUsername());
         if (rk == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -154,13 +168,28 @@ public class RegistrovaniKorisnikController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         RegistrovaniKorisnikDTO k = rkMapper.toDto(rk);
+        //Page<KulturnaPonuda> kpage
         //return new ResponseEntity<Set<KulturnaPonudaDTO>>( k.getKulturnaPonuda(), HttpStatus.OK);
 
         List<KulturnaPonudaDTO> kpDTOS=new ArrayList<KulturnaPonudaDTO>();
+        //pageable.getPageNumber();
+        //pageable.getPageSize();
+        int pocetak=pageable.getPageNumber()*pageable.getPageSize();
+        int kreni=0,moze= pageable.getPageSize();
+        ArrayList<KulturnaPonudaDTO> kponude=new ArrayList<KulturnaPonudaDTO>();
         for (KulturnaPonudaDTO kpa: k.getKulturnaPonuda()) {
-            kpDTOS.add(kpa);
+            kponude.add(kpa);
         }
-        Page<KulturnaPonudaDTO> pageRKDTOS = new PageImpl<>(kpDTOS,pageable,10);
+        Collections.sort(kponude);
+        for (KulturnaPonudaDTO kpa: kponude) {
+            if(pocetak==kreni && moze>0) {
+                kpDTOS.add(kpa);
+                moze--;
+                pocetak++;
+            }
+            kreni++;
+        }
+        Page<KulturnaPonudaDTO> pageRKDTOS = new PageImpl<>(kpDTOS,pageable,k.getKulturnaPonuda().size());
         System.out.println("BBBBBBBBBBBBBBBBBBBBBB");
 
         return new ResponseEntity<>(pageRKDTOS, HttpStatus.OK);
