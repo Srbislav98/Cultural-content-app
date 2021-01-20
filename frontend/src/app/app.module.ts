@@ -18,6 +18,7 @@ import { ProfilComponent } from './profil/profil.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { TableComponent } from './subscriptions/table/table.component';
 import { SubscriptionListComponent } from './subscriptions/subscription-list/subscription-list.component';
+import { TableNovostComponent } from './table-novost/table-novost.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SubscriptionListComponent } from './subscriptions/subscription-list/sub
     ProfilComponent,
     PaginationComponent,
     TableComponent,
-    SubscriptionListComponent
+    SubscriptionListComponent,
+    TableNovostComponent
   ],
   imports: [
     BrowserModule,
