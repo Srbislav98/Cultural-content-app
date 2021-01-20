@@ -132,7 +132,7 @@ public class KulturnaPonudaController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @RequestMapping(value = "/getNovosti/{id}/by-page", method = RequestMethod.GET)
+    @RequestMapping(value = "/getNovosti/{id}", method = RequestMethod.GET)
     public ResponseEntity< Page<NovostDTO>> getKulturnaPonudaNovosti(@PathVariable Integer id, Pageable pageable){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
         if (kulturnaPonuda == null){

@@ -36,7 +36,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
       this.kulForm = this.fBuilder.group({
         id:[""]
       });
-      this.pageSize= 1;
+      this.pageSize= 2;
       this.currentPage =1;
       this.totalSize = 1;
       
@@ -56,7 +56,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
       }
     )
 
-    this.kulService.getNovostiPage(this.currentPage, this.id).subscribe(
+    this.kulService.getNovostiPage(this.currentPage,this.pageSize, this.id).subscribe(
 			res => {
 				//console.log(res);
 				//console.log(res.body.totalPages);
@@ -68,7 +68,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
     
   }
   changePage(newPage: number) {
-		this.kulService.getNovostiPage(newPage - 1,this.id).subscribe(
+		this.kulService.getNovostiPage(newPage - 1, this.pageSize,this.id).subscribe(
 			res => {
 				
 				this.subList = res.body.content as Novost[];

@@ -32,7 +32,7 @@ export class KulturnaPonudaService{
         return this.http.get(this.path+"/by-page?page="+page+"&size=2", {headers:this.headers})
     }
 
-    public getNovostiPage(page:number, id:number):Observable<any>{
+    public getNovostiPage(page:number,size:number, id:number):Observable<any>{
         let queryParams = {};
 
 		queryParams = {
@@ -42,12 +42,12 @@ export class KulturnaPonudaService{
 			observe: 'response',
 			params: new HttpParams()
 				.set('page', String(page))
-				.append('size', String(2)),
+				.append('size', String(size)),
 		};
 		const headeri=new HttpHeaders({
 			'Content-Type': 'application/json'
 		});
-		return this.http.get(this.path+'/getNovosti/'+`${id}`+'/by-page', queryParams);
+		return this.http.get(this.path+'/getNovosti/'+`${id}`, queryParams);
 
         //return this.http.get(this.path+"/getNovosti"+`/${id}`+"/by-page?page="+page+"&size=2",{headers:this.headers})
     }
