@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, resolveForwardRef } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../SERVICES/authentication.service';
@@ -6,18 +6,14 @@ import { AuthenticationService } from '../SERVICES/authentication.service';
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
-    constructor(private authService: AuthenticationService) {}
-
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-		//const item = localStorage.getItem('user');
+		const item = localStorage.getItem('accessToken');
 		//const decodedItem = JSON.parse(item);
 
-		if (this.authService.isLoggedIn()) {
+		if (item) {
 			const cloned = req.clone({
-				setHeaders: {
-                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('user')!).token}`
-                }
+				headers: req.headers.set('Authorization','Bearer '+item)
 			});
 
 			return next.handle(cloned);

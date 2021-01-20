@@ -3,6 +3,8 @@ package com.kts.cultural_content.repository;
 import com.kts.cultural_content.model.Admin;
 import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Lokacija;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
