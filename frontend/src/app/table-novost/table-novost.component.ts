@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Novost } from './../MODELS/novost';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-table-novost',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableNovostComponent implements OnInit {
 
-  constructor() { }
+  @Input() novosti: Novost[] | undefined;
 
-  ngOnInit(): void {
-  }
+	constructor() {}
+
+	ngOnInit() {}
 
 }

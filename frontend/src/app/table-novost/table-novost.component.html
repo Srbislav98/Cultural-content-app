@@ -1,1 +1,16 @@
-<p>table-novost works!</p>
+<table class="table table-striped pera">
+    <thead>
+      <tr>
+        <th>Naziv <button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th>Opis<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th>Datum<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let novost of novosti">
+        <td>{{novost.naziv}}</td>
+        <td>{{novost.opis}}</td>
+        <td>{{novost.datum}}</td>
+      </tr>
+    </tbody>
+  </table>
