@@ -17,3 +17,11 @@ INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponu
 INSERT into recenzija(id, ocena, komentar, kulturna_ponuda_id, registrovani_korisnik_user_id)values (100,4,'Nesto',100,1)
 INSERT into fotografija(id,lokacija_fajl,recenzija_id,kulturna_ponuda_id)values (100,'files//neki_folder',null,100)
 INSERT into novost(id, datum, naziv, opis, kulturna_ponuda_id) values (100, '2020-12-12', 'novost', 'opis', 100)
+
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (100,1)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (101,1)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (102,1)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (103,1)
+
+INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (3,'323@gmail.com','Aca','tarak','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Acic',true)
+--

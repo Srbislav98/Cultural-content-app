@@ -191,5 +191,4 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
             throw new Exception("Could not find this user or cultural content");
         }
     }
-
 }

@@ -15,6 +15,9 @@ import { ConfirmRegistrationComponent } from './confirm-registration/confirm-reg
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
 import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
 import { ProfilComponent } from './profil/profil.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { TableComponent } from './subscriptions/table/table.component';
+import { SubscriptionListComponent } from './subscriptions/subscription-list/subscription-list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { ProfilComponent } from './profil/profil.component';
     ConfirmRegistrationComponent,
     ForgottenPasswordComponent,
     KulturnaPonudaDetaljnoComponent,
-    ProfilComponent
+    ProfilComponent,
+    PaginationComponent,
+    TableComponent,
+    SubscriptionListComponent
   ],
   imports: [
     BrowserModule,

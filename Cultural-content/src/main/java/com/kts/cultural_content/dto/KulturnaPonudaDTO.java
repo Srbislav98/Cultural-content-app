@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class KulturnaPonudaDTO {
+public class KulturnaPonudaDTO implements Comparable {
 
     private Integer id;
     private String naziv;
@@ -87,5 +87,11 @@ public class KulturnaPonudaDTO {
 
     public int compareTo(KulturnaPonudaDTO o) {
         return this.id.compareTo(o.id);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        KulturnaPonudaDTO e = (KulturnaPonudaDTO) o;
+        return getId().compareTo(e.getId());
     }
 }

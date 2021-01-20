@@ -1,4 +1,3 @@
-import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './login/login.component';
@@ -9,6 +8,7 @@ import { ConfirmRegistrationComponent } from './confirm-registration/confirm-reg
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
 import { RoleGuard } from './guards/role.service';
 import { ProfilComponent } from './profil/profil.component';
+import { SubscriptionListComponent } from './subscriptions/subscription-list/subscription-list.component';
 
 const routes: Routes = [
   {
@@ -39,13 +39,7 @@ const routes: Routes = [
     path : 'profil',
     component : ProfilComponent,
     canActivate: [RoleGuard],
-		data: {expectedRoles: 'ROLE_ADMIN|ROLE_USER'}
-  },
-  {
-    path : 'kulturna-ponuda-detaljno',
-    component : KulturnaPonudaDetaljnoComponent,
-    canActivate: [RoleGuard],
-		data: {expectedRoles: 'ROLE_ADMIN|ROLE_USER'}
+		data: {expectedRoles: 'ROLE_USER'}
   }
 ];
 

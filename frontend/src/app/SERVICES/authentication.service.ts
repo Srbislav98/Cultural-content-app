@@ -16,6 +16,9 @@ export class AuthenticationService {
 	login(auth: any): Observable<any> {
 		return this.http.post('http://localhost:8080/auth/log-in', {username: auth.username, password: auth.password}, {headers: this.headers, responseType: 'json'});
 	}
+	profil(): Observable<any> {
+		return this.http.post('http://localhost:8080/api/registrovaniKorisnici/user', {username:  localStorage.getItem('email'), password: "ssss"}, {headers: this.headers, responseType: 'json'});
+	}
 	resetPassw(auth: any): Observable<any>  {
 		return this.http.post('http://localhost:8080/recover/password', {email: auth.username}, {headers: this.headers, responseType: 'text'});
 	}
