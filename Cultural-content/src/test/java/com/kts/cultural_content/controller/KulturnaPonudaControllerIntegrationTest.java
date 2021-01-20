@@ -1,6 +1,7 @@
 package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.KulturnaPonudaDTO;
+import com.kts.cultural_content.dto.NovostDTO;
 import com.kts.cultural_content.dto.UserLoginDTO;
 import com.kts.cultural_content.dto.UserTokenStateDTO;
 import com.kts.cultural_content.mapper.RestPageImpl;
@@ -294,12 +295,14 @@ public class KulturnaPonudaControllerIntegrationTest {
         login("124@gmail.com", "admin");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
-
+        ParameterizedTypeReference<RestPageImpl<NovostDTO>> responseType =
+                new ParameterizedTypeReference<RestPageImpl<NovostDTO>>() { };
 
         HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
-        ResponseEntity<List> responseEntity =
-                restTemplate.exchange("/api/kulturnePonude/getNovosti/100", HttpMethod.GET, httpEntity, List.class);
+        ResponseEntity<RestPageImpl<NovostDTO>> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getNovosti/100/by-page?page=0&size=2", HttpMethod.GET, httpEntity, responseType);
 
+        List<NovostDTO> kp = responseEntity.getBody().getContent();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }

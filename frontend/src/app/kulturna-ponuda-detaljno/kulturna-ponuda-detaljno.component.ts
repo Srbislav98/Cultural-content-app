@@ -56,7 +56,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
       }
     )
 
-    this.kulService.getByPage(this.currentPage).subscribe(
+    this.kulService.getNovostiPage(this.currentPage, this.id).subscribe(
 			res => {
 				//console.log(res);
 				//console.log(res.body.totalPages);
@@ -68,7 +68,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
     
   }
   changePage(newPage: number) {
-		this.kulService.getByPage(newPage - 1).subscribe(
+		this.kulService.getNovostiPage(newPage - 1,this.id).subscribe(
 			res => {
 				
 				this.subList = res.body.content as Novost[];
