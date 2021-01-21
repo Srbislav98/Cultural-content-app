@@ -80,7 +80,7 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
         }
         existingRK.setIme(entity.getIme());
         existingRK.setPrezime(entity.getPrezime());
-        existingRK.setLozinka(entity.getLozinka());
+        existingRK.setLozinka(passwordEncoder.encode(entity.getLozinka()));
         return rkRepository.save(existingRK);
     }
 

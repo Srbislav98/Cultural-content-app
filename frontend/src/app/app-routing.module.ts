@@ -1,4 +1,3 @@
-import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './login/login.component';
@@ -10,6 +9,7 @@ import { ForgottenPasswordComponent } from './forgotten-password/forgotten-passw
 import { RoleGuard } from './guards/role.service';
 import { ProfilComponent } from './profil/profil.component';
 import { SubscriptionListComponent } from './subscriptions/subscription-list/subscription-list.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -43,15 +43,15 @@ const routes: Routes = [
 		data: {expectedRoles: 'ROLE_USER'}
   },
   {
-    path : 'kulturna-ponuda-detaljno',
-    component : KulturnaPonudaDetaljnoComponent,
+    path : 'edit-profile',
+    component : EditProfileComponent,
     canActivate: [RoleGuard],
-		data: {expectedRoles: 'ROLE_USER|ROLE_ADMIN'}
+		data: {expectedRoles: 'ROLE_USER'}
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

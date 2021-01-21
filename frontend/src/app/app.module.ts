@@ -18,7 +18,7 @@ import { ProfilComponent } from './profil/profil.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { TableComponent } from './subscriptions/table/table.component';
 import { SubscriptionListComponent } from './subscriptions/subscription-list/subscription-list.component';
-import { TableNovostComponent } from './table-novost/table-novost.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { TableNovostComponent } from './table-novost/table-novost.component';
     PaginationComponent,
     TableComponent,
     SubscriptionListComponent,
-    TableNovostComponent
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

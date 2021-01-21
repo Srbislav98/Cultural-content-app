@@ -19,6 +19,7 @@ export class ProfilComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(localStorage.getItem('accessToken'));
     this.authenticationService.profil().subscribe(
       result => {
         this.User=new User(Number(result.id),result.ime,result.prezime,result.korisnickoIme,
