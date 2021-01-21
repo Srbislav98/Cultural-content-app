@@ -16,7 +16,7 @@ export class SubscriptionListComponent implements OnInit {
 	constructor(
 		private profileService: ProfileService
 	) {
-		this.pageSize = 1;
+		this.pageSize = 2;
 		this.currentPage = 1;
 		this.totalSize = 1;
 	}

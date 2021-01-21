@@ -101,6 +101,8 @@ public class RegistrovaniKorisnikController {
     public ResponseEntity<RegistrovaniKorisnikDTO> updateRegistrovaniKorisnik(
             @Valid @RequestBody RegistrovaniKorisnikDTO rkDTO, @PathVariable Integer id){
         RegistrovaniKorisnik registrovaniKorisnik;
+        System.out.println("20000000000000021");
+        System.out.println(rkDTO.getIme()+" "+rkDTO.getLozinka());
         try {
             registrovaniKorisnik = rkService.update(rkMapper.toEntity(rkDTO), id);
         } catch (Exception e) {

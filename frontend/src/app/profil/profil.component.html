@@ -1,9 +1,20 @@
-<div class="w-50 h-100 p-5" style="float:left;">
+<div class="w-40 h-100 p-5" style="float:left;">
     <div >
-        <h1>{{User.ime}} {{User.prezime}}</h1>
-        <a class="btn btn-primary" href="#">Edit profile</a>
+        <h3 class="d-inline" style="float:bottom;">Personal informations</h3>
+        <table class="table table-striped pera">
+            <tr><td><b>Name</b></td><td>{{User.ime}}</td></tr>
+            <tr><td><b>Surname</b></td><td>{{User.prezime}}</td></tr>
+            <tr><td><b>Username</b></td><td>{{User.korisnickoIme}}</td></tr>
+            <tr><td><b>Email</b></td><td>{{User.email}}</td></tr>
+        </table>
+        <a class="btn btn-primary" routerLink="/edit-profile">Edit profile</a>
+        <!--<div id = "dug">
+            <a class="btn btn-primary" href="#">Cultural contents</a>
+        </div>-->
+        <!--
+        <a class="btn btn-secondary" id = "dug" routerLink="" role="button">See cultural offers</a>-->  
     </div>
 </div>
-<div class="w-50 h-100 p-5" style="float:left;">
+<div class="w-50 h-100 p-5" style="float:right;">
     <app-subscription-list></app-subscription-list>
 </div>

@@ -3,12 +3,19 @@
       <tr>
         <th>Naziv <button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
         <th>Adresa<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
+      <div *ngIf="subscriptions?.length === 0 || subscriptions === undefined" style="float:right;">
+        <h4><b>No subscriptions</b></h4>
+      </div>
       <tr *ngFor="let subscription of subscriptions">
         <td>{{subscription.naziv}}</td>
         <td>{{subscription.adresa}}</td>
+        <td>
+          <button button type="button" class="btn btn-danger" (click)="Obrisi(subscription)">Unsubscribe</button>
+        </td>
       </tr>
     </tbody>
   </table>
