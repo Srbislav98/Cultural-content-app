@@ -1,5 +1,5 @@
 export interface Subscription{
-    _id:number;
+    id:number;
     naziv:string;
     adresa:string;
     opis:string;
