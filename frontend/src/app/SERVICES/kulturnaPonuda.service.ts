@@ -55,4 +55,8 @@ export class KulturnaPonudaService{
     public getProsecnaOcena(id:number):Observable<any>{
         return this.http.get<any>("http://localhost:8080/api/kulturnePonude/getProsecnaOcena"+`/${id}`);
     }
+
+    public getDaLiPostoji(idKul:number, idUser:number):Observable<any>{
+        return this.http.get<any>(this.path+"/daLiSadrzi"+`/${idKul}`+"/registrovani"+`/${idUser}`, {headers:this.headers});
+    }
 }

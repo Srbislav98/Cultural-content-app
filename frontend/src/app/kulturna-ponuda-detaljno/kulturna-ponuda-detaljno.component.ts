@@ -1,3 +1,5 @@
+import { ProfileService } from 'src/app/SERVICES/profile.service';
+import { User } from './../MODELS/user';
 import { Novost } from './../MODELS/novost';
 import { Subscription } from 'src/app/MODELS/subscription';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -23,15 +25,20 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
   uloga = "";
   prosecnaOcena = -1.0;
   id = 100;
+  
+  idUser = 0;
 
   totalSize:number;
   subList:Novost[] | undefined;
   pageSize: number;
   currentPage: number;
 
+  daLiJe:Boolean = true;
+
   constructor(private fBuilder:FormBuilder,
     private router:Router,
     private kulService:KulturnaPonudaService,
+    private korService:ProfileService
     ) {
       this.kulForm = this.fBuilder.group({
         id:[""]
@@ -39,6 +46,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
       this.pageSize= 2;
       this.currentPage =1;
       this.totalSize = 1;
+      this.daLiJe = false;
       
   }
 
@@ -49,13 +57,14 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
     const decodedItem = JSON.parse(item!);
     const info = jwt.decodeToken(decodedItem.accessToken);
     this.uloga = info['uloga'];
+    this.idUser = 1;
+    console.log(this.idUser);
 
     this.kulService.getProsecnaOcena(this.id).subscribe(
       result =>{
         this.prosecnaOcena = result;
       }
     )
-
     this.kulService.getNovostiPage(this.currentPage,this.pageSize, this.id).subscribe(
 			res => {
 				//console.log(res);
@@ -63,10 +72,48 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
 				this.subList = res.body.content as Novost[];
 				this.totalSize = Number(res.body.totalElements);
 			}
-		);
-    
-    
+    );
+    this.daLiJeSubscribe();
   }
+  daLiJeSubscribe(){
+    this.kulService.getDaLiPostoji(this.id,this.idUser).subscribe(
+      result =>{
+        console.log(result);
+        this.daLiJe = result;
+        console.log(this.daLiJe);
+      }
+    )
+    //return this.daLiJe;
+  }
+  
+  //odgovor:Boolean = this.daLiJeSubscribe();
+  
+  subscribe():void{
+    this.korService.addSub(this.id,this.idUser).subscribe(
+      res=>{
+        this.router.navigate(['kulturna-ponuda-detaljno']);
+        this.daLiJe=true;
+      }
+    );
+    
+    //this.odgovor= true;
+  }
+
+  unsubscribe():void{
+    this.korService.deleteSub2(this.id,this.idUser).subscribe(
+      res =>{
+        this.router.navigate(['kulturna-ponuda-detaljno']);
+        this.daLiJe=false;
+      }  
+    );
+    
+    //this.odgovor = false;
+  }
+
+  natrag():void{
+    this.router.navigate(['']);
+  }
+
   changePage(newPage: number) {
 		this.kulService.getNovostiPage(newPage - 1, this.pageSize,this.id).subscribe(
 			res => {
@@ -85,6 +132,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
         this.kulService.getTip(this.kP.idt).subscribe(
           data =>{
             this.tipKP = new TipKulturnePonude(Number(data.id),data.naziv);
+            
           },
           (error:any)=>{
             console.log(error);
@@ -94,9 +142,6 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
       (error:any)=>{
         console.log(error);
       });
-
-    
-   
   }
 
   

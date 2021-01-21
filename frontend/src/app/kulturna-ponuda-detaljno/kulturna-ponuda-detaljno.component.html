@@ -2,7 +2,7 @@
     <div>
         <h2><img src="C:\Users\Kssbc\Documents\GitHub\KTSNWT2020_T5\Cultural-content\Slike\OIP.jpg">
         {{kP.naziv}}</h2>
-        <button *ng-if="uloga==='ROLE_ADMIN'">Add news</button>
+        <button *ngIf="uloga==='ROLE_ADMIN'">Add news</button>
     <br/>
     </div>
     <div>
@@ -11,16 +11,26 @@
         <h5>Deskrpicija</h5>
         <h6>{{kP.opis}}</h6>
     </div><div>
-        <button value="Subscribe">Subscribe</button>
-        &nbsp;<button>Back</button>
+        
+        <form *ngIf="!daLiJe; else elseBlock" (ngSubmit)="subscribe()">
+            <button type="submit" *ngIf="uloga==='ROLE_USER'" value="Subscribe">Subscribe</button>
+        </form>
+        <ng-template #elseBlock>
+        <form (ngSubmit)="unsubscribe()">
+            <button type="submit" *ngIf="uloga==='ROLE_USER'" value="Subscribe">Unsubscribe</button>
+        </form>
+        </ng-template>
+        &nbsp;
+        <form (ngSubmit)="natrag()">
+        <button type="submit">Back</button></form>
     </div>
 </div>
 <div>
     <h4>Prosečna ocena: {{prosecnaOcena}}</h4>
     <button>Pogledaj recenzija</button><br/>
     <button >Daj recenziju</button><br/>
-    <button *ng-if="uloga==='ROLE_ADMIN'">Izmeni</button><br/>
-    <button *ng-if="uloga==='ROLE_ADMIN'">Obriši</button><br/>
+    <button *ngIf="uloga==='ROLE_ADMIN'">Izmeni</button><br/>
+    <button *ngIf="uloga==='ROLE_ADMIN'">Obriši</button><br/>
 </div>
 <div class="w-50 h-100 p-5" style="float:left;">
     <h4>Vesti</h4>

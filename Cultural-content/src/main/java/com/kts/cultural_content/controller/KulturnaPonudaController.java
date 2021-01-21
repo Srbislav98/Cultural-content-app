@@ -6,6 +6,7 @@ import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
 import com.kts.cultural_content.mapper.NovostMapper;
 import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Novost;
+import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.service.KulturnaPonudaService;
 import com.kts.cultural_content.service.NovostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -188,6 +189,23 @@ public class KulturnaPonudaController {
         }
         Float d = kulturnaPonuda.prosecnaOcena();
         return new ResponseEntity<Float>(d, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/daLiSadrzi/{id}/registrovani/{id2}", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> getDaLiJe(@PathVariable Integer id, @PathVariable Integer id2){
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
+        if (kulturnaPonuda == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Boolean ima = false;
+        for(RegistrovaniKorisnik registrovaniKorisnik:kulturnaPonuda.getRegistrovaniKorisnik()){
+            if (registrovaniKorisnik.getId()==id2){
+                ima = true;
+                break;
+            }
+        }
+        return new ResponseEntity<Boolean>(ima, HttpStatus.OK);
     }
 
     public KulturnaPonudaController() {
