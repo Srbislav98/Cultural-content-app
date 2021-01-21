@@ -3,9 +3,12 @@ package com.kts.cultural_content.controller;
 import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.dto.NovostDTO;
 import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
+import com.kts.cultural_content.mapper.NovostMapper;
 import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Novost;
+import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.service.KulturnaPonudaService;
+import com.kts.cultural_content.service.NovostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,9 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/api/kulturnePonude", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -27,6 +28,7 @@ public class KulturnaPonudaController {
     @Autowired
     private KulturnaPonudaService kulturnaPonudaService;
     private KulturnaPonudaMapper kulturnaPonudaMapper;
+
 
 
 
@@ -132,15 +134,50 @@ public class KulturnaPonudaController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/getNovosti/{id}", method = RequestMethod.GET)
-    public ResponseEntity< List<Novost>> getKulturnaPonudaNovosti(@PathVariable Integer id){
+    public ResponseEntity< Page<NovostDTO>> getKulturnaPonudaNovosti(@PathVariable Integer id, Pageable pageable){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
         if (kulturnaPonuda == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        ArrayList<Novost> lista = new ArrayList<Novost>();
-        for (Novost novost : kulturnaPonuda.getNovosti())
-            lista.add(new Novost(novost.getNaziv(),novost.getOpis(),novost.getDatum()));
-        return new ResponseEntity<List<Novost>>(lista, HttpStatus.OK);
+        KulturnaPonudaDTO k = kulturnaPonudaMapper.toDto(kulturnaPonuda);
+        //NovostMapper novostMapper = null;
+        List<NovostDTO> nDTOS = new ArrayList<>();
+        int pocetak = pageable.getPageNumber()*pageable.getPageSize();
+        int kreni = 0, moze = pageable.getPageSize();
+        ArrayList<NovostDTO> nPonude = new ArrayList<NovostDTO>();
+        for( Novost nov: kulturnaPonuda.getNovosti()){
+            NovostDTO test = new NovostDTO(nov.getId(),nov.getNaziv(),nov.getOpis(),nov.getDatum());
+            nPonude.add(test);
+        }
+        //Collections.sort(nPonude, null);
+        nPonude = bubble_sort(nPonude);
+        for(NovostDTO kpa : nPonude){
+            if(pocetak==kreni && moze>0){
+                nDTOS.add(kpa);
+                moze--;
+                pocetak++;
+            }
+            kreni++;
+        }
+        Page<NovostDTO> novostDTOPage = new PageImpl<>(nDTOS,pageable,kulturnaPonuda.getNovosti().size());
+        return new ResponseEntity<Page<NovostDTO>>(novostDTOPage, HttpStatus.OK);
+    }
+
+    public ArrayList<NovostDTO> bubble_sort(ArrayList<NovostDTO> lista){
+        int n = lista.size();
+        int k;
+        for (int m = n; m >= 0; m--) {
+            for (int i = 0; i < n - 1; i++) {
+                k = i + 1;
+                if (lista.get(i).getDatum().compareTo(lista.get(k).getDatum())<0) {
+                    NovostDTO temp = lista.get(i);
+                    lista.set(i, lista.get(k));
+                    lista.set(k , temp);
+                }
+            }
+            //printNumbers(array);
+        }
+        return lista;
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -152,6 +189,23 @@ public class KulturnaPonudaController {
         }
         Float d = kulturnaPonuda.prosecnaOcena();
         return new ResponseEntity<Float>(d, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/daLiSadrzi/{id}/registrovani/{id2}", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> getDaLiJe(@PathVariable Integer id, @PathVariable Integer id2){
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
+        if (kulturnaPonuda == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Boolean ima = false;
+        for(RegistrovaniKorisnik registrovaniKorisnik:kulturnaPonuda.getRegistrovaniKorisnik()){
+            if (registrovaniKorisnik.getId()==id2){
+                ima = true;
+                break;
+            }
+        }
+        return new ResponseEntity<Boolean>(ima, HttpStatus.OK);
     }
 
     public KulturnaPonudaController() {

@@ -1,6 +1,6 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { User } from '../MODELS/user';
 import { AuthenticationService } from './authentication.service';
 
@@ -46,6 +46,21 @@ export class ProfileService {
 		});
 		return this.http.get('http://localhost:8080/api/registrovaniKorisnici/allsubscriptions'+`/${id}`, queryParams);
 	}
+	addSub(idKul:number, idUser:number):Observable<any>{
+		const headeri=new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
+		return this.http.put("http://localhost:8080/api/registrovaniKorisnici/subscribe"+`/${idUser}`+"/kulturnaPonuda"+`/${idKul}`,{headers:headeri});
+	}
+
+	deleteSub2(idKul:number, idUser:number): Observable<any> {
+		const headeri=new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
+		
+		return this.http.delete('http://localhost:8080/api/registrovaniKorisnici/unsubscribe'+`/${idUser}`+'/kulturnaPonuda'+`/${idKul}`, {headers:headeri});
+	}
+
 	deleteSub(id2: number): Observable<any> {
 		const headeri=new HttpHeaders({
 			'Content-Type': 'application/json'

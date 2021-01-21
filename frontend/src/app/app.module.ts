@@ -1,3 +1,4 @@
+import { TableNovostComponent } from './table-novost/table-novost.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -33,7 +34,9 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     PaginationComponent,
     TableComponent,
     SubscriptionListComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    TableNovostComponent
+    
   ],
   imports: [
     BrowserModule,
