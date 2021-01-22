@@ -44,9 +44,9 @@ public class RecenzijaService implements ServiceInterface<Recenzija> {
 
         entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
         entity.setRegistrovaniKorisnik(registrovaniKorisnikRepository.findById(entity.getRegId()).orElse(null));
-        if(!entity.getFotoLokacija().equals("")) {
-            entity.setFotogrfija(new Fotografija(entity.getFotoLokacija(), null, entity.getRegistrovaniKorisnik().getId()));
-            entity.getFotogrfija().setFoto(new File(entity.getFotoLokacija()));
+        if(entity.getFoto()!=null) {
+            entity.setFotogrfija(new Fotografija(0, "",entity.getFoto(),entity.getKulturnaPonuda().getId(), entity.getRegistrovaniKorisnik().getId()));
+
         }
         return recenzijaRepository.save(entity);
     }
@@ -57,13 +57,13 @@ public class RecenzijaService implements ServiceInterface<Recenzija> {
         if(existingrecenzija == null){
             throw new Exception("komentar with given id doesn't exist");
         }
-        existingrecenzija.setFotoLokacija(entity.getFotoLokacija());
-        if(!entity.getFotoLokacija().equals("")) {
+        existingrecenzija.setFoto(entity.getFoto());
+        if(entity.getFoto()!=null) {
             try {
-                existingrecenzija.getFotogrfija().setFoto(new File(entity.getFotoLokacija()));
+                existingrecenzija.getFotogrfija().setFoto(entity.getFoto());
             } catch (NullPointerException e) {
-                existingrecenzija.setFotogrfija(new Fotografija(entity.getFotoLokacija(),null,entity.getRegistrovaniKorisnik().getId()));
-                existingrecenzija.getFotogrfija().setFoto(new File(entity.getFotoLokacija()));
+                existingrecenzija.setFotogrfija(new Fotografija(0, "",entity.getFoto(),entity.getKulturnaPonuda().getId(), entity.getRegistrovaniKorisnik().getId()));
+                //existingrecenzija.getFotogrfija().setFoto(new File(entity.getFoto()));
             }
 
         }

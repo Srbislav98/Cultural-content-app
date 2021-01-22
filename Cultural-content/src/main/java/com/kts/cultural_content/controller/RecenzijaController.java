@@ -58,8 +58,8 @@ public class RecenzijaController {
         try {
             if (recenzijaDTO.getOcena()>5 || recenzijaDTO.getOcena()<1 || recenzijaDTO.getKomentar().equals(""))
                 throw new Exception("Lose!");
-            if(!recenzijaDTO.getFotoLokacija().equals(""))
-                if(ImageIO.read(new File(recenzijaDTO.getFotoLokacija())) == null)
+            if(!recenzijaDTO.getFoto().equals(""))
+                if(ImageIO.read(new File(recenzijaDTO.getFoto())) == null)
                     throw new Exception("Lose!");
             recenzija = recenzijaService.create(recenzijaMapper.toEntity(recenzijaDTO));
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class RecenzijaController {
     public ResponseEntity<RecenzijaDTO> updateRecenzija(@RequestBody RecenzijaDTO recenzijaDTO, @PathVariable Integer id){
         Recenzija recenzija;
         try {
-            if (recenzijaDTO.getOcena()>5 || recenzijaDTO.getOcena()<1 || recenzijaDTO.getKomentar().equals("") || ImageIO.read(new File(recenzijaDTO.getFotoLokacija())) == null)
+            if (recenzijaDTO.getOcena()>5 || recenzijaDTO.getOcena()<1 || recenzijaDTO.getKomentar().equals("") || ImageIO.read(new File(recenzijaDTO.getFoto())) == null)
                 throw new Exception("Lose!");
             recenzija = recenzijaService.update(recenzijaMapper.toEntity(recenzijaDTO), id);
         } catch (Exception e) {

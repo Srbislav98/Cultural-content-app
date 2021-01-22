@@ -22,6 +22,7 @@ import { SubscriptionListComponent } from './subscriptions/subscription-list/sub
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { TableRecenzijaComponent } from './table-recenzija/table-recenzija.component';
+import { YourReviewComponent } from './your-review/your-review.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { TableRecenzijaComponent } from './table-recenzija/table-recenzija.compo
     EditProfileComponent,
     TableNovostComponent,
     ReviewsComponent,
-    TableRecenzijaComponent
+    TableRecenzijaComponent,
+    YourReviewComponent
     
   ],
   imports: [

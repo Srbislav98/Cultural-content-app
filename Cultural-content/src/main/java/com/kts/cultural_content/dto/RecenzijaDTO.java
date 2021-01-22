@@ -1,40 +1,38 @@
 package com.kts.cultural_content.dto;
 
+import java.io.File;
+
 public class RecenzijaDTO {
     private Integer id;
 
-
     private Integer ocena;
-
 
     private String komentar;
 
-
     private Integer regId;
-
 
     private Integer kulId;
 
-    private String fotoLokacija;
+    private File foto;
 
-    public RecenzijaDTO(Integer id, Integer ocena, String komentar, Integer regId, Integer kulId, String fotoLokacija) {
+    public RecenzijaDTO(Integer id, Integer ocena, String komentar, Integer regId, Integer kulId, File foto) {
         this.id = id;
         this.ocena = ocena;
         this.komentar = komentar;
         this.regId = regId;
         this.kulId = kulId;
-        this.fotoLokacija = fotoLokacija;
+        this.foto = foto;
     }
 
     public RecenzijaDTO() {
     }
 
-    public void setFotoLokacija(String fotoLokacija) {
-        this.fotoLokacija = fotoLokacija;
+    public void setFoto(File foto) {
+        this.foto = foto;
     }
 
-    public String getFotoLokacija() {
-        return fotoLokacija;
+    public File getFoto() {
+        return foto;
     }
 
     public void setId(Integer id) {

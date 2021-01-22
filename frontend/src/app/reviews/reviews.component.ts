@@ -1,6 +1,6 @@
 import { KulturnaPonudaService } from './../SERVICES/kulturnaPonuda.service';
 import { Recenzija } from './../MODELS/recenzija';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -14,17 +14,22 @@ export class ReviewsComponent implements OnInit {
   subList:Recenzija[] | undefined;
   pageSize: number;
   currentPage: number;
+  temp:string | null;
   id:number;
 
   constructor(
     private router:Router,
-    private kulService:KulturnaPonudaService
-
+    private kulService:KulturnaPonudaService,
+    private route:ActivatedRoute
   ) {
     this.pageSize= 2;
     this.currentPage =1;
     this.totalSize = 1;
-    this.id=100;
+    this.temp=this.route.snapshot.paramMap.get('idKul');
+    if(this.temp != null)
+      this.id = Number.parseInt(this.temp);
+    else
+      this.id = 0;
    }
 
   ngOnInit(): void {
@@ -38,7 +43,7 @@ export class ReviewsComponent implements OnInit {
   }
 
   natrag():void{
-    this.router.navigate(['']);
+    this.router.navigate(['/kulturna-ponuda-detaljno']);
   }
 
   changePage(newPage: number) {

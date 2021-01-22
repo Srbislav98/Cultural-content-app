@@ -4,13 +4,11 @@ import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.dto.NovostDTO;
 import com.kts.cultural_content.dto.RecenzijaDTO;
 import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
-import com.kts.cultural_content.mapper.NovostMapper;
 import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Novost;
 import com.kts.cultural_content.model.Recenzija;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.service.KulturnaPonudaService;
-import com.kts.cultural_content.service.NovostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -195,7 +193,7 @@ public class KulturnaPonudaController {
         int kreni = 0, moze = pageable.getPageSize();
         ArrayList<RecenzijaDTO> nPonude = new ArrayList<RecenzijaDTO>();
         for( Recenzija nov: kulturnaPonuda.getRecenzije()){
-            RecenzijaDTO test = new RecenzijaDTO(nov.getId(),nov.getOcena(),nov.getKomentar(),nov.getRegId(), nov.getKulId(),nov.getFotoLokacija());
+            RecenzijaDTO test = new RecenzijaDTO(nov.getId(),nov.getOcena(),nov.getKomentar(),nov.getRegId(), nov.getKulId(),nov.getFoto());
             nPonude.add(test);
         }
         //Collections.sort(nPonude, null);
@@ -223,7 +221,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<Float>(d, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/daLiSadrzi/{id}/registrovani/{id2}", method = RequestMethod.GET)
     public ResponseEntity<Boolean> getDaLiJe(@PathVariable Integer id, @PathVariable Integer id2){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);

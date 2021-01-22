@@ -1,3 +1,4 @@
+import { YourReviewComponent } from './your-review/your-review.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
 import { NgModule } from '@angular/core';
@@ -47,14 +48,20 @@ const routes: Routes = [
   {
     path : 'kulturna-ponuda-detaljno',
     component : KulturnaPonudaDetaljnoComponent,
-    canActivate: [RoleGuard],
+    //canActivate: [RoleGuard],
 		//data: {expectedRoles: 'ROLE_USER|ROLE_ADMIN'}
   },
   {
-    path : 'reviews',
+    path : 'reviews/:idKul',
     component : ReviewsComponent,
-    canActivate: [RoleGuard],
+    //canActivate: [RoleGuard],
 		//data: {expectedRoles: 'ROLE_USER|ROLE_ADMIN'}
+  },
+  {
+    path : 'your-review/:idKul',
+    component : YourReviewComponent,
+    canActivate: [RoleGuard],
+		data: {expectedRoles: 'ROLE_USER'}
   },
   {
     path : 'edit-profile',

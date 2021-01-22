@@ -1,29 +1,15 @@
 export class Fotografija{
-    constructor(private id?:number, private lokacijaFajl?:string,private kulId?:number,private komId?:number){
-
+    id:number;
+    lokacijaFajl:string;
+    foto:File;
+    kulId:number;
+    recId:number;    
+    constructor( id:number,  lokacijaFajl:string, foto:File,kulId:number, recId:number){
+        this.id=id;
+        this.lokacijaFajl=lokacijaFajl;
+        this.foto=foto;
+        this.kulId=kulId;
+        this.recId=recId;
     }
-    get Id(){
-        return this.id;
-    }
-    set Id(value){
-        this.id = value;
-    }
-    get LokacijaFajl(){
-        return this.lokacijaFajl;
-    }
-    set LokacijaFajl(value){
-        this.lokacijaFajl = value;
-    }
-    get KulId(){
-        return this.kulId;
-    }
-    set KulId(value){
-        this.kulId = value;
-    }
-    get KomId(){
-        return this.komId;
-    }
-    set KomId(value){
-        this.komId = value;
-    }
+    
 }

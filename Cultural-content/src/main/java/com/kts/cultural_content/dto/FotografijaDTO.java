@@ -2,19 +2,31 @@ package com.kts.cultural_content.dto;
 
 import com.kts.cultural_content.model.KulturnaPonuda;
 
+import java.io.File;
+
 public class FotografijaDTO {
 
     private Integer id;
     private String lokacijaFajl;
+    private File foto;
     Integer kulId;
     Integer recId;
 
 
-    public FotografijaDTO(Integer id, String lokacijaFajl, Integer kulId, Integer recId) {
+    public FotografijaDTO(Integer id, String lokacijaFajl, File foto, Integer kulId, Integer recId) {
         this.id = id;
         this.lokacijaFajl = lokacijaFajl;
+        this.foto=foto;
         this.kulId = kulId;
         this.recId = recId;
+    }
+
+    public File getFoto() {
+        return foto;
+    }
+
+    public void setFoto(File foto) {
+        this.foto = foto;
     }
 
     public void setKulId(Integer kulId) {

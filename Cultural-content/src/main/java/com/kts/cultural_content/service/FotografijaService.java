@@ -31,7 +31,9 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
     public Fotografija create(Fotografija entity) throws Exception {
         entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
         entity.setRecenzija(recenzijaRepository.findById(entity.getRecId()).orElse(null));
-        entity.setFoto(new File(entity.getLokacijaFajl()));
+        if(!entity.getLokacijaFajl().equals(""))
+            entity.setFoto(new File(entity.getLokacijaFajl()));
+
         return  fotografijaRepository.save(entity);
     }
 
@@ -46,8 +48,12 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
         existingFotografija.setRecenzija(recenzijaRepository.findById(entity.getRecId()).orElse(null));
         existingFotografija.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
         existingFotografija.setLokacijaFajl(entity.getLokacijaFajl());
-        existingFotografija.setFoto(new File(entity.getLokacijaFajl()));
-
+        if (!entity.getLokacijaFajl().equals(""))
+            existingFotografija.setFoto(new File(entity.getLokacijaFajl()));
+        else if (entity.getFoto()!=null)
+            existingFotografija.setFoto(entity.getFoto());
+        else
+            existingFotografija.setFoto(null);
         return fotografijaRepository.save(existingFotografija);
     }
 
