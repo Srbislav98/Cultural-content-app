@@ -27,8 +27,8 @@
 </div>
 <div>
     <h4>Prosečna ocena: {{prosecnaOcena}}</h4>
-    <button (ngSubmit)="recenzije()">Pogledaj recenzija</button><br/>
-    <button *ngIf="uloga==='ROLE_USER'" (ngSubmit)="dajRecenziju()">Daj recenziju</button><br/>
+    <form (ngSubmit)="recenzije()"><button >Pogledaj recenzija</button><br/></form>
+    <form (ngSubmit)="dajRecenziju()"><button *ngIf="uloga==='ROLE_USER'" >Daj recenziju</button><br/></form>
     <button *ngIf="uloga==='ROLE_ADMIN'">Izmeni</button><br/>
     <button *ngIf="uloga==='ROLE_ADMIN'">Obriši</button><br/>
 </div>

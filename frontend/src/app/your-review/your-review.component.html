@@ -7,15 +7,15 @@
             <option value = "-1" selected>Not graded</option>
             <option *ngFor="let ocene of oceneLista" value="{{ocene}}">{{ocene}}</option>
          </select>
-         <small class="text-danger" 
+         <!--<small class="text-danger" 
 				*ngIf="recForm.controls.ocena.value>-1">
-                Grade must exist!</small>
+                Grade must exist!</small>-->
         </div>
 		<div class="form-group">
 			<label for="komentar">Komentar: </label>
             <input type="text" class="form-control" id="komentar"  placeholder="komentar" formControlName="komentar">
 			<small class="text-danger" 
-				*ngIf="regForm.controls.komentar.touched && regForm.controls.komentar.errors?.required">
+				*ngIf="recForm.controls.komentar.touched && recForm.controls.komentar.errors?.required">
 				Comment must exist!</small>
         </div>
         <div class="form-group">

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
 import java.util.List;
 
 import static com.kts.cultural_content.constants.FotografijaConstants.*;
@@ -46,7 +47,7 @@ public class FotografijaServiceIntegrationTest {
 
     @Test
     public void testCreate() throws Exception {
-        Fotografija Fotografija = new Fotografija(NEW_Fotografija_DOBRO,1,100);
+        Fotografija Fotografija = new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
         Fotografija created = fotografijaService.create(Fotografija);
 
         assertEquals(NEW_Fotografija_DOBRO, created.getLokacijaFajl());
@@ -54,7 +55,7 @@ public class FotografijaServiceIntegrationTest {
 
     @Test
     public void testUpdate() throws Exception {
-        Fotografija Fotografija = new Fotografija(NEW_Fotografija_DOBRO,1,100);
+        Fotografija Fotografija = new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
         Fotografija created = fotografijaService.update(Fotografija,VEC_KREIRANA_Fotografija2);
 
         assertEquals(NEW_Fotografija_DOBRO, created.getLokacijaFajl());
@@ -81,7 +82,7 @@ public class FotografijaServiceIntegrationTest {
         fotografijaService.delete(VEC_KREIRANA_Fotografija2);
         assertNull(fotografijaService.findOne(VEC_KREIRANA_Fotografija2));
 
-        Fotografija savedFotografija = new Fotografija(NEW_Fotografija_DOBRO,1,100);
+        Fotografija savedFotografija = new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
         savedFotografija.setId(VEC_KREIRANA_Fotografija);
         fotografijaService.create(savedFotografija);
     }
