@@ -20,6 +20,8 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { TableComponent } from './subscriptions/table/table.component';
 import { SubscriptionListComponent } from './subscriptions/subscription-list/subscription-list.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ReviewsComponent } from './reviews/reviews.component';
+import { TableRecenzijaComponent } from './table-recenzija/table-recenzija.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     TableComponent,
     SubscriptionListComponent,
     EditProfileComponent,
-    TableNovostComponent
+    TableNovostComponent,
+    ReviewsComponent,
+    TableRecenzijaComponent
     
   ],
   imports: [

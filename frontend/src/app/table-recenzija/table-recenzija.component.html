@@ -1,0 +1,16 @@
+<table class="table table-striped pera">
+    <thead>
+      <tr>
+        <th>Ocena <button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th>Komentar<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th>Slika<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let recenzija of recenzije">
+        <td>{{recenzija.ocena}}</td>
+        <td>{{recenzija.komentar}}</td>
+        <td><img src="{{recenzija.fotoLokacija}}"></td>
+      </tr>
+    </tbody>
+  </table>

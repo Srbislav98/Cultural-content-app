@@ -22,13 +22,13 @@
         </ng-template>
         &nbsp;
         <form (ngSubmit)="natrag()">
-        <button type="submit">Back</button></form>
+        <button type="submit">Natrag</button></form>
     </div>
 </div>
 <div>
     <h4>Prosečna ocena: {{prosecnaOcena}}</h4>
     <button>Pogledaj recenzija</button><br/>
-    <button >Daj recenziju</button><br/>
+    <button *ngIf="uloga==='ROLE_USER'">Daj recenziju</button><br/>
     <button *ngIf="uloga==='ROLE_ADMIN'">Izmeni</button><br/>
     <button *ngIf="uloga==='ROLE_ADMIN'">Obriši</button><br/>
 </div>

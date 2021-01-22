@@ -1,9 +1,6 @@
 package com.kts.cultural_content.controller;
 
-import com.kts.cultural_content.dto.KulturnaPonudaDTO;
-import com.kts.cultural_content.dto.NovostDTO;
-import com.kts.cultural_content.dto.UserLoginDTO;
-import com.kts.cultural_content.dto.UserTokenStateDTO;
+import com.kts.cultural_content.dto.*;
 import com.kts.cultural_content.mapper.RestPageImpl;
 import com.kts.cultural_content.model.Novost;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
@@ -305,6 +302,44 @@ public class KulturnaPonudaControllerIntegrationTest {
         List<NovostDTO> kp = responseEntity.getBody().getContent();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testGetRecenzije() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+        ParameterizedTypeReference<RestPageImpl<RecenzijaDTO>> responseType =
+                new ParameterizedTypeReference<RestPageImpl<RecenzijaDTO>>() { };
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<RestPageImpl<RecenzijaDTO>> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getRecenzije/100", HttpMethod.GET, httpEntity, responseType);
+
+        List<RecenzijaDTO> kp = responseEntity.getBody().getContent();
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testGetRecenzijeNePostoji() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+        ParameterizedTypeReference<RestPageImpl<RecenzijaDTO>> responseType =
+                new ParameterizedTypeReference<RestPageImpl<RecenzijaDTO>>() { };
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<RestPageImpl<RecenzijaDTO>> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getRecenzije/9999", HttpMethod.GET, httpEntity, responseType);
+
+        //List<RecenzijaDTO> kp = responseEntity.getBody().getContent();
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
     @Test
