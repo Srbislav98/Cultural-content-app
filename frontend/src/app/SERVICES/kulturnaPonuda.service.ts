@@ -31,6 +31,10 @@ export class KulturnaPonudaService{
 
     public getByPage(page:number): Observable<any>{
         return this.http.get(this.path+"/by-page?page="+page+"&size=2", {headers:this.headers})
+	}
+	
+	public getTKPByPage(page:number): Observable<any>{
+        return this.http.get("http://localhost:8080/api/tipoviKP"+"/by-page?page="+page+"&size=2", {headers:this.headers})
     }
 
     public getNovostiPage(page:number,size:number, id:number):Observable<any>{
@@ -65,6 +69,12 @@ export class KulturnaPonudaService{
 			'Content-Type': 'application/json'
 		});
 		return this.http.delete('http://localhost:8080/api/kulturnePonude/delete'+`/${id2}`, {headers:headeri});
+	}
+	deleteTKP(id2: number): Observable<any> {
+		const headeri=new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
+		return this.http.delete('http://localhost:8080/api/tipoviKP/delete'+`/${id2}`, {headers:headeri});
     }
     searchAllByPage(content:string,page: number, size: number): Observable<any> {
 		let queryParams = {};
@@ -89,11 +99,23 @@ export class KulturnaPonudaService{
 		});
 		return this.http.post('http://localhost:8080/api/kulturnePonude/create',sub);
 	}
+	addTKP(sub: TipKulturnePonude): Observable<any> {
+		const headeri=new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
+		return this.http.post('http://localhost:8080/api/tipoviKP/create',sub);
+	}
 	editKP(sub: Subscription): Observable<any> {
 		const headeri=new HttpHeaders({
 			'Content-Type': 'application/json'
 		});
 		return this.http.put('http://localhost:8080/api/kulturnePonude/update'+`/${sub.id}`,sub);
+	}
+	editTKP(sub: TipKulturnePonude): Observable<any> {
+		const headeri=new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
+		return this.http.put('http://localhost:8080/api/tipoviKP/update'+`/${sub.id}`,sub);
 	}
 	getTypes(): Observable<any> {
 		const headeri=new HttpHeaders({

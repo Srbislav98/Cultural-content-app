@@ -4,6 +4,7 @@
         <a class="navbar-brand" routerLink="">Home</a>
         <a class="navbar-brand" *ngIf="role === 'ROLE_USER'" routerLink="/profil">Profile</a>
         <a class="navbar-brand" *ngIf="role === 'ROLE_ADMIN'" routerLink="/kulturne-ponude">Cultural offers</a>
+        <a class="navbar-brand" *ngIf="role === 'ROLE_ADMIN'" routerLink="/tip-kulturne-ponude">Types of cultural offers</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>

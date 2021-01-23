@@ -1,0 +1,28 @@
+<table class="table table-striped pera">
+    <thead>
+      <tr>
+        <th>Id<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th>Name <button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <div *ngIf="subscriptions?.length === 0 || subscriptions === undefined" style="float:right;">
+        <h4><b>No types</b></h4>
+      </div>
+      <tr *ngFor="let subscription of subscriptions">
+        <td>{{subscription.id}}</td>
+        <td>{{subscription.naziv}}</td>
+        <td>
+            <a class="btn btn-secondary" routerLink="/edit-tkp/{{subscription.id}}" role="button">Edit</a>
+        </td>
+        <td>
+          <button button type="button" class="btn btn-danger" (click)="Obrisi(subscription)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+

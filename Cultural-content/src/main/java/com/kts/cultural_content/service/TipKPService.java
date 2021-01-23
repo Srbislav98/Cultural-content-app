@@ -1,8 +1,11 @@
 package com.kts.cultural_content.service;
 
+import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.TipKulturnePonude;
 import com.kts.cultural_content.repository.TipKPRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,9 @@ public class TipKPService  implements ServiceInterface<TipKulturnePonude> {
     @Override
     public List<TipKulturnePonude> findAll() {
         return oRepository.findAll();
+    }
+    public Page<TipKulturnePonude> findAll(Pageable pageable) {
+        return oRepository.findAll(pageable);
     }
 
     @Override

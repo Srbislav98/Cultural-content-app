@@ -9,6 +9,9 @@ import com.kts.cultural_content.model.TipKulturnePonude;
 import com.kts.cultural_content.service.KulturnaPonudaService;
 import com.kts.cultural_content.service.TipKPService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +37,16 @@ public class TipKPController {
 
         return new ResponseEntity<>(toTipKulturnePonudeDTOList(tipKulturnePonudes), HttpStatus.OK);
     }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value= "/by-page",method = RequestMethod.GET)
+    public ResponseEntity<Page<TipKulturnePonudeDTO>> getAllKulturnaPonuda(Pageable pageable) {
+        Page<TipKulturnePonude> page = tipKulturnePonudeService.findAll(pageable);
+        List<TipKulturnePonudeDTO> komentarDTOS = toTipKulturnePonudeDTOList(page.toList());
+        Page<TipKulturnePonudeDTO> pageKomentarDTOS = new PageImpl<>(komentarDTOS,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<>(pageKomentarDTOS, HttpStatus.OK);
+    }
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<TipKulturnePonudeDTO> getTipKulturnePonude(@PathVariable Integer id){

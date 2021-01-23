@@ -25,6 +25,10 @@ import { ListKpComponent } from './kulturnePonude/list-kp/list-kp.component';
 import { AddKpComponent } from './kulturnePonude/add-kp/add-kp.component';
 import { EditKpComponent } from './kulturnePonude/edit-kp/edit-kp.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AddTkpComponent } from './tipKulturnePonude/add-tkp/add-tkp.component';
+import { EditTkpComponent } from './tipKulturnePonude/edit-tkp/edit-tkp.component';
+import { TableTkpComponent } from './tipKulturnePonude/table-tkp/table-tkp.component';
+import { ListTkpComponent } from './tipKulturnePonude/list-tkp/list-tkp.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
     TableKpComponent,
     ListKpComponent,
     AddKpComponent,
-    EditKpComponent
+    EditKpComponent,
+    AddTkpComponent,
+    EditTkpComponent,
+    TableTkpComponent,
+    ListTkpComponent
     
   ],
   imports: [
