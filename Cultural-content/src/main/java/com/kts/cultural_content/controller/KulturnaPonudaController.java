@@ -94,6 +94,24 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(pageKomentarDTOS, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/filter-by-content-page/{content}", method = RequestMethod.GET)
+    public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnePonudebyContentPage(@PathVariable String content, Pageable pageable) {
+        Page<KulturnaPonuda> page = kulturnaPonudaService.filterByContentPage(pageable, content);
+        List<KulturnaPonudaDTO> filterDTOs = toKulturnaPonudaDTOList(page.toList());
+        Page<KulturnaPonudaDTO> pageFilterDTOS = new PageImpl<>(filterDTOs, page.getPageable(), page.getTotalElements());
+
+        return new ResponseEntity<>(pageFilterDTOS, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/filter-by-location-page/{name}", method = RequestMethod.GET)
+    public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnePonudebyLocationPage(@PathVariable String name, Pageable pageable) {
+        Page<KulturnaPonuda> page = kulturnaPonudaService.filterByLocationPage(pageable, name);
+        List<KulturnaPonudaDTO> filterDTOs = toKulturnaPonudaDTOList(page.toList());
+        Page<KulturnaPonudaDTO> pageFilterDTOS = new PageImpl<>(filterDTOs, page.getPageable(), page.getTotalElements());
+
+        return new ResponseEntity<>(pageFilterDTOS, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<KulturnaPonudaDTO> getKulturnaPonuda(@PathVariable Integer id){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);

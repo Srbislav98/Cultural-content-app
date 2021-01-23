@@ -25,6 +25,8 @@ import { ListKpComponent } from './kulturnePonude/list-kp/list-kp.component';
 import { AddKpComponent } from './kulturnePonude/add-kp/add-kp.component';
 import { EditKpComponent } from './kulturnePonude/edit-kp/edit-kp.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MapaComponent } from './mapa/mapa.component';
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 @NgModule({
   declarations: [
@@ -44,8 +46,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     TableKpComponent,
     ListKpComponent,
     AddKpComponent,
-    EditKpComponent
-    
+    EditKpComponent,
+    MapaComponent
+
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     NgSelectModule,
     BrowserAnimationsModule, // required animations module
-		ToastrModule.forRoot(),
+    ToastrModule.forRoot(),
+    AngularYandexMapsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
   bootstrap: [AppComponent]
