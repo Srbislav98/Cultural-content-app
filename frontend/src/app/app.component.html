@@ -2,7 +2,8 @@
 <div id="app" class="container">
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <a class="navbar-brand" routerLink="">Home</a>
-        <a class="navbar-brand" *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_USER'" routerLink="/profil">Profile</a>
+        <a class="navbar-brand" *ngIf="role === 'ROLE_USER'" routerLink="/profil">Profile</a>
+        <a class="navbar-brand" *ngIf="role === 'ROLE_ADMIN'" routerLink="/kulturne-ponude">Cultural offers</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>

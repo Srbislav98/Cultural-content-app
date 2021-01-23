@@ -8,9 +8,11 @@ import com.kts.cultural_content.dto.UserLoginDTO;
 import com.kts.cultural_content.mapper.AdminMapper;
 import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
 import com.kts.cultural_content.mapper.RegistrovaniKorisnikMapper;
+import com.kts.cultural_content.model.Korisnik;
 import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Novost;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
+import com.kts.cultural_content.service.KulturnaPonudaService;
 import com.kts.cultural_content.service.RegistrovaniKorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,6 +35,9 @@ public class RegistrovaniKorisnikController {
 
     @Autowired
     private RegistrovaniKorisnikService  rkService;
+    @Autowired
+    private KulturnaPonudaService kulturnaPonudaService;
+    private KulturnaPonudaMapper kulturnaPonudaMapper;
     private RegistrovaniKorisnikMapper rkMapper;
     private KulturnaPonudaMapper kpMapper;
     public RegistrovaniKorisnikController() {
@@ -157,7 +164,42 @@ public class RegistrovaniKorisnikController {
         RegistrovaniKorisnikDTO k = rkMapper.toDto(rk);
         return new ResponseEntity<Set<KulturnaPonudaDTO>>( k.getKulturnaPonuda(), HttpStatus.OK);
     }
+    @RequestMapping(value = "/filter-by-location/{name}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnePonudebyNaziv(@PathVariable String name,Pageable pageable) {
+        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        Korisnik u=(Korisnik)auth.getPrincipal();
+        RegistrovaniKorisnik rk= rkService.findByEmail(u.getEmail());
+        if (rk == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<KulturnaPonuda> kulturnePonude = kulturnaPonudaService.filterByContent(name);
+        RegistrovaniKorisnikDTO k = rkMapper.toDto(rk);
+        List<KulturnaPonudaDTO> kpDTOS=new ArrayList<KulturnaPonudaDTO>();
+        int pocetak=pageable.getPageNumber()*pageable.getPageSize();
+        int kreni=0,moze= pageable.getPageSize();
+        ArrayList<KulturnaPonudaDTO> kponude=new ArrayList<KulturnaPonudaDTO>();
+        for (KulturnaPonudaDTO kpa: k.getKulturnaPonuda()) {
+            for(KulturnaPonuda kup:kulturnePonude){
+                if(kup.getId()==kpa.getId()){
+                    kponude.add(kpa);
+                }
+            }
+        }
+        Collections.sort(kponude);
+        for (KulturnaPonudaDTO kpa: kponude) {
+            if(pocetak==kreni && moze>0) {
+                kpDTOS.add(kpa);
+                moze--;
+                pocetak++;
+            }
+            kreni++;
+        }
+        Page<KulturnaPonudaDTO> pageRKDTOS = new PageImpl<>(kpDTOS,pageable,kponude.size());
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBB");
 
+        return new ResponseEntity<Page<KulturnaPonudaDTO>>(pageRKDTOS, HttpStatus.OK);
+    }
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping(value="/allsubscriptions/{id}")
     public ResponseEntity<Page<KulturnaPonudaDTO>> getRegistrovanKorisnikSubscriptionsPage( @PathVariable Integer id, Pageable pageable) {
@@ -203,6 +245,13 @@ public class RegistrovaniKorisnikController {
             rkDTOS.add(rkMapper.toDto(registrovaniKorisnik));
         }
         return rkDTOS;
+    }
+    private List<KulturnaPonudaDTO> toKulturnaPonudaDTOList(List<KulturnaPonuda> kulturnaPonude){
+        List<KulturnaPonudaDTO> kulturnaPonudaDTOS = new ArrayList<>();
+        for (KulturnaPonuda kulturnaPonuda : kulturnaPonude){
+            kulturnaPonudaDTOS.add(kulturnaPonudaMapper.toDto(kulturnaPonuda));
+        }
+        return kulturnaPonudaDTOS;
     }
 
 

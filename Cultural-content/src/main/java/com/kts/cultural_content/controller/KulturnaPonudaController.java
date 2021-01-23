@@ -2,18 +2,23 @@ package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.dto.NovostDTO;
+import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
 import com.kts.cultural_content.mapper.NovostMapper;
+import com.kts.cultural_content.model.Korisnik;
 import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Novost;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.service.KulturnaPonudaService;
 import com.kts.cultural_content.service.NovostService;
+import com.kts.cultural_content.service.RegistrovaniKorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,6 +32,9 @@ public class KulturnaPonudaController {
 
     @Autowired
     private KulturnaPonudaService kulturnaPonudaService;
+    @Autowired
+    private RegistrovaniKorisnikService rkService;
+
     private KulturnaPonudaMapper kulturnaPonudaMapper;
 
 
@@ -52,7 +60,31 @@ public class KulturnaPonudaController {
 
         return new ResponseEntity<>(toKulturnaPonudaDTOList(kulturnePonude), HttpStatus.OK);
     }
+    @RequestMapping(value = "/filter-by-location/by-page/{name}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnePonudebyNaziv(@PathVariable String name,Pageable pageable) {
+        List<KulturnaPonuda> kulturnePonude = kulturnaPonudaService.filterByContent(name);
+        List<KulturnaPonudaDTO> kpDTOS=new ArrayList<KulturnaPonudaDTO>();
+        int pocetak=pageable.getPageNumber()*pageable.getPageSize();
+        int kreni=0,moze= pageable.getPageSize();
+        ArrayList<KulturnaPonudaDTO> kponude=new ArrayList<KulturnaPonudaDTO>();
+        for(KulturnaPonuda kup:kulturnePonude){
+            kponude.add(kulturnaPonudaMapper.toDto(kup));
+        }
+        Collections.sort(kponude);
+        for (KulturnaPonudaDTO kpa: kponude) {
+            if(pocetak==kreni && moze>0) {
+                kpDTOS.add(kpa);
+                moze--;
+                pocetak++;
+            }
+            kreni++;
+        }
+        Page<KulturnaPonudaDTO> pageRKDTOS = new PageImpl<>(kpDTOS,pageable,kponude.size());
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBB");
 
+        return new ResponseEntity<Page<KulturnaPonudaDTO>>(pageRKDTOS, HttpStatus.OK);
+    }
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnaPonuda(Pageable pageable) {
         Page<KulturnaPonuda> page = kulturnaPonudaService.findAll(pageable);
@@ -124,6 +156,10 @@ public class KulturnaPonudaController {
     @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteKulturnaPonuda(@PathVariable Integer id){
         try {
+            KulturnaPonuda kp=kulturnaPonudaService.findOne(id);
+            for(RegistrovaniKorisnik rk : kp.getRegistrovaniKorisnik()){
+                rkService.unsubscribe(rk.getId(), id);
+            }
             kulturnaPonudaService.delete(id);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
