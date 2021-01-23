@@ -1,15 +1,15 @@
 <div id = "recenzija">
-    <form [formGroup]="recForm" (ngSubmit)="napravi()">
+    <form [formGroup]="recForm" (ngSubmit)="napravi(imageInput)">
         <h2 class="text-center">Review</h2> 
         <div class="form-group">
         <label for="ocena">Ocena: </label>
-        <select name = "ocena" id="ocena">
+        <select name = "ocena" id="ocena" placeholder="ocena" formControlName="ocena">
             <option value = "-1" selected>Not graded</option>
             <option *ngFor="let ocene of oceneLista" value="{{ocene}}">{{ocene}}</option>
          </select>
-         <!--<small class="text-danger" 
-				*ngIf="recForm.controls.ocena.value>-1">
-                Grade must exist!</small>-->
+         <small class="text-danger" 
+				*ngIf="recForm.controls.ocena.value>-1 && recForm.controls.ocena.errors?.required">
+                Grade must exist!</small>
         </div>
 		<div class="form-group">
 			<label for="komentar">Komentar: </label>

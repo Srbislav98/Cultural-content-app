@@ -24,9 +24,13 @@ export class YourReviewComponent implements OnInit {
 
   oceneLista:number[]
 
-  selectedFile: ImageSnippet=new ImageSnippet("",new File([],""));
+  //selectedFile: ImageSnippet=new ImageSnippet("",new File([],""));
 
-  recenzija:Recenzija= new Recenzija(0,0,"",0,0,new File([],""));
+  selectedFile = <ImageSnippet>{};
+
+  //recenzija:Recenzija= new Recenzija(0,0,"",0,0,new File([],""));
+
+  recenzija = <Recenzija>{};
 
   constructor(
     private fBuilder: FormBuilder,
@@ -42,9 +46,9 @@ export class YourReviewComponent implements OnInit {
     else
       this.id = 0;
     this.recForm = this.fBuilder.group({
-      ocena:["",[Validators.required]],
-      komentar:["",[Validators.required]],
-      imageInput:null
+      ocena:[-1,[Validators.required]],
+      komentar:["",[Validators.required]]
+      
     });
    }
 
@@ -61,12 +65,19 @@ export class YourReviewComponent implements OnInit {
     this.selectedFile.src = '';
   }
 
-  napravi():void{
+  napravi(imageInput:any):void{
     this.recenzija.ocena=this.recForm.value["ocena"];
     this.recenzija.komentar = this.recForm.value["komentar"];
+    console.log(this.recenzija.ocena);
+    console.log(this.recenzija.komentar);
+    console.log(imageInput);
+    
+    
     this.recenzija.kulId = this.id;
     this.recenzija.redId = 1;
-    if(this.recForm.value["imageInput"]==null){
+    console.log(this.recenzija.kulId);
+    console.log(this.recenzija.redId);
+    if(imageInput.files[0]==null){
       
       this.recService.create(this.recenzija).subscribe(
         data=>{
@@ -80,7 +91,7 @@ export class YourReviewComponent implements OnInit {
         }
       )
     }else{
-      const file: File = this.recForm.value['imageInput'].files[0];
+      const file: File = imageInput.files[0];
       const reader = new FileReader();
 
       reader.addEventListener('load', (event: any) => {
@@ -89,6 +100,7 @@ export class YourReviewComponent implements OnInit {
 
         this.selectedFile.pending = true;
         this.recenzija.foto=this.selectedFile.file;
+        console.log(this.selectedFile.file);
         this.recService.create(this.recenzija).subscribe(
           data=>{
             this.toastr.success('Review successfuly made!');

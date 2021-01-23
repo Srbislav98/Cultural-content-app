@@ -115,7 +115,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
   }
 
   recenzije():void{
-    this.router.navigate(['/reviews/100']);
+    this.router.navigate(['/reviews/'+this.id.toString()]);
   }
 
   dajRecenziju():void{
