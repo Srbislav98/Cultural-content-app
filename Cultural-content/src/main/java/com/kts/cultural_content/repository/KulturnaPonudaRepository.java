@@ -14,4 +14,6 @@ public interface KulturnaPonudaRepository extends JpaRepository<KulturnaPonuda, 
     List<KulturnaPonuda> findByAdmin(Admin admin);
     List<KulturnaPonuda> findByLokacija(Lokacija lokacija);
     List<KulturnaPonuda> findDistinctByNazivContainingOrOpisContainingOrderByNaziv(String naziv, String opis);
+    Page<KulturnaPonuda> findByLokacija(Pageable pageable, Lokacija lokacija);
+    Page<KulturnaPonuda> findDistinctByNazivContainingOrOpisContainingOrderByNaziv(Pageable pageable, String naziv, String opis);
 }

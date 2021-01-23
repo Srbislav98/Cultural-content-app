@@ -127,4 +127,12 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
         return oRepository.findByLokacija(lokacija);
     }
 
+    public Page<KulturnaPonuda> filterByLocationPage(Pageable pageable, String name) {
+        Lokacija lokacija = lokacijaRepository.findByNazivLokacije(name);
+        return  oRepository.findByLokacija(pageable, lokacija);
+    }
+
+    public Page<KulturnaPonuda> filterByContentPage(Pageable pageable, String content) {
+        return oRepository.findDistinctByNazivContainingOrOpisContainingOrderByNaziv(pageable, content, content);
+    }
 }

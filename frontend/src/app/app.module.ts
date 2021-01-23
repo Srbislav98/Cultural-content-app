@@ -29,6 +29,8 @@ import { AddTkpComponent } from './tipKulturnePonude/add-tkp/add-tkp.component';
 import { EditTkpComponent } from './tipKulturnePonude/edit-tkp/edit-tkp.component';
 import { TableTkpComponent } from './tipKulturnePonude/table-tkp/table-tkp.component';
 import { ListTkpComponent } from './tipKulturnePonude/list-tkp/list-tkp.component';
+import { MapaComponent } from './mapa/mapa.component';
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 @NgModule({
   declarations: [
@@ -52,8 +54,8 @@ import { ListTkpComponent } from './tipKulturnePonude/list-tkp/list-tkp.componen
     AddTkpComponent,
     EditTkpComponent,
     TableTkpComponent,
-    ListTkpComponent
-    
+    ListTkpComponent,
+    MapaComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { ListTkpComponent } from './tipKulturnePonude/list-tkp/list-tkp.componen
     ReactiveFormsModule,
     NgSelectModule,
     BrowserAnimationsModule, // required animations module
-		ToastrModule.forRoot(),
+    ToastrModule.forRoot(),
+    AngularYandexMapsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
   bootstrap: [AppComponent]
