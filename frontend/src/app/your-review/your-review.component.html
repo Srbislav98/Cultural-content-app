@@ -1,8 +1,8 @@
-<div id = "recenzija">
+<div id = "recenzija" class="w-50 h-100 p-5" style="float:left;">
     <form [formGroup]="recForm" (ngSubmit)="napravi(imageInput)">
         <h2 class="text-center">Review</h2> 
         <div class="form-group">
-        <label for="ocena">Ocena: </label>
+        <label for="ocena">Grade:  </label>
         <select name = "ocena" id="ocena" placeholder="ocena" formControlName="ocena">
             <option value = "-1" selected>Not graded</option>
             <option *ngFor="let ocene of oceneLista" value="{{ocene}}">{{ocene}}</option>
@@ -12,7 +12,7 @@
                 Grade must exist!</small>
         </div>
 		<div class="form-group">
-			<label for="komentar">Komentar: </label>
+			<label for="komentar">Comment: </label>
             <input type="text" class="form-control" id="komentar"  placeholder="komentar" formControlName="komentar">
 			<small class="text-danger" 
 				*ngIf="recForm.controls.komentar.touched && recForm.controls.komentar.errors?.required">
@@ -23,6 +23,7 @@
                 <span>Select Image</span>
                 <input #imageInput
                        type="file"
+                       
                        accept="image/*">
                        <!--(change)="processFile(imageInput)">-->
               </label>

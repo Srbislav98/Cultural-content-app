@@ -4,14 +4,14 @@ export class Recenzija{
     komentar:string;
     redId:number;
     kulId:number;
-    foto:File;
+    
 
-    constructor(id:number,ocena:number,komentar:string,regId:number,kulId:number,foto:File){
+    constructor(id:number,ocena:number,komentar:string,regId:number,kulId:number){
         this.id=id;
         this.ocena = ocena;
         this.komentar=komentar;
         this.redId=regId;
         this.kulId=kulId;
-        this.foto=foto;
+        
     }
 }

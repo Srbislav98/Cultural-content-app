@@ -30,6 +30,9 @@ export class RecenzijaService{
     }
 
     public create(recenzija:Recenzija){
+        /*const slika = new FormData();
+        slika.append('myFile',recenzija.foto,recenzija.foto.name);*/
+        
         return this.http.post(this.path+"/create",recenzija,{headers:this.headers});
     }
 

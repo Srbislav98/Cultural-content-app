@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import { Recenzija } from './../MODELS/recenzija';
+import { Recenzija} from './../MODELS/recenzija';
 import { RecenzijaService } from './../SERVICES/recenzija.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -31,6 +31,8 @@ export class YourReviewComponent implements OnInit {
   //recenzija:Recenzija= new Recenzija(0,0,"",0,0,new File([],""));
 
   recenzija = <Recenzija>{};
+
+  
 
   constructor(
     private fBuilder: FormBuilder,
@@ -64,20 +66,15 @@ export class YourReviewComponent implements OnInit {
     this.selectedFile.status = 'fail';
     this.selectedFile.src = '';
   }
-
+  
   napravi(imageInput:any):void{
     this.recenzija.ocena=this.recForm.value["ocena"];
-    this.recenzija.komentar = this.recForm.value["komentar"];
-    console.log(this.recenzija.ocena);
-    console.log(this.recenzija.komentar);
-    console.log(imageInput);
-    
+    this.recenzija.komentar = this.recForm.value["komentar"]; 
     
     this.recenzija.kulId = this.id;
     this.recenzija.redId = 1;
-    console.log(this.recenzija.kulId);
-    console.log(this.recenzija.redId);
-    if(imageInput.files[0]==null){
+    
+    //if(imageInput.files[0]==null){
       
       this.recService.create(this.recenzija).subscribe(
         data=>{
@@ -90,17 +87,21 @@ export class YourReviewComponent implements OnInit {
 
         }
       )
-    }else{
+    /*}else{
+      
       const file: File = imageInput.files[0];
       const reader = new FileReader();
-
+      
+      //console.log(imageInput.files[0].path)
       reader.addEventListener('load', (event: any) => {
 
         this.selectedFile = new ImageSnippet(event.target.result, file);
 
         this.selectedFile.pending = true;
-        this.recenzija.foto=this.selectedFile.file;
-        console.log(this.selectedFile.file);
+        
+        this.recenzija.foto=file;
+        
+        
         this.recService.create(this.recenzija).subscribe(
           data=>{
             this.toastr.success('Review successfuly made!');
@@ -115,8 +116,10 @@ export class YourReviewComponent implements OnInit {
       });
 
       reader.readAsDataURL(file);
-    }
+    }*/
 
   }
 
 }
+
+

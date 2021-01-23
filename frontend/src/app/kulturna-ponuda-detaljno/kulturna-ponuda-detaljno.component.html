@@ -1,14 +1,14 @@
 <div class="w-50 h-100 p-5" style="float:left;">
     <div>
-        <h2><img src="C:\Users\Kssbc\Documents\GitHub\KTSNWT2020_T5\Cultural-content\Slike\OIP.jpg">
+        <h2><img src="assets/img/R6eb915d96d4c990aaf152a70c5fb54a9.png">
         {{kP.naziv}}</h2>
         <button *ngIf="uloga==='ROLE_ADMIN'">Add news</button>
     <br/>
     </div>
     <div>
-        <h4>Tip kulturne ponude: {{tipKP.naziv}}</h4>
+        <h4>Type of cultural offer: {{tipKP.naziv}}</h4>
     </div><div>
-        <h5>Deskrpicija</h5>
+        <h5>Description</h5>
         <h6>{{kP.opis}}</h6>
     </div><div>
         
@@ -25,15 +25,15 @@
         <button type="submit">Natrag</button></form>
     </div>
 </div>
-<div>
-    <h4>Prosečna ocena: {{prosecnaOcena}}</h4>
-    <form (ngSubmit)="recenzije()"><button >Pogledaj recenzija</button><br/></form>
-    <form (ngSubmit)="dajRecenziju()"><button *ngIf="uloga==='ROLE_USER'" >Daj recenziju</button><br/></form>
-    <button *ngIf="uloga==='ROLE_ADMIN'">Izmeni</button><br/>
-    <button *ngIf="uloga==='ROLE_ADMIN'">Obriši</button><br/>
+<div class="w-50 h-100 p-5" style="float:left;">
+    <h4>Average grade: {{prosecnaOcena}}</h4>
+    <form (ngSubmit)="recenzije()"><button >Reviews</button><br/></form>
+    <form (ngSubmit)="dajRecenziju()"><button *ngIf="uloga==='ROLE_USER'" >Add review</button><br/></form>
+    <button *ngIf="uloga==='ROLE_ADMIN'">Change</button><br/>
+    <button *ngIf="uloga==='ROLE_ADMIN'">Delete</button><br/>
 </div>
 <div class="w-50 h-100 p-5" style="float:left;">
-    <h4>Vesti</h4>
+    <h4>News</h4>
 	<div class="row">
 		<div class="col">
 			<app-table-novost [novosti]="subList"></app-table-novost>
