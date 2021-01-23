@@ -20,6 +20,11 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { TableComponent } from './subscriptions/table/table.component';
 import { SubscriptionListComponent } from './subscriptions/subscription-list/subscription-list.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { TableKpComponent } from './kulturnePonude/table-kp/table-kp.component';
+import { ListKpComponent } from './kulturnePonude/list-kp/list-kp.component';
+import { AddKpComponent } from './kulturnePonude/add-kp/add-kp.component';
+import { EditKpComponent } from './kulturnePonude/edit-kp/edit-kp.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,11 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     TableComponent,
     SubscriptionListComponent,
     EditProfileComponent,
-    TableNovostComponent
+    TableNovostComponent,
+    TableKpComponent,
+    ListKpComponent,
+    AddKpComponent,
+    EditKpComponent
     
   ],
   imports: [
@@ -44,6 +53,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    NgSelectModule,
     BrowserAnimationsModule, // required animations module
 		ToastrModule.forRoot(),
   ],

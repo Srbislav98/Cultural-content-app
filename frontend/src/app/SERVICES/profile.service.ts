@@ -18,7 +18,23 @@ export class ProfileService {
 		private http: HttpClient,
 		private authenticationService:AuthenticationService
     ) { }
-    
+	searchAll(content:string,page: number, size: number): Observable<any> {
+		let queryParams = {};
+
+		queryParams = {
+			headers:new HttpHeaders({
+				'Content-Type': 'application/json'
+			}),
+			observe: 'response',
+			params: new HttpParams()
+				.set('page', String(page))
+				.append('size', String(size)),
+		};
+		const headeri=new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
+		return this.http.get('http://localhost:8080/api/registrovaniKorisnici/filter-by-location'+`/${content}`, queryParams);
+	}
     getAll(page: number, size: number): Observable<any> {
 		this.authenticationService.profil().subscribe(
 			result => {

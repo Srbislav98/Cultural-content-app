@@ -1,16 +1,17 @@
-<!--<div class="w-50 h-100 p-3" style="float:right;">-->
-	<h2>Subscriptions</h2>
+<div class="w-100 h-100 p-3">
+	<h2 style="margin: 0 auto;text-align: center;">Cultural offers</h2>
 	<form [formGroup]="regForm" (ngSubmit)="regIn()" class="form-inline">
 		<div class="form-group mx-sm-0 mb-2">
 		  <input type="text" class="form-control" id="podatak" formControlName="podatak" placeholder="search by content...">
 		</div>
-		<button type="submit" class="btn btn-secondary mb-2">Search</button>
-	</form>
+        <button type="submit" class="btn btn-secondary mb-2">Search</button>
+        <a class="btn btn-success mx-sm-1 mb-2" routerLink="/add-kp" role="button">Add</a>
+    </form>
 	<div class="row">
 		<div class="col">
-			<app-table [subscriptions]="subList"></app-table>
-		</div>
-	</div>
+            <app-table-kp [subscriptions]="subList"></app-table-kp>
+        </div>
+    </div>
 	<div class="row">
 		<div class="col">
 			<app-pagination [totalItems]="totalSize" [pageSize]="pageSize"
@@ -18,4 +19,5 @@
 			</app-pagination>
 		</div>
 	</div>
-<!--</div>-->
+</div>
+

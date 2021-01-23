@@ -24,13 +24,12 @@ export class EditProfileComponent implements OnInit {
     private profilService:ProfileService,
     private toastr: ToastrService
     ) {
-      this.User.email
       this.regForm = this.fBuilder.group({
         email: ["", [Validators.email]],
         username: ["",[Validators.minLength(1)]],
         ime: ["",[Validators.minLength(1)]],
         prezime: ["",[Validators.minLength(1)]],
-        password: ["", [Validators.required,Validators.minLength(6)]]
+        password: ["", [Validators.required,Validators.minLength(4)]]
       });
      }
   
