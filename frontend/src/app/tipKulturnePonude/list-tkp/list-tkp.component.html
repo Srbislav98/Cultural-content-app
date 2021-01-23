@@ -1,0 +1,24 @@
+<div class="w-100 h-100 p-3">
+    <h2 style="margin: 0 auto;text-align: center;">Types of cultural offer</h2>
+    <!--
+	<form [formGroup]="regForm" (ngSubmit)="regIn()" class="form-inline">
+		<div class="form-group mx-sm-0 mb-2">
+		  <input type="text" class="form-control" id="podatak" formControlName="podatak" placeholder="search by content...">
+		</div>
+        <button type="submit" class="btn btn-secondary mb-2">Search</button>
+    </form>-->
+    <a class="btn btn-success mx-sm-1 mb-2" routerLink="/add-tkp" role="button">Add</a>
+	<div class="row">
+		<div class="col">
+            <app-table-tkp [subscriptions]="subList"></app-table-tkp>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col">
+			<app-pagination [totalItems]="totalSize" [pageSize]="pageSize"
+				(pageSelected)="changePage($event)">
+			</app-pagination>
+		</div>
+	</div>
+</div>
+
