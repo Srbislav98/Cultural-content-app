@@ -40,7 +40,8 @@ export class AppComponent {
   logout() {
 		this.authenticationService.logout().subscribe(
 			result => {
-				localStorage.removeItem('user');
+        localStorage.removeItem('user');
+        localStorage.removeItem('accessToken');
 				this.toastr.success('You have been successfully logged out!');
 				this.router.navigate(['login']);
 			},

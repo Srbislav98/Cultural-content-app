@@ -2,18 +2,23 @@ package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.dto.NovostDTO;
-import com.kts.cultural_content.dto.RecenzijaDTO;
+import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
+import com.kts.cultural_content.mapper.NovostMapper;
+import com.kts.cultural_content.model.Korisnik;
 import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Novost;
-import com.kts.cultural_content.model.Recenzija;
 import com.kts.cultural_content.model.RegistrovaniKorisnik;
 import com.kts.cultural_content.service.KulturnaPonudaService;
+import com.kts.cultural_content.service.NovostService;
+import com.kts.cultural_content.service.RegistrovaniKorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,6 +32,9 @@ public class KulturnaPonudaController {
 
     @Autowired
     private KulturnaPonudaService kulturnaPonudaService;
+    @Autowired
+    private RegistrovaniKorisnikService rkService;
+
     private KulturnaPonudaMapper kulturnaPonudaMapper;
 
 
@@ -52,7 +60,31 @@ public class KulturnaPonudaController {
 
         return new ResponseEntity<>(toKulturnaPonudaDTOList(kulturnePonude), HttpStatus.OK);
     }
+    @RequestMapping(value = "/filter-by-location/by-page/{name}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnePonudebyNaziv(@PathVariable String name,Pageable pageable) {
+        List<KulturnaPonuda> kulturnePonude = kulturnaPonudaService.filterByContent(name);
+        List<KulturnaPonudaDTO> kpDTOS=new ArrayList<KulturnaPonudaDTO>();
+        int pocetak=pageable.getPageNumber()*pageable.getPageSize();
+        int kreni=0,moze= pageable.getPageSize();
+        ArrayList<KulturnaPonudaDTO> kponude=new ArrayList<KulturnaPonudaDTO>();
+        for(KulturnaPonuda kup:kulturnePonude){
+            kponude.add(kulturnaPonudaMapper.toDto(kup));
+        }
+        Collections.sort(kponude);
+        for (KulturnaPonudaDTO kpa: kponude) {
+            if(pocetak==kreni && moze>0) {
+                kpDTOS.add(kpa);
+                moze--;
+                pocetak++;
+            }
+            kreni++;
+        }
+        Page<KulturnaPonudaDTO> pageRKDTOS = new PageImpl<>(kpDTOS,pageable,kponude.size());
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBB");
 
+        return new ResponseEntity<Page<KulturnaPonudaDTO>>(pageRKDTOS, HttpStatus.OK);
+    }
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnaPonuda(Pageable pageable) {
         Page<KulturnaPonuda> page = kulturnaPonudaService.findAll(pageable);
@@ -60,6 +92,24 @@ public class KulturnaPonudaController {
         Page<KulturnaPonudaDTO> pageKomentarDTOS = new PageImpl<>(komentarDTOS,page.getPageable(),page.getTotalElements());
 
         return new ResponseEntity<>(pageKomentarDTOS, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/filter-by-content-page/{content}", method = RequestMethod.GET)
+    public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnePonudebyContentPage(@PathVariable String content, Pageable pageable) {
+        Page<KulturnaPonuda> page = kulturnaPonudaService.filterByContentPage(pageable, content);
+        List<KulturnaPonudaDTO> filterDTOs = toKulturnaPonudaDTOList(page.toList());
+        Page<KulturnaPonudaDTO> pageFilterDTOS = new PageImpl<>(filterDTOs, page.getPageable(), page.getTotalElements());
+
+        return new ResponseEntity<>(pageFilterDTOS, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/filter-by-location-page/{name}", method = RequestMethod.GET)
+    public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnePonudebyLocationPage(@PathVariable String name, Pageable pageable) {
+        Page<KulturnaPonuda> page = kulturnaPonudaService.filterByLocationPage(pageable, name);
+        List<KulturnaPonudaDTO> filterDTOs = toKulturnaPonudaDTOList(page.toList());
+        Page<KulturnaPonudaDTO> pageFilterDTOS = new PageImpl<>(filterDTOs, page.getPageable(), page.getTotalElements());
+
+        return new ResponseEntity<>(pageFilterDTOS, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
@@ -124,6 +174,10 @@ public class KulturnaPonudaController {
     @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteKulturnaPonuda(@PathVariable Integer id){
         try {
+            KulturnaPonuda kp=kulturnaPonudaService.findOne(id);
+            for(RegistrovaniKorisnik rk : kp.getRegistrovaniKorisnik()){
+                rkService.unsubscribe(rk.getId(), id);
+            }
             kulturnaPonudaService.delete(id);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -132,7 +186,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/getNovosti/{id}", method = RequestMethod.GET)
     public ResponseEntity< Page<NovostDTO>> getKulturnaPonudaNovosti(@PathVariable Integer id, Pageable pageable){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
@@ -180,37 +234,7 @@ public class KulturnaPonudaController {
         return lista;
     }
 
-    @RequestMapping(value = "/getRecenzije/{id}", method = RequestMethod.GET)
-    public ResponseEntity< Page<RecenzijaDTO>> getKulturnaPonudaRecenzije(@PathVariable Integer id, Pageable pageable){
-        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
-        if (kulturnaPonuda == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        KulturnaPonudaDTO k = kulturnaPonudaMapper.toDto(kulturnaPonuda);
-        //NovostMapper novostMapper = null;
-        List<RecenzijaDTO> nDTOS = new ArrayList<>();
-        int pocetak = pageable.getPageNumber()*pageable.getPageSize();
-        int kreni = 0, moze = pageable.getPageSize();
-        ArrayList<RecenzijaDTO> nPonude = new ArrayList<RecenzijaDTO>();
-        for( Recenzija nov: kulturnaPonuda.getRecenzije()){
-            RecenzijaDTO test = new RecenzijaDTO(nov.getId(),nov.getOcena(),nov.getKomentar(),nov.getRegId(), nov.getKulId(),nov.getFoto());
-            nPonude.add(test);
-        }
-        //Collections.sort(nPonude, null);
-        //nPonude = bubble_sort(nPonude);
-        for(RecenzijaDTO kpa : nPonude){
-            if(pocetak==kreni && moze>0){
-                nDTOS.add(kpa);
-                moze--;
-                pocetak++;
-            }
-            kreni++;
-        }
-        Page<RecenzijaDTO> novostDTOPage = new PageImpl<>(nDTOS,pageable,kulturnaPonuda.getRecenzije().size());
-        return new ResponseEntity<Page<RecenzijaDTO>>(novostDTOPage, HttpStatus.OK);
-    }
-
-    //@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/getProsecnaOcena/{id}", method = RequestMethod.GET)
     public ResponseEntity<Float> getProsecnaOcena(@PathVariable Integer id){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
@@ -221,7 +245,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<Float>(d, HttpStatus.OK);
     }
 
-    //@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/daLiSadrzi/{id}/registrovani/{id2}", method = RequestMethod.GET)
     public ResponseEntity<Boolean> getDaLiJe(@PathVariable Integer id, @PathVariable Integer id2){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);

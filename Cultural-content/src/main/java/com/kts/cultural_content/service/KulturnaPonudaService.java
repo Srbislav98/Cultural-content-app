@@ -76,24 +76,28 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
         if(existingKulturnaPonuda == null){
             throw new Exception("KulturnaPonuda with given id doesn't exist");
         }
-
+        System.out.println("B");
         existingKulturnaPonuda.setNaziv(entity.getNaziv());
+        System.out.println("B");
         existingKulturnaPonuda.setAdresa(entity.getAdresa());
+        System.out.println("B");
         existingKulturnaPonuda.setOpis(entity.getOpis());
-
+        System.out.println("B");
         //existingKulturnaPonuda.setRegistrovaniKorisnik(entity.getRegistrovaniKorisnik());
         //existingKulturnaPonuda.setFotogrfija(entity.getFotogrfija());
-
+        System.out.println("B");
         TipKulturnePonude tip = oTip.getOne(Integer.parseInt(entity.getTipKulturnePonude().getNaziv()));
+        System.out.println("B");
         entity.setTipKulturnePonude(tip);
         if( entity.getTipKulturnePonude() != null)
             existingKulturnaPonuda.setTipKulturnePonude(entity.getTipKulturnePonude());
-
+        System.out.println("B");
         Lokacija lokacija = lokacijaRepository.getOne(Integer.parseInt(entity.getLokacija().getNazivLokacije()));
         entity.setLokacija(lokacija);
+        System.out.println("B");
         if( entity.getLokacija() != null)
             existingKulturnaPonuda.setLokacija(entity.getLokacija());
-
+        System.out.println("B");
         return oRepository.save(existingKulturnaPonuda);
     }
 
@@ -121,5 +125,14 @@ public class KulturnaPonudaService implements ServiceInterface<KulturnaPonuda> {
     public List<KulturnaPonuda> filterByLocation(String name) {
         Lokacija lokacija = lokacijaRepository.findByNazivLokacije(name);
         return oRepository.findByLokacija(lokacija);
+    }
+
+    public Page<KulturnaPonuda> filterByLocationPage(Pageable pageable, String name) {
+        Lokacija lokacija = lokacijaRepository.findByNazivLokacije(name);
+        return  oRepository.findByLokacija(pageable, lokacija);
+    }
+
+    public Page<KulturnaPonuda> filterByContentPage(Pageable pageable, String content) {
+        return oRepository.findDistinctByNazivContainingOrOpisContainingOrderByNaziv(pageable, content, content);
     }
 }

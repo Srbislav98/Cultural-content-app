@@ -180,6 +180,7 @@ public class RegistrovaniKorisnikService  implements ServiceInterface<Registrova
     }
 
     public void unsubscribe(Integer id, Integer id2) throws Exception {
+        System.out.println(id+" "+id2);
         RegistrovaniKorisnik registrovaniKorisnik  = rkRepository.findById(id).orElse(null);
         if (registrovaniKorisnik!=null && kulturnaPonudaRepository.findById(id2).orElse(null)!=null) {
             if(!registrovaniKorisnik.getKulturnaPonuda().contains(kulturnaPonudaRepository.findById(id2).orElse(null))){

@@ -13,6 +13,12 @@ import { RoleGuard } from './guards/role.service';
 import { ProfilComponent } from './profil/profil.component';
 import { SubscriptionListComponent } from './subscriptions/subscription-list/subscription-list.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ListKpComponent } from './kulturnePonude/list-kp/list-kp.component';
+import { EditKpComponent } from './kulturnePonude/edit-kp/edit-kp.component';
+import { AddKpComponent } from './kulturnePonude/add-kp/add-kp.component';
+import { ListTkpComponent } from './tipKulturnePonude/list-tkp/list-tkp.component';
+import { EditTkpComponent } from './tipKulturnePonude/edit-tkp/edit-tkp.component';
+import { AddTkpComponent } from './tipKulturnePonude/add-tkp/add-tkp.component';
 
 const routes: Routes = [
   {
@@ -68,7 +74,41 @@ const routes: Routes = [
     component : EditProfileComponent,
     canActivate: [RoleGuard],
 		data: {expectedRoles: 'ROLE_USER'}
-  }
+  },
+  {
+    path : 'kulturne-ponude',
+    component : ListKpComponent,
+    canActivate: [RoleGuard],
+    data: {expectedRoles: 'ROLE_ADMIN'},
+    children: [
+    ]
+  },
+  {
+    path : 'tip-kulturne-ponude',
+    component : ListTkpComponent,
+    canActivate: [RoleGuard],
+    data: {expectedRoles: 'ROLE_ADMIN'},
+    children: [
+    ]
+  },
+  {
+    path : 'edit-kp/:token',
+    component : EditKpComponent,
+    canActivate: [RoleGuard],
+		data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
+    path : 'edit-tkp/:token',
+    component : EditTkpComponent,
+    canActivate: [RoleGuard],
+		data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
+    path : 'add-tkp',
+    component : AddTkpComponent,
+    canActivate: [RoleGuard],
+		data: {expectedRoles: 'ROLE_ADMIN'}
+  },
 ];
 
 @NgModule({

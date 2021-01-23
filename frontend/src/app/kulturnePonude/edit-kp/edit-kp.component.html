@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+    <div class="w-50" id = "register" >
+        <form [formGroup]="regForm" (ngSubmit)="regIn()">
+            <h2 class="text-center">Edit cultural offer</h2>       
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="ime">Name: </label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" id="Name"  placeholder="Name" formControlName="ime" value="{{sub.naziv}}">
+                <small class="text-danger" 
+                *ngIf="regForm.controls.ime.touched && regForm.controls.ime.errors?.required">
+                Name is required</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="address">Address: </label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" id="Address"  placeholder="Address" formControlName="address" value="{{sub.adresa}}">
+                <small class="text-danger" 
+                *ngIf="regForm.controls.address.touched && regForm.controls.address.errors?.required">
+                Address is required</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="description">Description: </label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" id="Description"  placeholder="Description" formControlName="description" value="{{sub.opis}}">
+                <small class="text-danger" 
+                *ngIf="regForm.controls.description.touched && regForm.controls.description.errors?.required">
+                Description is required</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="tip">Type: </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="tip"  placeholder="Tip"  value="{{tip}}" disabled>
+                </div>  
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="type">New Type: </label>
+                <div class="col-sm-10">
+                <ng-select class="form-control" [items]="types!"
+                   formControlName="type"
+                   bindLabel="naziv"
+                   [virtualScroll]="true"
+                   bindValue="id">
+                </ng-select>
+                <!--
+                <small class="text-danger" 
+                *ngIf="regForm.controls.type.touched && regForm.controls.type.errors?.required">
+                Type is required</small>-->
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="lokacija">Location: </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="lokacija"  placeholder="Lokacija" value="{{lokacija}}" disabled>
+            </div>  
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="Location">New location: </label>
+                <div class="col-sm-9">
+                <ng-select class="form-control" [items]="locations!"
+                    formControlName="location"
+                    bindLabel="nazivLokacije"
+                    bindValue="id">
+                </ng-select>
+                <!--<small class="text-danger" 
+                *ngIf="regForm.controls.location.touched && regForm.controls.location.errors?.required">
+                Location is required</small>-->
+                </div>
+            </div>
+            <div class="form-group row">
+                <a class="btn btn-danger" routerLink="/profil" role="button">Cancel</a>
+                <button type="submit" class="btn btn-primary" [disabled]="regForm.invalid">Confirm</button>
+            </div>           
+        </form>
+    </div>
+    </div>	
+    
+

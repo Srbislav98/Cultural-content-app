@@ -1,5 +1,11 @@
 <!--<div class="w-50 h-100 p-3" style="float:right;">-->
-	<h3>Subscriptions</h3>
+	<h2>Subscriptions</h2>
+	<form [formGroup]="regForm" (ngSubmit)="regIn()" class="form-inline">
+		<div class="form-group mx-sm-0 mb-2">
+		  <input type="text" class="form-control" id="podatak" formControlName="podatak" placeholder="search by content...">
+		</div>
+		<button type="submit" class="btn btn-secondary mb-2">Search</button>
+	</form>
 	<div class="row">
 		<div class="col">
 			<app-table [subscriptions]="subList"></app-table>
