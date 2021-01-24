@@ -7,7 +7,7 @@ import { User } from '../MODELS/user';
 	providedIn: 'root'
 })
 export class AuthenticationService {
-	private headers = new HttpHeaders({'Content-Type': 'application/json'});
+  private headers = new HttpHeaders({'Content-Type': 'application/json'});
 
 	constructor(
 		private http: HttpClient
