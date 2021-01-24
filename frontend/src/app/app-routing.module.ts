@@ -1,3 +1,4 @@
+import { AddNewsComponent } from './add-news/add-news.component';
 import { YourReviewComponent } from './your-review/your-review.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
@@ -71,7 +72,7 @@ const routes: Routes = [
   },
   {
     path : 'add-news/:idKul',
-    component : YourReviewComponent,
+    component : AddNewsComponent,
     canActivate: [RoleGuard],
 		data: {expectedRoles: 'ROLE_ADMIN'}
   },

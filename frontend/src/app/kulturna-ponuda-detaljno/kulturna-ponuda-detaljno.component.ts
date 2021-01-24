@@ -35,7 +35,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
 
   daLiJe:Boolean = true;
 
-  vecDao:Boolean=false;
+  vecDao:Boolean;
 
   constructor(private fBuilder:FormBuilder,
     private router:Router,
@@ -48,7 +48,8 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
       this.pageSize= 2;
       this.currentPage =1;
       this.totalSize = 1;
-      this.daLiJe = false;
+      this.daLiJe = true;
+      this.vecDao=false;
       
   }
 
@@ -77,11 +78,13 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
     );
     this.daLiJeSubscribe();
     this.vecDaoReview();
+    
   }
 
   vecDaoReview(){
     this.kulService.getVecPostojiReview(this.id, this.idUser).subscribe(
       result =>{
+        
         this.vecDao = result;
       }
     )

@@ -18,6 +18,8 @@ export class ReviewsComponent implements OnInit {
   temp:string | null;
   id:number;
   recForm:FormGroup;
+  oceneLista:number[];
+  temp2:number;
 
   constructor(
     private router:Router,
@@ -36,6 +38,8 @@ export class ReviewsComponent implements OnInit {
     this.recForm = this.fBuilder.group({
         ocena: [0]
         });
+    this.oceneLista = [1,2,3,4,5];
+    this.temp2=-1;
    }
 
   ngOnInit(): void {
@@ -63,8 +67,9 @@ export class ReviewsComponent implements OnInit {
   }
   
   filter(){
-    
-			this.kulService.searchAllReviews(this.recForm.value["podatak"],this.currentPage - 1, this.pageSize, this.id).subscribe(
+
+      //this.temp2 = Number.parseInt()
+			this.kulService.searchAllReviews(this.recForm.value["ocena"],this.currentPage - 1, this.pageSize, this.id).subscribe(
 			res=>{
 				this.subList = res.body.content as Recenzija[];
 				//alert(this.subList.length);
