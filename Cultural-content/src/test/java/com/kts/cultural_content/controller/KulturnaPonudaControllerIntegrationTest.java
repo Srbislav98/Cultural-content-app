@@ -326,6 +326,25 @@ public class KulturnaPonudaControllerIntegrationTest {
     @Test
     @Transactional
     @Rollback(true)
+    public void testGetRecenzijeFilter() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+        ParameterizedTypeReference<RestPageImpl<RecenzijaDTO>> responseType =
+                new ParameterizedTypeReference<RestPageImpl<RecenzijaDTO>>() { };
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<RestPageImpl<RecenzijaDTO>> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/filter-by-grade/4/kulturna/100", HttpMethod.GET, httpEntity, responseType);
+
+        List<RecenzijaDTO> kp = responseEntity.getBody().getContent();
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
     public void testGetRecenzijeNePostoji() {
         login("124@gmail.com", "admin");
         HttpHeaders headers = new HttpHeaders();
@@ -409,6 +428,40 @@ public class KulturnaPonudaControllerIntegrationTest {
 
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testVecDaoReview() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<Boolean> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/vecDaoReview/100/registrovani/1", HttpMethod.GET, httpEntity, Boolean.class);
+
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testVecDaoReviewPogresanId() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<Boolean> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/vecDaoReview/9999/registrovani/1", HttpMethod.GET, httpEntity, Boolean.class);
+
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
     @Test

@@ -91,7 +91,7 @@ export class EditKpComponent implements OnInit {
     //if(this.regForm.value["email"].length!=0) this.User.email=this.regForm.value["email"];
    // if(this.regForm.value["username"].length!=0) this.User.korisnickoIme=this.regForm.value["username"];
     if(this.regForm.value["ime"].length!=0) this.sub.naziv=this.regForm.value["ime"];
-    if(this.regForm.value["address"].length!=0) this.sub.adresa=this.regForm.value["adress"];
+    if(this.regForm.value["address"].length!=0) this.sub.adresa=this.regForm.value["address"];
     if(this.regForm.value["description"].length!=0) this.sub.opis=this.regForm.value["description"];
     if(this.regForm.value["location"].length!=0) this.sub.idLokacije=this.regForm.value["location"];
     if(this.regForm.value["type"].length!=0) this.sub.idt=this.regForm.value["type"];

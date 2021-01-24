@@ -77,7 +77,7 @@ public class NovostController {
         return new ResponseEntity<>(novostMapper.toDto(novost), HttpStatus.CREATED);
     }
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/create/kulturna-ponuda/{id}", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NovostDTO> createNovostKulturnaPonuda(@PathVariable Integer id,@RequestBody NovostDTO novostDTO){
         Novost novost;
