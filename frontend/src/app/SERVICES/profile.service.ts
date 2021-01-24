@@ -102,4 +102,8 @@ export class ProfileService {
 		return this.http.get<any>('http://localhost:8080/api/registrovaniKorisnici/getId',{headers:this.headers});
 	}
 
+	getKorisnika(id:number):Observable<User>{
+		return this.http.get<User>("http://localhost:8080/api/registrovaniKorisnici"+`/${id}`,{headers:this.headers});
+	}
+
 }

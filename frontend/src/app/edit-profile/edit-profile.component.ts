@@ -14,7 +14,8 @@ import { RegistrationService } from '../SERVICES/registration.service';
 })
 export class EditProfileComponent implements OnInit {
   regForm:FormGroup;
-  User= new User(1,"s","dff","dd","dd","ddd");
+  User= new User(0,"[name]","[surname]","[username]","[e-mail]","[password]");
+  userId:number|null;
 
   constructor(
     private fBuilder: FormBuilder,
@@ -31,10 +32,11 @@ export class EditProfileComponent implements OnInit {
         prezime: ["",[Validators.minLength(1)]],
         password: ["", [Validators.required,Validators.minLength(4)]]
       });
+      this.userId=0;
      }
   
      ngOnInit(): void {
-      this.authenticationService.profil().subscribe(
+      /*this.authenticationService.profil().subscribe(
         result => {
           this.User=new User(Number(result.id),result.ime,result.prezime,result.korisnickoIme,
             result.email,result.lozinka)
@@ -42,7 +44,17 @@ export class EditProfileComponent implements OnInit {
         (error: any) => {
           console.log(error);
         }
-      );
+      );*/
+      this.profilService.getId().subscribe(
+        res=>{
+          this.profilService.getKorisnika(res).subscribe(
+            result=>{
+              this.User=new User(Number(result.id),result.ime,result.prezime,result.korisnickoIme,
+            result.email,result.lozinka)
+            }
+          )
+        }
+      )
     }
     regIn(){
       //if(this.regForm.value["email"].length!=0) this.User.email=this.regForm.value["email"];
@@ -51,21 +63,24 @@ export class EditProfileComponent implements OnInit {
       if(this.regForm.value["prezime"].length!=0) this.User.prezime=this.regForm.value["prezime"];
       this.User.lozinka=this.regForm.value["password"];
       this.profilService.editProfile(this.User).subscribe(
-        data=>{
+        async data=>{
           this.toastr.success('Successful profile editing.');
           //NE BI TREBALO OVAKO
           const auth: any = {};
+          await this.delay(300);
           this.authenticationService.logout();
 		      auth.username = this.User.email;
-		      auth.password = this.User.lozinka;
+          auth.password = this.User.lozinka;
+          await this.delay(300);
           this.authenticationService.login(auth).subscribe(
-            result => {
+            async result => {
               //OVAKO DOBIJEM TOKEN
               localStorage.setItem('email',auth.username);
               localStorage.setItem('user', JSON.stringify(result));
               const item = localStorage.getItem('user');
               const decodedItem = JSON.parse(item!);
               localStorage.setItem('accessToken', decodedItem.accessToken);
+              await this.delay(300);
               this.router.navigate(['profil']);
             },
             error => {
@@ -77,4 +92,8 @@ export class EditProfileComponent implements OnInit {
         }
       )
     }
+
+    delay(ms: number) {
+      return new Promise( resolve => setTimeout(resolve, ms) );
+  }
   }
