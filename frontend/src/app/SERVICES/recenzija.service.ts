@@ -33,7 +33,7 @@ export class RecenzijaService{
         /*const slika = new FormData();
         slika.append('myFile',recenzija.foto,recenzija.foto.name);*/
         
-        return this.http.post(this.path+"/create",recenzija,{headers:this.headers});
+        return this.http.post(this.path+"/create",recenzija);
     }
 
     public delete(id:number){

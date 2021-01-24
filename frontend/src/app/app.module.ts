@@ -1,3 +1,6 @@
+import { TableRecenzijaComponent } from './table-recenzija/table-recenzija.component';
+import { YourReviewComponent } from './your-review/your-review.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 import { TableNovostComponent } from './table-novost/table-novost.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -55,7 +58,10 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
     EditTkpComponent,
     TableTkpComponent,
     ListTkpComponent,
-    MapaComponent
+    MapaComponent,
+    ReviewsComponent,
+    YourReviewComponent,
+    TableRecenzijaComponent
   ],
   imports: [
     BrowserModule,

@@ -27,12 +27,11 @@
 </div>
 <div class="w-50 h-100 p-5" style="float:left;">
     <h4>Average grade: {{prosecnaOcena}}</h4>
-    <form (ngSubmit)="recenzije()"><button >Reviews</button><br/></form>
-    <form (ngSubmit)="dajRecenziju()"><button *ngIf="uloga==='ROLE_USER'" >Add review</button><br/></form>
-    <button *ngIf="uloga==='ROLE_ADMIN'">Change</button><br/>
+    <form (ngSubmit)="recenzije()"><button >Reviews</button><br/></form><br/>
+    <form (ngSubmit)="dajRecenziju()"><button *ngIf="uloga==='ROLE_USER'" >Add review</button><br/></form><br/>
+    <button *ngIf="uloga==='ROLE_ADMIN'">Change</button><br/><br/>
     <button *ngIf="uloga==='ROLE_ADMIN'">Delete</button><br/>
-</div>
-<div class="w-50 h-100 p-5" style="float:left;">
+
     <h4>News</h4>
 	<div class="row">
 		<div class="col">
