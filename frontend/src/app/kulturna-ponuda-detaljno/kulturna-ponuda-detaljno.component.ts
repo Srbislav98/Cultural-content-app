@@ -68,12 +68,13 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
         this.prosecnaOcena = result;
       }
     )
-    this.kulService.getNovostiPage(this.currentPage,this.pageSize, this.id).subscribe(
+    this.kulService.getNovostiPage(this.currentPage-1,this.pageSize, this.id).subscribe(
 			res => {
 				//console.log(res);
 				//console.log(res.body.totalPages);
 				this.subList = res.body.content as Novost[];
-				this.totalSize = Number(res.body.totalElements);
+        this.totalSize = Number(res.body.totalElements);
+        console.log(res);
 			}
     );
     this.daLiJeSubscribe();

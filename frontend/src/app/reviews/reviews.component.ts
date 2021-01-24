@@ -43,7 +43,7 @@ export class ReviewsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.kulService.getRecenzijePage(this.currentPage, this.pageSize,this.id).subscribe(
+    this.kulService.getRecenzijePage(this.currentPage-1, this.pageSize,this.id).subscribe(
 			res => {
 				
 				this.subList = res.body.content as Recenzija[];
