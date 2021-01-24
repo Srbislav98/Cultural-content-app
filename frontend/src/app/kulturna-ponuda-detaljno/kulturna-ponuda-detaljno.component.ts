@@ -7,7 +7,7 @@ import { TipKulturnePonude } from './../MODELS/tipKulturnePonude';
 import { AuthenticationService } from './../SERVICES/authentication.service';
 import { KulturnaPonuda } from './../MODELS/kulturnaPonuda';
 import { KulturnaPonudaService } from './../SERVICES/kulturnaPonuda.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -24,9 +24,12 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
   tipKP = new TipKulturnePonude(1,"");
   uloga = "";
   prosecnaOcena = -1.0;
-  id = 100;
+  id:number;
+  temp:string | null;
+
   
-  idUser = 0;
+  
+  idUser=<number>{}
 
   totalSize:number;
   subList:Novost[] | undefined;
@@ -40,6 +43,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
   constructor(private fBuilder:FormBuilder,
     private router:Router,
     private kulService:KulturnaPonudaService,
+    private route:ActivatedRoute,
     private korService:ProfileService
     ) {
       this.kulForm = this.fBuilder.group({
@@ -50,17 +54,40 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
       this.totalSize = 1;
       this.daLiJe = true;
       this.vecDao=false;
+      this.temp=this.route.snapshot.paramMap.get('idKul');
+      if(this.temp != null)
+        this.id = Number.parseInt(this.temp);
+      else
+        this.id = 0;
+
+        this.korService.getId().subscribe(
+          res=>{
+            console.log("Ovde2!");
+            console.log(res);
+            this.idUser=res;
+            
+          }
+        );
+        
+      
+      
+      
       
   }
 
+  
+
   ngOnInit(): void {
     this.ucitajKulturnuPonudu();
+    
     const item = localStorage.getItem('user');
     const jwt: JwtHelperService = new JwtHelperService();
     const decodedItem = JSON.parse(item!);
     const info = jwt.decodeToken(decodedItem.accessToken);
     this.uloga = info['uloga'];
-    this.idUser = 1;
+    
+    
+    console.log("Ovde!");
     console.log(this.idUser);
 
     this.kulService.getProsecnaOcena(this.id).subscribe(
@@ -77,8 +104,16 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
         console.log(res);
 			}
     );
-    this.daLiJeSubscribe();
-    this.vecDaoReview();
+    this.korService.getId().subscribe(
+      res=>{
+        console.log("Ovde2!");
+        console.log(res);
+        this.idUser=res;
+        this.daLiJeSubscribe();
+        this.vecDaoReview();
+      }
+    );
+    
     
   }
 
@@ -107,7 +142,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
   subscribe():void{
     this.korService.addSub(this.id,this.idUser).subscribe(
       res=>{
-        this.router.navigate(['kulturna-ponuda-detaljno']);
+        this.router.navigate(['kulturna-ponuda-detaljno/'+this.id]);
         this.daLiJe=true;
       }
     );
@@ -118,7 +153,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
   unsubscribe():void{
     this.korService.deleteSub2(this.id,this.idUser).subscribe(
       res =>{
-        this.router.navigate(['kulturna-ponuda-detaljno']);
+        this.router.navigate(['kulturna-ponuda-detaljno/'+this.id]);
         this.daLiJe=false;
       }  
     );

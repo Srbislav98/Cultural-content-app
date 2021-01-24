@@ -164,6 +164,15 @@ public class RegistrovaniKorisnikController {
         RegistrovaniKorisnikDTO k = rkMapper.toDto(rk);
         return new ResponseEntity<Set<KulturnaPonudaDTO>>( k.getKulturnaPonuda(), HttpStatus.OK);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/getId", method = RequestMethod.GET)
+    public ResponseEntity<Integer> getId(){
+        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        Korisnik u=(Korisnik)auth.getPrincipal();
+        return new ResponseEntity<Integer>(u.getId(),HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/filter-by-location/{name}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnePonudebyNaziv(@PathVariable String name,Pageable pageable) {

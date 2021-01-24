@@ -53,7 +53,7 @@ export class ReviewsComponent implements OnInit {
   }
 
   natrag():void{
-    this.router.navigate(['/kulturna-ponuda-detaljno']);
+    this.router.navigate(['/kulturna-ponuda-detaljno/'+this.id.toString()]);
   }
 
   changePage(newPage: number) {

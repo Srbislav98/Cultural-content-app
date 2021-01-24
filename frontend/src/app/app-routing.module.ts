@@ -1,7 +1,8 @@
+import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
 import { AddNewsComponent } from './add-news/add-news.component';
 import { YourReviewComponent } from './your-review/your-review.component';
 import { ReviewsComponent } from './reviews/reviews.component';
-import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './login/login.component';
@@ -53,7 +54,7 @@ const routes: Routes = [
 		data: {expectedRoles: 'ROLE_USER'}
   },
   {
-    path : 'kulturna-ponuda-detaljno',
+    path : 'kulturna-ponuda-detaljno/:idKul',
     component : KulturnaPonudaDetaljnoComponent,
     //canActivate: [RoleGuard],
 		//data: {expectedRoles: 'ROLE_USER|ROLE_ADMIN'}
@@ -113,6 +114,12 @@ const routes: Routes = [
   {
     path : 'add-tkp',
     component : AddTkpComponent,
+    canActivate: [RoleGuard],
+		data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
+    path : 'add-kp',
+    component : AddKpComponent,
     canActivate: [RoleGuard],
 		data: {expectedRoles: 'ROLE_ADMIN'}
   },

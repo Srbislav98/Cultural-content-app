@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { User } from '../MODELS/user';
@@ -95,6 +96,10 @@ export class ProfileService {
 		//console.log(id2);
 		console.log(user);
 		return this.http.put('http://localhost:8080/api/registrovaniKorisnici'+`/${id1}`,user, {headers:headeri});
+	}
+
+	getId():Observable<any>{
+		return this.http.get<any>('http://localhost:8080/api/registrovaniKorisnici/getId',{headers:this.headers});
 	}
 
 }
