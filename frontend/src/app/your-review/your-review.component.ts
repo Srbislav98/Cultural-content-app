@@ -77,7 +77,7 @@ export class YourReviewComponent implements OnInit {
     this.recenzija.komentar = this.recForm.value["komentar"]; 
     
     this.recenzija.kulId = this.id;
-    this.recenzija.redId = 1;
+    this.recenzija.regId = 1;
     
     //if(imageInput.files[0]==null){
       
@@ -101,7 +101,7 @@ export class YourReviewComponent implements OnInit {
       reader.addEventListener('load', (event: any) => {
 
         this.selectedFile = new ImageSnippet(event.target.result, file);
-
+        
         this.selectedFile.pending = true;
         
         this.recenzija.foto=file;

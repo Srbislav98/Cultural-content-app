@@ -15,7 +15,7 @@ public class UcitavanjeRecenzije {
 
     private Integer kulId;
 
-
+    //private File foto;
 
 
 

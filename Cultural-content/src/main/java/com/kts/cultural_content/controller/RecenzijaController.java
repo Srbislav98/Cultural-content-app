@@ -57,6 +57,7 @@ public class RecenzijaController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/create",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RecenzijaDTO> createRecenzija(@RequestBody UcitavanjeRecenzije ucitavanjeRecenzije) {
+
         Recenzija recenzija;
         RecenzijaDTO recenzijaDTO = new RecenzijaDTO(ucitavanjeRecenzije.getId(),ucitavanjeRecenzije.getOcena(),ucitavanjeRecenzije.getKomentar(),ucitavanjeRecenzije.getRegId(),ucitavanjeRecenzije.getKulId(),null);
         try {
@@ -65,6 +66,7 @@ public class RecenzijaController {
             if(recenzijaDTO.getFoto()!=null)
                 if(ImageIO.read(recenzijaDTO.getFoto()) == null)
                     throw new Exception("Lose!");
+
             recenzija = recenzijaService.create(recenzijaMapper.toEntity(recenzijaDTO));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
