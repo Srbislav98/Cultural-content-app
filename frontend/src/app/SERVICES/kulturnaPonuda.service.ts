@@ -75,7 +75,25 @@ export class KulturnaPonudaService{
 		return this.http.get(this.path+'/getRecenzije/'+`${id}`, queryParams);
 
         //return this.http.get(this.path+"/getNovosti"+`/${id}`+"/by-page?page="+page+"&size=2",{headers:this.headers})
-    }
+	}
+	
+	searchAllReviews(content:number,page: number, size: number, id:number): Observable<any> {
+		let queryParams = {};
+
+		queryParams = {
+			headers:new HttpHeaders({
+				'Content-Type': 'application/json'
+			}),
+			observe: 'response',
+			params: new HttpParams()
+				.set('page', String(page))
+				.append('size', String(size)),
+		};
+		const headeri=new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
+		return this.http.get(this.path+'/filter-by-grade'+`/${content}`+"/kulturna"+`/${id}`, queryParams);
+	}
 
     public getProsecnaOcena(id:number):Observable<any>{
         return this.http.get<any>("http://localhost:8080/api/kulturnePonude/getProsecnaOcena"+`/${id}`);
@@ -83,7 +101,12 @@ export class KulturnaPonudaService{
 
     public getDaLiPostoji(idKul:number, idUser:number):Observable<any>{
         return this.http.get<any>(this.path+"/daLiSadrzi"+`/${idKul}`+"/registrovani"+`/${idUser}`, {headers:this.headers});
+	}
+	
+	public getVecPostojiReview(idKul:number, idUser:number):Observable<any>{
+        return this.http.get<any>(this.path+"/vecDaoReview"+`/${idKul}`+"/registrovani"+`/${idUser}`, {headers:this.headers});
     }
+
     deleteKP(id2: number): Observable<any> {
 		const headeri=new HttpHeaders({
 			'Content-Type': 'application/json'

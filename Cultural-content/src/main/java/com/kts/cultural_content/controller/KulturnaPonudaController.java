@@ -9,6 +9,7 @@ import com.kts.cultural_content.mapper.NovostMapper;
 import com.kts.cultural_content.model.*;
 import com.kts.cultural_content.service.KulturnaPonudaService;
 import com.kts.cultural_content.service.NovostService;
+import com.kts.cultural_content.service.RecenzijaService;
 import com.kts.cultural_content.service.RegistrovaniKorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,8 @@ public class KulturnaPonudaController {
     private KulturnaPonudaService kulturnaPonudaService;
     @Autowired
     private RegistrovaniKorisnikService rkService;
+    @Autowired
+    private RecenzijaService recenzijaService;
 
     private KulturnaPonudaMapper kulturnaPonudaMapper;
 
@@ -288,6 +291,58 @@ public class KulturnaPonudaController {
         }
         Page<RecenzijaDTO> novostDTOPage = new PageImpl<>(nDTOS,pageable,kulturnaPonuda.getRecenzije().size());
         return new ResponseEntity<Page<RecenzijaDTO>>(novostDTOPage, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/filter-by-grade/{content}/kulturna/{id}", method = RequestMethod.GET)
+    public ResponseEntity< Page<RecenzijaDTO>> getKulturnaPonudaRecenzije(@PathVariable Integer id, @PathVariable Integer content, Pageable pageable){
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
+        if (kulturnaPonuda == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<Recenzija> recenzijas = recenzijaService.filterByGrade(content,id);
+        KulturnaPonudaDTO k = kulturnaPonudaMapper.toDto(kulturnaPonuda);
+        //NovostMapper novostMapper = null;
+        List<RecenzijaDTO> nDTOS = new ArrayList<>();
+        int pocetak = pageable.getPageNumber()*pageable.getPageSize();
+        int kreni = 0, moze = pageable.getPageSize();
+        ArrayList<RecenzijaDTO> nPonude = new ArrayList<RecenzijaDTO>();
+        for( Recenzija nov: kulturnaPonuda.getRecenzije()){
+            for(Recenzija recenzija:recenzijas) {
+                if (nov.getId()==recenzija.getId()) {
+                    RecenzijaDTO test = new RecenzijaDTO(nov.getId(), nov.getOcena(), nov.getKomentar(), nov.getRegId(), nov.getKulId(), nov.getFoto());
+                    nPonude.add(test);
+                }
+            }
+        }
+        //Collections.sort(nPonude, null);
+        //nPonude = bubble_sort(nPonude);
+        for(RecenzijaDTO kpa : nPonude){
+            if(pocetak==kreni && moze>0){
+                nDTOS.add(kpa);
+                moze--;
+                pocetak++;
+            }
+            kreni++;
+        }
+        Page<RecenzijaDTO> novostDTOPage = new PageImpl<>(nDTOS,pageable,kulturnaPonuda.getRecenzije().size());
+        return new ResponseEntity<Page<RecenzijaDTO>>(novostDTOPage, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/vecDaoReview/{id}/registrovani/{id2}", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> getVecDaoReview(@PathVariable Integer id, @PathVariable Integer id2){
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
+        if (kulturnaPonuda == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Boolean ima = false;
+        for(Recenzija recenzija:kulturnaPonuda.getRecenzije()){
+            if (recenzija.getRegistrovaniKorisnik().getId()==id2){
+                ima = true;
+                break;
+            }
+        }
+        return new ResponseEntity<Boolean>(ima, HttpStatus.OK);
     }
 
     public KulturnaPonudaController() {

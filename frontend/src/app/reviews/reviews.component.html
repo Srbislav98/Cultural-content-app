@@ -1,5 +1,13 @@
 <div class="w-50 h-100 p-5" style="float:left;">
-    <h4>Recenzije</h4>
+	<h4>Recenzije</h4>
+	<form [formGroup]="recForm" (ngSubmit)="filter()" class="form-inline">
+		<div class="form-group mx-sm-0 mb-2">
+		  <select name = "ocena" id="ocena" placeholder="search by content..." formControlName="ocena">
+            <option *ngFor="let ocene of oceneLista" value="{{ocene}}">{{ocene}}</option>
+         </select>
+		</div>
+		<button type="submit" class="btn btn-secondary mb-2">Search</button>
+	</form>
 	<div class="row">
 		<div class="col">
 			<app-table-recenzija [recenzije]="subList"></app-table-recenzija>

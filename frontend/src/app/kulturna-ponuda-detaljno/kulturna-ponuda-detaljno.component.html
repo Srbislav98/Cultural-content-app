@@ -1,15 +1,13 @@
 <div class="w-50 h-100 p-5" style="float:left;">
     <div>
-        <h2><img src="assets/img/R6eb915d96d4c990aaf152a70c5fb54a9.png">
-        {{kP.naziv}}</h2>
-        <button *ngIf="uloga==='ROLE_ADMIN'">Add news</button>
-    <br/>
+        <h2><img src="assets/img/R6eb915d96d4c990aaf152a70c5fb54a9.png"><br/>
+            Name: {{kP.naziv}}</h2>
     </div>
     <div>
-        <h4>Type of cultural offer: {{tipKP.naziv}}</h4>
+        <h3>Type of cultural offer: {{tipKP.naziv}}</h3>
     </div><div>
-        <h5>Description</h5>
-        <h6>{{kP.opis}}</h6>
+        <h4>Description</h4>
+        <h4>{{kP.opis}}</h4>
     </div><div>
         
         <form *ngIf="!daLiJe; else elseBlock" (ngSubmit)="subscribe()">
@@ -28,10 +26,13 @@
 <div class="w-50 h-100 p-5" style="float:left;">
     <h4>Average grade: {{prosecnaOcena}}</h4>
     <form (ngSubmit)="recenzije()"><button >Reviews</button><br/></form><br/>
-    <form (ngSubmit)="dajRecenziju()"><button *ngIf="uloga==='ROLE_USER'" >Add review</button><br/></form><br/>
+    <form (ngSubmit)="dajRecenziju()" ><button *ngIf="uloga==='ROLE_USER' && !vecDao" >Add review</button><br/></form>
+    <h3 *ngIf="uloga==='ROLE_USER' && vecDao">You have already given review for this cultural offer.</h3>
+    <br/>
     <button *ngIf="uloga==='ROLE_ADMIN'">Change</button><br/><br/>
-    <button *ngIf="uloga==='ROLE_ADMIN'">Delete</button><br/>
-
+    <button *ngIf="uloga==='ROLE_ADMIN'">Delete</button><br/><br/>
+    
+    <form (ngSubmit)="dodajVest()"><button *ngIf="uloga==='ROLE_ADMIN'">Add news</button></form>
     <h4>News</h4>
 	<div class="row">
 		<div class="col">
