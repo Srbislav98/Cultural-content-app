@@ -324,7 +324,7 @@ public class KulturnaPonudaController {
             }
             kreni++;
         }
-        Page<RecenzijaDTO> novostDTOPage = new PageImpl<>(nDTOS,pageable,kulturnaPonuda.getRecenzije().size());
+        Page<RecenzijaDTO> novostDTOPage = new PageImpl<>(nDTOS,pageable,nPonude.size());
         return new ResponseEntity<Page<RecenzijaDTO>>(novostDTOPage, HttpStatus.OK);
     }
 

@@ -1,3 +1,4 @@
+import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
 import { TableRecenzijaComponent } from './table-recenzija/table-recenzija.component';
 import { YourReviewComponent } from './your-review/your-review.component';
 import { ReviewsComponent } from './reviews/reviews.component';
@@ -17,7 +18,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Interceptor } from './interceptors/intercept.service';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
-import { KulturnaPonudaDetaljnoComponent } from './kulturna-ponuda-detaljno/kulturna-ponuda-detaljno.component';
 import { ProfilComponent } from './profil/profil.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { TableComponent } from './subscriptions/table/table.component';

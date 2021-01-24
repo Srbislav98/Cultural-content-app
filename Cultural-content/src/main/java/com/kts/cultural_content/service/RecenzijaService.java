@@ -46,11 +46,15 @@ public class RecenzijaService implements ServiceInterface<Recenzija> {
     public Recenzija create(Recenzija entity) throws Exception {
 
         entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
+
         entity.setRegistrovaniKorisnik(registrovaniKorisnikRepository.findById(entity.getRegId()).orElse(null));
+
         if(entity.getFoto()!=null) {
+
             entity.setFotogrfija(new Fotografija(0, "",entity.getFoto(),entity.getKulturnaPonuda().getId(), entity.getRegistrovaniKorisnik().getId()));
 
         }
+
         return recenzijaRepository.save(entity);
     }
 

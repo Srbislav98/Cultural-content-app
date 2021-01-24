@@ -1,3 +1,4 @@
+import { ProfileService } from './../SERVICES/profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { Recenzija} from './../MODELS/recenzija';
 import { RecenzijaService } from './../SERVICES/recenzija.service';
@@ -39,7 +40,8 @@ export class YourReviewComponent implements OnInit {
     private router:Router,
     private route:ActivatedRoute,
     private recService:RecenzijaService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private profilService:ProfileService
   ) {
     this.oceneLista = [1,2,3,4,5];
     this.temp=this.route.snapshot.paramMap.get('idKul');
@@ -58,7 +60,7 @@ export class YourReviewComponent implements OnInit {
   }
 
   natrag(){
-    this.router.navigate(['/kulturna-ponuda-detaljno']);
+    this.router.navigate(['/kulturna-ponuda-detaljno/'+this.id]);
   }
 
   private onSuccess() {
@@ -77,21 +79,27 @@ export class YourReviewComponent implements OnInit {
     this.recenzija.komentar = this.recForm.value["komentar"]; 
     
     this.recenzija.kulId = this.id;
-    this.recenzija.redId = 1;
+    this.profilService.getId().subscribe(
+      res=>{
+        this.recenzija.regId = res;
+        this.recService.create(this.recenzija).subscribe(
+          data=>{
+            this.toastr.success('Review successfuly made!');
+            this.recForm.reset();
+            this.router.navigate(['/kulturna-ponuda-detaljno/'+this.id.toString()]);
+          },
+          error=>{
+            this.toastr.error("Review failed to be made!");
+  
+          }
+        )
+      }
+    )
+    
     
     //if(imageInput.files[0]==null){
       
-      this.recService.create(this.recenzija).subscribe(
-        data=>{
-          this.toastr.success('Review successfuly made!');
-          this.recForm.reset();
-          this.router.navigate(['/kulturna-ponuda-detaljno']);
-        },
-        error=>{
-          this.toastr.error("Review failed to be made!");
-
-        }
-      )
+      
     /*}else{
       
       const file: File = imageInput.files[0];
@@ -101,7 +109,7 @@ export class YourReviewComponent implements OnInit {
       reader.addEventListener('load', (event: any) => {
 
         this.selectedFile = new ImageSnippet(event.target.result, file);
-
+        
         this.selectedFile.pending = true;
         
         this.recenzija.foto=file;

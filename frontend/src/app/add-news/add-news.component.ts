@@ -40,7 +40,7 @@ export class AddNewsComponent implements OnInit {
   }
 
   natrag(){
-    this.router.navigate(['/kulturna-ponuda-detaljno']);
+    this.router.navigate(['/kulturna-ponuda-detaljno/'+this.id]);
   }
 
   napravi(){
@@ -51,7 +51,7 @@ export class AddNewsComponent implements OnInit {
       data=>{
         this.toastr.success('Successfuly made news.');
           this.novForm.reset();
-          this.router.navigate(['/kulturna-ponuda-detaljno']);
+          this.router.navigate(['/kulturna-ponuda-detaljno/'+this.id.toString()]);
       },
       error=>{
         this.toastr.error("Fialed to make news.");

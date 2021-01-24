@@ -20,7 +20,7 @@
         </ng-template>
         &nbsp;
         <form (ngSubmit)="natrag()">
-        <button type="submit">Natrag</button></form>
+        <button type="submit">Back</button></form>
     </div>
 </div>
 <div class="w-50 h-100 p-5" style="float:left;">
@@ -29,8 +29,8 @@
     <form (ngSubmit)="dajRecenziju()" ><button *ngIf="uloga==='ROLE_USER' && !vecDao" >Add review</button><br/></form>
     <h3 *ngIf="uloga==='ROLE_USER' && vecDao">You have already given review for this cultural offer.</h3>
     <br/>
-    <button *ngIf="uloga==='ROLE_ADMIN'">Change</button><br/><br/>
-    <button *ngIf="uloga==='ROLE_ADMIN'">Delete</button><br/><br/>
+    <button *ngIf="uloga==='ROLE_ADMIN'" routerLink="/edit-kp/{{id}}">Edit</button><br/><br/>
+    <!--<button *ngIf="uloga==='ROLE_ADMIN'">Delete</button><br/><br/>-->
     
     <form (ngSubmit)="dodajVest()"><button *ngIf="uloga==='ROLE_ADMIN'">Add news</button></form>
     <h4>News</h4>
