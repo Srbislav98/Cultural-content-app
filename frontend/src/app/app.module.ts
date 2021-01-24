@@ -34,6 +34,10 @@ import { TableTkpComponent } from './tipKulturnePonude/table-tkp/table-tkp.compo
 import { ListTkpComponent } from './tipKulturnePonude/list-tkp/list-tkp.component';
 import { MapaComponent } from './mapa/mapa.component';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
+import { NavbarComponent } from './navbar/navbar.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import { AddNewsComponent } from './add-news/add-news.component';
 
 @NgModule({
@@ -63,6 +67,7 @@ import { AddNewsComponent } from './add-news/add-news.component';
     ReviewsComponent,
     YourReviewComponent,
     TableRecenzijaComponent,
+    NavbarComponent,
     AddNewsComponent
   ],
   imports: [
@@ -74,7 +79,10 @@ import { AddNewsComponent } from './add-news/add-news.component';
     NgSelectModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
-    AngularYandexMapsModule
+    AngularYandexMapsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
   bootstrap: [AppComponent]

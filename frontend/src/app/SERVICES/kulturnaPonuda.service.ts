@@ -10,9 +10,9 @@ import { Subscription } from '../MODELS/subscription';
 @Injectable({ providedIn: 'root' })
 export class KulturnaPonudaService{
     private headers = new HttpHeaders({'Content-Type': 'application/json'});
-    
+
     private readonly path = "http://localhost:8080/api/kulturnePonude";
-    
+
     constructor(
         private http:HttpClient
         ){}
@@ -32,7 +32,7 @@ export class KulturnaPonudaService{
     public getByPage(page:number): Observable<any>{
         return this.http.get(this.path+"/by-page?page="+page+"&size=2", {headers:this.headers})
 	}
-	
+
 	public getTKPByPage(page:number): Observable<any>{
         return this.http.get("http://localhost:8080/api/tipoviKP"+"/by-page?page="+page+"&size=2", {headers:this.headers})
     }
@@ -76,7 +76,7 @@ export class KulturnaPonudaService{
 
         //return this.http.get(this.path+"/getNovosti"+`/${id}`+"/by-page?page="+page+"&size=2",{headers:this.headers})
 	}
-	
+
 	searchAllReviews(content:number,page: number, size: number, id:number): Observable<any> {
 		let queryParams = {};
 
@@ -102,7 +102,7 @@ export class KulturnaPonudaService{
     public getDaLiPostoji(idKul:number, idUser:number):Observable<any>{
         return this.http.get<any>(this.path+"/daLiSadrzi"+`/${idKul}`+"/registrovani"+`/${idUser}`, {headers:this.headers});
 	}
-	
+
 	public getVecPostojiReview(idKul:number, idUser:number):Observable<any>{
         return this.http.get<any>(this.path+"/vecDaoReview"+`/${idKul}`+"/registrovani"+`/${idUser}`, {headers:this.headers});
     }
@@ -134,7 +134,7 @@ export class KulturnaPonudaService{
 		const headeri=new HttpHeaders({
 			'Content-Type': 'application/json'
 		});
-		return this.http.get('http://localhost:8080/api/kulturnePonude/filter-by-location/by-page'+`/${content}`, queryParams);
+		return this.http.get('http://localhost:8080/api/kulturnePonude/filter-by-content-page'+`/${content}`, queryParams);
 	}
 	addKP(sub: Subscription): Observable<any> {
 		const headeri=new HttpHeaders({

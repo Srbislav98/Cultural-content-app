@@ -86,10 +86,6 @@ const routes: Routes = [
   {
     path : 'kulturne-ponude',
     component : ListKpComponent,
-    canActivate: [RoleGuard],
-    data: {expectedRoles: 'ROLE_ADMIN'},
-    children: [
-    ]
   },
   {
     path : 'tip-kulturne-ponude',

@@ -5,8 +5,8 @@
         <th>Naziv <button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
         <th>Adresa<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
         <th></th>
-        <th></th>
-        <th></th>
+        <th *ngIf="uloga==='ROLE_ADMIN'"></th>
+        <th *ngIf="uloga==='ROLE_ADMIN'"></th>
       </tr>
     </thead>
     <tbody>
@@ -20,14 +20,14 @@
         <td>
           <a class="btn btn-info" routerLink="/kulturna-ponuda-detaljno/{{subscription.id}}" role="button">Detailed</a>
         </td>
-        <td>
+        <td *ngIf="uloga==='ROLE_ADMIN'">
             <a class="btn btn-secondary" routerLink="/edit-kp/{{subscription.id}}" role="button">Edit</a>
         </td>
-        <td>
+        <td *ngIf="uloga==='ROLE_ADMIN'">
           <button button type="button" class="btn btn-danger" (click)="Obrisi(subscription)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
-  
+
 

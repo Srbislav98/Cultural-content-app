@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  <button mat-mini-fab  (click)="goToHome()">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span class="lilspace"></span>
+  <span>Cultural content app</span>
+  <span class="bigspace"></span>
+  <div *ngIf="role===undefined">
+    <button mat-raised-button color="accent" (click)="goToLogIn()">Login</button>
+    <span class="lilspace"></span>
+    <button mat-raised-button color="accent" (click)="goToRegistration()">Register</button>
+  </div>
+  <div *ngIf="role==='ROLE_USER'">
+    <button mat-raised-button color="accent" (click)="goToProfile()">Profile</button>
+    <span class="lilspace"></span>
+    <button mat-raised-button color="accent" (click)="logOut()">Log out</button>
+  </div>
+  <div *ngIf="role==='ROLE_ADMIN'">
+    <button mat-raised-button color="accent" (click)="logOut()">Log out</button>
+  </div>
+
+</mat-toolbar>
