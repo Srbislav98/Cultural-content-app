@@ -57,6 +57,26 @@ export class KulturnaPonudaService{
         //return this.http.get(this.path+"/getNovosti"+`/${id}`+"/by-page?page="+page+"&size=2",{headers:this.headers})
     }
 
+    public getRecenzijePage(page:number,size:number, id:number):Observable<any>{
+        let queryParams = {};
+
+		queryParams = {
+			headers:new HttpHeaders({
+				'Content-Type': 'application/json'
+			}),
+			observe: 'response',
+			params: new HttpParams()
+				.set('page', String(page))
+				.append('size', String(size)),
+		};
+		const headeri=new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
+		return this.http.get(this.path+'/getRecenzije/'+`${id}`, queryParams);
+
+        //return this.http.get(this.path+"/getNovosti"+`/${id}`+"/by-page?page="+page+"&size=2",{headers:this.headers})
+    }
+
     public getProsecnaOcena(id:number):Observable<any>{
         return this.http.get<any>("http://localhost:8080/api/kulturnePonude/getProsecnaOcena"+`/${id}`);
     }

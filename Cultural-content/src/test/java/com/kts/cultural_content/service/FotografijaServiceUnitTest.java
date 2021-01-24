@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +46,8 @@ public class FotografijaServiceUnitTest {
     @Before
     public void setup(){
         List<Fotografija> Fotografijas = new ArrayList<>();
-        Fotografijas.add(new Fotografija(NEW_Fotografija_DOBRO,1,100));
-        Fotografijas.add(new Fotografija("C:/Users/Kssbc/Documents/GitHub/KTSNWT2020_T5/Cultural-content/Slike/OIP.jpg",1,100));
+        Fotografijas.add(new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100));
+        Fotografijas.add(new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100));
 
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE,PAGEABLE_SIZE);
         Page<Fotografija> FotografijaPage = new PageImpl<>(Fotografijas, pageable, PAGEABLE_TOTAL_ELEMENTS);
@@ -55,13 +56,13 @@ public class FotografijaServiceUnitTest {
 
         given(fotografijaRepository.findAll(pageable)).willReturn(FotografijaPage);
 
-        Fotografija Fotografija = new Fotografija(NEW_Fotografija_DOBRO,1,100);
-        Fotografija savedFotografija = new Fotografija(NEW_Fotografija_DOBRO,1,100);
+        Fotografija Fotografija = new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
+        Fotografija savedFotografija = new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
         savedFotografija.setId(VEC_KREIRANA_Fotografija);
 
         given(fotografijaRepository.findById(VEC_KREIRANA_Fotografija)).willReturn(java.util.Optional.of(savedFotografija));
 
-        Fotografija FotografijaFound = new Fotografija(NEW_Fotografija_DOBRO, 1,100);
+        Fotografija FotografijaFound = new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
         FotografijaFound.setId(VEC_KREIRANA_Fotografija2);
         given(fotografijaRepository.findById(VEC_KREIRANA_Fotografija2)).willReturn(java.util.Optional.of(FotografijaFound));
 
@@ -109,7 +110,7 @@ public class FotografijaServiceUnitTest {
 
     @Test
     public void testCreate() throws Exception {
-        Fotografija Fotografija = new Fotografija(NEW_Fotografija_DOBRO,100,100);
+        Fotografija Fotografija = new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
         Fotografija created = fotografijaService.create(Fotografija);
 
         //verify(oRepository, times(1)).findById(VEC_KREIRANA_Fotografija);
@@ -131,7 +132,7 @@ public class FotografijaServiceUnitTest {
 
     @Test
     public void testUpdate() throws Exception {
-        Fotografija Fotografija = new Fotografija(NEW_Fotografija_DOBRO,100,100);
+        Fotografija Fotografija = new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
         Fotografija created = fotografijaService.update(Fotografija,VEC_KREIRANA_Fotografija );
 
 
@@ -156,7 +157,7 @@ public class FotografijaServiceUnitTest {
     public void testDelete() throws Exception {
         fotografijaService.delete(VEC_KREIRANA_Fotografija);
 
-        Fotografija savedFotografija = new Fotografija(NEW_Fotografija_DOBRO,1,100);
+        Fotografija savedFotografija = new Fotografija(0,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
         savedFotografija.setId(VEC_KREIRANA_Fotografija);
 
         verify(fotografijaRepository, times(1)).findById(VEC_KREIRANA_Fotografija);

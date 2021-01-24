@@ -18,6 +18,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.List;
 
 import static com.kts.cultural_content.constants.FotografijaConstants.*;
@@ -128,7 +129,7 @@ public class FotografijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        FotografijaDTO o = new FotografijaDTO(null, NEW_Fotografija_DOBRO, 1,100);
+        FotografijaDTO o = new FotografijaDTO(null, NEW_Fotografija_DOBRO, new File(NEW_Fotografija_DOBRO), 1,100);
 
         HttpEntity<FotografijaDTO> httpEntity = new HttpEntity<FotografijaDTO>(o,headers);
 
@@ -158,7 +159,7 @@ public class FotografijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        FotografijaDTO o = new FotografijaDTO(null, NEW_Fotografija_LOSE, 1,100);
+        FotografijaDTO o = new FotografijaDTO(null, NEW_Fotografija_LOSE,new File(NEW_Fotografija_DOBRO), 1,100);
 
         HttpEntity<FotografijaDTO> httpEntity = new HttpEntity<FotografijaDTO>(o,headers);
 
@@ -184,7 +185,7 @@ public class FotografijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        FotografijaDTO o = new FotografijaDTO(null,NEW_Fotografija_DOBRO,1,100);
+        FotografijaDTO o = new FotografijaDTO(null,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
 
         HttpEntity<FotografijaDTO> httpEntity = new HttpEntity<FotografijaDTO>(o,headers);
 
@@ -216,7 +217,7 @@ public class FotografijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        FotografijaDTO o = new FotografijaDTO(null,NEW_Fotografija_DOBRO,1,100);
+        FotografijaDTO o = new FotografijaDTO(null,NEW_Fotografija_DOBRO,new File(NEW_Fotografija_DOBRO),1,100);
 
         HttpEntity<FotografijaDTO> httpEntity = new HttpEntity<FotografijaDTO>(o,headers);
 
@@ -240,7 +241,7 @@ public class FotografijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        FotografijaDTO o = new FotografijaDTO(null,NEW_Fotografija_LOSE,1,100);
+        FotografijaDTO o = new FotografijaDTO(null,NEW_Fotografija_LOSE,new File(NEW_Fotografija_DOBRO),1,100);
 
         HttpEntity<FotografijaDTO> httpEntity = new HttpEntity<FotografijaDTO>(o,headers);
 

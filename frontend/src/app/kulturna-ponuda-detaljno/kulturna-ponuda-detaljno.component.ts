@@ -114,6 +114,14 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  recenzije():void{
+    this.router.navigate(['/reviews/'+this.id.toString()]);
+  }
+
+  dajRecenziju():void{
+    this.router.navigate(['/your-review/'+this.id.toString()]);
+  }
+
   changePage(newPage: number) {
 		this.kulService.getNovostiPage(newPage - 1, this.pageSize,this.id).subscribe(
 			res => {

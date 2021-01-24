@@ -2,6 +2,7 @@ package com.kts.cultural_content.controller;
 
 
 import com.kts.cultural_content.dto.RecenzijaDTO;
+import com.kts.cultural_content.dto.UcitavanjeRecenzije;
 import com.kts.cultural_content.mapper.RecenzijaMapper;
 import com.kts.cultural_content.model.Recenzija;
 import com.kts.cultural_content.service.RecenzijaService;
@@ -14,9 +15,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,13 +56,14 @@ public class RecenzijaController {
     }
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/create",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RecenzijaDTO> createRecenzija(@RequestBody RecenzijaDTO recenzijaDTO){
+    public ResponseEntity<RecenzijaDTO> createRecenzija(@RequestBody UcitavanjeRecenzije ucitavanjeRecenzije) {
         Recenzija recenzija;
+        RecenzijaDTO recenzijaDTO = new RecenzijaDTO(ucitavanjeRecenzije.getId(),ucitavanjeRecenzije.getOcena(),ucitavanjeRecenzije.getKomentar(),ucitavanjeRecenzije.getRegId(),ucitavanjeRecenzije.getKulId(),null);
         try {
             if (recenzijaDTO.getOcena()>5 || recenzijaDTO.getOcena()<1 || recenzijaDTO.getKomentar().equals(""))
                 throw new Exception("Lose!");
-            if(!recenzijaDTO.getFotoLokacija().equals(""))
-                if(ImageIO.read(new File(recenzijaDTO.getFotoLokacija())) == null)
+            if(recenzijaDTO.getFoto()!=null)
+                if(ImageIO.read(recenzijaDTO.getFoto()) == null)
                     throw new Exception("Lose!");
             recenzija = recenzijaService.create(recenzijaMapper.toEntity(recenzijaDTO));
         } catch (Exception e) {
@@ -73,8 +77,11 @@ public class RecenzijaController {
     public ResponseEntity<RecenzijaDTO> updateRecenzija(@RequestBody RecenzijaDTO recenzijaDTO, @PathVariable Integer id){
         Recenzija recenzija;
         try {
-            if (recenzijaDTO.getOcena()>5 || recenzijaDTO.getOcena()<1 || recenzijaDTO.getKomentar().equals("") || ImageIO.read(new File(recenzijaDTO.getFotoLokacija())) == null)
+            if (recenzijaDTO.getOcena()>5 || recenzijaDTO.getOcena()<1 || recenzijaDTO.getKomentar().equals("") )
                 throw new Exception("Lose!");
+            if(recenzijaDTO.getFoto()!=null)
+                if(ImageIO.read(recenzijaDTO.getFoto()) == null)
+                    throw new Exception("Lose!");
             recenzija = recenzijaService.update(recenzijaMapper.toEntity(recenzijaDTO), id);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

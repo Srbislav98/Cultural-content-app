@@ -19,6 +19,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.List;
 
 import static com.kts.cultural_content.constants.RecenzijaConstants.*;
@@ -128,7 +129,7 @@ public class RecenzijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
+        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
 
         HttpEntity<RecenzijaDTO> httpEntity = new HttpEntity<RecenzijaDTO>(o,headers);
 
@@ -142,12 +143,12 @@ public class RecenzijaControllerIntegrationTest {
         assertNotNull(Recenzija);
         assertEquals(NEW_OCENA_DOBRO, Recenzija.getOcena());
         assertEquals(NEW_Komentar_DOBRO, Recenzija.getKomentar());
-        assertEquals(NEW_Fotografija_DOBRO, Recenzija.getFotoLokacija());
+        assertEquals(NEW_Fotografija_DOBRO, Recenzija.getFoto());
 
         List<com.kts.cultural_content.model.Recenzija> Recenzijai = RecenzijaService.findAll();
         assertEquals(size+1, Recenzijai.size());
         assertEquals(NEW_OCENA_DOBRO, Recenzijai.get(Recenzijai.size()-1).getOcena());
-        assertEquals(NEW_Fotografija_DOBRO, Recenzijai.get(Recenzijai.size()-1).getFotoLokacija());
+        assertEquals(NEW_Fotografija_DOBRO, Recenzijai.get(Recenzijai.size()-1).getFoto());
         assertEquals(NEW_Komentar_DOBRO, Recenzijai.get(Recenzijai.size()-1).getKomentar());
 
         RecenzijaService.delete(Recenzija.getId());
@@ -162,7 +163,7 @@ public class RecenzijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        RecenzijaDTO o = new RecenzijaDTO(null,  NEW_OCENA_LOSE, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
+        RecenzijaDTO o = new RecenzijaDTO(null,  NEW_OCENA_LOSE, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
 
         HttpEntity<RecenzijaDTO> httpEntity = new HttpEntity<RecenzijaDTO>(o,headers);
 
@@ -188,7 +189,7 @@ public class RecenzijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
+        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
 
         HttpEntity<RecenzijaDTO> httpEntity = new HttpEntity<RecenzijaDTO>(o,headers);
 
@@ -223,7 +224,7 @@ public class RecenzijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
+        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
 
         HttpEntity<RecenzijaDTO> httpEntity = new HttpEntity<RecenzijaDTO>(o,headers);
 
@@ -247,7 +248,7 @@ public class RecenzijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_LOSE, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
+        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_LOSE, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
 
         HttpEntity<RecenzijaDTO> httpEntity = new HttpEntity<RecenzijaDTO>(o,headers);
 

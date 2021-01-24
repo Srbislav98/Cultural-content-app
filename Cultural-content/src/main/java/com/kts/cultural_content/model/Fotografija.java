@@ -37,8 +37,10 @@ public class Fotografija {
     public Fotografija() {
     }
 
-    public Fotografija(String lokacijaFajl, Integer kulId, Integer recId) {
+    public Fotografija(Integer id, String lokacijaFajl, File foto, Integer kulId, Integer recId) {
+        this.id = id;
         this.lokacijaFajl = lokacijaFajl;
+        this.foto = foto;
         this.kulId = kulId;
         this.recId = recId;
     }

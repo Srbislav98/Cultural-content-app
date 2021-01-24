@@ -1,0 +1,19 @@
+<div class="w-50 h-100 p-5" style="float:left;">
+    <h4>Recenzije</h4>
+	<div class="row">
+		<div class="col">
+			<app-table-recenzija [recenzije]="subList"></app-table-recenzija>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<app-pagination [totalItems]="totalSize" [pageSize]="pageSize"
+				(pageSelected)="changePage($event)">
+			</app-pagination>
+		</div>
+	</div>
+</div>
+<div class="w-50 h-100 p-5" style="float:left;">
+    <form (ngSubmit)="natrag()">
+        <button type="submit">Natrag</button></form>
+</div>

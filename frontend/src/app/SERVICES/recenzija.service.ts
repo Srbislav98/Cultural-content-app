@@ -7,7 +7,7 @@ import { Recenzija } from '../MODELS/recenzija';
 export class RecenzijaService{
     private headers = new HttpHeaders({'Content-Type':'application/json'})
 
-    private readonly path = "/api/recenzije";
+    private readonly path = "http://localhost:8080/api/recenzije";
 
     constructor(
         private http:HttpClient
@@ -26,11 +26,14 @@ export class RecenzijaService{
     }
 
     public update(recenzija:Recenzija, id:number){
-        return this.http.put(this.path+"/update"+`/${id}`,recenzija,{headers:this.headers});
+        return this.http.put(this.path+"/update"+`/${id}`,recenzija);
     }
 
     public create(recenzija:Recenzija){
-        return this.http.post(this.path+"/create",recenzija,{headers:this.headers});
+        /*const slika = new FormData();
+        slika.append('myFile',recenzija.foto,recenzija.foto.name);*/
+        
+        return this.http.post(this.path+"/create",recenzija);
     }
 
     public delete(id:number){

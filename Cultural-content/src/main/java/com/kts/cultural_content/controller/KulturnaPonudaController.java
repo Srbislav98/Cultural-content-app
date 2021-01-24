@@ -2,13 +2,11 @@ package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.KulturnaPonudaDTO;
 import com.kts.cultural_content.dto.NovostDTO;
+import com.kts.cultural_content.dto.RecenzijaDTO;
 import com.kts.cultural_content.dto.RegistrovaniKorisnikDTO;
 import com.kts.cultural_content.mapper.KulturnaPonudaMapper;
 import com.kts.cultural_content.mapper.NovostMapper;
-import com.kts.cultural_content.model.Korisnik;
-import com.kts.cultural_content.model.KulturnaPonuda;
-import com.kts.cultural_content.model.Novost;
-import com.kts.cultural_content.model.RegistrovaniKorisnik;
+import com.kts.cultural_content.model.*;
 import com.kts.cultural_content.service.KulturnaPonudaService;
 import com.kts.cultural_content.service.NovostService;
 import com.kts.cultural_content.service.RegistrovaniKorisnikService;
@@ -260,6 +258,36 @@ public class KulturnaPonudaController {
             }
         }
         return new ResponseEntity<Boolean>(ima, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getRecenzije/{id}", method = RequestMethod.GET)
+    public ResponseEntity< Page<RecenzijaDTO>> getKulturnaPonudaRecenzije(@PathVariable Integer id, Pageable pageable){
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
+        if (kulturnaPonuda == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        KulturnaPonudaDTO k = kulturnaPonudaMapper.toDto(kulturnaPonuda);
+        //NovostMapper novostMapper = null;
+        List<RecenzijaDTO> nDTOS = new ArrayList<>();
+        int pocetak = pageable.getPageNumber()*pageable.getPageSize();
+        int kreni = 0, moze = pageable.getPageSize();
+        ArrayList<RecenzijaDTO> nPonude = new ArrayList<RecenzijaDTO>();
+        for( Recenzija nov: kulturnaPonuda.getRecenzije()){
+            RecenzijaDTO test = new RecenzijaDTO(nov.getId(),nov.getOcena(),nov.getKomentar(),nov.getRegId(), nov.getKulId(),nov.getFoto());
+            nPonude.add(test);
+        }
+        //Collections.sort(nPonude, null);
+        //nPonude = bubble_sort(nPonude);
+        for(RecenzijaDTO kpa : nPonude){
+            if(pocetak==kreni && moze>0){
+                nDTOS.add(kpa);
+                moze--;
+                pocetak++;
+            }
+            kreni++;
+        }
+        Page<RecenzijaDTO> novostDTOPage = new PageImpl<>(nDTOS,pageable,kulturnaPonuda.getRecenzije().size());
+        return new ResponseEntity<Page<RecenzijaDTO>>(novostDTOPage, HttpStatus.OK);
     }
 
     public KulturnaPonudaController() {

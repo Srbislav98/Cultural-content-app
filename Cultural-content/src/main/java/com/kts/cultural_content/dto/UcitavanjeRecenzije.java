@@ -1,8 +1,10 @@
 package com.kts.cultural_content.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 
-public class RecenzijaDTO {
+public class UcitavanjeRecenzije {
     private Integer id;
 
     private Integer ocena;
@@ -13,29 +15,23 @@ public class RecenzijaDTO {
 
     private Integer kulId;
 
-    private File foto;
 
 
 
-    public RecenzijaDTO(Integer id, Integer ocena, String komentar, Integer regId, Integer kulId, File foto) {
+
+    public UcitavanjeRecenzije(Integer id, Integer ocena, String komentar, Integer regId, Integer kulId) {
         this.id = id;
         this.ocena = ocena;
         this.komentar = komentar;
         this.regId = regId;
         this.kulId = kulId;
-        this.foto = foto;
+
     }
 
-    public RecenzijaDTO() {
+    public UcitavanjeRecenzije() {
     }
 
-    public void setFoto(File foto) {
-        this.foto = foto;
-    }
 
-    public File getFoto() {
-        return foto;
-    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -78,8 +74,4 @@ public class RecenzijaDTO {
     public Integer getKulId() {
         return kulId;
     }
-
-
 }
-
-

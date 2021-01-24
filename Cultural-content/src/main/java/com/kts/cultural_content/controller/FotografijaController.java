@@ -46,8 +46,9 @@ public class FotografijaController {
     public ResponseEntity<FotografijaDTO> createFotografija(@RequestBody FotografijaDTO fotografijaDTO){
         Fotografija fotografija;
         try {
-            if( ImageIO.read(new File(fotografijaDTO.getLokacijaFajl())) == null)
-                throw new IOException("Ovo nije slika");
+            if (fotografijaDTO.getFoto()==null)
+                if( ImageIO.read(new File(fotografijaDTO.getLokacijaFajl())) == null)
+                    throw new IOException("Ovo nije slika");
             fotografija = fotografijaService.create(fotografijaMapper.toEntity(fotografijaDTO));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -60,8 +61,9 @@ public class FotografijaController {
     public ResponseEntity<FotografijaDTO> updateFotografija(@RequestBody FotografijaDTO fotografijaDTO, @PathVariable Integer id){
         Fotografija fotografija;
         try {
-            if( ImageIO.read(new File(fotografijaDTO.getLokacijaFajl())) == null)
-                throw new IOException("Ovo nije slika");
+            if (fotografijaDTO.getFoto()==null)
+                if( ImageIO.read(new File(fotografijaDTO.getLokacijaFajl())) == null)
+                    throw new IOException("Ovo nije slika");
             fotografija = fotografijaService.update(fotografijaMapper.toEntity(fotografijaDTO), id);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

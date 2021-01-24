@@ -1,6 +1,7 @@
 package com.kts.cultural_content.model;
 
 import javax.persistence.*;
+import java.io.File;
 
 @Entity
 public class Recenzija {
@@ -21,7 +22,7 @@ public class Recenzija {
     private Integer kulId;
 
     @Column
-    private String fotoLokacija;
+    private File foto;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     //@JoinColumn( nullable = false)
@@ -35,13 +36,13 @@ public class Recenzija {
     @JoinColumn
     private Fotografija fotogrfija ;
 
-    public Recenzija(Integer id, Integer ocena, String komentar, Integer regId, Integer kulId, String fotoLokacija) {
+    public Recenzija(Integer id, Integer ocena, String komentar, Integer regId, Integer kulId, File foto) {
         this.id = id;
         this.ocena = ocena;
         this.komentar = komentar;
         this.regId = regId;
         this.kulId = kulId;
-        this.fotoLokacija = fotoLokacija;
+        this.foto = foto;
     }
 
     public Recenzija() {
@@ -62,12 +63,12 @@ public class Recenzija {
             return this.getId().equals(o.getId());
     }
 
-    public void setFotoLokacija(String fotoLokacija) {
-        this.fotoLokacija = fotoLokacija;
+    public void setFoto(File fotoLokacija) {
+        this.foto = fotoLokacija;
     }
 
-    public String getFotoLokacija() {
-        return fotoLokacija;
+    public File getFoto() {
+        return foto;
     }
 
     public void setId(Integer id) {
