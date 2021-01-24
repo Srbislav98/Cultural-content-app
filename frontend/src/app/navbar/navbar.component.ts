@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../SERVICES/authentication.service';
 
@@ -10,8 +11,7 @@ import { AuthenticationService } from '../SERVICES/authentication.service';
 })
 export class NavbarComponent implements OnInit {
 
-  @Input() loggedIn: boolean|undefined;
-  @Input() role: any;
+  role: any;
 
   constructor(
     private router: Router,
@@ -19,6 +19,20 @@ export class NavbarComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+  }
+
+  getRole(): string {
+    const item = localStorage.getItem('user');
+
+		if (!item) {
+			this.role = undefined;
+			return this.role;
+		}
+    const jwt: JwtHelperService = new JwtHelperService();
+    const decodedItem = JSON.parse(item!);
+    const info = jwt.decodeToken(decodedItem.accessToken);
+    this.role=info['uloga'];
+    return this.role;
   }
 
   goToHome() {

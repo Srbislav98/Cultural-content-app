@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'src/app/MODELS/subscription';
 import { KulturnaPonudaService } from 'src/app/SERVICES/kulturnaPonuda.service';
@@ -15,6 +15,7 @@ export class ListKpComponent implements OnInit {
   totalSize: number;
   subList:Subscription[] | undefined;
   uloga: any;
+  @Output() gotCulturalOffers = new EventEmitter<Array<number>>();
 
 	constructor(
 		private kulturnaPonudaService: KulturnaPonudaService,
@@ -44,7 +45,12 @@ export class ListKpComponent implements OnInit {
 				console.log(res.content);
 				console.log(res.totalPages);
 				this.subList = res.content as Subscription[];
-				this.totalSize = Number(res.totalElements);
+        this.totalSize = Number(res.totalElements);
+        const locationIds = new Array<number>();
+        for(let i=0;i<this.subList.length; i++) {
+          locationIds.push(this.subList[i].idLokacije);
+        }
+        this.gotCulturalOffers.emit(locationIds);
 			}
 		);
 	}
@@ -56,7 +62,12 @@ export class ListKpComponent implements OnInit {
 				this.subList = res.body.content as Subscription[];
 				//alert(this.subList.length);
 				//alert(this.totalSize);
-				this.totalSize = Number(res.body.totalElements);
+        this.totalSize = Number(res.body.totalElements);
+        const locationIds = new Array<number>();
+        for(let i=0;i<this.subList.length; i++) {
+          locationIds.push(this.subList[i].idLokacije);
+        }
+        this.gotCulturalOffers.emit(locationIds);
 			}
       );
 		}

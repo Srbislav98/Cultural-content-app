@@ -1,8 +1,8 @@
-<app-navbar [role]='role'></app-navbar>
+
 <div class="mapica">
   <app-mapa></app-mapa>
 </div>
 <div class="kp">
-  <app-list-kp></app-list-kp>
+  <app-list-kp (gotCulturalOffers)=getLocations($event)></app-list-kp>
 </div>
 

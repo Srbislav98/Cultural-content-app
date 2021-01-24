@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,10 @@ export class HomeComponent implements OnInit {
     const decodedItem = JSON.parse(item!);
     const info = jwt.decodeToken(decodedItem.accessToken);
     this.role=info['uloga'];
+  }
+
+  getLocations(event: any) {
+    console.log(event);
   }
 
 }
