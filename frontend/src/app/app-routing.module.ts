@@ -70,6 +70,12 @@ const routes: Routes = [
 		data: {expectedRoles: 'ROLE_USER'}
   },
   {
+    path : 'add-news/:idKul',
+    component : YourReviewComponent,
+    canActivate: [RoleGuard],
+		data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
     path : 'edit-profile',
     component : EditProfileComponent,
     canActivate: [RoleGuard],

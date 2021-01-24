@@ -1,6 +1,8 @@
 package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.model.Fotografija;
+import com.kts.cultural_content.model.KulturnaPonuda;
+import com.kts.cultural_content.model.Lokacija;
 import com.kts.cultural_content.model.Recenzija;
 import com.kts.cultural_content.repository.FotografijaRepository;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -81,5 +84,17 @@ public class RecenzijaService implements ServiceInterface<Recenzija> {
     @Override
     public void delete(Integer id){
         recenzijaRepository.delete(recenzijaRepository.findById(id).orElse(null));
+    }
+
+    public List<Recenzija> filterByGrade(Integer content, Integer id) {
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaRepository.findById(id).orElse(null);
+        List<Recenzija> lista = new ArrayList<>();
+        assert kulturnaPonuda != null;
+        for(Recenzija recenzija: kulturnaPonuda.getRecenzije()){
+            if(recenzija.getOcena()==content){
+                lista.add(recenzija);
+            }
+        }
+        return lista;
     }
 }

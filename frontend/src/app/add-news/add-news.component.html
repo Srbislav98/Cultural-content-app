@@ -1,0 +1,29 @@
+<div id = "novost" class="w-50 h-100 p-5" style="float:left;">
+    <form [formGroup]="novForm" (ngSubmit)="napravi()">
+		<h2 class="text-center">Add news</h2> 
+        <div class="form-group">
+			<label for="naziv">Name: </label>
+            <input type="text" class="form-control" id="naziv"  placeholder="naziv" formControlName="naziv">
+			<small class="text-danger" 
+				*ngIf="novForm.controls.naziv.touched && novForm.controls.naziv.errors?.required">
+				Name of the news is required</small>
+			
+        </div>
+        <div class="form-group">
+			<label for="opis">Decription: </label>
+            <input type="text" class="form-control" id="opis"  placeholder="opis" formControlName="opis">
+			<small class="text-danger" 
+				*ngIf="novForm.controls.opis.touched && novForm.controls.opis.errors?.required">
+				Decription is required</small>
+			
+        </div>
+        <div class="form-group">
+    		<button type="submit" class="btn btn-primary btn-block" [disabled]="novForm.invalid">Submit</button>
+        </div>
+    </form>
+</div>
+<div class="w-50 h-100 p-5" style="float:left;">
+  <form (ngSubmit)="natrag()">
+    <button type="submit">Natrag</button>
+  </form>
+</div>

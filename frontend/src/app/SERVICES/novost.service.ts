@@ -27,8 +27,8 @@ export class NovostService{
         return this.http.put(this.path+"/update"+`/${id}`,recenzija,{headers:this.headers});
     }
 
-    public create(recenzija:Novost){
-        return this.http.post(this.path+"/create",recenzija,{headers:this.headers});
+    public create(recenzija:Novost, id:number){
+        return this.http.post(this.path+"create/kulturna-ponuda"+`/${id}`,recenzija,{headers:this.headers});
     }
 
     public delete(id:number){

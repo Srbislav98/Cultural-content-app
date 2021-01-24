@@ -56,6 +56,11 @@ export class YourReviewComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  natrag(){
+    this.router.navigate(['/kulturna-ponuda-detaljno']);
+  }
+
   private onSuccess() {
     this.selectedFile.pending = false;
     this.selectedFile.status = 'ok';

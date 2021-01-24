@@ -35,6 +35,8 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
 
   daLiJe:Boolean = true;
 
+  vecDao:Boolean=false;
+
   constructor(private fBuilder:FormBuilder,
     private router:Router,
     private kulService:KulturnaPonudaService,
@@ -74,13 +76,23 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
 			}
     );
     this.daLiJeSubscribe();
+    this.vecDaoReview();
   }
+
+  vecDaoReview(){
+    this.kulService.getVecPostojiReview(this.id, this.idUser).subscribe(
+      result =>{
+        this.vecDao = result;
+      }
+    )
+  }
+
   daLiJeSubscribe(){
     this.kulService.getDaLiPostoji(this.id,this.idUser).subscribe(
       result =>{
-        console.log(result);
+        
         this.daLiJe = result;
-        console.log(this.daLiJe);
+        
       }
     )
     //return this.daLiJe;
@@ -120,6 +132,10 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
 
   dajRecenziju():void{
     this.router.navigate(['/your-review/'+this.id.toString()]);
+  }
+
+  dodajVest():void{
+    this.router.navigate(['/add-news/'+this.id.toString()])
   }
 
   changePage(newPage: number) {

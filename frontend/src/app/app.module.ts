@@ -34,6 +34,7 @@ import { TableTkpComponent } from './tipKulturnePonude/table-tkp/table-tkp.compo
 import { ListTkpComponent } from './tipKulturnePonude/list-tkp/list-tkp.component';
 import { MapaComponent } from './mapa/mapa.component';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
+import { AddNewsComponent } from './add-news/add-news.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
     MapaComponent,
     ReviewsComponent,
     YourReviewComponent,
-    TableRecenzijaComponent
+    TableRecenzijaComponent,
+    AddNewsComponent
   ],
   imports: [
     BrowserModule,
