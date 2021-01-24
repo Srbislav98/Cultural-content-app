@@ -8,11 +8,14 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class HomeComponent implements OnInit {
   role: any;
+  loggedIn:boolean|undefined;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     const item = localStorage.getItem('user');
+    this.loggedIn =  localStorage.getItem('accessToken') ? true : false;
 
 		if (!item) {
 			this.role = undefined;

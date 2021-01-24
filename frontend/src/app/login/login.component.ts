@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../SERVICES/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
   logForm: FormGroup;
-  
+
 
   constructor(
     private fBuilder:FormBuilder,
@@ -41,6 +42,10 @@ export class LoginComponent implements OnInit {
         const item = localStorage.getItem('user');
 		    const decodedItem = JSON.parse(item!);
         localStorage.setItem('accessToken', decodedItem.accessToken);
+        const jwt: JwtHelperService = new JwtHelperService();
+        const info = jwt.decodeToken(decodedItem.accessToken);
+        localStorage.setItem('uloga', info['uloga']);
+        console.log(info['uloga']);
 				this.router.navigate(['']);
 			},
 			error => {

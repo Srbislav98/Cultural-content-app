@@ -14,7 +14,8 @@ export class ListKpComponent implements OnInit {
 	currentPage: number;
   totalSize: number;
   subList:Subscription[] | undefined;
-  
+  uloga: any;
+
 	constructor(
 		private kulturnaPonudaService: KulturnaPonudaService,
 		private fBuilder: FormBuilder,
@@ -24,13 +25,14 @@ export class ListKpComponent implements OnInit {
 		this.totalSize = 1;
 		this.regForm = this.fBuilder.group({
 			podatak: [""]
-		  });
+      });
+      this.uloga = localStorage.getItem('uloga');
 	}
 
 	changePage(newPage: number) {
 		this.kulturnaPonudaService.getByPage(newPage - 1).subscribe(
 			res => {
-				
+
 				this.subList = res.content as Subscription[];
 				this.totalSize = Number(res.totalElements);
 			}
@@ -48,7 +50,7 @@ export class ListKpComponent implements OnInit {
 	}
 	regIn(){
 		if(this.regForm.value["podatak"].length!=0){
-      
+
 			this.kulturnaPonudaService.searchAllByPage(this.regForm.value["podatak"],this.currentPage - 1, this.pageSize).subscribe(
 			res=>{
 				this.subList = res.body.content as Subscription[];
@@ -57,7 +59,7 @@ export class ListKpComponent implements OnInit {
 				this.totalSize = Number(res.body.totalElements);
 			}
       );
-		}  
+		}
 	}
 
 }

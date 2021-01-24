@@ -1,4 +1,8 @@
-<app-navbar></app-navbar>
-<div class="display-1 text-center" *ngIf="role === 'ROLE_ADMIN'">Dobrodosao admine</div>
-<div class="display-1 text-center" *ngIf="role === 'ROLE_USER'">Dobrodosao registrovani korisnice</div>
-<app-mapa></app-mapa>
+<app-navbar [role]='role'></app-navbar>
+<div class="mapica">
+  <app-mapa></app-mapa>
+</div>
+<div class="kp">
+  <app-list-kp></app-list-kp>
+</div>
+

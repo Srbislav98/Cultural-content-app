@@ -11,7 +11,8 @@ import { ProfileService } from 'src/app/SERVICES/profile.service';
   styleUrls: ['./table-kp.component.scss']
 })
 export class TableKpComponent implements OnInit {
-	@Input() subscriptions: Subscription[] | undefined;
+  @Input() subscriptions: Subscription[] | undefined;
+  uloga: any;
 
 	constructor(
     private toastr: ToastrService,
@@ -21,15 +22,16 @@ export class TableKpComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
+    this.uloga = localStorage.getItem('uloga');
   }
 
   ngOnInit() {}
-  
+
   Obrisi(sub: Subscription): void {
     console.log(sub);
     console.log(sub.adresa);
     console.log(sub.id);
-    
+
     this.kulturnaponudaService.deleteKP(sub.id).subscribe(
 			res => {
         this.toastr.success("Succcessful deleted cultural offer.");
