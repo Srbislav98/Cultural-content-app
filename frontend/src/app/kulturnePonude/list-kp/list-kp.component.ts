@@ -38,6 +38,11 @@ export class ListKpComponent implements OnInit {
 
           this.subList = res.content as Subscription[];
           this.totalSize = Number(res.totalElements);
+          const locationIds = new Array<number>();
+          for(let i=0;i<this.subList.length; i++) {
+            locationIds.push(this.subList[i].idLokacije);
+          }
+          this.gotCulturalOffers.emit(locationIds);
         }
       );
     } else {
