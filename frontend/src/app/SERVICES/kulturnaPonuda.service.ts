@@ -135,6 +135,23 @@ export class KulturnaPonudaService{
 			'Content-Type': 'application/json'
 		});
 		return this.http.get('http://localhost:8080/api/kulturnePonude/filter-by-content-page'+`/${content}`, queryParams);
+  }
+  searchAllByLocationPage(name:string,page: number, size: number): Observable<any> {
+		let queryParams = {};
+
+		queryParams = {
+			headers:new HttpHeaders({
+				'Content-Type': 'application/json'
+			}),
+			observe: 'response',
+			params: new HttpParams()
+				.set('page', String(page))
+				.append('size', String(size)),
+		};
+		const headeri=new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
+		return this.http.get('http://localhost:8080/api/kulturnePonude/filter-by-location-page'+`/${name}`, queryParams);
 	}
 	addKP(sub: Subscription): Observable<any> {
 		const headeri=new HttpHeaders({

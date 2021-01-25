@@ -69,7 +69,7 @@ public class LokacijaController {
         return new ResponseEntity<>(lokacijaMapper.toDto(lokacija), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/getLocationsIds", method = RequestMethod.GET)
+    @PostMapping(value = "/getLocationsIds")
     public ResponseEntity<List<LokacijaNaMapiDTO>> getMapLocationsByIds(@RequestParam List<Integer> ids) {
         List<LokacijaNaMapiDTO> lokacijaNaMapiDTOS = new ArrayList<>();
         for(int id : ids) {

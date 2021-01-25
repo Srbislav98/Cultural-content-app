@@ -93,6 +93,24 @@ export class ListKpComponent implements OnInit {
 			}
       );
 		}
+  }
+  regIn2(){
+		if(this.regForm.value["podatak"].length!=0){
+      this.trazi = true;
+			this.kulturnaPonudaService.searchAllByLocationPage(this.regForm.value["podatak"],this.currentPage - 1, this.pageSize).subscribe(
+			res=>{
+				this.subList = res.body.content as Subscription[];
+				//alert(this.subList.length);
+				//alert(this.totalSize);
+        this.totalSize = Number(res.body.totalElements);
+        const locationIds = new Array<number>();
+        for(let i=0;i<this.subList.length; i++) {
+          locationIds.push(this.subList[i].idLokacije);
+        }
+        this.gotCulturalOffers.emit(locationIds);
+			}
+      );
+		}
 	}
 
 }
