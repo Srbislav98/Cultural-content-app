@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
+import { LokacijaNaMapi } from '../MODELS/LokacijaNaMapi';
+import { KulturnaPonudaService } from '../SERVICES/kulturnaPonuda.service';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +12,9 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 export class HomeComponent implements OnInit {
   role: any;
   loggedIn:boolean|undefined;
+  lokacije: Array<LokacijaNaMapi> = [];
 
-  constructor() {
+  constructor(private kulturnaPonudaService: KulturnaPonudaService) {
   }
 
   ngOnInit(): void {
@@ -30,6 +33,12 @@ export class HomeComponent implements OnInit {
 
   getLocations(event: any) {
     console.log(event);
+    this.kulturnaPonudaService.getLocationsIds(event).subscribe(
+      response => {
+        console.log(response);
+        this.lokacije = response;
+      }
+    );
   }
 
 }

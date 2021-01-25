@@ -16,6 +16,7 @@ export class ListKpComponent implements OnInit {
   subList:Subscription[] | undefined;
   uloga: any;
   @Output() gotCulturalOffers = new EventEmitter<Array<number>>();
+  trazi:boolean = false;
 
 	constructor(
 		private kulturnaPonudaService: KulturnaPonudaService,
@@ -31,15 +32,36 @@ export class ListKpComponent implements OnInit {
 	}
 
 	changePage(newPage: number) {
-		this.kulturnaPonudaService.getByPage(newPage - 1).subscribe(
-			res => {
+    if(!this.trazi) {
+      this.kulturnaPonudaService.getByPage(newPage - 1).subscribe(
+        res => {
 
-				this.subList = res.content as Subscription[];
-				this.totalSize = Number(res.totalElements);
-			}
-		);
+          this.subList = res.content as Subscription[];
+          this.totalSize = Number(res.totalElements);
+        }
+      );
+    } else {
+      if(this.regForm.value["podatak"].length!=0){
+        this.trazi = true;
+        this.kulturnaPonudaService.searchAllByPage(this.regForm.value["podatak"], newPage - 1, this.pageSize).subscribe(
+        res=>{
+          this.subList = res.body.content as Subscription[];
+          //alert(this.subList.length);
+          //alert(this.totalSize);
+          this.totalSize = Number(res.body.totalElements);
+          const locationIds = new Array<number>();
+          for(let i=0;i<this.subList.length; i++) {
+            locationIds.push(this.subList[i].idLokacije);
+          }
+          this.gotCulturalOffers.emit(locationIds);
+        }
+        );
+      }
+    }
+
 	}
 	ngOnInit() {
+    this.trazi=false;
 		this.kulturnaPonudaService.getByPage(this.currentPage - 1).subscribe(
 			res => {
 				console.log(res.content);
@@ -56,8 +78,26 @@ export class ListKpComponent implements OnInit {
 	}
 	regIn(){
 		if(this.regForm.value["podatak"].length!=0){
-
+      this.trazi = true;
 			this.kulturnaPonudaService.searchAllByPage(this.regForm.value["podatak"],this.currentPage - 1, this.pageSize).subscribe(
+			res=>{
+				this.subList = res.body.content as Subscription[];
+				//alert(this.subList.length);
+				//alert(this.totalSize);
+        this.totalSize = Number(res.body.totalElements);
+        const locationIds = new Array<number>();
+        for(let i=0;i<this.subList.length; i++) {
+          locationIds.push(this.subList[i].idLokacije);
+        }
+        this.gotCulturalOffers.emit(locationIds);
+			}
+      );
+		}
+  }
+  regIn2(){
+		if(this.regForm.value["podatak"].length!=0){
+      this.trazi = true;
+			this.kulturnaPonudaService.searchAllByLocationPage(this.regForm.value["podatak"],this.currentPage - 1, this.pageSize).subscribe(
 			res=>{
 				this.subList = res.body.content as Subscription[];
 				//alert(this.subList.length);
