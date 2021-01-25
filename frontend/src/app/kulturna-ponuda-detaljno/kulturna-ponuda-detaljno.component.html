@@ -6,6 +6,8 @@
     <div>
         <h3>Type of cultural offer: {{tipKP.naziv}}</h3>
     </div><div>
+        <h4>Location</h4>
+        <h4>{{lokacija.nazivLokacije}}</h4>
         <h4>Description</h4>
         <h4>{{kP.opis}}</h4>
     </div><div>
@@ -26,11 +28,11 @@
 <div class="w-50 h-100 p-5" style="float:left;">
     <h4>Average grade: {{prosecnaOcena}}</h4>
     <form (ngSubmit)="recenzije()"><button >Reviews</button><br/></form><br/>
-    <form (ngSubmit)="dajRecenziju()" ><button *ngIf="uloga==='ROLE_USER' && !vecDao" >Add review</button><br/></form>
+    <form *ngIf="uloga==='ROLE_USER'" (ngSubmit)="dajRecenziju()" ><button *ngIf="uloga==='ROLE_USER' && !vecDao" >Add review</button><br/></form>
     <h3 *ngIf="uloga==='ROLE_USER' && vecDao">You have already given review for this cultural offer.</h3>
     <br/>
     <button *ngIf="uloga==='ROLE_ADMIN'" routerLink="/edit-kp/{{id}}">Edit</button><br/><br/>
-    <!--<button *ngIf="uloga==='ROLE_ADMIN'">Delete</button><br/><br/>-->
+    <form (ngSubmit)="Obrisi()"><button type="submit" *ngIf="uloga==='ROLE_ADMIN'">Delete</button><br/><br/></form>
     
     <form (ngSubmit)="dodajVest()"><button *ngIf="uloga==='ROLE_ADMIN'">Add news</button></form>
     <h4>News</h4>

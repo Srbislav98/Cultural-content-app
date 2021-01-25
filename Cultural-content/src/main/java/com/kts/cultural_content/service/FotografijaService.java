@@ -1,9 +1,12 @@
 package com.kts.cultural_content.service;
 
 import com.kts.cultural_content.model.Fotografija;
+import com.kts.cultural_content.model.KulturnaPonuda;
+import com.kts.cultural_content.model.Recenzija;
 import com.kts.cultural_content.repository.FotografijaRepository;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.RecenzijaRepository;
+import com.kts.cultural_content.repository.RegistrovaniKorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,8 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
     private KulturnaPonudaRepository kulturnaPonudaRepository;
     @Autowired
     private RecenzijaRepository recenzijaRepository;
+    @Autowired
+    private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
     @Override
     public List<Fotografija> findAll() {
         return fotografijaRepository.findAll();
@@ -65,5 +70,22 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
             throw new Exception("Fotografija with given id doesn't exist");
         }
         fotografijaRepository.delete(existingFotografija);
+    }
+
+    public void createForRec(File file,Integer kulId, Integer regId){
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaRepository.findById(kulId).orElse(null);
+        assert kulturnaPonuda != null;
+        for(Recenzija recenzija:kulturnaPonuda.getRecenzije()){
+            if(recenzija.getRegistrovaniKorisnik().getId()==regId){
+                Fotografija fotografija = new Fotografija();
+                fotografija.setFoto(file);
+                fotografija.setLokacijaFajl("assets/img/"+file.getName());
+                recenzija.setFotogrfija(fotografija);
+                recenzija.setFoto("assets/img/"+file.getName());
+
+                recenzijaRepository.save(recenzija);
+                return;
+            }
+        }
     }
 }

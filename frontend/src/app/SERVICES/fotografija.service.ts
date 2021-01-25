@@ -35,6 +35,12 @@ export class FotografijaService{
         return this.http.post(this.path+"/create/cult-id"+`/${id}`,formData);
     }
 
+    public createForRec(fajl:File,id:number,id2:number){
+        const formData:FormData=new FormData();
+        formData.append('File',fajl,fajl.name);
+        return this.http.post(this.path+"/createForRec/kulturna"+`/${id}`+"/registrovani"+`/${id2}`,formData);
+    }
+
     public delete(id:number){
         return this.http.delete(this.path+`${id}`);
     }

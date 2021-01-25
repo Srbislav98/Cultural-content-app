@@ -1,3 +1,4 @@
+import { FotografijaService } from 'src/app/SERVICES/fotografija.service';
 import { ProfileService } from './../SERVICES/profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { Recenzija} from './../MODELS/recenzija';
@@ -41,7 +42,8 @@ export class YourReviewComponent implements OnInit {
     private route:ActivatedRoute,
     private recService:RecenzijaService,
     private toastr: ToastrService,
-    private profilService:ProfileService
+    private profilService:ProfileService,
+    private fotografijaService:FotografijaService
   ) {
     this.oceneLista = [1,2,3,4,5];
     this.temp=this.route.snapshot.paramMap.get('idKul');
@@ -82,6 +84,8 @@ export class YourReviewComponent implements OnInit {
     this.profilService.getId().subscribe(
       res=>{
         this.recenzija.regId = res;
+        if(imageInput.files[0]==null){
+        
         this.recService.create(this.recenzija).subscribe(
           data=>{
             this.toastr.success('Review successfuly made!');
@@ -93,11 +97,47 @@ export class YourReviewComponent implements OnInit {
   
           }
         )
+      }else{
+      
+        const file: File = imageInput.files[0];
+        const reader = new FileReader();
+        
+        //console.log(imageInput.files[0].path)
+        reader.addEventListener('load', (event: any) => {
+  
+          this.selectedFile = new ImageSnippet(event.target.result, file);
+          
+          this.selectedFile.pending = true;
+          
+          //this.recenzija.foto=file;
+          this.recService.create(this.recenzija).subscribe(
+            data=>{
+              this.toastr.success('Review successfuly made!');
+              this.recForm.reset();
+
+              this.fotografijaService.createForRec(file,this.id,this.recenzija.regId).subscribe(
+                res=>{
+                  
+                  this.router.navigate(['/kulturna-ponuda-detaljno/'+this.id.toString()]);
+                }
+              )
+
+              
+            },
+            error=>{
+              this.toastr.error("Review failed to be made!");
+    
+            }
+          )
+        });
+  
+        reader.readAsDataURL(file);
+      }
       }
     )
     
     
-    //if(imageInput.files[0]==null){
+    
       
       
     /*}else{

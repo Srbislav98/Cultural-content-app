@@ -44,8 +44,8 @@ public class RecenzijaServiceUnitTest {
     @Before
     public void setup(){
         List<Recenzija> Recenzijas = new ArrayList<>();
-        Recenzijas.add(new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO)));
-        Recenzijas.add(new Recenzija(null,3, "NEW_Komentar_DOBRO", 1,100, new File(NEW_Fotografija_DOBRO)));
+        Recenzijas.add(new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO));
+        Recenzijas.add(new Recenzija(null,3, "NEW_Komentar_DOBRO", 1,100, NEW_Fotografija_DOBRO));
 
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE,PAGEABLE_SIZE);
         Page<Recenzija> RecenzijaPage = new PageImpl<>(Recenzijas, pageable, PAGEABLE_TOTAL_ELEMENTS);
@@ -54,13 +54,13 @@ public class RecenzijaServiceUnitTest {
 
         given(RecenzijaRepository.findAll(pageable)).willReturn(RecenzijaPage);
 
-        Recenzija Recenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
-        Recenzija savedRecenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        Recenzija Recenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
+        Recenzija savedRecenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
         savedRecenzija.setId(VEC_KREIRANA_Recenzija);
 
         given(RecenzijaRepository.findById(VEC_KREIRANA_Recenzija)).willReturn(java.util.Optional.of(savedRecenzija));
 
-        Recenzija RecenzijaFound = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        Recenzija RecenzijaFound = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
         RecenzijaFound.setId(VEC_KREIRANA_Recenzija2);
         given(RecenzijaRepository.findById(VEC_KREIRANA_Recenzija2)).willReturn(java.util.Optional.of(RecenzijaFound));
 
@@ -108,7 +108,7 @@ public class RecenzijaServiceUnitTest {
 
     @Test
     public void testCreate() throws Exception {
-        Recenzija Recenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        Recenzija Recenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
         Recenzija created = RecenzijaService.create(Recenzija);
 
         //verify(oRepository, times(1)).findById(VEC_KREIRANA_Recenzija);
@@ -132,7 +132,7 @@ public class RecenzijaServiceUnitTest {
 
     @Test
     public void testUpdate() throws Exception {
-        Recenzija Recenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        Recenzija Recenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
         Recenzija.setRegistrovaniKorisnik(new RegistrovaniKorisnik());
         Recenzija created = RecenzijaService.update(Recenzija,VEC_KREIRANA_Recenzija );
 
@@ -149,7 +149,7 @@ public class RecenzijaServiceUnitTest {
     public void testDelete() throws Exception {
         RecenzijaService.delete(VEC_KREIRANA_Recenzija);
 
-        Recenzija savedRecenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        Recenzija savedRecenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
         savedRecenzija.setId(VEC_KREIRANA_Recenzija);
 
         verify(RecenzijaRepository, times(1)).findById(VEC_KREIRANA_Recenzija);

@@ -1,3 +1,4 @@
+import { RecenzijaService } from './../SERVICES/recenzija.service';
 import { Recenzija } from './../MODELS/recenzija';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -10,9 +11,19 @@ export class TableRecenzijaComponent implements OnInit {
 
   @Input() recenzije: Recenzija[] | undefined;
 
-  constructor() { }
+  
+  constructor(
+    
+  ) {
+    
+   }
 
   ngOnInit(): void {
+    
+    
   }
 
+  
+  
+  
 }

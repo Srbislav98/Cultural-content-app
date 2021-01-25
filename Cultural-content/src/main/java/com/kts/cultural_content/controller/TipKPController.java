@@ -47,7 +47,7 @@ public class TipKPController {
         return new ResponseEntity<>(pageKomentarDTOS, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ResponseEntity<TipKulturnePonudeDTO> getTipKulturnePonude(@PathVariable Integer id){
         TipKulturnePonude tipKulturnePonude = tipKulturnePonudeService.findOne(id);

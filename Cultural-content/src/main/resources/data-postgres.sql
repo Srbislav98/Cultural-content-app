@@ -14,10 +14,10 @@ INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 1)
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 2)
 
 INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (100,'test','kulturnaponuda','ggez',2,100,100)
+
 INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (101,'test','nekulturnaponuda','og',2,100,101)
 INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (102,'test','ponuda','lol',2,100,102)
 INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (103,'test','glhf','opis',2,100,103)
-INSERT into recenzija(id, ocena, komentar, kulturna_ponuda_id, registrovani_korisnik_user_id)values (100,4,'Nesto',101,1)
 INSERT into fotografija(id,lokacija_fajl,recenzija_id,kulturna_ponuda_id)values (100,'files//neki_folder',null,100)
 INSERT into novost(id, datum, naziv, opis, kulturna_ponuda_id) values (100, '2020-12-12', 'novost', 'opis', 100)
 INSERT into novost(id, datum, naziv, opis, kulturna_ponuda_id) values (101, '2020-12-08', 'wdwdw', 'opwdwdwis', 100)
