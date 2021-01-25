@@ -6,17 +6,17 @@
   <span>Cultural content app</span>
   <span class="bigspace"></span>
   <div *ngIf="getRole()===undefined">
-    <button mat-raised-button color="accent" (click)="goToLogIn()">Login</button>
+    <button mat-raised-button color="accent" id="signin-button" (click)="goToLogIn()">Login</button>
     <span class="lilspace"></span>
-    <button mat-raised-button color="accent" (click)="goToRegistration()">Register</button>
+    <button mat-raised-button color="accent" id="signup-button" (click)="goToRegistration()">Register</button>
   </div>
   <div *ngIf="getRole()==='ROLE_USER'">
-    <button mat-raised-button color="accent" (click)="goToProfile()">Profile</button>
+    <button mat-raised-button color="accent"id="profile-button" (click)="goToProfile()">Profile</button>
     <span class="lilspace"></span>
-    <button mat-raised-button color="accent" (click)="logOut()">Log out</button>
+    <button mat-raised-button color="accent" id="signout-button" (click)="logOut()">Log out</button>
   </div>
   <div *ngIf="getRole()==='ROLE_ADMIN'">
-    <button mat-raised-button color="accent" (click)="logOut()">Log out</button>
+    <button mat-raised-button color="accent" id="signout-button" (click)="logOut()">Log out</button>
   </div>
 
 </mat-toolbar>
