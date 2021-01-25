@@ -78,6 +78,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/kulturnePonude/by-page").permitAll()
                 .antMatchers("/api/kulturnePonude/filter-by-content-page/**").permitAll()
                 .antMatchers("/api/registrovaniKorisnici/**").permitAll()
+                .antMatchers("/api/lokacije/getLocationsIds").permitAll()
+                .antMatchers("/api/kulturnePonude/filter-by-location-page/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 // umesto anotacija iynad svake metode, moze i ovde da se proveravaju prava pristupa ya odredjeni URL
                 //.antMatchers(HttpMethod.GET, "/api/cultural-content-category").hasRole("ROLE_ADMIN")

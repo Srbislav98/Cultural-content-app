@@ -1,6 +1,7 @@
 package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.LokacijaDTO;
+import com.kts.cultural_content.dto.LokacijaNaMapiDTO;
 import com.kts.cultural_content.mapper.LokacijaMapper;
 import com.kts.cultural_content.model.Lokacija;
 import com.kts.cultural_content.service.LokacijaService;
@@ -32,11 +33,12 @@ public class LokacijaController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<LokacijaDTO>> getAllTipKulturnePonude(){
+    public ResponseEntity<List<LokacijaDTO>> getAllLokacije(){
         List<Lokacija> tipKulturnePonudes = lokacijaService.findAll();
 
         return new ResponseEntity<>(toLokacijaDTOList(tipKulturnePonudes), HttpStatus.OK);
     }
+
     @RequestMapping(value = "/getByNaziv/{naziv}", method = RequestMethod.GET)
     public ResponseEntity<LokacijaDTO> getLokacijaPoNazivu(@PathVariable String naziv){
         Lokacija lokacija = lokacijaService.findByNazivLokacije(naziv);
@@ -45,6 +47,7 @@ public class LokacijaController {
         }
         return new ResponseEntity<>(lokacijaMapper.toDto(lokacija), HttpStatus.OK);
     }
+
     private List<LokacijaDTO> toLokacijaDTOList(List<Lokacija> tipKulturnePonudes){
         List<LokacijaDTO> tipKulturnePonudeDTOs = new ArrayList<>();
         for (Lokacija tipKulturnePonude : tipKulturnePonudes){
@@ -64,6 +67,17 @@ public class LokacijaController {
         }
 
         return new ResponseEntity<>(lokacijaMapper.toDto(lokacija), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/getLocationsIds", method = RequestMethod.GET)
+    public ResponseEntity<List<LokacijaNaMapiDTO>> getMapLocationsByIds(@RequestParam List<Integer> ids) {
+        List<LokacijaNaMapiDTO> lokacijaNaMapiDTOS = new ArrayList<>();
+        for(int id : ids) {
+            Lokacija lokacija = lokacijaService.findOne(id);
+            LokacijaNaMapiDTO lokacijaNaMapiDTO = new LokacijaNaMapiDTO(lokacija.getGeoDuzina(), lokacija.getGeoSirina());
+            lokacijaNaMapiDTOS.add(lokacijaNaMapiDTO);
+        }
+        return new ResponseEntity<>(lokacijaNaMapiDTOS, HttpStatus.OK);
     }
 
 }
