@@ -70,7 +70,7 @@ public class LokacijaController {
     }
 
     @PostMapping(value = "/getLocationsIds")
-    public ResponseEntity<List<LokacijaNaMapiDTO>> getMapLocationsByIds(@RequestParam List<Integer> ids) {
+    public ResponseEntity<List<LokacijaNaMapiDTO>> getMapLocationsByIds(@RequestBody List<Integer> ids) {
         List<LokacijaNaMapiDTO> lokacijaNaMapiDTOS = new ArrayList<>();
         for(int id : ids) {
             Lokacija lokacija = lokacijaService.findOne(id);

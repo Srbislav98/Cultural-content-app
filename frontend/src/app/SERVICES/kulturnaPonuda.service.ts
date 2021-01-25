@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { TipKulturnePonude } from '../MODELS/tipKulturnePonude';
 import { Subscription } from '../MODELS/subscription';
+import { LokacijaNaMapi } from '../MODELS/LokacijaNaMapi';
 
 
 
@@ -189,4 +190,11 @@ export class KulturnaPonudaService{
 		});
 		return this.http.get('http://localhost:8080/api/lokacije');
     }
+  getLocationsIds(lokacije: Array<number>): Observable<Array<LokacijaNaMapi>> {
+    const headeri=new HttpHeaders({
+			'Content-Type': 'application/json'
+    });
+    return this.http.post<Array<LokacijaNaMapi>>('http://localhost:8080/api/lokacije/getLocationsIds', lokacije);
+  }
+
 }

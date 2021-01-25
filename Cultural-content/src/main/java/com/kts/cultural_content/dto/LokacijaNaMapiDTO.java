@@ -5,6 +5,9 @@ public class LokacijaNaMapiDTO {
     private double geoDuzina;
     private double geoSirina;
 
+    public LokacijaNaMapiDTO() {
+    }
+
     public LokacijaNaMapiDTO(double geoDuzina, double geoSirina) {
         this.geoDuzina = geoDuzina;
         this.geoSirina = geoSirina;

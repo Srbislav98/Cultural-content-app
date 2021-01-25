@@ -4,14 +4,14 @@
 		<div class="form-group mx-sm-0 mb-2">
 		  <input type="text" class="form-control" id="podatak" formControlName="podatak" placeholder="search by content...">
 		</div>
-    <button type="submit" class="btn btn-secondary mb-2">Search</button>
+    <button type="submit" class="btn btn-secondary mb-2">By content</button>
 		<a class="btn btn-success mx-sm-1 mb-2" routerLink="/add-kp" role="button" *ngIf="uloga==='ROLE_ADMIN'">Add</a>
   </form>
   <form [formGroup]="regForm" (ngSubmit)="regIn2()" class="form-inline">
     <div class="form-group mx-sm-0 mb-2">
       <input type="text" class="form-control" id="podatak" formControlName="podatak" placeholder="search by location...">
     </div>
-    <button type="submit" class="btn btn-secondary mb-2">Filter</button>
+    <button type="submit" class="btn btn-secondary mb-2">By location</button>
   </form>
 	<div class="row">
 		<div class="col">
