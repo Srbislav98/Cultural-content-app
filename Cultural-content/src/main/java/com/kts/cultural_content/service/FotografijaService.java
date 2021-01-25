@@ -29,6 +29,7 @@ public class FotografijaService implements  ServiceInterface<Fotografija> {
 
     @Override
     public Fotografija create(Fotografija entity) throws Exception {
+        System.out.println(entity.getKulId());
         entity.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));
         entity.setRecenzija(recenzijaRepository.findById(entity.getRecId()).orElse(null));
         if(!entity.getLokacijaFajl().equals(""))

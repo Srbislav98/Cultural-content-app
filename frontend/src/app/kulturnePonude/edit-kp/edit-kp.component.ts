@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Lokacija } from 'src/app/MODELS/lokacija';
 import { Subscription } from 'src/app/MODELS/subscription';
 import { TipKulturnePonude } from 'src/app/MODELS/tipKulturnePonude';
+import { FotografijaService } from 'src/app/SERVICES/fotografija.service';
 import { KulturnaPonudaService } from 'src/app/SERVICES/kulturnaPonuda.service';
 
 @Component({
@@ -22,12 +23,17 @@ export class EditKpComponent implements OnInit {
   selectedLocation="";
   tip="";
   lokacija="";
+  urlFoto="";
+  fileToUpload:any=null;
+  imgUrl:any;
+  stariFotoid:number=0;
 
   constructor(
     private route:ActivatedRoute,
     private fBuilder: FormBuilder,
     private router: Router,
     private kulturnaPonudaService:KulturnaPonudaService,
+    private fotoService:FotografijaService,
     private toastr: ToastrService
     ) {
       this.regForm = this.fBuilder.group({
@@ -61,6 +67,18 @@ export class EditKpComponent implements OnInit {
       (error:any)=>{
         console.log(error);
       });
+      this.fotoService.getByCulturalId(this.route.snapshot.paramMap.get('token')).subscribe(
+        result => {
+          console.log(result);
+          this.stariFotoid=result.id;
+          console.log(result.lokacijaFajl.split("assets\\img\\")[1]);
+          console.log("AAAAAAAAAAA");
+          console.log(result.lokacijaFajl.split("assets\\img\\")[1])
+          this.urlFoto=result.lokacijaFajl.split("assets\\img\\")[1];
+        },
+        (error:any)=>{
+          console.log(error);
+        });
       this.kulturnaPonudaService.getLocations().subscribe(
         res => {
           console.log("mss");
@@ -96,9 +114,22 @@ export class EditKpComponent implements OnInit {
     if(this.regForm.value["location"].length!=0) this.sub.idLokacije=this.regForm.value["location"];
     if(this.regForm.value["type"].length!=0) this.sub.idt=this.regForm.value["type"];
     this.kulturnaPonudaService.editKP(this.sub).subscribe(
-      data=>{
-        this.toastr.success('Successful cultural offer editing.');
-        this.router.navigate(['kulturne-ponude']);
+      dataa=>{
+        if(this.fileToUpload!=null){
+          this.fotoService.createForCult(this.fileToUpload,dataa.id).subscribe(
+            data=>{
+              this.fotoService.delete(this.stariFotoid);
+              this.toastr.success('Successful cultural offer editing.');
+              this.router.navigate(['']);
+            },
+            error=>{
+              this.toastr.error("Unsuccessful photo editing.");
+            }
+          )
+        }else{
+          this.toastr.success('Successful cultural offer editing.');
+          this.router.navigate(['']);
+        }
         //NE BI TREBALO OVAKO
         /*
         const auth: any = {};
@@ -124,5 +155,16 @@ export class EditKpComponent implements OnInit {
         this.toastr.error("Unsuccessful cultural offer editing.");
       }
     )
+  }
+  handleFileInput(target:any){
+    let files=target.files;
+    this.fileToUpload=files.item(0);
+    var reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload=(_event)=>{
+      this.imgUrl=reader.result;
+      console.log("pegazela");
+      console.log(this.imgUrl);
+    }
   }
 }

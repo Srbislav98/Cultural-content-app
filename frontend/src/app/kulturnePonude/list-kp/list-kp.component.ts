@@ -9,9 +9,9 @@ import { KulturnaPonudaService } from 'src/app/SERVICES/kulturnaPonuda.service';
   styleUrls: ['./list-kp.component.scss']
 })
 export class ListKpComponent implements OnInit {
-	regForm:FormGroup;
-	pageSize: number;
-	currentPage: number;
+  regForm:FormGroup;
+  pageSize: number;
+  currentPage: number;
   totalSize: number;
   subList:Subscription[] | undefined;
   uloga: any;

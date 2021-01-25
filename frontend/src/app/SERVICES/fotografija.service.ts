@@ -13,6 +13,9 @@ export class FotografijaService{
     public get(id:any):Observable<Fotografija>{
         return this.http.get<Fotografija>(this.path+"/get"+`/${id}`,{headers:this.headers});
     }
+    public getByCulturalId(id:any):Observable<Fotografija>{
+        return this.http.get<Fotografija>(this.path+"/getByCulturalId"+`/${id}`,{headers:this.headers});
+    }
 
     public getAll():Observable<Fotografija[]>{
         return this.http.get<Fotografija[]>(this.path);
@@ -26,8 +29,10 @@ export class FotografijaService{
         return this.http.put(this.path+"/update"+`/${id}`,recenzija,{headers:this.headers});
     }
 
-    public create(recenzija:Fotografija){
-        return this.http.post(this.path+"/create",recenzija,{headers:this.headers});
+    public createForCult(fajl:File,id:number){
+        const formData:FormData=new FormData();
+        formData.append('File',fajl,fajl.name);
+        return this.http.post(this.path+"/create/cult-id"+`/${id}`,formData);
     }
 
     public delete(id:number){
