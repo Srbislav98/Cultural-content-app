@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { LokacijaNaMapi } from '../MODELS/LokacijaNaMapi';
 
 @Component({
   selector: 'app-mapa',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mapa.component.scss']
 })
 export class MapaComponent implements OnInit {
+
+  @Input() lokacije: Array<LokacijaNaMapi> = [];
 
   constructor() { }
 
