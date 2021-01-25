@@ -29,7 +29,7 @@ export class TableKpComponent implements OnInit {
 
   Obrisi(sub: Subscription): void {
     console.log(sub);
-    console.log(sub.adresa);
+    console.log(sub.opis);
     console.log(sub.id);
 
     this.kulturnaponudaService.deleteKP(sub.id).subscribe(
