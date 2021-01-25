@@ -74,13 +74,14 @@ public class LokacijaController {
     }
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
-    public ResponseEntity<LokacijaDTO> getLokacijaPoNazivu(@PathVariable Integer id){
+    public ResponseEntity<LokacijaDTO> getLokacijaPoNazivu(@PathVariable Integer id) {
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
         Lokacija lokacija = lokacijaService.findOne(kulturnaPonuda.getLokacija().getId());
-        if (kulturnaPonuda == null){
+        if (kulturnaPonuda == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(lokacijaMapper.toDto(lokacija), HttpStatus.OK);
+    }
     @PostMapping(value = "/getLocationsIds")
     public ResponseEntity<List<LokacijaNaMapiDTO>> getMapLocationsByIds(@RequestBody List<Integer> ids) {
         List<LokacijaNaMapiDTO> lokacijaNaMapiDTOS = new ArrayList<>();
