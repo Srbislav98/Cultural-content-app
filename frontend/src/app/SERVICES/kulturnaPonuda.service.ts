@@ -1,3 +1,4 @@
+import { Lokacija } from 'src/app/MODELS/lokacija';
 import { KulturnaPonuda } from './../MODELS/kulturnaPonuda';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -96,8 +97,12 @@ export class KulturnaPonudaService{
 	}
 
     public getProsecnaOcena(id:number):Observable<any>{
-        return this.http.get<any>("http://localhost:8080/api/kulturnePonude/getProsecnaOcena"+`/${id}`);
-    }
+        return this.http.get<any>("http://localhost:8080/api/kulturnePonude/getProsecnaOcena"+`/${id}`,{headers:this.headers});
+	}
+	
+	public getLokacija(id:number):Observable<Lokacija>{
+		return this.http.get<Lokacija>("http://localhost:8080/api/lokacije/getById"+`/${id}`);
+	}
 
     public getDaLiPostoji(idKul:number, idUser:number):Observable<any>{
         return this.http.get<any>(this.path+"/daLiSadrzi"+`/${idKul}`+"/registrovani"+`/${idUser}`, {headers:this.headers});

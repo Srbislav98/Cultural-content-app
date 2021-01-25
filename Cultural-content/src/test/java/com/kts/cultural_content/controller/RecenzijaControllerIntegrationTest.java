@@ -129,7 +129,7 @@ public class RecenzijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
 
         HttpEntity<RecenzijaDTO> httpEntity = new HttpEntity<RecenzijaDTO>(o,headers);
 
@@ -163,7 +163,7 @@ public class RecenzijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        RecenzijaDTO o = new RecenzijaDTO(null,  NEW_OCENA_LOSE, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        RecenzijaDTO o = new RecenzijaDTO(null,  NEW_OCENA_LOSE, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
 
         HttpEntity<RecenzijaDTO> httpEntity = new HttpEntity<RecenzijaDTO>(o,headers);
 
@@ -189,7 +189,7 @@ public class RecenzijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
 
         HttpEntity<RecenzijaDTO> httpEntity = new HttpEntity<RecenzijaDTO>(o,headers);
 
@@ -224,7 +224,7 @@ public class RecenzijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
 
         HttpEntity<RecenzijaDTO> httpEntity = new HttpEntity<RecenzijaDTO>(o,headers);
 
@@ -248,7 +248,7 @@ public class RecenzijaControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
 
-        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_LOSE, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        RecenzijaDTO o = new RecenzijaDTO(null, NEW_OCENA_LOSE, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
 
         HttpEntity<RecenzijaDTO> httpEntity = new HttpEntity<RecenzijaDTO>(o,headers);
 

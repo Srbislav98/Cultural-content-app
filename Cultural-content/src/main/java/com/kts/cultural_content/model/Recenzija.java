@@ -22,7 +22,7 @@ public class Recenzija {
     private Integer kulId;
 
     @Column
-    private File foto;
+    private String foto;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     //@JoinColumn( nullable = false)
@@ -36,7 +36,7 @@ public class Recenzija {
     @JoinColumn
     private Fotografija fotogrfija ;
 
-    public Recenzija(Integer id, Integer ocena, String komentar, Integer regId, Integer kulId, File foto) {
+    public Recenzija(Integer id, Integer ocena, String komentar, Integer regId, Integer kulId, String foto) {
         this.id = id;
         this.ocena = ocena;
         this.komentar = komentar;
@@ -63,11 +63,11 @@ public class Recenzija {
             return this.getId().equals(o.getId());
     }
 
-    public void setFoto(File fotoLokacija) {
+    public void setFoto(String fotoLokacija) {
         this.foto = fotoLokacija;
     }
 
-    public File getFoto() {
+    public String getFoto() {
         return foto;
     }
 

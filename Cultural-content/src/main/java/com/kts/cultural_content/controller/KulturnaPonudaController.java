@@ -187,7 +187,7 @@ public class KulturnaPonudaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/getNovosti/{id}", method = RequestMethod.GET)
     public ResponseEntity< Page<NovostDTO>> getKulturnaPonudaNovosti(@PathVariable Integer id, Pageable pageable){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
@@ -235,7 +235,7 @@ public class KulturnaPonudaController {
         return lista;
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+
     @RequestMapping(value = "/getProsecnaOcena/{id}", method = RequestMethod.GET)
     public ResponseEntity<Float> getProsecnaOcena(@PathVariable Integer id){
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);

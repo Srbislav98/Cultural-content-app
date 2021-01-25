@@ -48,7 +48,7 @@ public class RecenzijaServiceIntegrationTest {
 
     @Test
     public void testCreate() throws Exception {
-        Recenzija Recenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        Recenzija Recenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
         Recenzija created = RecenzijaService.create(Recenzija);
 
         assertEquals(NEW_OCENA_DOBRO, created.getOcena());
@@ -58,7 +58,7 @@ public class RecenzijaServiceIntegrationTest {
 
     @Test
     public void testUpdate() throws Exception {
-        Recenzija Recenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        Recenzija Recenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
         Recenzija.setRegistrovaniKorisnik(new RegistrovaniKorisnik());
         Recenzija created = RecenzijaService.update(Recenzija,VEC_KREIRANA_Recenzija2);
 
@@ -72,7 +72,7 @@ public class RecenzijaServiceIntegrationTest {
         RecenzijaService.delete(VEC_KREIRANA_Recenzija);
         assertNull(RecenzijaService.findOne(VEC_KREIRANA_Recenzija));
 
-        Recenzija savedRecenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, new File(NEW_Fotografija_DOBRO));
+        Recenzija savedRecenzija = new Recenzija(null,NEW_OCENA_DOBRO, NEW_Komentar_DOBRO, 1,100, NEW_Fotografija_DOBRO);
         savedRecenzija.setId(VEC_KREIRANA_Recenzija);
         RecenzijaService.create(savedRecenzija);
     }

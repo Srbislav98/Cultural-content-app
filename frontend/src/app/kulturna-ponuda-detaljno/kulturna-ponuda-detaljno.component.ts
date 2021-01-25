@@ -1,3 +1,6 @@
+import { Lokacija } from './../MODELS/lokacija';
+
+import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from 'src/app/SERVICES/profile.service';
 import { User } from './../MODELS/user';
 import { Novost } from './../MODELS/novost';
@@ -27,7 +30,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
   id:number;
   temp:string | null;
 
-  
+  lokacija=<Lokacija>{};
   
   idUser=<number>{}
 
@@ -44,6 +47,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
     private router:Router,
     private kulService:KulturnaPonudaService,
     private route:ActivatedRoute,
+    private toastr: ToastrService,
     private korService:ProfileService
     ) {
       this.kulForm = this.fBuilder.group({
@@ -68,28 +72,12 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
             
           }
         );
-        
-      
-      
-      
-      
   }
 
   
 
   ngOnInit(): void {
     this.ucitajKulturnuPonudu();
-    
-    const item = localStorage.getItem('user');
-    const jwt: JwtHelperService = new JwtHelperService();
-    const decodedItem = JSON.parse(item!);
-    const info = jwt.decodeToken(decodedItem.accessToken);
-    this.uloga = info['uloga'];
-    
-    
-    console.log("Ovde!");
-    console.log(this.idUser);
-
     this.kulService.getProsecnaOcena(this.id).subscribe(
       result =>{
         this.prosecnaOcena = result;
@@ -104,6 +92,19 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
         console.log(res);
 			}
     );
+    this.dajLokaciju();
+
+    const item = localStorage.getItem('user');
+    const jwt: JwtHelperService = new JwtHelperService();
+    const decodedItem = JSON.parse(item!);
+    const info = jwt.decodeToken(decodedItem.accessToken);
+    this.uloga = info['uloga'];
+    
+    
+    console.log("Ovde!");
+    console.log(this.idUser);
+
+    
     this.korService.getId().subscribe(
       res=>{
         console.log("Ovde2!");
@@ -115,6 +116,29 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
     );
     
     
+  }
+
+  dajLokaciju(){
+    this.kulService.getLokacija(this.id).subscribe(
+      res=>{
+        this.lokacija=res;
+      }
+    )
+  }
+
+  Obrisi(): void {
+    
+
+    this.kulService.deleteKP(this.id).subscribe(
+			res => {
+        this.toastr.success("Succcessful deleted cultural offer.");
+        this.router.navigate(['']);
+        //this.router.navigate(['kulturne-ponude']);
+      },
+      error => {
+				this.toastr.error('Unsucccessful deleted cultural offer.');
+			}
+    );
   }
 
   vecDaoReview(){

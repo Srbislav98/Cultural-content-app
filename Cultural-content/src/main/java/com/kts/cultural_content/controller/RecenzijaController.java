@@ -63,14 +63,13 @@ public class RecenzijaController {
         try {
             if (recenzijaDTO.getOcena()>5 || recenzijaDTO.getOcena()<1 || recenzijaDTO.getKomentar().equals(""))
                 throw new Exception("Lose!");
-            if(recenzijaDTO.getFoto()!=null)
-                if(ImageIO.read(recenzijaDTO.getFoto()) == null)
-                    throw new Exception("Lose!");
+
 
             recenzija = recenzijaService.create(recenzijaMapper.toEntity(recenzijaDTO));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        //recenzija.setFoto("");
 
         return new ResponseEntity<>(recenzijaMapper.toDto(recenzija), HttpStatus.CREATED);
     }
@@ -81,9 +80,7 @@ public class RecenzijaController {
         try {
             if (recenzijaDTO.getOcena()>5 || recenzijaDTO.getOcena()<1 || recenzijaDTO.getKomentar().equals("") )
                 throw new Exception("Lose!");
-            if(recenzijaDTO.getFoto()!=null)
-                if(ImageIO.read(recenzijaDTO.getFoto()) == null)
-                    throw new Exception("Lose!");
+
             recenzija = recenzijaService.update(recenzijaMapper.toEntity(recenzijaDTO), id);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -101,6 +98,17 @@ public class RecenzijaController {
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value="/getSlika/{id}", method=RequestMethod.GET)
+    public ResponseEntity<String> getFotografi(@PathVariable Integer id){
+        Recenzija recenzija = recenzijaService.findOne(id);
+        System.out.println(recenzija);
+        if (recenzija == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        //System.out.println("Ovde");
+        return new ResponseEntity<String>(recenzija.getFotogrfija().getLokacijaFajl(),HttpStatus.OK);
     }
 
     public RecenzijaController() {

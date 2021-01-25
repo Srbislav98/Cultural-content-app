@@ -13,11 +13,11 @@ public class RecenzijaDTO {
 
     private Integer kulId;
 
-    private File foto;
+    private String foto;
 
 
 
-    public RecenzijaDTO(Integer id, Integer ocena, String komentar, Integer regId, Integer kulId, File foto) {
+    public RecenzijaDTO(Integer id, Integer ocena, String komentar, Integer regId, Integer kulId, String foto) {
         this.id = id;
         this.ocena = ocena;
         this.komentar = komentar;
@@ -29,11 +29,11 @@ public class RecenzijaDTO {
     public RecenzijaDTO() {
     }
 
-    public void setFoto(File foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
-    public File getFoto() {
+    public String getFoto() {
         return foto;
     }
 

@@ -95,6 +95,20 @@ public class FotografijaController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @PostMapping("/createForRec/kulturna/{id}/registrovani/{id2}")
+    public ResponseEntity createFotografijaRec(@RequestParam("File") MultipartFile fajl,@PathVariable Integer id, @PathVariable Integer id2) throws IOException {
+
+        File f = new File(".");
+        File file = new File(f.getCanonicalPath().split("Cultural-content")[0]+"frontend/src/assets/img/"+fajl.getOriginalFilename());
+
+        fajl.transferTo(file);
+
+        fotografijaService.createForRec(file,id,id2);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/update/{id}", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FotografijaDTO> updateFotografija(@RequestBody FotografijaDTO fotografijaDTO, @PathVariable Integer id){

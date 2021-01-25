@@ -16,6 +16,10 @@ export class RecenzijaService{
     public get(id:any):Observable<Recenzija>{
         return this.http.get<Recenzija>(this.path+"/get"+`/${id}`,{headers:this.headers});
     }
+    
+    public getSlika(id:any):Observable<string>{
+        return this.http.get<string>(this.path+"/getSlika"+`/${id}`);
+    }
 
     public getAll():Observable<Recenzija[]>{
         return this.http.get<Recenzija[]>(this.path);

@@ -2,7 +2,9 @@ package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.LokacijaDTO;
 import com.kts.cultural_content.mapper.LokacijaMapper;
+import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.model.Lokacija;
+import com.kts.cultural_content.service.KulturnaPonudaService;
 import com.kts.cultural_content.service.LokacijaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ public class LokacijaController {
 
     @Autowired
     private LokacijaService lokacijaService;
+    @Autowired
+    private KulturnaPonudaService kulturnaPonudaService;
     private LokacijaMapper lokacijaMapper;
 
     public LokacijaController() {
@@ -64,6 +68,16 @@ public class LokacijaController {
         }
 
         return new ResponseEntity<>(lokacijaMapper.toDto(lokacija), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+    public ResponseEntity<LokacijaDTO> getLokacijaPoNazivu(@PathVariable Integer id){
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
+        Lokacija lokacija = lokacijaService.findOne(kulturnaPonuda.getLokacija().getId());
+        if (kulturnaPonuda == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(lokacijaMapper.toDto(lokacija), HttpStatus.OK);
     }
 
 }

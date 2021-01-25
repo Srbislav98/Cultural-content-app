@@ -49,11 +49,7 @@ public class RecenzijaService implements ServiceInterface<Recenzija> {
 
         entity.setRegistrovaniKorisnik(registrovaniKorisnikRepository.findById(entity.getRegId()).orElse(null));
 
-        if(entity.getFoto()!=null) {
-
-            entity.setFotogrfija(new Fotografija(0, "",entity.getFoto(),entity.getKulturnaPonuda().getId(), entity.getRegistrovaniKorisnik().getId()));
-
-        }
+        entity.setFoto("assets/img/R6eb915d96d4c990aaf152a70c5fb54a9.png");
 
         return recenzijaRepository.save(entity);
     }
@@ -67,9 +63,9 @@ public class RecenzijaService implements ServiceInterface<Recenzija> {
         existingrecenzija.setFoto(entity.getFoto());
         if(entity.getFoto()!=null) {
             try {
-                existingrecenzija.getFotogrfija().setFoto(entity.getFoto());
+                existingrecenzija.getFotogrfija().setLokacijaFajl(entity.getFoto());
             } catch (NullPointerException e) {
-                existingrecenzija.setFotogrfija(new Fotografija(0, "",entity.getFoto(),entity.getKulturnaPonuda().getId(), entity.getRegistrovaniKorisnik().getId()));
+                existingrecenzija.setFotogrfija(new Fotografija(0, "",null,entity.getKulturnaPonuda().getId(), entity.getRegistrovaniKorisnik().getId()));
                 //existingrecenzija.getFotogrfija().setFoto(new File(entity.getFoto()));
             }
 
