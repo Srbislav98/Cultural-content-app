@@ -1,3 +1,4 @@
+import { Fotografija } from './../MODELS/fotografija';
 import { Lokacija } from 'src/app/MODELS/lokacija';
 import { KulturnaPonuda } from './../MODELS/kulturnaPonuda';
 import { Injectable } from "@angular/core";
@@ -25,7 +26,12 @@ export class KulturnaPonudaService{
 
     public getTip(id:any):Observable<TipKulturnePonude>{
         return this.http.get<TipKulturnePonude>("http://localhost:8080/api/tipoviKP/get"+`/${id}`,{headers:this.headers})
-    }
+	}
+	
+	public getSlikaKul(id:number):Observable<Fotografija>{
+		
+		return this.http.get<Fotografija>(this.path+"/getSlikaKul"+`/${id}`);
+	}
 
     public getAll():Observable<KulturnaPonuda[]>{
         return this.http.get<KulturnaPonuda[]>(this.path)

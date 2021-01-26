@@ -345,6 +345,25 @@ public class KulturnaPonudaController {
         return new ResponseEntity<Boolean>(ima, HttpStatus.OK);
     }
 
+
+    @RequestMapping(value = "/getSlikaKul/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Fotografija> getSlikaKul(@PathVariable Integer id){
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
+        if (kulturnaPonuda == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Fotografija d = new Fotografija();
+        d.setLokacijaFajl("assets/img/R6eb915d96d4c990aaf152a70c5fb54a9.png");
+        for(Fotografija fotografija:kulturnaPonuda.getFotogrfija()){
+            d.setLokacijaFajl("assets/img/"+fotografija.getFoto().getName());
+
+            break;
+        }
+
+        //String d = kulturnaPonuda.getFotogrfija()
+        return new ResponseEntity<Fotografija>(d, HttpStatus.OK);
+    }
+
     public KulturnaPonudaController() {
         kulturnaPonudaMapper = new KulturnaPonudaMapper();
     }

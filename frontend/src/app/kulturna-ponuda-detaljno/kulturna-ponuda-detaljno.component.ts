@@ -1,3 +1,4 @@
+import { Fotografija } from './../MODELS/fotografija';
 import { Lokacija } from './../MODELS/lokacija';
 
 import { ToastrService } from 'ngx-toastr';
@@ -43,6 +44,8 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
 
   vecDao:Boolean;
 
+  lokacijaSlike= <Fotografija>{};
+
   constructor(private fBuilder:FormBuilder,
     private router:Router,
     private kulService:KulturnaPonudaService,
@@ -72,12 +75,14 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
             
           }
         );
+        this.lokacijaSlike.lokacijaFajl="assets/img/R6eb915d96d4c990aaf152a70c5fb54a9.png";
   }
 
   
 
   ngOnInit(): void {
     this.ucitajKulturnuPonudu();
+    this.dajSlikuKul();
     this.kulService.getProsecnaOcena(this.id).subscribe(
       result =>{
         this.prosecnaOcena = result;
@@ -93,6 +98,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
 			}
     );
     this.dajLokaciju();
+    
 
     const item = localStorage.getItem('user');
     const jwt: JwtHelperService = new JwtHelperService();
@@ -116,6 +122,16 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
     );
     
     
+  }
+
+  dajSlikuKul(){
+    console.log("SLika Ovde");
+    this.kulService.getSlikaKul(this.id).subscribe(
+      res=>{
+        
+        this.lokacijaSlike.lokacijaFajl=res.lokacijaFajl;
+      }
+    )
   }
 
   dajLokaciju(){
