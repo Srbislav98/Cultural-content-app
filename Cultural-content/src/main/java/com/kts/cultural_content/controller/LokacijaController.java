@@ -63,10 +63,10 @@ public class LokacijaController {
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     public ResponseEntity<LokacijaDTO> getLokacijaPoIdKulturnePonude(@PathVariable Integer id) {
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
-        Lokacija lokacija = lokacijaService.findOne(kulturnaPonuda.getLokacija().getId());
         if (kulturnaPonuda == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        Lokacija lokacija = lokacijaService.findOne(kulturnaPonuda.getLokacija().getId());
         return new ResponseEntity<>(lokacijaMapper.toDto(lokacija), HttpStatus.OK);
     }
 
