@@ -25,8 +25,4 @@ public class LokacijaService {
         return lokacijaRepository.findByNazivLokacije(naziv);
     }
 
-    public Lokacija createLokacija(Lokacija lokacija) {
-        return lokacijaRepository.save(lokacija);
-    }
-
 }
