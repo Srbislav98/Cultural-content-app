@@ -38,9 +38,9 @@ public class LokacijaController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<LokacijaDTO>> getAllLokacije(){
-        List<Lokacija> tipKulturnePonudes = lokacijaService.findAll();
+        List<Lokacija> lokacije = lokacijaService.findAll();
 
-        return new ResponseEntity<>(toLokacijaDTOList(tipKulturnePonudes), HttpStatus.OK);
+        return new ResponseEntity<>(toLokacijaDTOList(lokacije), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getByNaziv/{naziv}", method = RequestMethod.GET)
@@ -52,29 +52,16 @@ public class LokacijaController {
         return new ResponseEntity<>(lokacijaMapper.toDto(lokacija), HttpStatus.OK);
     }
 
-    private List<LokacijaDTO> toLokacijaDTOList(List<Lokacija> tipKulturnePonudes){
-        List<LokacijaDTO> tipKulturnePonudeDTOs = new ArrayList<>();
-        for (Lokacija tipKulturnePonude : tipKulturnePonudes){
-            tipKulturnePonudeDTOs.add(lokacijaMapper.toDto(tipKulturnePonude));
+    private List<LokacijaDTO> toLokacijaDTOList(List<Lokacija> lokacije){
+        List<LokacijaDTO> lokacijeDTOs = new ArrayList<>();
+        for (Lokacija lokacija : lokacije){
+            lokacijeDTOs.add(lokacijaMapper.toDto(lokacija));
         }
-        return tipKulturnePonudeDTOs;
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/create", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LokacijaDTO> createLokacija(@RequestBody LokacijaDTO lokacijaDTO){
-        Lokacija lokacija;
-        try {
-            lokacija = lokacijaService.createLokacija(lokacijaMapper.toEntity(lokacijaDTO));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(lokacijaMapper.toDto(lokacija), HttpStatus.CREATED);
+        return lokacijeDTOs;
     }
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
-    public ResponseEntity<LokacijaDTO> getLokacijaPoNazivu(@PathVariable Integer id) {
+    public ResponseEntity<LokacijaDTO> getLokacijaPoIdKulturnePonude(@PathVariable Integer id) {
         KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
         Lokacija lokacija = lokacijaService.findOne(kulturnaPonuda.getLokacija().getId());
         if (kulturnaPonuda == null) {
@@ -82,6 +69,7 @@ public class LokacijaController {
         }
         return new ResponseEntity<>(lokacijaMapper.toDto(lokacija), HttpStatus.OK);
     }
+
     @PostMapping(value = "/getLocationsIds")
     public ResponseEntity<List<LokacijaNaMapiDTO>> getMapLocationsByIds(@RequestBody List<Integer> ids) {
         List<LokacijaNaMapiDTO> lokacijaNaMapiDTOS = new ArrayList<>();
