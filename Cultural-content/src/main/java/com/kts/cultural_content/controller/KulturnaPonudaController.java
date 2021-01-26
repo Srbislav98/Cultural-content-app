@@ -61,7 +61,8 @@ public class KulturnaPonudaController {
 
         return new ResponseEntity<>(toKulturnaPonudaDTOList(kulturnePonude), HttpStatus.OK);
     }
-    @RequestMapping(value = "/filter-by-location/by-page/{name}", method = RequestMethod.GET)
+
+    /*@RequestMapping(value = "/filter-by-location/by-page/{name}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnePonudebyNaziv(@PathVariable String name,Pageable pageable) {
         List<KulturnaPonuda> kulturnePonude = kulturnaPonudaService.filterByContent(name);
@@ -85,7 +86,8 @@ public class KulturnaPonudaController {
         System.out.println("BBBBBBBBBBBBBBBBBBBBBB");
 
         return new ResponseEntity<Page<KulturnaPonudaDTO>>(pageRKDTOS, HttpStatus.OK);
-    }
+    }*/
+
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<KulturnaPonudaDTO>> getAllKulturnaPonuda(Pageable pageable) {
         Page<KulturnaPonuda> page = kulturnaPonudaService.findAll(pageable);
