@@ -89,7 +89,7 @@ public class LokacijaControllerIntegrationTest {
     }
 
     @Test
-    public void getLokacijaPoIdKulturnePonude() {
+    public void testGetLokacijaPoIdKulturnePonude() {
         login("124@gmail.com", "admin");
 
         HttpHeaders headers = new HttpHeaders();
@@ -108,7 +108,7 @@ public class LokacijaControllerIntegrationTest {
     }
 
     @Test
-    public void getLokacijaPoIdKulturnePonudeFail() {
+    public void testGetLokacijaPoIdKulturnePonudeFail() {
         login("124@gmail.com", "admin");
 
         HttpHeaders headers = new HttpHeaders();
@@ -123,7 +123,7 @@ public class LokacijaControllerIntegrationTest {
     }
 
     @Test
-    public void getMapLocationsByIds() {
+    public void testGetMapLocationsByIds() {
         login("124@gmail.com", "admin");
 
         HttpHeaders headers = new HttpHeaders();
