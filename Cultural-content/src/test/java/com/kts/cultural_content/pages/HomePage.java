@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class HomePage {
     private WebDriver driver;
 
@@ -50,6 +52,12 @@ public class HomePage {
 
     @FindBy(id="kp_detaljno")
     private WebElement kpDetaljno;
+
+    @FindBy(id="reset-button")
+    private WebElement resetBtn;
+
+    @FindBy(className = "in_waves")
+    private List<WebElement> kpDetailBtns;
 
     public HomePage() {
     }
@@ -188,5 +196,21 @@ public class HomePage {
 
     public void setKpDetaljno(WebElement kpDetaljno) {
         this.kpDetaljno = kpDetaljno;
+    }
+
+    public WebElement getResetBtn() {
+        return resetBtn;
+    }
+
+    public void setResetBtn(WebElement resetBtn) {
+        this.resetBtn = resetBtn;
+    }
+
+    public List<WebElement> getKpDetailBtns() {
+        return kpDetailBtns;
+    }
+
+    public void setKpDetailBtns(List<WebElement> kpDetailBtns) {
+        this.kpDetailBtns = kpDetailBtns;
     }
 }

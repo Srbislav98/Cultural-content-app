@@ -14,11 +14,11 @@
         <h4><b>No cultural contents</b></h4>
       </div>
       <tr *ngFor="let subscription of subscriptions">
-        <td>{{subscription.id}}</td>
+        <td class="in_waves">{{subscription.id}}</td>
         <td>{{subscription.naziv}}</td>
         <td>{{subscription.opis}}</td>
         <td>
-          <a class="btn btn-info" routerLink="/kulturna-ponuda-detaljno/{{subscription.id}}" role="button" id="kp_detaljno">Detailed</a>
+          <button mat-raised-button color="primary" id="kp_detaljno" routerLink="/kulturna-ponuda-detaljno/{{subscription.id}}">Detailed</button>
         </td>
         <td *ngIf="uloga==='ROLE_ADMIN'">
             <a class="btn btn-secondary" routerLink="/edit-kp/{{subscription.id}}" role="button" id="edit_kp">Edit</a>
