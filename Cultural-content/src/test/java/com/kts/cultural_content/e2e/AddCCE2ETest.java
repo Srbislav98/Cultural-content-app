@@ -106,7 +106,7 @@ public class AddCCE2ETest {
         driver.get("http://localhost:4200/add-kp");
         justWait();// da se ucita
 
-        accPage.getName().sendKeys("kulturnaponuda");
+        accPage.getName().sendKeys("Narodni muzej");
         accPage.getAddress().sendKeys("test");
         accPage.getDescription().sendKeys("test...");
 
@@ -142,13 +142,13 @@ public class AddCCE2ETest {
         deca = new ArrayList<>();
         deca = driver.findElements(By.tagName("td"));
         for (WebElement w : deca){
-            if (w.getText().equals("testNaziv"))
+            if (w.getText().equals("Narodni muzej"))
                 napravio = true;
         }
 
-        deca = new ArrayList<>();
+        /*deca = new ArrayList<>();
         deca = driver.findElements(By.className("btn-danger"));
-        deca.get(deca.size()-1).click();
+        deca.get(deca.size()-1).click();*/
 
         justWait();
         assertFalse(napravio);
