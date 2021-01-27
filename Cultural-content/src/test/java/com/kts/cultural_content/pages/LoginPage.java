@@ -33,9 +33,11 @@ public class LoginPage {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("login-button")));
     }
 
-
     public void ensureIsNotVisibleEmail() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("email")));
+    }
+    public String  ensureIsVisibleUnsuccesssfulLogin() {
+        return (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("toast-container"))).getText();
     }
 
     public WebElement getEmail() {

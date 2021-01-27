@@ -38,3 +38,6 @@ INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovan
 
 INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (3,'323@gmail.com','Aca','tarak','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Acic',true)
 --
+
+INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (4,'srbislav03@gmail.com','Aca','srbo','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Acic',false)
+INSERT into verification_token(id,token,user_id) values(2,'abb',4)

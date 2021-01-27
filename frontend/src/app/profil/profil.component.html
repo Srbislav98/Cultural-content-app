@@ -2,12 +2,12 @@
     <div >
         <h3 class="d-inline" style="float:bottom;">Personal informations</h3>
         <table class="table table-striped pera">
-            <tr><td><b>Name</b></td><td>{{User.ime}}</td></tr>
-            <tr><td><b>Surname</b></td><td>{{User.prezime}}</td></tr>
+            <tr><td><b>Name</b></td><td id="td-ime">{{User.ime}}</td></tr>
+            <tr><td><b>Surname</b></td><td id="td-prezime">{{User.prezime}}</td></tr>
             <tr><td><b>Username</b></td><td>{{User.korisnickoIme}}</td></tr>
             <tr><td><b>Email</b></td><td>{{User.email}}</td></tr>
         </table>
-        <a class="btn btn-primary" routerLink="/edit-profile">Edit profile</a>
+        <a class="btn btn-primary"  id="edit-dugme" routerLink="/edit-profile">Edit profile</a>
         <!--<div id = "dug">
             <a class="btn btn-primary" href="#">Cultural contents</a>
         </div>-->
