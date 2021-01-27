@@ -40,6 +40,7 @@ public class HomePageE2ETest {
         homePage.ensureIsVisibleAddKPBtn();
         homePage.ensureIsVisibleEditKPBtn();
         homePage.ensureIsVisibleDeleteKPBtn();
+        homePage.ensureIsVisibleAddTKPBtn();
         justWait(5000);
         homePage.ensureIsVisibleSignoutBtn();
         homePage.getSignoutBtn().click();
@@ -120,7 +121,36 @@ public class HomePageE2ETest {
         homePage.getHomeBtn().click();
         justWait(1000);
         homePage.ensureIsVisibleDeleteKPBtn();
-        homePage.getDeleteKPBtn().click();
+        /*homePage.getDeleteKPBtn().click();
+        justWait(2000);
+        homePage.getHomeBtn().click();*/
+        justWait(1000);
+        homePage.ensureIsVisibleAddTKPBtn();
+        homePage.getAddTKPBtn().click();
+        justWait(2000);
+        homePage.getHomeBtn().click();
+        justWait(1000);
+        homePage.getKpDetaljno().click();
+        justWait(2000);
+        homePage.getHomeBtn().click();
+        justWait(5000);
+        homePage.ensureIsVisibleSignoutBtn();
+        homePage.getSignoutBtn().click();
+    }
+
+    @Test
+    public void RegisteredUserOptionsClickableTest() throws InterruptedException {
+        webDriver.get("http://localhost:4200/login");
+        loginPage.getEmail().sendKeys("123@gmail.com");
+        loginPage.getPassword().sendKeys("user");
+        loginPage.getLoginBtn().click();
+        justWait(1000);
+        homePage.getKpDetaljno().click();
+        justWait(2000);
+        homePage.getHomeBtn().click();
+        justWait(2000);
+        homePage.ensureIsVisibleProfileBtn();
+        homePage.getProfileBtn().click();
         justWait(2000);
         homePage.getHomeBtn().click();
         justWait(5000);
