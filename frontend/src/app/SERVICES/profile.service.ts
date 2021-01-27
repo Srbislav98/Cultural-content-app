@@ -9,7 +9,7 @@ import { AuthenticationService } from './authentication.service';
 	providedIn: 'root'
 })
 export class ProfileService {
-	User= new User(1,"s","dff","dd","dd","ddd");
+	User= new User(7,"s","dff","dd","dd","ddd");
 	private headers = new HttpHeaders({
 		'Content-Type': 'application/json'
 		//'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -46,6 +46,7 @@ export class ProfileService {
 			  console.log(error);
 			}
 		  );
+		
 		const id=this.User.id;
 		let queryParams = {};
 
@@ -82,7 +83,7 @@ export class ProfileService {
 		const headeri=new HttpHeaders({
 			'Content-Type': 'application/json'
 		});
-		let id1=1;
+		let id1=0;
 		this.getId().subscribe(
 			res => {
 				id1=res.id;

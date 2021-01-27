@@ -10,7 +10,8 @@ import { ProfileService } from 'src/app/SERVICES/profile.service';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-	@Input() subscriptions: Subscription[] | undefined;
+  @Input() subscriptions: Subscription[] | undefined;
+  id:number=0;
 
 	constructor(
     private toastr: ToastrService,
@@ -22,33 +23,47 @@ export class TableComponent implements OnInit {
     };
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.profileService.getId().subscribe(
+			res => {
+				this.id=res.id;
+			}
+		);
+  }
   
   Obrisi(sub: Subscription): void {
     console.log(sub);
     console.log(sub.adresa);
     console.log(sub.id);
-    this.profileService.deleteSub(sub.id).subscribe(
+    this.profileService.getId().subscribe(
 			res => {
-        /*
-        var lista:Subscription[];
-        if(this.subscriptions){
-          lista=this.subscriptions;
-          this.subscriptions=[];
-          lista.forEach( (element) => {
-            if(element.id!=sub.id){
-              this.subscriptions?.push(element);
+        console.log("asdsmdsod");
+        console.log(res);
+        this.id=res;
+        this.profileService.deleteSub2(sub.id,this.id).subscribe(
+          res => {
+            /*
+            var lista:Subscription[];
+            if(this.subscriptions){
+              lista=this.subscriptions;
+              this.subscriptions=[];
+              lista.forEach( (element) => {
+                if(element.id!=sub.id){
+                  this.subscriptions?.push(element);
+                }
+              });
             }
-          });
-        }
-        */
-        this.toastr.success("Succcessful unsubscription.");
-        //this.router.navigate(['']);
-        this.router.navigate(['profil']);
-      },
-      error => {
-				this.toastr.error('Unsuccessful unsubscription.');
+            */
+            this.toastr.success("Succcessful unsubscription.");
+            //this.router.navigate(['']);
+            this.router.navigate(['profil']);
+          },
+          error => {
+            this.toastr.error('Unsuccessful unsubscription.');
+          }
+        );
 			}
-    );
+		);
+    
   }
 }
