@@ -95,8 +95,8 @@ public class CCTypeE2ETest {
         justWait();
 
         List<WebElement>deca = new ArrayList<>();
-        deca = driver.findElements(By.id("add_kp"));
-        deca.get(1).click();
+        deca = driver.findElements(By.id("add_tkp"));
+        deca.get(0).click();
         justWait();
 
         deca = new ArrayList<>();
