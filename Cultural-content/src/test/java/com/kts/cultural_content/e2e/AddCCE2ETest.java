@@ -49,7 +49,7 @@ public class AddCCE2ETest {
         login();
         justWait();
         driver.get("http://localhost:4200/add-kp");
-        //justWait();// da se ucita
+        justWait();// da se ucita
 
         accPage.getName().sendKeys("testNaziv");
         accPage.getAddress().sendKeys("test");
@@ -104,7 +104,7 @@ public class AddCCE2ETest {
         login();
         justWait();
         driver.get("http://localhost:4200/add-kp");
-        //justWait();// da se ucita
+        justWait();// da se ucita
 
         accPage.getName().sendKeys("kulturnaponuda");
         accPage.getAddress().sendKeys("test");
