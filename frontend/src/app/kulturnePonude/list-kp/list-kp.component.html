@@ -1,5 +1,5 @@
 <div class="w-100 h-100 p-3">
-	<a class="btn btn-success mx-sm-1 mb-2" routerLink="/kulturne-ponude" role="button" *ngIf="uloga==='ROLE_ADMIN'" id="add_kp">Cultural offers</a>
+	<a class="btn btn-success mx-sm-1 mb-2" routerLink="/add-kp" role="button" *ngIf="uloga==='ROLE_ADMIN'" id="add_kp">Add cultural offer</a>
 	<a class="btn btn-success mx-sm-1 mb-2" routerLink="/tip-kulturne-ponude" role="button" *ngIf="uloga==='ROLE_ADMIN'" id="add_tkp">Cultural types</a>
 	<h2 style="margin: 0 auto;text-align: center;">Cultural offers</h2>
 	<form [formGroup]="regForm1" (ngSubmit)="regIn()" class="form-inline">
