@@ -127,19 +127,15 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
   }
 
   dajSlikuKul(){
-    console.log("aaaaa pato je"+this.temp)
-    this.fotoService.getByCulturalId(this.temp).subscribe(
-      result => {
-        console.log(result);
-        console.log(result.lokacijaFajl.split("assets/img/")[1]);
-        console.log("AAAAAAAAAAA");
-        console.log(result.lokacijaFajl.split("assets/img/")[1])
-        this.lokacijaSlike.lokacijaFajl=result.lokacijaFajl.split("assets/img/")[1];
-        console.log(this.lokacijaSlike.lokacijaFajl);
-      },
-      (error:any)=>{
-        console.log(error);
-      });
+    console.log("SLika Ovde");
+    this.kulService.getSlikaKul(this.id).subscribe(
+      res=>{
+
+        this.lokacijaSlike.lokacijaFajl=res.lokacijaFajl;
+        console.log("wdwdwdwdwd")
+        console.log(this.lokacijaSlike.lokacijaFajl)
+      }
+    )
   }
 
   dajLokaciju(){

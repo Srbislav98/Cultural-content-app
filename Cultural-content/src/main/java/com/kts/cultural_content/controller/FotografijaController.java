@@ -80,12 +80,12 @@ public class FotografijaController {
         }
        // File fajlproba=new File("jako");
        // file.getParentFile().getName();
-        File fajlic = new File(f.getCanonicalPath().split("Cultural-content")[0]+"frontend/src/assets/img/"+fajl.getOriginalFilename()+id);
+        File fajlic = new File(f.getCanonicalPath().split("Cultural-content")[0]+"frontend/src/assets/img/"+fajl.getOriginalFilename());
         fotografija.setFoto(fajlic);
         fotografija.setId(1);
         fotografija.setKulId(id);
         fotografija.setRecId(0);
-        fotografija.setLokacijaFajl(f.getCanonicalPath().split("Cultural-content")[0]+"frontend/src/assets/img/"+fajl.getOriginalFilename()+id);
+        fotografija.setLokacijaFajl(f.getCanonicalPath().split("Cultural-content")[0]+"frontend/src/assets/img/"+fajl.getOriginalFilename());
         try {
             if( ImageIO.read(new File(fotografija.getLokacijaFajl())) == null)
                 throw new IOException("Ovo nije slika");
