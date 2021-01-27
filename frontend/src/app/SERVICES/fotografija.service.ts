@@ -42,6 +42,6 @@ export class FotografijaService{
     }
 
     public delete(id:number){
-        return this.http.delete(this.path+`${id}`);
+        return this.http.delete(this.path+"/delete/"+`${id}`);
     }
 }

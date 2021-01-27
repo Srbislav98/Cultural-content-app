@@ -4,7 +4,9 @@ import ch.qos.logback.core.net.SyslogOutputStream;
 import com.kts.cultural_content.dto.FotografijaDTO;
 import com.kts.cultural_content.mapper.FotografijaMapper;
 import com.kts.cultural_content.model.Fotografija;
+import com.kts.cultural_content.model.KulturnaPonuda;
 import com.kts.cultural_content.service.FotografijaService;
+import com.kts.cultural_content.service.KulturnaPonudaService;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,8 @@ public class FotografijaController {
 
     @Autowired
     private FotografijaService fotografijaService;
+    @Autowired
+    private KulturnaPonudaService kulturnaPonudaService;
     private FotografijaMapper fotografijaMapper;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -47,15 +51,14 @@ public class FotografijaController {
     }
     @RequestMapping(value = "/getByCulturalId/{id}", method = RequestMethod.GET)
     public ResponseEntity<FotografijaDTO> getFotografijaByCultural(@PathVariable Integer id){
-        List<Fotografija> fotografije = fotografijaService.findAll();
-        Fotografija foto=new Fotografija();
-        for (Fotografija f:fotografije) {
-            if(id==f.getKulturnaPonuda().getId()){
-                foto=f;
-            }
+        KulturnaPonuda kulturnaPonuda = kulturnaPonudaService.findOne(id);
+        Fotografija temp = new Fotografija();
+        for (Fotografija f:kulturnaPonuda.getFotogrfija()) {
+            temp = f;
+            break;
         }
-        FotografijaDTO f=fotografijaMapper.toDto(foto);
-        f.setLokacijaFajl(foto.getLokacijaFajl());
+        FotografijaDTO f=fotografijaMapper.toDto(temp);
+        f.setLokacijaFajl(temp.getLokacijaFajl());
         return new ResponseEntity<>(f, HttpStatus.OK);
     }
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -127,12 +130,14 @@ public class FotografijaController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteFotografija(@PathVariable Integer id){
+        System.out.println("Ovde");
+        System.out.println(id);
         try {
             fotografijaService.delete(id);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
+        System.out.println("Ovde");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

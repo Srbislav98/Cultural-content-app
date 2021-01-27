@@ -71,6 +71,8 @@ export class EditKpComponent implements OnInit {
         result => {
           console.log(result);
           this.stariFotoid=result.id;
+          console.log("wdwdwdwdwdwdwdwdw");
+          console.log(this.stariFotoid);
           console.log(result.lokacijaFajl.split("assets/img/")[1]);
           console.log("AAAAAAAAAAA");
           console.log(result.lokacijaFajl.split("assets/img/")[1])
@@ -118,7 +120,11 @@ export class EditKpComponent implements OnInit {
         if(this.fileToUpload!=null){
           this.fotoService.createForCult(this.fileToUpload,dataa.id).subscribe(
             data=>{
-              this.fotoService.delete(this.stariFotoid);
+              this.fotoService.delete(this.stariFotoid).subscribe(
+                res=>{
+                  
+                }
+              )
               this.toastr.success('Successful cultural offer editing.');
               this.router.navigate(['']);
             },
