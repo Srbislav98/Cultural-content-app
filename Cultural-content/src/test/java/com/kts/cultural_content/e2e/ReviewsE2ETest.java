@@ -53,11 +53,11 @@ public class ReviewsE2ETest {
     @Test
     public void FilterByGrade() throws InterruptedException{
         logIn();
-        driver.get("http://localhost:4200/kulturna-ponuda-detaljno/100");
+        driver.get("http://localhost:4200/kulturna-ponuda-detaljno/104");
         justWait();
         kulturnaPonudaDetaljnoPage.ensureIsVisiblereviewsBtn();
         kulturnaPonudaDetaljnoPage.getReviewsButton().click();
-        driver.get("http://localhost:4200/your-review/100");
+        driver.get("http://localhost:4200/your-review/104");
         justWait();
         //yourReviewPage.getOcena().clear();
         yourReviewPage.getOcena().sendKeys("4");
@@ -66,7 +66,7 @@ public class ReviewsE2ETest {
         yourReviewPage.ensureIsVisiblenapraviBtn();
         yourReviewPage.getNapraviButton().click();
         justWait();
-        driver.get("http://localhost:4200/reviews/100");
+        driver.get("http://localhost:4200/reviews/104");
         justWait();
         reviewsPage.ensureIsVisibleSearchBtn();
         reviewsPage.getOcena().sendKeys("4");

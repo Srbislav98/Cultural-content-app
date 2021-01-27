@@ -65,7 +65,7 @@ public class KulturnaPonudaDetaljnoE2ETest {
     public void SubscribeTest() throws InterruptedException{
         logIn();
 
-        driver.get("http://localhost:4200/kulturna-ponuda-detaljno/101");
+        driver.get("http://localhost:4200/kulturna-ponuda-detaljno/106");
         justWait();
         kulturnaPonudaDetaljnoPage.getSubButton().click();
         kulturnaPonudaDetaljnoPage.ensureIsVisibleSubBtn();
