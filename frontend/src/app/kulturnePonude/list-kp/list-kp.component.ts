@@ -85,8 +85,8 @@ export class ListKpComponent implements OnInit {
 
 	}
 	ngOnInit() {
-    this.regForm1.value["podatak"] = "";
-    this.regForm2.value["podatak"] = "";
+    this.regForm1.reset();
+    this.regForm2.reset();
     this.trazi1=false;
     this.trazi2=false;
     //this.trazim="";
