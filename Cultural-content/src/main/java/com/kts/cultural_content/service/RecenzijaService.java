@@ -61,15 +61,7 @@ public class RecenzijaService implements ServiceInterface<Recenzija> {
             throw new Exception("komentar with given id doesn't exist");
         }
         existingrecenzija.setFoto(entity.getFoto());
-        if(entity.getFoto()!=null) {
-            try {
-                existingrecenzija.getFotogrfija().setLokacijaFajl(entity.getFoto());
-            } catch (NullPointerException e) {
-                existingrecenzija.setFotogrfija(new Fotografija(0, "",null,entity.getKulturnaPonuda().getId(), entity.getRegistrovaniKorisnik().getId()));
-                //existingrecenzija.getFotogrfija().setFoto(new File(entity.getFoto()));
-            }
 
-        }
         existingrecenzija.setKulId(entity.getKulId());
         existingrecenzija.setRegId(entity.getRegId());
         existingrecenzija.setKulturnaPonuda(kulturnaPonudaRepository.findById(entity.getKulId()).orElse(null));

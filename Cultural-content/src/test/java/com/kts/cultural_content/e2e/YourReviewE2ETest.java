@@ -36,12 +36,13 @@ public class YourReviewE2ETest {
         driver.quit();
     }
 
-    public void logIn(){
+    public void logIn() throws InterruptedException {
 
         driver.get("http://localhost:4200/login");
         loginPage.getEmail().sendKeys("123@gmail.com");
         loginPage.getPassword().sendKeys("user");
         loginPage.getLoginBtn().click();
+        justWait();
 
     }
     public void logOut(){
@@ -52,20 +53,20 @@ public class YourReviewE2ETest {
     @Test
     public void AddReview()throws InterruptedException{
         logIn();
-        driver.get("http://localhost:4200/kulturna-ponuda-detaljno/100");
+        driver.get("http://localhost:4200/kulturna-ponuda-detaljno/101");
         justWait();
         kulturnaPonudaDetaljnoPage.ensureIsVisibleaddReviewBtn();
         kulturnaPonudaDetaljnoPage.getAddReviewButton().click();
-        driver.get("http://localhost:4200/reviews/100");
+        driver.get("http://localhost:4200/your-review/101");
         justWait();
-        yourReviewPage.getOcena().clear();
+        //yourReviewPage.getOcena().clear();
         yourReviewPage.getOcena().sendKeys("4");
         yourReviewPage.getKomentar().clear();
         yourReviewPage.getKomentar().sendKeys("Test neki");
         yourReviewPage.ensureIsVisiblenapraviBtn();
         yourReviewPage.getNapraviButton().click();
         justWait();
-        driver.get("http://localhost:4200/reviews/100");
+        driver.get("http://localhost:4200/reviews/101");
         justWait();
         assertEquals(1,reviewsPage.getElementi().size());
         logOut();

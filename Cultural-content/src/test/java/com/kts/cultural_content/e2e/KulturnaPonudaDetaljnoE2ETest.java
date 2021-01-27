@@ -34,12 +34,13 @@ public class KulturnaPonudaDetaljnoE2ETest {
         driver.quit();
     }
 
-    public void logIn(){
+    public void logIn() throws InterruptedException {
 
         driver.get("http://localhost:4200/login");
         loginPage.getEmail().sendKeys("123@gmail.com");
         loginPage.getPassword().sendKeys("user");
         loginPage.getLoginBtn().click();
+        justWait();
 
     }
     public void logOut(){
@@ -50,6 +51,8 @@ public class KulturnaPonudaDetaljnoE2ETest {
     @Test
     public void UnsubscribeTest() throws InterruptedException{
         logIn();
+
+
         driver.get("http://localhost:4200/kulturna-ponuda-detaljno/100");
         justWait();
         kulturnaPonudaDetaljnoPage.getSubButton().click();
@@ -61,6 +64,7 @@ public class KulturnaPonudaDetaljnoE2ETest {
     @Test
     public void SubscribeTest() throws InterruptedException{
         logIn();
+
         driver.get("http://localhost:4200/kulturna-ponuda-detaljno/101");
         justWait();
         kulturnaPonudaDetaljnoPage.getSubButton().click();

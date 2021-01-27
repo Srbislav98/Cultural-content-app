@@ -1,9 +1,6 @@
 package com.kts.cultural_content.e2e;
 
-import com.kts.cultural_content.pages.HomePage;
-import com.kts.cultural_content.pages.KulturnaPonudaDetaljnoPage;
-import com.kts.cultural_content.pages.LoginPage;
-import com.kts.cultural_content.pages.ReviewsPage;
+import com.kts.cultural_content.pages.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +16,7 @@ public class ReviewsE2ETest {
     private HomePage homePage;
     private KulturnaPonudaDetaljnoPage kulturnaPonudaDetaljnoPage;
     private ReviewsPage reviewsPage;
+    private YourReviewPage yourReviewPage;
 
     @Before
     public void setUp(){
@@ -30,6 +28,7 @@ public class ReviewsE2ETest {
         homePage = PageFactory.initElements(driver, HomePage.class);
         kulturnaPonudaDetaljnoPage = PageFactory.initElements(driver, KulturnaPonudaDetaljnoPage.class);
         reviewsPage=PageFactory.initElements(driver,ReviewsPage.class);
+        yourReviewPage=PageFactory.initElements(driver,YourReviewPage.class);
     }
 
     @After
@@ -37,12 +36,13 @@ public class ReviewsE2ETest {
         driver.quit();
     }
 
-    public void logIn(){
+    public void logIn() throws InterruptedException {
 
         driver.get("http://localhost:4200/login");
         loginPage.getEmail().sendKeys("123@gmail.com");
         loginPage.getPassword().sendKeys("user");
         loginPage.getLoginBtn().click();
+        justWait();
 
     }
     public void logOut(){
@@ -57,13 +57,22 @@ public class ReviewsE2ETest {
         justWait();
         kulturnaPonudaDetaljnoPage.ensureIsVisiblereviewsBtn();
         kulturnaPonudaDetaljnoPage.getReviewsButton().click();
+        driver.get("http://localhost:4200/your-review/100");
+        justWait();
+        //yourReviewPage.getOcena().clear();
+        yourReviewPage.getOcena().sendKeys("4");
+        yourReviewPage.getKomentar().clear();
+        yourReviewPage.getKomentar().sendKeys("Test neki");
+        yourReviewPage.ensureIsVisiblenapraviBtn();
+        yourReviewPage.getNapraviButton().click();
+        justWait();
         driver.get("http://localhost:4200/reviews/100");
         justWait();
         reviewsPage.ensureIsVisibleSearchBtn();
         reviewsPage.getOcena().sendKeys("4");
         reviewsPage.getSearchButton().click();
         justWait();
-        assertEquals(0,reviewsPage.getElementi().size());
+        assertEquals(1,reviewsPage.getElementi().size());
         logOut();
     }
 

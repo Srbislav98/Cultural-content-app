@@ -37,12 +37,13 @@ public class AddNewsE2ETest {
         driver.quit();
     }
 
-    public void logIn(){
+    public void logIn() throws InterruptedException {
 
         driver.get("http://localhost:4200/login");
-        loginPage.getEmail().sendKeys("123@gmail.com");
-        loginPage.getPassword().sendKeys("user");
+        loginPage.getEmail().sendKeys("124@gmail.com");
+        loginPage.getPassword().sendKeys("admin");
         loginPage.getLoginBtn().click();
+        justWait();
 
     }
     public void logOut(){
@@ -56,7 +57,7 @@ public class AddNewsE2ETest {
         driver.get("http://localhost:4200/kulturna-ponuda-detaljno/100");
         justWait();
         kulturnaPonudaDetaljnoPage.ensureIsVisibleaddNewsBtn();
-        kulturnaPonudaDetaljnoPage.getAddReviewButton().click();
+        kulturnaPonudaDetaljnoPage.getAddNewsButton().click();
         driver.get("http://localhost:4200/add-news/100");
         justWait();
         addNewsPage.getNaziv().clear();

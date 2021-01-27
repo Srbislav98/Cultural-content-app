@@ -2,6 +2,7 @@ package com.kts.cultural_content.controller;
 
 import com.kts.cultural_content.dto.*;
 import com.kts.cultural_content.mapper.RestPageImpl;
+import com.kts.cultural_content.model.Fotografija;
 import com.kts.cultural_content.model.Novost;
 import com.kts.cultural_content.repository.KulturnaPonudaRepository;
 import com.kts.cultural_content.repository.TipKPRepository;
@@ -476,6 +477,40 @@ public class KulturnaPonudaControllerIntegrationTest {
         HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
         ResponseEntity<Boolean> responseEntity =
                 restTemplate.exchange("/api/kulturnePonude/daLiSadrzi/9999/registrovani/1", HttpMethod.GET, httpEntity, Boolean.class);
+
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void DajSlikuKul() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<Fotografija> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getSlikaKul/100", HttpMethod.GET, httpEntity, Fotografija.class);
+
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void DajSlikuKulPogresanId() {
+        login("124@gmail.com", "admin");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+
+        HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<Fotografija> responseEntity =
+                restTemplate.exchange("/api/kulturnePonude/getSlikaKul/9999", HttpMethod.GET, httpEntity, Fotografija.class);
 
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());

@@ -356,11 +356,14 @@ public class KulturnaPonudaController {
         }
         Fotografija d = new Fotografija();
         d.setLokacijaFajl("assets/img/R6eb915d96d4c990aaf152a70c5fb54a9.png");
-        for(Fotografija fotografija:kulturnaPonuda.getFotogrfija()){
-            d.setLokacijaFajl("assets/img/"+fotografija.getFoto().getName());
+        if(kulturnaPonuda.getFotogrfija()!=null)
+            for(Fotografija fotografija:kulturnaPonuda.getFotogrfija()){
+                if (fotografija.getFoto()!=null) {
+                    d.setLokacijaFajl("assets/img/" + fotografija.getFoto().getName());
+                    break;
+                }
 
-            break;
-        }
+            }
 
         //String d = kulturnaPonuda.getFotogrfija()
         return new ResponseEntity<Fotografija>(d, HttpStatus.OK);
