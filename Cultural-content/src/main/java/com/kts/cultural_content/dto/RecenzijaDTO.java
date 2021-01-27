@@ -2,7 +2,7 @@ package com.kts.cultural_content.dto;
 
 import java.io.File;
 
-public class RecenzijaDTO {
+public class RecenzijaDTO implements Comparable{
     private Integer id;
 
     private Integer ocena;
@@ -79,6 +79,12 @@ public class RecenzijaDTO {
         return kulId;
     }
 
+
+    @Override
+    public int compareTo(Object o){
+        RecenzijaDTO e = (RecenzijaDTO) o;
+        return getOcena().compareTo(e.getOcena());
+    }
 
 }
 

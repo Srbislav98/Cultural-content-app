@@ -2,7 +2,7 @@ package com.kts.cultural_content.dto;
 
 import java.util.Date;
 
-public class NovostDTO {
+public class NovostDTO implements Comparable{
 
     private Integer id;
     private String naziv;
@@ -51,4 +51,9 @@ public class NovostDTO {
         this.datum = datum;
     }
 
+    @Override
+    public int compareTo(Object o){
+        NovostDTO e = (NovostDTO) o;
+        return getDatum().compareTo(e.getDatum());
+    }
 }

@@ -206,8 +206,8 @@ public class KulturnaPonudaController {
             NovostDTO test = new NovostDTO(nov.getId(),nov.getNaziv(),nov.getOpis(),nov.getDatum());
             nPonude.add(test);
         }
-        //Collections.sort(nPonude, null);
-        nPonude = bubble_sort(nPonude);
+        Collections.sort(nPonude);
+        //nPonude = bubble_sort(nPonude);
         for(NovostDTO kpa : nPonude){
             if(pocetak==kreni && moze>0){
                 nDTOS.add(kpa);
@@ -281,7 +281,7 @@ public class KulturnaPonudaController {
             RecenzijaDTO test = new RecenzijaDTO(nov.getId(),nov.getOcena(),nov.getKomentar(),nov.getRegId(), nov.getKulId(),nov.getFoto());
             nPonude.add(test);
         }
-        //Collections.sort(nPonude, null);
+        Collections.sort(nPonude);
         //nPonude = bubble_sort(nPonude);
         for(RecenzijaDTO kpa : nPonude){
             if(pocetak==kreni && moze>0){
@@ -356,11 +356,13 @@ public class KulturnaPonudaController {
         }
         Fotografija d = new Fotografija();
         d.setLokacijaFajl("assets/img/R6eb915d96d4c990aaf152a70c5fb54a9.png");
-        for(Fotografija fotografija:kulturnaPonuda.getFotogrfija()){
-            d.setLokacijaFajl("assets/img/"+fotografija.getFoto().getName());
+        if(kulturnaPonuda.getFotogrfija()!=null)
+            for(Fotografija fotografija:kulturnaPonuda.getFotogrfija()){
+                d.setLokacijaFajl("assets/img/" + fotografija.getLokacijaFajl().split("assets/img/")[1]);
+                break;
 
-            break;
-        }
+
+            }
 
         //String d = kulturnaPonuda.getFotogrfija()
         return new ResponseEntity<Fotografija>(d, HttpStatus.OK);

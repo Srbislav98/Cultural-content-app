@@ -49,10 +49,13 @@ public class Fotografija {
     public boolean equals(Object obj) {
         Fotografija o = (Fotografija)obj;
         if(this.getId()==null || o.getId()==null){
-            if (this.getRecId()==null || o.getRecId()==null)
-                return this.getKulId().equals(o.getKulId());
+            if(this.getRecId().equals(o.getRecId()))
+                if(this.getKulId().equals(o.getKulId()))
+                    return true;
+                else
+                    return false;
             else
-                return this.getRecId().equals(o.getRecId());
+                return false;
         }else
             return this.getId().equals(o.getId());
     }
