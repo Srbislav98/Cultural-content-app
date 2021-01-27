@@ -30,6 +30,9 @@ public class ProfilePage {
     @FindBy(id="td-prezime")
     private WebElement prezime;
 
+    @FindBy(id="reset-button")
+    private WebElement resetBtn;
+
     public ProfilePage() {
     }
 
@@ -73,5 +76,9 @@ public class ProfilePage {
 
     public WebElement getPrezime() {
         return prezime;
+    }
+
+    public WebElement getResetBtn() {
+        return resetBtn;
     }
 }

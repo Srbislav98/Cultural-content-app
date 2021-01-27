@@ -95,10 +95,35 @@ public class ProfileE2ETest {
         //homePage.getProfileBtn().click();
         driver.get("http://localhost:4200/profil");
         justWait();
-        profilePage.getSearchInput().sendKeys("Exit");
+
+        //profilePage.getSearchInput().sendKeys("Exit");
+
+        profilePage.getSearchInput().sendKeys("Narodni muzej Niš");
+
         profilePage.getSearchBtn().click();
         justWait();
         assertEquals(profilePage.getUnsubBtn().size(), 1);
+        homePage.ensureIsVisibleSignoutBtn();
+        homePage.getSignoutBtn().click();
+    }
+
+    @Test
+    public void SearchSubThenResetTest() throws InterruptedException {
+        driver.get("http://localhost:4200/login");
+        loginPage.getEmail().sendKeys("123@gmail.com");
+        loginPage.getPassword().sendKeys("user");
+        loginPage.getLoginBtn().click();
+        homePage.ensureIsVisibleProfileBtn();
+        //homePage.getProfileBtn().click();
+        driver.get("http://localhost:4200/profil");
+        justWait();
+        profilePage.getSearchInput().sendKeys("Narodni muzej Niš");
+        profilePage.getSearchBtn().click();
+        justWait();
+        assertEquals(profilePage.getUnsubBtn().size(), 1);
+        profilePage.getResetBtn().click();
+        justWait();
+        assertEquals(profilePage.getUnsubBtn().size(), 2);
         homePage.ensureIsVisibleSignoutBtn();
         homePage.getSignoutBtn().click();
     }
