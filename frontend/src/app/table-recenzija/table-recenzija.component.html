@@ -10,7 +10,7 @@
       <tr *ngFor="let recenzija of recenzije" id="elementi">
         <td>{{recenzija.ocena}}</td>
         <td>{{recenzija.komentar}}</td>
-        <td ><img src="{{recenzija.foto}}" height="50" width="50"></td>
+        <td *ngIf="recenzija.foto!=null"><img src="{{recenzija.foto}}" height="50" width="50"></td>
       </tr>
     </tbody>
   </table>
