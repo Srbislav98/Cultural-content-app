@@ -360,10 +360,7 @@ public class KulturnaPonudaController {
             for(Fotografija fotografija:kulturnaPonuda.getFotogrfija()){
                 d.setLokacijaFajl("assets/img/" + fotografija.getLokacijaFajl().split("assets/img/")[1]);
                 break;
-
-
             }
-
         //String d = kulturnaPonuda.getFotogrfija()
         return new ResponseEntity<Fotografija>(d, HttpStatus.OK);
     }

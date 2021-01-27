@@ -81,7 +81,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/kulturnePonude/filter-by-content-page/**").permitAll()
                 .antMatchers("/api/registrovaniKorisnici/**").permitAll()
                 .antMatchers("/api/tipoviKP/get/**").permitAll()
-                .antMatchers("/api/getSlikaKul/**").permitAll()
+                .antMatchers("/api/kulturnePonude/getSlikaKul/**").permitAll()
                 .antMatchers("/api/lokacije/getLocationsIds").permitAll()
                 .antMatchers("/api/fotografije/getByCulturalId/**").permitAll()
                 .antMatchers("/api/kulturnePonude/filter-by-location-page/**").permitAll()
