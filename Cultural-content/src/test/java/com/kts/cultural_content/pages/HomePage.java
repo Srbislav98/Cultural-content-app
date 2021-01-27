@@ -45,6 +45,12 @@ public class HomePage {
     @FindBy(id="home_btn")
     private WebElement homeBtn;
 
+    @FindBy(id="add_tkp")
+    private WebElement addTKPBtn;
+
+    @FindBy(id="kp_detaljno")
+    private WebElement kpDetaljno;
+
     public HomePage() {
     }
 
@@ -82,6 +88,10 @@ public class HomePage {
 
     public void ensureIsVisibleDeleteKPBtn() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("delete_kp")));
+    }
+
+    public void ensureIsVisibleAddTKPBtn() {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("add_tkp")));
     }
 
     public WebElement getSinginBtn() {
@@ -162,5 +172,21 @@ public class HomePage {
 
     public void setHomeBtn(WebElement homeBtn) {
         this.homeBtn = homeBtn;
+    }
+
+    public WebElement getAddTKPBtn() {
+        return addTKPBtn;
+    }
+
+    public void setAddTKPBtn(WebElement addTKPBtn) {
+        this.addTKPBtn = addTKPBtn;
+    }
+
+    public WebElement getKpDetaljno() {
+        return kpDetaljno;
+    }
+
+    public void setKpDetaljno(WebElement kpDetaljno) {
+        this.kpDetaljno = kpDetaljno;
     }
 }

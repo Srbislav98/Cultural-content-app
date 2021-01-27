@@ -18,7 +18,7 @@
         <td>{{subscription.naziv}}</td>
         <td>{{subscription.opis}}</td>
         <td>
-          <a class="btn btn-info" routerLink="/kulturna-ponuda-detaljno/{{subscription.id}}" role="button">Detailed</a>
+          <a class="btn btn-info" routerLink="/kulturna-ponuda-detaljno/{{subscription.id}}" role="button" id="kp_detaljno">Detailed</a>
         </td>
         <td *ngIf="uloga==='ROLE_ADMIN'">
             <a class="btn btn-secondary" routerLink="/edit-kp/{{subscription.id}}" role="button" id="edit_kp">Edit</a>
