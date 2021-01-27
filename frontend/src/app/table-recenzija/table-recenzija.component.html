@@ -7,7 +7,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let recenzija of recenzije">
+      <tr *ngFor="let recenzija of recenzije" id="elementi">
         <td>{{recenzija.ocena}}</td>
         <td>{{recenzija.komentar}}</td>
         <td ><img src="{{recenzija.foto}}" height="50" width="50"></td>

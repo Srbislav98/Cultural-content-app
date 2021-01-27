@@ -7,7 +7,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let novost of novosti">
+      <tr *ngFor="let novost of novosti" id="elementi">
         <td>{{novost.naziv}}</td>
         <td>{{novost.opis}}</td>
         <td>{{novost.datum | date:'dd.MM.yyyy'}}</td>

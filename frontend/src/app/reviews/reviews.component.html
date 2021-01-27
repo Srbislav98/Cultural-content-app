@@ -6,7 +6,7 @@
             <option *ngFor="let ocene of oceneLista" value="{{ocene}}">{{ocene}}</option>
          </select>
 		</div>
-		<button type="submit" class="btn btn-secondary mb-2">Search</button>
+		<button type="submit" class="btn btn-secondary mb-2" id="searchBtn">Search</button>
 	</form>
 	<div class="row">
 		<div class="col">
@@ -23,5 +23,5 @@
 </div>
 <div class="w-50 h-100 p-5" style="float:left;">
     <form (ngSubmit)="natrag()">
-        <button type="submit">Back</button></form>
+        <button type="submit" id="backBtn">Back</button></form>
 </div>
