@@ -36,7 +36,8 @@
                    formControlName="type"
                    bindLabel="naziv"
                    [virtualScroll]="true"
-                   bindValue="id">
+                   bindValue="id"
+                   id="Type">
                 </ng-select>
                 <!--
                 <small class="text-danger" 
@@ -50,7 +51,8 @@
                 <ng-select class="form-control" [items]="locations!"
                     formControlName="location"
                     bindLabel="nazivLokacije"
-                    bindValue="id">
+                    bindValue="id"
+                    id="Location">
                 </ng-select>
                 <!--<small class="text-danger" 
                 *ngIf="regForm.controls.location.touched && regForm.controls.location.errors?.required">
