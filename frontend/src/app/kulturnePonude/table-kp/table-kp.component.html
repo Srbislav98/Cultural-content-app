@@ -21,10 +21,10 @@
           <a class="btn btn-info" routerLink="/kulturna-ponuda-detaljno/{{subscription.id}}" role="button">Detailed</a>
         </td>
         <td *ngIf="uloga==='ROLE_ADMIN'">
-            <a class="btn btn-secondary" routerLink="/edit-kp/{{subscription.id}}" role="button">Edit</a>
+            <a class="btn btn-secondary" routerLink="/edit-kp/{{subscription.id}}" role="button" id="edit_kp">Edit</a>
         </td>
         <td *ngIf="uloga==='ROLE_ADMIN'">
-          <button button type="button" class="btn btn-danger" (click)="Obrisi(subscription)">Delete</button>
+          <button button type="button" class="btn btn-danger" (click)="Obrisi(subscription)" id="delete_kp">Delete</button>
         </td>
       </tr>
     </tbody>

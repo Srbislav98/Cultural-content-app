@@ -21,6 +21,30 @@ public class HomePage {
     @FindBy(id="profile-button")
     private WebElement profileBtn;
 
+    @FindBy(id="filter_content")
+    private WebElement filterContentBtn;
+
+    @FindBy(id="filter_location")
+    private WebElement filterLocationBtn;
+
+    @FindBy(id="podatak")
+    private WebElement filterContent;
+
+    @FindBy(id="podatak2")
+    private WebElement filterLocation;
+
+    @FindBy(id="add_kp")
+    private WebElement addKPBtn;
+
+    @FindBy(id="edit_kp")
+    private WebElement editKPBtn;
+
+    @FindBy(id="delete_kp")
+    private WebElement deleteKPBtn;
+
+    @FindBy(id="home_btn")
+    private WebElement homeBtn;
+
     public HomePage() {
     }
 
@@ -48,6 +72,18 @@ public class HomePage {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("profile-button")));
     }
 
+    public void ensureIsVisibleAddKPBtn() {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("add_kp")));
+    }
+
+    public void ensureIsVisibleEditKPBtn() {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("edit_kp")));
+    }
+
+    public void ensureIsVisibleDeleteKPBtn() {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("delete_kp")));
+    }
+
     public WebElement getSinginBtn() {
         return singinBtn;
     }
@@ -62,5 +98,69 @@ public class HomePage {
 
     public WebElement getProfileBtn() {
         return profileBtn;
+    }
+
+    public WebElement getFilterContentBtn() {
+        return filterContentBtn;
+    }
+
+    public void setFilterContentBtn(WebElement filterContentBtn) {
+        this.filterContentBtn = filterContentBtn;
+    }
+
+    public WebElement getFilterLocationBtn() {
+        return filterLocationBtn;
+    }
+
+    public void setFilterLocationBtn(WebElement filterLocationBtn) {
+        this.filterLocationBtn = filterLocationBtn;
+    }
+
+    public WebElement getFilterContent() {
+        return filterContent;
+    }
+
+    public void setFilterContent(WebElement filterContent) {
+        this.filterContent = filterContent;
+    }
+
+    public WebElement getFilterLocation() {
+        return filterLocation;
+    }
+
+    public void setFilterLocation(WebElement filterLocation) {
+        this.filterLocation = filterLocation;
+    }
+
+    public WebElement getAddKPBtn() {
+        return addKPBtn;
+    }
+
+    public void setAddKPBtn(WebElement addKPBtn) {
+        this.addKPBtn = addKPBtn;
+    }
+
+    public WebElement getEditKPBtn() {
+        return editKPBtn;
+    }
+
+    public void setEditKPBtn(WebElement editKPBtn) {
+        this.editKPBtn = editKPBtn;
+    }
+
+    public WebElement getDeleteKPBtn() {
+        return deleteKPBtn;
+    }
+
+    public void setDeleteKPBtn(WebElement deleteKPBtn) {
+        this.deleteKPBtn = deleteKPBtn;
+    }
+
+    public WebElement getHomeBtn() {
+        return homeBtn;
+    }
+
+    public void setHomeBtn(WebElement homeBtn) {
+        this.homeBtn = homeBtn;
     }
 }
