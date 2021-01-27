@@ -71,10 +71,10 @@ export class EditKpComponent implements OnInit {
         result => {
           console.log(result);
           this.stariFotoid=result.id;
-          console.log(result.lokacijaFajl.split("assets\\img\\")[1]);
+          console.log(result.lokacijaFajl.split("assets/img/")[1]);
           console.log("AAAAAAAAAAA");
-          console.log(result.lokacijaFajl.split("assets\\img\\")[1])
-          this.urlFoto=result.lokacijaFajl.split("assets\\img\\")[1];
+          console.log(result.lokacijaFajl.split("assets/img/")[1])
+          this.urlFoto=result.lokacijaFajl.split("assets/img/")[1];
         },
         (error:any)=>{
           console.log(error);

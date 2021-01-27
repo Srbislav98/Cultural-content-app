@@ -83,6 +83,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/tipoviKP/get/**").permitAll()
                 .antMatchers("/api/getSlikaKul/**").permitAll()
                 .antMatchers("/api/lokacije/getLocationsIds").permitAll()
+                .antMatchers("/api/fotografije/getByCulturalId/**").permitAll()
                 .antMatchers("/api/kulturnePonude/filter-by-location-page/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 // umesto anotacija iynad svake metode, moze i ovde da se proveravaju prava pristupa ya odredjeni URL

@@ -14,6 +14,7 @@ import { KulturnaPonudaService } from './../SERVICES/kulturnaPonuda.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FotografijaService } from '../SERVICES/fotografija.service';
 
 @Component({
   selector: 'app-kulturna-ponuda-detaljno',
@@ -49,6 +50,7 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
   constructor(private fBuilder:FormBuilder,
     private router:Router,
     private kulService:KulturnaPonudaService,
+    private fotoService:FotografijaService,
     private route:ActivatedRoute,
     private toastr: ToastrService,
     private korService:ProfileService
@@ -125,13 +127,19 @@ export class KulturnaPonudaDetaljnoComponent implements OnInit {
   }
 
   dajSlikuKul(){
-    console.log("SLika Ovde");
-    this.kulService.getSlikaKul(this.id).subscribe(
-      res=>{
-        
-        this.lokacijaSlike.lokacijaFajl=res.lokacijaFajl;
-      }
-    )
+    console.log("aaaaa pato je"+this.temp)
+    this.fotoService.getByCulturalId(this.temp).subscribe(
+      result => {
+        console.log(result);
+        console.log(result.lokacijaFajl.split("assets/img/")[1]);
+        console.log("AAAAAAAAAAA");
+        console.log(result.lokacijaFajl.split("assets/img/")[1])
+        this.lokacijaSlike.lokacijaFajl=result.lokacijaFajl.split("assets/img/")[1];
+        console.log(this.lokacijaSlike.lokacijaFajl);
+      },
+      (error:any)=>{
+        console.log(error);
+      });
   }
 
   dajLokaciju(){

@@ -1,9 +1,10 @@
 <mat-toolbar color="primary">
-  <button mat-mini-fab  (click)="goToHome()">
+  <button mat-mini-fab  (click)="goToHome()" id="home_btn">
     <mat-icon>home</mat-icon>
   </button>
   <span class="lilspace"></span>
-  <span>Cultural content app</span>
+  <span *ngIf="getRole()!=='ROLE_ADMIN'">Cultural content app</span>
+  <span *ngIf="getRole()==='ROLE_ADMIN'">Cultural content app - Admin</span>
   <span class="bigspace"></span>
   <div *ngIf="getRole()===undefined">
     <button mat-raised-button color="accent" id="signin-button" (click)="goToLogIn()">Login</button>
