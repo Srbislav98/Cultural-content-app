@@ -74,7 +74,7 @@ export class ProfileService {
 		const headeri=new HttpHeaders({
 			'Content-Type': 'application/json'
 		});
-		
+
 		return this.http.delete('http://localhost:8080/api/registrovaniKorisnici/unsubscribe'+`/${idUser}`+'/kulturnaPonuda'+`/${idKul}`, {headers:headeri});
 	}
 
@@ -82,7 +82,12 @@ export class ProfileService {
 		const headeri=new HttpHeaders({
 			'Content-Type': 'application/json'
 		});
-		const id1=1;
+		let id1=1;
+		this.getId().subscribe(
+			res => {
+				id1=res.id;
+			}
+		);
 		console.log(id1);
 		console.log(id2);
 		return this.http.delete('http://localhost:8080/api/registrovaniKorisnici/unsubscribe'+`/${id1}`+'/kulturnaPonuda'+`/${id2}`, {headers:headeri});
