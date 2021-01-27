@@ -44,4 +44,23 @@ public class HomePage {
     public void ensureIsVisibleProfileBtn() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("profile-button")));
     }
+    public void ensureIsNotVisibleProfileBtn() {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("profile-button")));
+    }
+
+    public WebElement getSinginBtn() {
+        return singinBtn;
+    }
+
+    public WebElement getSignupBtn() {
+        return signupBtn;
+    }
+
+    public WebElement getSignoutBtn() {
+        return signoutBtn;
+    }
+
+    public WebElement getProfileBtn() {
+        return profileBtn;
+    }
 }
