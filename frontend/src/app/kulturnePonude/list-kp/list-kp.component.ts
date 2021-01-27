@@ -9,14 +9,17 @@ import { KulturnaPonudaService } from 'src/app/SERVICES/kulturnaPonuda.service';
   styleUrls: ['./list-kp.component.scss']
 })
 export class ListKpComponent implements OnInit {
-  regForm:FormGroup;
+  regForm1:FormGroup;
+  regForm2:FormGroup;
   pageSize: number;
   currentPage: number;
   totalSize: number;
   subList:Subscription[] | undefined;
   uloga: any;
   @Output() gotCulturalOffers = new EventEmitter<Array<number>>();
-  trazi:boolean = false;
+  trazi1:boolean = false;
+  trazi2:boolean = false;
+  trazim:string ="";
 
 	constructor(
 		private kulturnaPonudaService: KulturnaPonudaService,
@@ -25,14 +28,17 @@ export class ListKpComponent implements OnInit {
 		this.pageSize = 2;
 		this.currentPage = 1;
 		this.totalSize = 1;
-		this.regForm = this.fBuilder.group({
+		this.regForm1 = this.fBuilder.group({
 			podatak: [""]
       });
+    this.regForm2 = this.fBuilder.group({
+        podatak: [""]
+        });
       this.uloga = localStorage.getItem('uloga');
 	}
 
 	changePage(newPage: number) {
-    if(!this.trazi) {
+    if(!this.trazi1 && !this.trazi2) {
       this.kulturnaPonudaService.getByPage(newPage - 1).subscribe(
         res => {
 
@@ -46,9 +52,8 @@ export class ListKpComponent implements OnInit {
         }
       );
     } else {
-      if(this.regForm.value["podatak"].length!=0){
-        this.trazi = true;
-        this.kulturnaPonudaService.searchAllByPage(this.regForm.value["podatak"], newPage - 1, this.pageSize).subscribe(
+      if(this.trazim.length!=0 && this.trazi1){
+        this.kulturnaPonudaService.searchAllByPage(this.trazim, newPage - 1, this.pageSize).subscribe(
         res=>{
           this.subList = res.body.content as Subscription[];
           //alert(this.subList.length);
@@ -61,12 +66,28 @@ export class ListKpComponent implements OnInit {
           this.gotCulturalOffers.emit(locationIds);
         }
         );
+      }else{
+        this.kulturnaPonudaService.searchAllByLocationPage(this.trazim,this.currentPage - 1, this.pageSize).subscribe(
+          res=>{
+            this.subList = res.body.content as Subscription[];
+            //alert(this.subList.length);
+            //alert(this.totalSize);
+            this.totalSize = Number(res.body.totalElements);
+            const locationIds = new Array<number>();
+            for(let i=0;i<this.subList.length; i++) {
+              locationIds.push(this.subList[i].idLokacije);
+            }
+            this.gotCulturalOffers.emit(locationIds);
+          }
+          );
+        }
       }
-    }
 
 	}
 	ngOnInit() {
-    this.trazi=false;
+    this.trazi1=false;
+    this.trazi2=false;
+    //this.trazim="";
 		this.kulturnaPonudaService.getByPage(this.currentPage - 1).subscribe(
 			res => {
 				console.log(res.content);
@@ -82,9 +103,11 @@ export class ListKpComponent implements OnInit {
 		);
 	}
 	regIn(){
-		if(this.regForm.value["podatak"].length!=0){
-      this.trazi = true;
-			this.kulturnaPonudaService.searchAllByPage(this.regForm.value["podatak"],this.currentPage - 1, this.pageSize).subscribe(
+		if(this.regForm1.value["podatak"].length!=0){
+      this.trazi1 = true;
+      this.trazi2=false;
+      this.trazim=this.regForm1.value["podatak"];
+			this.kulturnaPonudaService.searchAllByPage(this.trazim,this.currentPage - 1, this.pageSize).subscribe(
 			res=>{
 				this.subList = res.body.content as Subscription[];
 				//alert(this.subList.length);
@@ -100,9 +123,11 @@ export class ListKpComponent implements OnInit {
 		}
   }
   regIn2(){
-		if(this.regForm.value["podatak"].length!=0){
-      this.trazi = true;
-			this.kulturnaPonudaService.searchAllByLocationPage(this.regForm.value["podatak"],this.currentPage - 1, this.pageSize).subscribe(
+		if(this.regForm2.value["podatak"].length!=0){
+      this.trazi2 = true;
+      this.trazi1=false;
+      this.trazim=this.regForm2.value["podatak"];
+			this.kulturnaPonudaService.searchAllByLocationPage(this.trazim,this.currentPage - 1, this.pageSize).subscribe(
 			res=>{
 				this.subList = res.body.content as Subscription[];
 				//alert(this.subList.length);

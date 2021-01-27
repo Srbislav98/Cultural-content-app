@@ -14,7 +14,7 @@ import org.springframework.test.context.TestPropertySource;
 @SuiteClasses({AdminControllerIntegrationTest.class, AuthenticationControllerIntegrationTest.class,
         RegistrovaniKorisnikControllerIntegrationTest.class, AdminServiceIntegrationTest.class, AdminServiceUnitTest.class,
 CustomUserDetailsServiceIntegrationTest.class, CustomUserDetailsServiceUnitTest.class, EmailServiceIntegrationTest.class,
-EmailServiceUnitTest.class,KorisnikServiceIntegrationTest.class,KorisnikServiceUnitTest.class,RegistrovaniKorisnikControllerIntegrationTest.class,
+EmailServiceUnitTest.class,KorisnikServiceIntegrationTest.class,KorisnikServiceUnitTest.class,
 RegistrovaniKorisnikServiceUnitTest.class,UlogaServiceIntegrationTest.class,VerificationTokenServiceIntegrationTest.class,
         AdminRepositoryIntegrationTest.class, KorisnikRepositoryIntegrationTest.class, RegistrovaniKorisnikRepositoryIntegrationTest.class,
         UlogaRepositoryIntegrationTest.class,VerificationTokenRepositoryIntegrationTest.class})

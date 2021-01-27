@@ -95,7 +95,7 @@ public class ProfileE2ETest {
         //homePage.getProfileBtn().click();
         driver.get("http://localhost:4200/profil");
         justWait();
-        profilePage.getSearchInput().sendKeys("nekulturna");
+        profilePage.getSearchInput().sendKeys("Exit");
         profilePage.getSearchBtn().click();
         justWait();
         assertEquals(profilePage.getUnsubBtn().size(), 1);

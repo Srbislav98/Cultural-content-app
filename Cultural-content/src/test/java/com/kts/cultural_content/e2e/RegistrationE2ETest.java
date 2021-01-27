@@ -37,7 +37,7 @@ public class RegistrationE2ETest {
     }
 
     @Test
-    public void LogInTestUserSuccess() throws InterruptedException {
+    public void RegisterinTestUserSuccess() throws InterruptedException {
 
         driver.get("http://localhost:4200/registration");
 

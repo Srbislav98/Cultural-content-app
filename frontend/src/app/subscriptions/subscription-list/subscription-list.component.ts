@@ -14,6 +14,8 @@ export class SubscriptionListComponent implements OnInit {
 	currentPage: number;
   totalSize: number;
   subList:Subscription[] | undefined;
+  trazi:boolean = false;
+  trazim:string ="";
   
 	constructor(
 		private profileService: ProfileService,
@@ -28,15 +30,30 @@ export class SubscriptionListComponent implements OnInit {
 	}
 
 	changePage(newPage: number) {
-		this.profileService.getAll(newPage - 1, this.pageSize).subscribe(
-			res => {
-				
-				this.subList = res.body.content as Subscription[];
-				this.totalSize = Number(res.body.totalElements);
-			}
-		);
+		if(!this.trazi) {
+			this.profileService.getAll(newPage - 1, this.pageSize).subscribe(
+				res => {
+					
+					this.subList = res.body.content as Subscription[];
+					this.totalSize = Number(res.body.totalElements);
+				}
+			);
+		}else{
+			if(this.trazim.length!=0){
+				this.profileService.searchAll(this.trazim,newPage - 1, this.pageSize).subscribe(
+				res=>{
+					this.subList = res.body.content as Subscription[];
+					//alert(this.subList.length);
+					//alert(this.totalSize);
+					this.totalSize = Number(res.body.totalElements);
+				}
+				);
+			}  
+		}
 	}
 	ngOnInit() {
+		this.trazi=false;
+		this.trazim="";
 		this.profileService.getAll(this.currentPage - 1, this.pageSize).subscribe(
 			res => {
 				//console.log(res);
@@ -48,6 +65,8 @@ export class SubscriptionListComponent implements OnInit {
 	}
 	regIn(){
 		if(this.regForm.value["podatak"].length!=0){
+			this.trazi=true;
+			this.trazim=this.regForm.value["podatak"];
 			this.profileService.searchAll(this.regForm.value["podatak"],this.currentPage - 1, this.pageSize).subscribe(
 			res=>{
 				this.subList = res.body.content as Subscription[];
