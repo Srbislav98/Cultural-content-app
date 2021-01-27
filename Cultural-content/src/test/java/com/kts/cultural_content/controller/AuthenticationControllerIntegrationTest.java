@@ -159,7 +159,7 @@ public class AuthenticationControllerIntegrationTest {
 
         //RegistrovaniKorisnikDTO admini = responseEntity.getBody();
 
-        assertEquals(HttpStatus.OK, responseEntity2.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity2.getStatusCode());
         //assertEquals("Slavko", admini.getIme());
     }
     @Test

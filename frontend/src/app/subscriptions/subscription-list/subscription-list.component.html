@@ -6,6 +6,7 @@
 		</div>
 		<button type="submit" id="pretrazi-subove" class="btn btn-secondary mb-2">Search</button>
 	</form>
+	<button class="btn btn-primary mb-2"  id="reset-button" (click)="ngOnInit()">Reset</button>
 	<div class="row">
 		<div class="col">
 			<app-table [subscriptions]="subList"></app-table>

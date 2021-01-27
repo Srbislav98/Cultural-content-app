@@ -517,17 +517,18 @@ public class RegistrovaniKorisnikControllerIntegrationTest {
         // postavimo JWT token u zaglavlje zahteva da bi bilo dozvoljeno da pozovemo funkcionalnost
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", accessToken);
+        ParameterizedTypeReference<RestPageImpl<KulturnaPonudaDTO>> responseType =
+                new ParameterizedTypeReference<RestPageImpl<KulturnaPonudaDTO>>() { };
         // kreiramo objekat koji saljemo u sklopu zahteva
         // objekat nema telo, vec samo zaglavlje, jer je rec o GET zahtevu
         HttpEntity<Object> httpEntity = new HttpEntity<Object>(headers);
-        ResponseEntity<KulturnaPonudaDTO[]> responseEntity =
-                restTemplate.exchange("/api/registrovaniKorisnici/allsubscriptions/1", HttpMethod.GET,httpEntity, KulturnaPonudaDTO[].class);
+        ResponseEntity<RestPageImpl<KulturnaPonudaDTO>> responseEntity =
+                restTemplate.exchange("/api/registrovaniKorisnici/allsubscriptions/1?page=0&size=2", HttpMethod.GET,httpEntity, responseType);
+        RestPageImpl<KulturnaPonudaDTO> rest=responseEntity.getBody();
 
-
-        KulturnaPonudaDTO[] admini = responseEntity.getBody();
+        //KulturnaPonudaDTO[] admini = responseEntity.getBody();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(1, admini.length);
-        assertEquals("kulturnaponuda", admini[0].getNaziv());
+        assertEquals(2, rest.getSize());
     }
 }

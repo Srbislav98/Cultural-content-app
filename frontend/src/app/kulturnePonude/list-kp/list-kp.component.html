@@ -1,19 +1,20 @@
 <div class="w-100 h-100 p-3">
+	<a class="btn btn-success mx-sm-1 mb-2" routerLink="/kulturne-ponude" role="button" *ngIf="uloga==='ROLE_ADMIN'" id="add_kp">Cultural offers</a>
+	<a class="btn btn-success mx-sm-1 mb-2" routerLink="/tip-kulturne-ponude" role="button" *ngIf="uloga==='ROLE_ADMIN'" id="add_kp">Cultural types</a>
 	<h2 style="margin: 0 auto;text-align: center;">Cultural offers</h2>
-	<form [formGroup]="regForm" (ngSubmit)="regIn()" class="form-inline">
+	<form [formGroup]="regForm1" (ngSubmit)="regIn()" class="form-inline">
 		<div class="form-group mx-sm-0 mb-2">
 		  <input type="text" class="form-control" id="podatak" formControlName="podatak" placeholder="search by content...">
 		</div>
     <button type="submit" class="btn btn-secondary mb-2" id="filter_content">By content</button>
-		<a class="btn btn-success mx-sm-1 mb-2" routerLink="/add-kp" role="button" *ngIf="uloga==='ROLE_ADMIN'" id="add_kp">Add</a>
-		<a class="btn btn-success mx-sm-1 mb-2" routerLink="/add-tkp" role="button" *ngIf="uloga==='ROLE_ADMIN'" id="add_tkp">Add type</a>
 	</form>
-  <form [formGroup]="regForm" (ngSubmit)="regIn2()" class="form-inline">
+  <form [formGroup]="regForm2" (ngSubmit)="regIn2()" class="form-inline">
     <div class="form-group mx-sm-0 mb-2">
       <input type="text" class="form-control" id="podatak2" formControlName="podatak" placeholder="search by location...">
     </div>
-    <button type="submit" class="btn btn-secondary mb-2" id="filter_location">By location</button>
+	<button type="submit" class="btn btn-secondary mb-2" id="filter_location">By location</button>
   </form>
+  <button class="btn btn-primary mb-2"  id="reset-button" (click)="ngOnInit()">Reset</button>
 	<div class="row">
 		<div class="col">
             <app-table-kp [subscriptions]="subList"></app-table-kp>
