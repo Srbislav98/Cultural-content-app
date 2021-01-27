@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import static org.junit.Assert.assertEquals;
+
 public class HomePageE2ETest {
 
     private WebDriver webDriver;
@@ -49,11 +51,13 @@ public class HomePageE2ETest {
     @Test
     public void  FilterContentTest() throws InterruptedException {
         webDriver.get("http://localhost:4200");
-        homePage.getFilterContent().sendKeys("g");
+        homePage.getFilterContent().sendKeys("Narodni");
         justWait(1000);
         homePage.getFilterContentBtn().click();
-        justWait(5000);
-        homePage.getHomeBtn().click();
+        justWait(3000);
+        assertEquals(homePage.getKpDetailBtns().size(), 2);
+        justWait(1000);
+        homePage.getResetBtn().click();
         justWait(1000);
     }
 
@@ -63,8 +67,10 @@ public class HomePageE2ETest {
         homePage.getFilterLocation().sendKeys("Beograd");
         justWait(1000);
         homePage.getFilterLocationBtn().click();
-        justWait(5000);
-        homePage.getHomeBtn().click();
+        justWait(3000);
+        assertEquals(homePage.getKpDetailBtns().size(), 2);
+        justWait(1000);
+        homePage.getResetBtn().click();
         justWait(1000);
     }
 
@@ -74,8 +80,10 @@ public class HomePageE2ETest {
         homePage.getFilterLocation().sendKeys("Nedodjija");
         justWait(1000);
         homePage.getFilterLocationBtn().click();
-        justWait(5000);
-        homePage.getHomeBtn().click();
+        justWait(1000);
+        assertEquals(homePage.getKpDetailBtns().size(), 0);
+        justWait(3000);
+        homePage.getResetBtn().click();
         justWait(1000);
     }
 
@@ -85,8 +93,10 @@ public class HomePageE2ETest {
         homePage.getFilterContent().sendKeys("Jake Paul");
         justWait(1000);
         homePage.getFilterContentBtn().click();
-        justWait(5000);
-        homePage.getHomeBtn().click();
+        justWait(1000);
+        assertEquals(homePage.getKpDetailBtns().size(), 0);
+        justWait(3000);
+        homePage.getResetBtn().click();
         justWait(1000);
     }
 
