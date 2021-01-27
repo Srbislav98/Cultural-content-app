@@ -1,6 +1,13 @@
+--ULOGE
 INSERT into uloga(id, ime) values (1, 'ROLE_ADMIN')
 INSERT into uloga(id, ime) values (2, 'ROLE_USER')
-INSERT into tip_kulturne_ponude(id, naziv) values (100,'obicna')
+--TIPOVI KULTURNE PONUDE
+INSERT into tip_kulturne_ponude(id, naziv) values (100,'muzej')
+INSERT into tip_kulturne_ponude(id, naziv) values (101,'galerija')
+INSERT into tip_kulturne_ponude(id, naziv) values (102,'festival')
+INSERT into tip_kulturne_ponude(id, naziv) values (103,'spomenik')
+INSERT into tip_kulturne_ponude(id, naziv) values (104,'sajam')
+--LOKACIJE
 INSERT into lokacija(id, naziv_lokacije, geo_duzina, geo_sirina) values (100, 'Novi Sad', 19.833549, 45.267136)
 INSERT into lokacija(id, naziv_lokacije, geo_duzina, geo_sirina) values (101, 'Beograd', 20.457273, 44.787197)
 INSERT into lokacija(id, naziv_lokacije, geo_duzina, geo_sirina) values (102, 'Subotica', 19.667587, 46.100376)
@@ -13,31 +20,64 @@ INSERT into lokacija(id, naziv_lokacije, geo_duzina, geo_sirina) values (108, 'K
 INSERT into lokacija(id, naziv_lokacije, geo_duzina, geo_sirina) values (109, 'Valjevo', 19.890655, 44.268273)
 INSERT into lokacija(id, naziv_lokacije, geo_duzina, geo_sirina) values (110, 'Leskovac', 21.944034, 42.996376)
 INSERT into lokacija(id, naziv_lokacije, geo_duzina, geo_sirina) values (111, 'Kikinda', 20.355263, 45.797092)
+--REGISTROVANI KORISNICI
 -- password is 'user' (bcrypt encoded)
 INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (1,'123@gmail.com','Aca','arak','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Acic',true)
+INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (3,'323@gmail.com','Milos','tarak','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Acic',true)
+INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (4,'srbislav03@gmail.com','Aleksandar','srbo','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Micic',false)
+INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (5,'srbislav3011@gmail.com','Marko','srbo12','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Marjanovic',true)
+INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (6,'srbislav21@gmail.com','Stefan','srbo3','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Jokic',true)
+INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (7,'srbislav22@gmail.com','Srdjan','srbo56','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Jovic',false)
+--ADMIN
 -- password is 'admin' (bcrypt encoded)
-INSERT into admin(user_id,email,ime,korisnicko_ime,lozinka, prezime,enabled)values (2,'124@gmail.com','Reka','alak','$2a$04$SwzgBrIJZhfnzOw7KFcdzOTiY6EFVwIpG7fkF/D1w26G1.fWsi.aK','Rekic',true)
-
+INSERT into admin(user_id,email,ime,korisnicko_ime,lozinka, prezime,enabled)values (2,'124@gmail.com','Admin','admin','$2a$04$SwzgBrIJZhfnzOw7KFcdzOTiY6EFVwIpG7fkF/D1w26G1.fWsi.aK','Admin',true)
+--TOKENI ZA VERIFIKACIJU NALOGA
+INSERT into verification_token(id,token,user_id) values(2,'abb',4)
+INSERT into verification_token(id,token,user_id) values(3,'abcdfg',7)
+--DODAVANJE ULOGE KORISNICIMA
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 1)
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 2)
-
-INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (100,'test','kulturnaponuda','ggez',2,100,100)
-
-INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (101,'test','nekulturnaponuda','og',2,100,101)
-INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (102,'test','ponuda','lol',2,100,102)
-INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (103,'test','glhf','opis',2,100,103)
-INSERT into fotografija(id,lokacija_fajl,recenzija_id,kulturna_ponuda_id)values (100,'files//neki_folder',null,100)
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 2)
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (4, 2)
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (5, 2)
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (6, 2)
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (7, 2)
+--KULTURNE PONUDE
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (100,'Trg republike 1a, Beograd','Narodni muzej','Muzej republike Srbije koji se nalazi u Beogradu.',2,100,101)
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (101,'Dunavska 35','Muzej Vojvodine','Najveca muzjeska ustanova u AP Vojvodini, osnivac je skupstina AP Vojvodine',2,100,100)
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (102,'Nikole Pašića, Niš 700140, Beograd','Narodni muzej Niš','Ustanova osnovana 1. aprila 1933. goidne od strane grupe zaljubljenika okupljena oko te godine osnovanog Muzejskog drustva.',2,100,107)
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (103,'Park Rajhl Ferenca 5','Savremena galerija Subotica','Savremena galerija Subotica osnovana je 1962. godine kao Likovni susret – Palić, odlukom tadašnjeg Narodnog odbora Opštine Subotica.',2,101,102)
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (104,'Petrovaradin, Novi Sad','Exit','Muzicki festival koji se odrzava jendom godisnje na Petrovaradinskoj tvrdjavi od 2001. godine.',2,102,100)
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (105,'Dečanska 14','FEST','Medjunarodni filmski festival koji se odrzava svake godine u Beogradu',2,102,101)
+INSERT into kulturna_ponuda(id,adresa,naziv,opis,admin_user_id,tip_kulturne_ponude_id,lokacija_id)values (106,'Hasana Brkića','Spomenik streljanim djacima i profesorima','Spomenik podignut 1963. godine predstavlja originalno umetnicko delo Miograga Zivkovica',2,103,108)
+--NOVOSTI
 INSERT into novost(id, datum, naziv, opis, kulturna_ponuda_id) values (100, '2020-12-12', 'novost', 'opis', 100)
 INSERT into novost(id, datum, naziv, opis, kulturna_ponuda_id) values (101, '2020-12-08', 'wdwdw', 'opwdwdwis', 100)
 INSERT into novost(id, datum, naziv, opis, kulturna_ponuda_id) values (102, '2020-12-08', 'wdwdwdwdwdw', 'opwdwwdwdwdwis', 100)
+--RECENZIJE
 
+--FOTOGRAFIJE ZA KULTURNE PONUDE I RECENZIJE
+INSERT into fotografija(id,lokacija_fajl,recenzija_id,kulturna_ponuda_id)values (100,'C:/Users/TehnoCentar/Desktop/KTSNWT2020_T5/frontend/src/assets/img/kp100.jpg',null,100)
+INSERT into fotografija(id,lokacija_fajl,recenzija_id,kulturna_ponuda_id)values (101,'C:/Users/TehnoCentar/Desktop/KTSNWT2020_T5/frontend/src/assets/img/kp101.jpg',null,101)
+INSERT into fotografija(id,lokacija_fajl,recenzija_id,kulturna_ponuda_id)values (102,'C:/Users/TehnoCentar/Desktop/KTSNWT2020_T5/frontend/src/assets/img/kp102.jpg',null,102)
+INSERT into fotografija(id,lokacija_fajl,recenzija_id,kulturna_ponuda_id)values (103,'C:/Users/TehnoCentar/Desktop/KTSNWT2020_T5/frontend/src/assets/img/kp103.jpg',null,103)
+INSERT into fotografija(id,lokacija_fajl,recenzija_id,kulturna_ponuda_id)values (104,'C:/Users/TehnoCentar/Desktop/KTSNWT2020_T5/frontend/src/assets/img/kp104.jpg',null,104)
+INSERT into fotografija(id,lokacija_fajl,recenzija_id,kulturna_ponuda_id)values (105,'C:/Users/TehnoCentar/Desktop/KTSNWT2020_T5/frontend/src/assets/img/kp105.jpg',null,105)
+INSERT into fotografija(id,lokacija_fajl,recenzija_id,kulturna_ponuda_id)values (106,'C:/Users/TehnoCentar/Desktop/KTSNWT2020_T5/frontend/src/assets/img/kp106.jpg',null,106)
+--SUBSKRAJBOVI
 INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (100,1)
 INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (101,1)
 INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (102,1)
---INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (103,1)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (103,1)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (100,3)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (101,3)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (102,3)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (104,3)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (105,3)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (106,3)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (102,4)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (103,4)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (103,5)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (106,6)
+INSERT into registrovani_korisnik_kulturna_ponuda(kulturna_ponuda_id,registrovani_korisnik_user_id) values (102,6)
 
-INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (3,'323@gmail.com','Aca','tarak','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Acic',true)
---
-
-INSERT into registrovani_korisnik(user_id,email,ime,korisnicko_ime,lozinka,prezime,enabled) values (4,'srbislav03@gmail.com','Aca','srbo','$2a$04$Amda.Gm4Q.ZbXz9wcohDHOhOBaNQAkSS1QO26Eh8Hovu3uzEpQvcq','Acic',false)
-INSERT into verification_token(id,token,user_id) values(2,'abb',4)

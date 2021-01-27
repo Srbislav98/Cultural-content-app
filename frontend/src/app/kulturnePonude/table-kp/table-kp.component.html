@@ -2,8 +2,8 @@
     <thead>
       <tr>
         <th>Id<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
-        <th>Naziv <button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
-        <th>Opis<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th>Name <button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th>Details<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
         <th></th>
         <th *ngIf="uloga==='ROLE_ADMIN'"></th>
         <th *ngIf="uloga==='ROLE_ADMIN'"></th>
@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <div *ngIf="subscriptions?.length === 0 || subscriptions === undefined" style="float:right;">
-        <h4><b>No subscriptions</b></h4>
+        <h4><b>No cultural contents</b></h4>
       </div>
       <tr *ngFor="let subscription of subscriptions">
         <td>{{subscription.id}}</td>

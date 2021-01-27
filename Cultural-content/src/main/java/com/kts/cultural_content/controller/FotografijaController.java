@@ -50,12 +50,12 @@ public class FotografijaController {
         List<Fotografija> fotografije = fotografijaService.findAll();
         Fotografija foto=new Fotografija();
         for (Fotografija f:fotografije) {
-            if(id==f.getKulId()){
+            if(id==f.getKulturnaPonuda().getId()){
                 foto=f;
             }
         }
         FotografijaDTO f=fotografijaMapper.toDto(foto);
-        f.setLokacijaFajl(foto.getFoto().getAbsolutePath());
+        f.setLokacijaFajl(foto.getLokacijaFajl());
         return new ResponseEntity<>(f, HttpStatus.OK);
     }
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -80,12 +80,12 @@ public class FotografijaController {
         }
        // File fajlproba=new File("jako");
        // file.getParentFile().getName();
-        File fajlic = new File(f.getCanonicalPath().split("Cultural-content")[0]+"frontend/src/assets/img/"+fajl.getOriginalFilename());
+        File fajlic = new File(f.getCanonicalPath().split("Cultural-content")[0]+"frontend/src/assets/img/"+fajl.getOriginalFilename()+id);
         fotografija.setFoto(fajlic);
         fotografija.setId(1);
         fotografija.setKulId(id);
         fotografija.setRecId(0);
-        fotografija.setLokacijaFajl(f.getCanonicalPath().split("Cultural-content")[0]+"frontend/src/assets/img/"+fajl.getOriginalFilename());
+        fotografija.setLokacijaFajl(f.getCanonicalPath().split("Cultural-content")[0]+"frontend/src/assets/img/"+fajl.getOriginalFilename()+id);
         try {
             if( ImageIO.read(new File(fotografija.getLokacijaFajl())) == null)
                 throw new IOException("Ovo nije slika");

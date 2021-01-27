@@ -6,7 +6,8 @@
 		</div>
     <button type="submit" class="btn btn-secondary mb-2" id="filter_content">By content</button>
 		<a class="btn btn-success mx-sm-1 mb-2" routerLink="/add-kp" role="button" *ngIf="uloga==='ROLE_ADMIN'" id="add_kp">Add</a>
-  </form>
+		<a class="btn btn-success mx-sm-1 mb-2" routerLink="/add-tkp" role="button" *ngIf="uloga==='ROLE_ADMIN'" id="add_kp">Add type</a>
+	</form>
   <form [formGroup]="regForm" (ngSubmit)="regIn2()" class="form-inline">
     <div class="form-group mx-sm-0 mb-2">
       <input type="text" class="form-control" id="podatak2" formControlName="podatak" placeholder="search by location...">
