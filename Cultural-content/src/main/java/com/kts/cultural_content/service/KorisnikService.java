@@ -63,6 +63,7 @@ public class KorisnikService implements ServiceInterface<Korisnik> {
 
     public void createVerificationToken(RegistrovaniKorisnik user, String token) {
         VerificationToken token1=new VerificationToken(token,user);
+        token1.setId(vtRepository.findAll().size());
         vtRepository.save(token1);
     }
 
